@@ -1,5 +1,7 @@
 import '@tamagui/core/reset.css'
 import RootProviders from '@/app/RootProviders';
+import './globals.css'
+import { Analytics } from '@vercel/analytics/react';
 import { Inter } from 'next/font/google'
 import React from 'react';
 
@@ -24,6 +26,7 @@ export default function RootLayout({
       <body className={inter.variable}>
         <RootProviders>{children}</RootProviders>
       </body>
+      <Analytics/>
     </html>
   )
 }
