@@ -1,10 +1,12 @@
-import { HighScoresResponse } from '@/types/SIAPI';
+import { HighScoresResponse } from '@/types/FlashInvadersAPI';
 
-const SIAPI = {
-  highscores: "https://space-invaders.com/api/highscore/?uid=false"
+const FlashInvadersAPI = {
+  highscores: "https://space-invaders.com/api/highscore?uid=false"
 }
+
+export const revalidate = 3600000; // one hour
 const getHightScores: () => Promise<HighScoresResponse> = async () => {
-  const res = await fetch(SIAPI.highscores);
+  const res = await fetch(FlashInvadersAPI.highscores);
   return await res.json();
 }
 const HightScorePage = async () => {
