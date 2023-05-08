@@ -21,10 +21,14 @@
     "@vercel/analytics": "^1.0.1",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.1",
-    "next": "13.4.1",
+    "next": "13.4.2-canary.0",
+    "pixelarticons": "^1.7.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tamagui": "^1.27.3",
     "typescript": "5.0.4"
+  },
+  "devDependencies": {
+    "@svgr/webpack": "7.0.0"
   }
 }
