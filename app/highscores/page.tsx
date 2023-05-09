@@ -11,7 +11,10 @@ const requestInit: RequestInit = {
   "body": null,
   "method": "GET",
   "mode": "cors",
-  "credentials": "omit"
+  "credentials": "omit",
+  next: {
+    tags: ["highscores"],
+  }
 }
 
 const FlashInvadersAPI = {
@@ -20,8 +23,6 @@ const FlashInvadersAPI = {
     fetchOptions: requestInit,
   }
 }
-
-export const revalidate = 3600000; // one hour
 const getHightScores: () => Promise<HighScoresResponse> = async () => {
   const {url, fetchOptions} = FlashInvadersAPI.highscores;
   const res = await fetch(url, fetchOptions);
