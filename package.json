@@ -3,12 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "TAMAGUI_TARGET=web next dev",
+    "build": "TAMAGUI_TARGET=web next build",
+    "start": "TAMAGUI_TARGET=web next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@tamagui/animations-css": "^1.27.3",
+    "@tamagui/config": "^1.27.3",
+    "@tamagui/next-plugin": "^1.27.3",
+    "@tamagui/next-theme": "^1.27.3",
+    "@tamagui/shorthands": "^1.27.3",
+    "@tamagui/themes": "^1.27.3",
     "@types/node": "20.1.2",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
@@ -17,6 +23,7 @@
     "next": "13.4.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "tamagui": "^1.27.3",
     "typescript": "5.0.4"
   }
 }
