@@ -12,17 +12,15 @@ import {
   filterInvadersInView,
   gmapLibraries,
   invadersLocationList,
-  InvaderWithLocation,
   markerIcon,
 } from "./utils";
 import { useRouter } from "next/navigation";
+import useIVDMapStore from "@/app/store";
 
 export const MapView = () => {
   const router = useRouter();
   const [map, setMap] = useState<google.maps.Map | null>(null);
-  const [invadersInView, setInvadersInView] = useState<InvaderWithLocation[]>(
-    []
-  );
+  const setInvadersInView = useIVDMapStore((state) => state.setInvadersInView);
   return (
     <>
       <LoadScriptNext
