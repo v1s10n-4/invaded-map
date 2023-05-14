@@ -89,6 +89,15 @@ export const defaultGoogleMapProps: GoogleMapProps = {
 
 export const gmapLibraries: LoadScriptUrlOptions["libraries"] = ["geometry"];
 
+export const getInvader: (name: string) => InvaderWithLocation | undefined = (
+  name
+) => {
+  return invadersLocationList.find((invader) => invader.name === name);
+};
+export const getLatLng: (invader: InvaderWithLocation) => LatLngLiteral = (
+  invader
+) => ({ lat: invader.lat, lng: invader.lng });
+
 export const filterInvadersInView: (
   map: google.maps.Map | null
 ) => InvaderWithLocation[] = (map) => {

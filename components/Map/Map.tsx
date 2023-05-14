@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   GoogleMap,
   LoadScriptNext,
@@ -10,17 +10,26 @@ import {
   clustererOptions,
   defaultGoogleMapProps,
   filterInvadersInView,
+  getInvader,
+  getLatLng,
   gmapLibraries,
   invadersLocationList,
   markerIcon,
 } from "./utils";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import useIVDMapStore from "@/app/store";
 
 export const MapView = () => {
   const router = useRouter();
+  const { invaderName } = useParams();
   const [map, setMap] = useState<google.maps.Map | null>(null);
   const setInvadersInView = useIVDMapStore((state) => state.setInvadersInView);
+  useEffect(() => {
+    if (map && invaderName) {
+      const invader = getInvader(invaderName);
+      if (invader) map?.panTo(getLatLng(invader));
+    }
+  }, [map, invaderName]);
   return (
     <>
       <LoadScriptNext
