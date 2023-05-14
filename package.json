@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write './**/*.{js,ts,jsx,tsx,md,mdx,css,html,yml,yaml,json}' --ignore-path .gitignore"
   },
   "dependencies": {
     "@react-google-maps/api": "^2.18.1",
@@ -33,6 +34,8 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
-    "@svgr/webpack": "7.0.0"
+    "@svgr/webpack": "7.0.0",
+    "prettier": "2.8.8",
+    "prettier-plugin-tailwindcss": "^0.2.8"
   }
 }
