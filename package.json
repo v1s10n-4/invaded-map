@@ -38,6 +38,7 @@
   },
   "devDependencies": {
     "@svgr/webpack": "7.0.0",
+    "@types/invariant": "^2.2.35",
     "prettier": "2.8.8",
     "prettier-plugin-tailwindcss": "^0.2.8"
   }

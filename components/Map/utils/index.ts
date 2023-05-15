@@ -87,7 +87,8 @@ export const defaultGoogleMapProps: GoogleMapProps = {
   },
 };
 
-export const gmapLibraries = ["geometry"];
+type fesse = ("geometry" | "drawing" | "localContext" | "places" | "visualization")[];
+export const gmapLibraries = ["geometry"] as fesse;
 
 export const getInvader: (name: string) => InvaderWithLocation | undefined = (
   name

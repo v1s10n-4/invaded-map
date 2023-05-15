@@ -1,9 +1,11 @@
 "use client";
 import Sheet, { SheetRef } from "react-modal-sheet";
-import React, { FC, PropsWithChildren, useEffect, useRef } from "react";
+import React, {FC, PropsWithChildren, useEffect, useRef, useState} from "react";
 import useIVDMapStore from "@/app/store";
 import { useParams, useRouter } from "next/navigation";
 import CloseBox from "pixelarticons/svg/close.svg";
+
+export const revalidate = 0;
 
 export const MapSheet: FC<PropsWithChildren> = ({ children }) => {
   const router = useRouter();
@@ -15,10 +17,14 @@ export const MapSheet: FC<PropsWithChildren> = ({ children }) => {
   const sheetRef = useRef<SheetRef>();
   useEffect(() => {
     sheetRef.current?.snapTo(invaderName ? 0 : 1);
-  });
+  }, [invaderName]);
+  useEffect(() => {
+    setMountPoint(document.querySelector("#content") || undefined);
+  }, []);
+  const [mountPoint, setMountPoint] = useState<Element>();
   return (
     <Sheet
-      mountPoint={document.querySelector("#content") || undefined}
+      mountPoint={mountPoint}
       {...SheetProps}
       snapPoints={[0.5, 0.25]}
       initialSnap={1}
