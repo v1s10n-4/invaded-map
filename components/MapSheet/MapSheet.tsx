@@ -1,0 +1,46 @@
+"use client";
+import Sheet, { SheetRef } from "react-modal-sheet";
+import React, { FC, PropsWithChildren, useEffect, useRef } from "react";
+import useIVDMapStore from "@/app/store";
+import { useParams, useRouter } from "next/navigation";
+import CloseBox from "pixelarticons/svg/close.svg";
+
+export const MapSheet: FC<PropsWithChildren> = ({ children }) => {
+  const router = useRouter();
+  const SheetProps = useIVDMapStore((state) => ({
+    isOpen: state.isMapSheetOpen,
+    onClose: state.closeMapSheet,
+  }));
+  const { invaderName } = useParams();
+  const sheetRef = useRef<SheetRef>();
+  useEffect(() => {
+    sheetRef.current?.snapTo(invaderName ? 0 : 1);
+  });
+  return (
+    <Sheet
+      mountPoint={document.querySelector("#content") || undefined}
+      {...SheetProps}
+      snapPoints={[0.5, 0.25]}
+      initialSnap={1}
+      // detent="content-height"
+      className="!absolute"
+    >
+      <Sheet.Container className="!md:inset-x-4 !md:bottom-4 !inset-x-2 !bottom-2 !w-auto !overflow-hidden !rounded-2xl border border-[#ff0000] !bg-base-100">
+        <Sheet.Header className="!absolute z-10" />
+        <Sheet.Content>
+          <button
+            onClick={() => {
+              SheetProps.onClose();
+              router.push("/map");
+            }}
+            className="absolute right-2 top-2 z-10 w-8 h-8 p-1 rounded-full backdrop-blur-lg"
+          >
+            <CloseBox className="h-full w-full" />
+          </button>
+          {children}
+        </Sheet.Content>
+      </Sheet.Container>
+    </Sheet>
+  );
+};
+export default MapSheet;

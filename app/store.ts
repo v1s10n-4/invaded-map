@@ -5,6 +5,9 @@ import { InvaderWithLocation } from "@/components/Map";
 interface IVDMapStoreState {
   invadersInView: InvaderWithLocation[];
   setInvadersInView: (invaders: InvaderWithLocation[]) => void;
+  isMapSheetOpen: boolean;
+  closeMapSheet: () => void;
+  openMapSheet: () => void;
 }
 
 export const useIVDMapStore = create<IVDMapStoreState>()(
@@ -13,6 +16,9 @@ export const useIVDMapStore = create<IVDMapStoreState>()(
       (set) => ({
         invadersInView: [],
         setInvadersInView: (by) => set((state) => ({ invadersInView: by })),
+        isMapSheetOpen: false,
+        closeMapSheet: () => set((state) => ({ isMapSheetOpen: false })),
+        openMapSheet: () => set((state) => ({ isMapSheetOpen: true })),
       }),
       {
         name: "invaded-map",
