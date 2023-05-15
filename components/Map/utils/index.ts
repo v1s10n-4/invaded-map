@@ -87,7 +87,7 @@ export const defaultGoogleMapProps: GoogleMapProps = {
   },
 };
 
-export const gmapLibraries: LoadScriptUrlOptions["libraries"] = ["geometry"];
+export const gmapLibraries = ["geometry"];
 
 export const getInvader: (name: string) => InvaderWithLocation | undefined = (
   name
