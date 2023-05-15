@@ -23,7 +23,10 @@ export const MapView = () => {
   const router = useRouter();
   const { invaderName } = useParams();
   const [map, setMap] = useState<google.maps.Map | null>(null);
-  const setInvadersInView = useIVDMapStore((state) => state.setInvadersInView);
+  const { setInvadersInView, openSheet } = useIVDMapStore((state) => ({
+    setInvadersInView: state.setInvadersInView,
+    openSheet: state.openMapSheet,
+  }));
   useEffect(() => {
     if (map && invaderName) {
       const invader = getInvader(invaderName);
@@ -39,7 +42,10 @@ export const MapView = () => {
         <GoogleMap
           {...defaultGoogleMapProps}
           onLoad={setMap}
-          onIdle={() => setInvadersInView(filterInvadersInView(map))}
+          onIdle={() => {
+            setInvadersInView(filterInvadersInView(map));
+            openSheet();
+          }}
         >
           <MarkerClusterer options={clustererOptions}>
             {(clusterer) => (

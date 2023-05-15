@@ -21,26 +21,27 @@ export default function RootLayout({
       <body className={inter.className}>
         <div className="drawer-mobile drawer">
           <input id="drawer-toggle" type="checkbox" className="drawer-toggle" />
-          <div className="relative drawer-content flex flex-col">
-            <div className="absolute inset-x-2 top-2 md:inset-x-4 md:top-4 z-10">
+          <div className="drawer-content relative flex flex-col">
+            <div className="absolute inset-x-2 top-2 z-10 md:inset-x-4 md:top-4 rounded-md ring-1 overflow-hidden ring-[#ff0000]">
               <div className="navbar bg-base-100">
                 <div className="navbar-start">
                   <label
-                      htmlFor="drawer-toggle"
-                      className="btn-ghost btn-square btn lg:hidden"
+                    htmlFor="drawer-toggle"
+                    className="btn-ghost btn-square btn lg:hidden"
                   >
                     <MenuIcon />
                   </label>
                 </div>
                 <div className="navbar-center">
-                  <Link href="/" className="btn-ghost btn text-xl uppercase">Invaded map</Link>
+                  <Link href="/" className="btn-ghost btn text-xl uppercase">
+                    Invaded map
+                  </Link>
                 </div>
                 <div className="navbar-end"></div>
               </div>
             </div>
             {/*<div className="absolute inset-0">*/}
-              {children}
-            {/*</div>*/}
+            <div id="content" className="absolute inset-0">{children}</div>
           </div>
           <div className="drawer-side">
             <label htmlFor="drawer-toggle" className="drawer-overlay"></label>
