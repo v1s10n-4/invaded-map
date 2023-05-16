@@ -126,7 +126,7 @@
       "elementType": "geometry.fill",
       "stylers": [
         {
-          "color": "#ff0000"
+          "color": "#b50000"
         }
       ]
     },
@@ -162,6 +162,9 @@
       "elementType": "geometry.fill",
       "stylers": [
         {
+          "color": "#ff2100"
+        },
+        {
           "weight": 1.5
         }
       ]
@@ -196,7 +199,7 @@
       "featureType": "water",
       "stylers": [
         {
-          "color": "#400000"
+          "color": "#8d0000"
         }
       ]
     },

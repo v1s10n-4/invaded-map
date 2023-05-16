@@ -31,7 +31,7 @@ export const MapSheet: FC<PropsWithChildren> = ({ children }) => {
       // detent="content-height"
       className="!absolute"
     >
-      <Sheet.Container className="!md:inset-x-4 !md:bottom-4 !inset-x-2 !bottom-2 !w-auto !overflow-hidden !rounded-2xl border border-[#ff0000] !bg-base-100">
+      <Sheet.Container className="!md:inset-x-4 !md:bottom-4 !inset-x-2 !bottom-2 !w-auto !overflow-hidden !rounded-none border border-4 border-primary !bg-base-100" style={{borderStyle: "double"}}>
         <Sheet.Header className="!absolute z-10" />
         <Sheet.Content>
           <button
@@ -39,7 +39,7 @@ export const MapSheet: FC<PropsWithChildren> = ({ children }) => {
               SheetProps.onClose();
               router.push("/map");
             }}
-            className="absolute right-2 top-2 z-10 w-8 h-8 p-1 rounded-full backdrop-blur-lg"
+            className="absolute right-2 top-2 z-10 w-8 h-8 p-1 backdrop-blur-lg"
           >
             <CloseBox className="h-full w-full" />
           </button>
