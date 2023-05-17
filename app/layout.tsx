@@ -19,7 +19,12 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" data-theme="black" className="text-base">
+    <html
+      lang="en"
+      data-theme="black"
+      className="text-base"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    >
       <body className={sixtyfour.className}>
         <div className="drawer-mobile drawer">
           <input
