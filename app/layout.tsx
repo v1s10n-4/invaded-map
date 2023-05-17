@@ -55,9 +55,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               {children}
             </div>
           </div>
-          <div className="drawer-side border-r-4 border-double border-primary">
+          <div className="drawer-side">
             <label htmlFor="drawer-toggle" className="drawer-overlay"></label>
-            <ul className="menu w-80 gap-3 bg-base-100 p-4">
+            <ul className="menu w-80 gap-3 border-r-4 border-double border-primary bg-base-100 p-4">
               <li>
                 <Link
                   href="/map"
