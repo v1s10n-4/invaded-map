@@ -34,8 +34,8 @@ export const generateMetadata: GenerateInvaderMapPageMetadata = ({
       description: "Locate all space invaders for Flash Invaders app & more!",
       siteName: "Invaded Map",
       locale: "EN",
-      images: `${vercelTempUrl}/map/${invader?.name || 404}`,
-      url: `${vercelTempUrl}/api/map/invaders/${invader?.name || 404}/OG`,
+      url: `${vercelTempUrl}/map/${invader?.name || 404}`,
+      images: `${vercelTempUrl}/api/map/invaders/${invader?.name || 404}/OG`,
       countryName: "France",
     },
     twitter: {
