@@ -6,10 +6,8 @@ import cluster_yellow from "./cluster_yellow.png";
 import mapStyles from "./mapStyles.json";
 import invaders from "./locations.json";
 import marker from "./marker.png";
-import MapOptions = google.maps.MapOptions;
-import { LoadScriptUrlOptions } from "@react-google-maps/api/src/utils/make-load-script-url";
 import { GoogleMapProps } from "@react-google-maps/api";
-import LatLng = google.maps.LatLng;
+import MapOptions = google.maps.MapOptions;
 import LatLngLiteral = google.maps.LatLngLiteral;
 
 export type Invader = {
@@ -72,7 +70,7 @@ export const mapOptions: MapOptions = {
   styles: mapStyles.sixtyfour,
 };
 
-const Paris: LatLngLiteral = {
+export const Paris: LatLngLiteral = {
   lat: 48.861071,
   lng: 2.350494,
 };
@@ -87,8 +85,14 @@ export const defaultGoogleMapProps: GoogleMapProps = {
   },
 };
 
-type fesse = ("geometry" | "drawing" | "localContext" | "places" | "visualization")[];
-export const gmapLibraries = ["geometry"] as fesse;
+type Libraries = (
+  | "geometry"
+  | "drawing"
+  | "localContext"
+  | "places"
+  | "visualization"
+)[];
+export const gmapLibraries = ["geometry"] as Libraries;
 
 export const getInvader: (name: string) => InvaderWithLocation | undefined = (
   name
