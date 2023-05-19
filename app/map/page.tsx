@@ -6,7 +6,7 @@ import useIVDMapStore from "@/app/store";
 import { clsx } from "clsx";
 
 const MapPage: FC = () => {
-  const invadersInView = useIVDMapStore((state) => state.invadersInView);
+  const invaders = useIVDMapStore((state) => state.invadersInView);
   const [isHydrated, setIsHydrated] = useState(false);
 
   // Wait till Next.js rehydration completes
@@ -18,7 +18,7 @@ const MapPage: FC = () => {
       className={`carousel-vertical m-0.5 grid h-[calc(100%-4px)] grid-cols-2 gap-0.5 scrollbar md:grid-cols-3 lg:grid-cols-4`}
     >
       {isHydrated &&
-        invadersInView.slice(0, 20).map((invader) => (
+        invaders.slice(0, 20).map((invader) => (
           <Link
             key={invader.name}
             href={`/map/${invader.name}`}

@@ -60,11 +60,11 @@ export const MapSheet: FC<PropsWithChildren> = ({ children }) => {
     <Sheet
       ref={sheetRef}
       mountPoint={mountPoint}
-      isOpen={isOpen}
+      isOpen
       onClose={() => sheetRef.current?.snapTo(MapSheetState.CLOSED)}
       snapPoints={[0.85, 0.5, 0.25, 40]}
       onSnap={setCurrentSnapPoint}
-      initialSnap={MapSheetState.MIN}
+      initialSnap={MapSheetState.CLOSED}
       detent={invaderName ? "content-height" : "full-height"}
       style={{
         position: "absolute",
