@@ -65,7 +65,7 @@ export const MapSheet: FC<PropsWithChildren> = ({ children }) => {
       snapPoints={[0.85, 0.5, 0.25, 40]}
       onSnap={setCurrentSnapPoint}
       initialSnap={MapSheetState.MIN}
-      // detent="content-height"
+      detent={invaderName ? "content-height" : "full-height"}
       style={{
         position: "absolute",
       }}

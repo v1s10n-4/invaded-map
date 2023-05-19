@@ -3,7 +3,7 @@ import invaders from "@/invaders.json";
 import { notFound } from "next/navigation";
 import { getInvader } from "@/components/Map";
 import { Metadata } from "next";
-import { Colors } from "@/utils";
+import Image from "next/image";
 
 const vercelTempUrl = "https://invaded-map-git-dev-v1s10n4.vercel.app";
 type Params = { invaderName: string };
@@ -25,7 +25,7 @@ export const generateMetadata: GenerateInvaderMapPageMetadata = ({
     },
     keywords: ["space", "invader", "map", invader?.name || ""],
     referrer: "origin",
-    themeColor: Colors.primary,
+    themeColor: "#000000",
     colorScheme: "dark",
     creator: "v1s10n_4",
     publisher: "not made by invader",
@@ -48,16 +48,46 @@ export const generateMetadata: GenerateInvaderMapPageMetadata = ({
   };
 };
 
+export type InvaderWithImage = {
+  name: string;
+  images: string[];
+  state: string;
+  reportDate: string;
+  city: string;
+  points: string;
+};
 const InvaderPlacePage: FC<{ params: Params }> = ({
   params: { invaderName },
 }) => {
-  const invader = invaders.find((i) => i.name === invaderName);
+  const invader = invaders.find((i) => i.name === invaderName) as
+    | InvaderWithImage
+    | undefined;
   if (!invader) notFound();
   return (
-    <div>
-      <pre className="absolute bottom-8 left-8">
-        {JSON.stringify(invader, null, 2)}
-      </pre>
+    <div className="mb-4 flex flex-col gap-4 scrollbar">
+      <div className="flex items-center">
+        {invader.images.map((image) => (
+          <Image
+            key={image}
+            className="h-1/2 w-1/2 object-contain"
+            src={`/assets/images/invaders/${image}`}
+            alt={`${invader.name}'s invader picture`}
+            width={400}
+            height={400}
+          />
+        ))}
+      </div>
+      <div className="flex h-full w-full flex-col justify-around gap-4 px-4">
+        <p className="text-2xl">
+          <span className="font-bold">{invader.points}</span> points
+        </p>
+        <p className="text-xs">
+          Last known state: {invader.state} ({invader.reportDate})
+        </p>
+      </div>
+      {/*<pre className="absolute bottom-8 left-8">*/}
+      {/*  {JSON.stringify(invader, null, 2)}*/}
+      {/*</pre>*/}
     </div>
   );
 };

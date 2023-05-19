@@ -23,7 +23,6 @@ const MapPage: FC = () => {
             key={invader.name}
             href={`/map/${invader.name}`}
             className={clsx(
-              // "group carousel-item relative h-full w-full outline-none",
               "group carousel-item relative h-fit w-full outline-none",
               "hover:after:absolute hover:after:inset-0 hover:after:border hover:after:border-primary",
               "focus-visible:after:absolute focus-visible:after:inset-0 focus-visible:after:border focus-visible:after:border-primary"
