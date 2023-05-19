@@ -33,8 +33,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             className="drawer-toggle"
             tabIndex={-1}
           />
-          <div className="drawer-content relative flex flex-col p-2">
-            <div className="sticky top-2 z-10 mx-2 w-full place-self-center md:inset-x-6 md:top-5 md:w-fit">
+          <div className="drawer-content relative flex flex-col p-2  scrollbar scrollbar-thumb-current scrollbar-track-black">
+            <div className="sticky top-2 z-10 w-full place-self-center md:inset-x-6 md:top-5 md:w-fit">
               <div className={clsx("navbar bg-base-100", BoxClasses)}>
                 <div className="navbar-start">
                   <label
@@ -67,7 +67,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 <Link
                   href="/map"
                   className={clsx(
-                    "text-primary",
+                    "text-xl text-primary",
                     BoxClasses,
                     BoxHoverClasses,
                     BoxActiveClasses
@@ -80,7 +80,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 <Link
                   href="/highscores"
                   className={clsx(
-                    "text-primary",
+                    "text-xl text-primary",
                     BoxClasses,
                     BoxHoverClasses,
                     BoxActiveClasses

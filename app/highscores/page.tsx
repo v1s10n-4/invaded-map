@@ -35,7 +35,7 @@ const getHightScores: () => Promise<HighScoresResponse> = async () => {
 const HightScorePage = async () => {
   const highscores = await getHightScores();
   return (
-    <main className="flex justify-center bg-black pt-32 text-white">
+    <main className="flex justify-center bg-black pb-8 pt-32 text-white">
       <ul className="flex flex-col gap-4 px-2">
         {highscores.Players.map((entry) => (
           <li key={entry.rank} className={clsx("p-4", BoxClasses)}>

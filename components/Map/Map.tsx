@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import {
   GoogleMap,
   LoadScriptNext,
-  MarkerF as Marker,
   MarkerClustererF as MarkerClusterer,
+  MarkerF as Marker,
 } from "@react-google-maps/api";
 import {
   clustererOptions,
@@ -22,7 +22,6 @@ import SplashScreen from "@/public/assets/images/spashscreen.gif";
 import Image from "next/image";
 
 export const MapView = () => {
-
   const router = useRouter();
   const { invaderName } = useParams();
   const [map, setMap] = useState<google.maps.Map | null>(null);
@@ -43,7 +42,7 @@ export const MapView = () => {
           <Image
             src={SplashScreen}
             alt={"Invaded map loading"}
-            className="h-full w-full object-contain relative"
+            className="relative h-full w-full object-contain"
           />
         }
         libraries={gmapLibraries}
@@ -52,10 +51,7 @@ export const MapView = () => {
         <GoogleMap
           {...defaultGoogleMapProps}
           onLoad={setMap}
-          onIdle={() => {
-            setInvadersInView(filterInvadersInView(map));
-            openSheet();
-          }}
+          onIdle={() => setInvadersInView(filterInvadersInView(map))}
         >
           <MarkerClusterer options={clustererOptions}>
             {(clusterer) => (

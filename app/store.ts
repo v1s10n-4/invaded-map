@@ -2,12 +2,20 @@ import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 import { InvaderWithLocation } from "@/components/Map";
 
+export enum MapSheetState {
+  FULL,
+  MID,
+  MIN,
+  CLOSED,
+}
 interface IVDMapStoreState {
   invadersInView: InvaderWithLocation[];
   setInvadersInView: (invaders: InvaderWithLocation[]) => void;
   isMapSheetOpen: boolean;
+  mapSheetState: MapSheetState;
   closeMapSheet: () => void;
   openMapSheet: () => void;
+  setMapSheetState: (index: MapSheetState) => void;
 }
 
 export const useIVDMapStore = create<IVDMapStoreState>()(
@@ -17,8 +25,10 @@ export const useIVDMapStore = create<IVDMapStoreState>()(
         invadersInView: [],
         setInvadersInView: (by) => set((state) => ({ invadersInView: by })),
         isMapSheetOpen: false,
-        closeMapSheet: () => set((state) => ({ isMapSheetOpen: false })),
-        openMapSheet: () => set((state) => ({ isMapSheetOpen: true })),
+        mapSheetState: 1,
+        closeMapSheet: () => set(() => ({ isMapSheetOpen: false })),
+        openMapSheet: () => set(() => ({ isMapSheetOpen: true })),
+        setMapSheetState: (index) => set(() => ({ mapSheetState: index })),
       }),
       {
         name: "invaded-map",
