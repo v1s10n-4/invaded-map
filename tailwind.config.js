@@ -33,9 +33,10 @@ module.exports = {
           "--btn-text-case": "lowercase",
           "--btn-focus-scale": "1",
           "--tab-radius": "0",
-          // ".menu :where(li:not(.menu-title):not(:empty)) > :where(*:not(ul):focus), .menu :where(li:not(.menu-title):not(:empty)) > :where(*:not(ul):hover)": {
-          //
-          // }
+          ".scrollbar::-webkit-scrollbar": {
+            width: 4,
+            height: 4,
+          },
         },
       },
     ],
@@ -62,5 +63,6 @@ module.exports = {
     require("@tailwindcss/typography"),
     require("tailwindcss-animate"),
     require("daisyui"),
+    require("daisyui-tailwind-scrollbar"),
   ],
 };
