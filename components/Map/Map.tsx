@@ -40,6 +40,7 @@ export const MapView = () => {
       <LoadScriptNext
         loadingElement={
           <Image
+            priority
             src={SplashScreen}
             alt={"Invaded map loading"}
             className="relative h-full w-full object-contain"

@@ -4,6 +4,9 @@ import { notFound } from "next/navigation";
 import { getInvader } from "@/components/Map";
 import { Metadata } from "next";
 import Image from "next/image";
+import { SliderActions } from "@/components/SliderActions/SliderActions";
+import { BoxClasses } from "@/utils";
+import { clsx } from "clsx";
 
 const vercelTempUrl = "https://invaded-map-git-dev-v1s10n4.vercel.app";
 type Params = { invaderName: string };
@@ -64,18 +67,23 @@ const InvaderPlacePage: FC<{ params: Params }> = ({
     | undefined;
   if (!invader) notFound();
   return (
-    <div className="mb-4 flex flex-col gap-4 scrollbar">
-      <div className="flex items-center">
-        {invader.images.map((image) => (
-          <Image
-            key={image}
-            className="h-1/2 w-1/2 object-contain"
-            src={`/assets/images/invaders/${image}`}
-            alt={`${invader.name}'s invader picture`}
-            width={400}
-            height={400}
-          />
-        ))}
+    <div className="flex flex-col items-center gap-4 p-4 scrollbar md:flex-row">
+      <div className={clsx("relative flex items-center p-0.5", BoxClasses)}>
+        <div className="carousel w-full md:h-60">
+          {invader.images.map((image, i, arr) => (
+            <div key={image} id={`slide${i}`} className="carousel-item w-full">
+              <Image
+                className="h-full w-full object-contain"
+                src={`/assets/images/invaders/${image}`}
+                alt={`${invader.name}'s invader picture`}
+                priority
+                width={400}
+                height={400}
+              />
+            </div>
+          ))}
+          <SliderActions count={invader.images.length} />
+        </div>
       </div>
       <div className="flex h-full w-full flex-col justify-around gap-4 px-4">
         <p className="text-2xl">
@@ -85,9 +93,6 @@ const InvaderPlacePage: FC<{ params: Params }> = ({
           Last known state: {invader.state} ({invader.reportDate})
         </p>
       </div>
-      {/*<pre className="absolute bottom-8 left-8">*/}
-      {/*  {JSON.stringify(invader, null, 2)}*/}
-      {/*</pre>*/}
     </div>
   );
 };

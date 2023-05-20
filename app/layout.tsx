@@ -55,7 +55,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 <div className="navbar-end"></div>
               </div>
             </div>
-            {/*<div className="absolute inset-0">*/}
             <div id="content" className="absolute inset-0">
               {children}
             </div>

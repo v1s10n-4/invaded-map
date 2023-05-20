@@ -17,10 +17,12 @@ import ArrowLeft from "pixelarticons/svg/arrow-left.svg";
 import { clsx } from "clsx";
 
 const SheetActionClassNames = clsx(
-  "h-8 w-8 bg-base-100 p-1",
+  "h-full w-10 bg-base-100 p-1 box-border",
   "hover:text-primary hover:ring-1 hover:ring-primary",
   "focus-visible:text-primary focus-visible:ring-1 focus-visible:ring-primary"
 );
+
+const SheetHeaderTextClassNames = "px-4 py-2 md:px-8";
 
 export const MapSheet: FC<PropsWithChildren> = ({ children }) => {
   const router = useRouter();
@@ -62,16 +64,16 @@ export const MapSheet: FC<PropsWithChildren> = ({ children }) => {
       mountPoint={mountPoint}
       isOpen
       onClose={() => sheetRef.current?.snapTo(MapSheetState.CLOSED)}
-      snapPoints={[0.85, 0.5, 0.25, 40]}
+      snapPoints={[0.85, 0.5, 0.25, 42]}
       onSnap={setCurrentSnapPoint}
-      initialSnap={MapSheetState.CLOSED}
+      initialSnap={invaderName ? MapSheetState.FULL : MapSheetState.CLOSED}
       detent={invaderName ? "content-height" : "full-height"}
       style={{
         position: "absolute",
       }}
     >
       <Sheet.Container className="!md:inset-x-4 !md:bottom-4 !inset-x-2 !bottom-2 !w-auto !overflow-hidden !rounded-none border-4 border-double border-primary !bg-base-100">
-        <Sheet.Header className="relative flex h-12 items-center justify-between bg-black p-2">
+        <Sheet.Header className="relative mb-0.5 flex h-12 items-center justify-between border-b border-primary bg-black p-[3px]">
           <button onClick={onLeftActionClick} className={SheetActionClassNames}>
             {invaderName ? (
               <ArrowLeft className="h-full w-full" />
@@ -82,9 +84,21 @@ export const MapSheet: FC<PropsWithChildren> = ({ children }) => {
             )}
           </button>
           {invaderName ? (
-            <p>{invaderName}</p>
+            <h1
+              onClick={() =>
+                sheetRef.current?.snapTo(
+                  currentSnapPoint === MapSheetState.CLOSED
+                    ? MapSheetState.FULL
+                    : MapSheetState.MID
+                )
+              }
+              className={clsx(SheetHeaderTextClassNames, "text-2xl")}
+            >
+              {invaderName}
+            </h1>
           ) : (
             <p
+              className={SheetHeaderTextClassNames}
               onClick={() =>
                 sheetRef.current?.snapTo(
                   currentSnapPoint === MapSheetState.MID
@@ -103,7 +117,16 @@ export const MapSheet: FC<PropsWithChildren> = ({ children }) => {
             <CloseBox className="h-full w-full" />
           </button>
         </Sheet.Header>
-        <Sheet.Content>{children}</Sheet.Content>
+        <Sheet.Content
+          className="border-t border-primary scrollbar"
+          disableDrag={
+            !!invaderName ||
+            currentSnapPoint === MapSheetState.MIN ||
+            currentSnapPoint === MapSheetState.MID
+          }
+        >
+          {children}
+        </Sheet.Content>
       </Sheet.Container>
     </Sheet>
   ) : (
