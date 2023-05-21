@@ -77,6 +77,19 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               </li>
               <li>
                 <Link
+                  href="/list"
+                  className={clsx(
+                    "text-xl text-primary",
+                    BoxClasses,
+                    BoxHoverClasses,
+                    BoxActiveClasses
+                  )}
+                >
+                  All invaders
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/highscores"
                   className={clsx(
                     "text-xl text-primary",
