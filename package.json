@@ -10,6 +10,7 @@
     "format": "prettier --write './**/*.{js,ts,jsx,tsx,md,mdx,css,html,yml,yaml,json}' --ignore-path .gitignore"
   },
   "dependencies": {
+    "@radix-ui/react-menubar": "^1.0.2",
     "@react-google-maps/api": "^2.18.1",
     "@tailwindcss/typography": "^0.5.9",
     "@types/node": "20.1.0",
