@@ -1,12 +1,10 @@
 "use client";
 import React, { FC } from "react";
 import algoliasearch from "algoliasearch/lite";
-import {
-  InstantSearch,
-  RefinementList,
-  SearchBox,
-} from "react-instantsearch-hooks-web";
+import { InstantSearch } from "react-instantsearch-hooks-web";
 import InvaderList from "@/app/list/InvaderList";
+import { SearchInput } from "@/components/SearchInput";
+import FilterMenu from "@/app/list/FilterMenu";
 
 const searchClient = algoliasearch(
   process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID!,
@@ -24,19 +22,14 @@ export type Invader = {
   latitude?: number;
   address?: string;
 };
-
-// const fesse = async () => {
-//   const res = await searchClient.search<Invader>([]);
-//   res.results.map(item => item.hits)
-// }
-// console.log({ res });
 const ListPage: FC = () => {
   return (
-    <div className="flex h-full flex-col pt-32">
+    <div className="flex h-full flex-col pt-24">
       <InstantSearch searchClient={searchClient} indexName="invaders">
-        <SearchBox />
-        <RefinementList attribute="city" searchable />
-        <RefinementList attribute="points" />
+        <div className="flex flex-col items-center gap-2 border-b-4 border-double border-primary px-2 pb-2 md:px-4 lg:px-6">
+          <FilterMenu />
+          <SearchInput />
+        </div>
         <InvaderList />
       </InstantSearch>
     </div>

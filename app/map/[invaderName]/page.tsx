@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { getInvader } from "@/components/Map";
 import { Metadata } from "next";
 import Image from "next/image";
-import { SliderActions } from "@/components/SliderActions/SliderActions";
+import { SliderActions } from "@/components/SliderActions";
 import { BoxClasses } from "@/utils";
 import { clsx } from "clsx";
 

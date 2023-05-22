@@ -38,16 +38,15 @@ export const InvaderHit = ({
 const InvaderList = (props: UseInfiniteHitsProps<Invader>) => {
   const { hits, isLastPage, showMore } = useInfiniteHits(props);
   return (
-    <div className="h-full overflow-y-scroll">
+    <div className="h-full overflow-y-scroll scrollbar scrollbar-thumb-current scrollbar-track-black">
       <InfiniteScroll
-        pageStart={1}
-        className="grid grid-cols-1 gap-4 p-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4"
-        loadMore={showMore}
+        className="grid grid-cols-1 gap-4 p-2 sm:grid-cols-2 md:grid-cols-3 md:p-4 lg:p-6 xl:grid-cols-4"
+        loadMore={showMore || (() => null)}
         hasMore={!isLastPage}
         useWindow={false}
       >
         {hits.map((hit) => (
-          <InvaderHit key={hit.name} {...hit} />
+          <InvaderHit key={hit.objectID} {...hit} />
         ))}
       </InfiniteScroll>
     </div>
