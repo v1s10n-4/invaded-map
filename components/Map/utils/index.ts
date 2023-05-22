@@ -17,6 +17,9 @@ export type Invader = {
   reportDate: number;
   city: string;
   state: string;
+  lat?: number;
+  lng?: number;
+  address?: string;
 };
 
 export type InvaderWithLocation = Invader & {
