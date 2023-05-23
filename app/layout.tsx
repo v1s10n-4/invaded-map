@@ -8,8 +8,8 @@ import { clsx } from "clsx";
 import { ReactNode } from "react";
 
 const sixtyfour = localFont({
-  src: "../public/assets/fonts/Sixtyfour[BLED,SCAN].woff2",
-  // src: "../public/assets/fonts/Sixtyfour-Normal.woff2",
+  // src: "../public/assets/fonts/Sixtyfour[BLED,SCAN].woff2",
+  src: "../public/assets/fonts/Sixtyfour-Normal.woff2",
   // src: "../public/assets/fonts/Glass_TTY_VT220.ttf",
 });
 export const metadata = {
