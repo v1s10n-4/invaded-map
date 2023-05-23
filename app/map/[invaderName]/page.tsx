@@ -7,6 +7,8 @@ import Image from "next/image";
 import { SliderActions } from "@/components/SliderActions";
 import { BoxClasses } from "@/utils";
 import { clsx } from "clsx";
+import ImageFlash from "pixelarticons/svg/image-flash.svg";
+import Coin from "pixelarticons/svg/coin.svg";
 
 const vercelTempUrl = "https://invaded-map-git-dev-v1s10n4.vercel.app";
 type Params = { invaderName: string };
@@ -86,11 +88,13 @@ const InvaderPlacePage: FC<{ params: Params }> = ({
         </div>
       </div>
       <div className="flex h-full w-full flex-col justify-around gap-4 px-4">
-        <p className="text-2xl">
+        <p className="flex items-center gap-2 text-xl">
+          <Coin className="h-7 w-7" />
           <span className="font-bold">{invader.points}</span> points
         </p>
-        <p className="text-xs">
-          Last known state: {invader.state} ({invader.reportDate})
+        <p className="flex items-center gap-2">
+          <ImageFlash className="h-7 w-7" /> {invader.state} (
+          {invader.reportDate})
         </p>
       </div>
     </div>

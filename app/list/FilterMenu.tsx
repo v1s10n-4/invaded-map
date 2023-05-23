@@ -3,7 +3,7 @@ import { Filter } from "@/app/list/Filter";
 
 export const FilterMenu = () => {
   return (
-    <MenuBar className="w-full">
+    <MenuBar className="h-full w-full p-px">
       <Filter attribute="city" />
       <Filter attribute="points" />
       <Filter attribute="state" />

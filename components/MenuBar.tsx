@@ -2,8 +2,11 @@
 
 import * as React from "react";
 import * as MenuBarPrimitive from "@radix-ui/react-menubar";
-import { Check, ChevronRight, Circle } from "lucide-react";
-
+import Circle from "pixelarticons/svg/circle.svg";
+import ChevronRight from "pixelarticons/svg/chevron-right.svg";
+import Check from "pixelarticons/svg/check.svg";
+// import Check from "pixelarticons/svg/checkbox.svg";
+// import UnCheck from "pixelarticons/svg/checkbox-on.svg";
 import { cn } from "@/lib/utils";
 
 const MenuBarMenu = MenuBarPrimitive.Menu;
@@ -38,7 +41,7 @@ const MenuBarTrigger = React.forwardRef<
   <MenuBarPrimitive.Trigger
     ref={ref}
     className={cn(
-      "flex cursor-default select-none items-center border border-transparent px-3 py-1.5 text-sm font-medium outline-none focus:border-primary data-[state=open]:text-primary",
+      "flex cursor-default select-none items-center border border-transparent px-3 py-1.5 text-sm font-medium outline-none focus-visible:border-primary data-[state=open]:text-primary",
       className
     )}
     {...props}
@@ -55,7 +58,7 @@ const MenuBarSubTrigger = React.forwardRef<
   <MenuBarPrimitive.SubTrigger
     ref={ref}
     className={cn(
-      "focus:text-accent-foreground data-[state=open]:text-accent-foreground flex cursor-default select-none items-center px-2 py-1.5 text-sm outline-none focus:bg-primary data-[state=open]:bg-primary",
+      "focus-visible:text-accent-foreground data-[state=open]:text-accent-foreground flex cursor-default select-none items-center px-2 py-1.5 text-sm outline-none focus-visible:bg-primary data-[state=open]:bg-primary",
       inset && "pl-8",
       className
     )}
@@ -116,7 +119,7 @@ const MenuBarItem = React.forwardRef<
   <MenuBarPrimitive.Item
     ref={ref}
     className={cn(
-      "focus:text-accent-foreground relative flex cursor-default select-none items-center border border-transparent px-2 py-1.5 text-sm outline-none focus:border-primary data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "focus-visible:text-accent-foreground relative flex cursor-default select-none items-center border border-transparent px-2 py-1.5 text-sm outline-none focus-visible:border-primary data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       inset && "pl-8",
       className
     )}
@@ -132,7 +135,7 @@ const MenuBarCheckboxItem = React.forwardRef<
   <MenuBarPrimitive.CheckboxItem
     ref={ref}
     className={cn(
-      "focus:text-accent-foreground relative flex cursor-default select-none items-center border border-transparent py-1.5 pl-8 pr-2 text-sm outline-none focus:border-primary data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "focus-visible:text-accent-foreground relative flex cursor-default select-none items-center border border-transparent py-1.5 pl-8 pr-2 text-sm outline-none focus-visible:border-primary data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       className
     )}
     checked={checked}
@@ -140,7 +143,11 @@ const MenuBarCheckboxItem = React.forwardRef<
   >
     <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
       <MenuBarPrimitive.ItemIndicator>
-        <Check className="h-4 w-4" />
+        {/*{checked ? (*/}
+        <Check className="h-5 w-5" />
+        {/*) : (*/}
+        {/*  <UnCheck className="h-7 w-7" />*/}
+        {/*)}*/}
       </MenuBarPrimitive.ItemIndicator>
     </span>
     {children}
@@ -155,7 +162,7 @@ const MenuBarRadioItem = React.forwardRef<
   <MenuBarPrimitive.RadioItem
     ref={ref}
     className={cn(
-      "focus:text-accent-foreground relative flex cursor-default select-none items-center py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "focus-visible:text-accent-foreground relative flex cursor-default select-none items-center py-1.5 pl-8 pr-2 text-sm outline-none focus-visible:bg-accent data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       className
     )}
     {...props}
