@@ -2,7 +2,7 @@
 
 import { FC } from "react";
 import { SearchBoxProps, useSearchBox } from "react-instantsearch-hooks-web";
-import Search from "pixelarticons/svg/Search.svg";
+import Search from "pixelarticons/svg/search.svg";
 import CloseBox from "pixelarticons/svg/close-box.svg";
 
 export const SearchInput: FC<SearchBoxProps> = (props) => {
