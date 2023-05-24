@@ -22,6 +22,7 @@ import SplashScreen from "@/public/assets/images/spashscreen.gif";
 import Image from "next/image";
 
 export const MapView = () => {
+  const [hasZoomed, setHasZoomed] = useState<boolean>(false);
   const router = useRouter();
   const { invaderName } = useParams();
   const [map, setMap] = useState<google.maps.Map | null>(null);
@@ -30,9 +31,19 @@ export const MapView = () => {
     openSheet: state.openMapSheet,
   }));
   useEffect(() => {
-    if (map && invaderName) {
-      const invader = getInvader(invaderName);
-      if (invader) map?.panTo(getLatLng(invader));
+    if (map) {
+      const currentZoom = map.getZoom();
+      if (invaderName) {
+        const invader = getInvader(invaderName);
+        if (invader) map?.panTo(getLatLng(invader));
+        if (!hasZoomed) {
+          if (currentZoom) map?.setZoom(currentZoom + 2);
+          setHasZoomed(true);
+        }
+      } else if (hasZoomed) {
+        if (currentZoom) map.setZoom(currentZoom - 2);
+        setHasZoomed(false);
+      }
     }
   }, [map, invaderName]);
   return (

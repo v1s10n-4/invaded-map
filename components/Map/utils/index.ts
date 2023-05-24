@@ -5,7 +5,7 @@ import cluster_red from "./cluster_red.png";
 import cluster_yellow from "./cluster_yellow.png";
 import mapStyles from "./mapStyles.json";
 import invaders from "./locations.json";
-import marker from "./marker.png";
+import marker from "./marker.svg?url";
 import { GoogleMapProps } from "@react-google-maps/api";
 import MapOptions = google.maps.MapOptions;
 import LatLngLiteral = google.maps.LatLngLiteral;
