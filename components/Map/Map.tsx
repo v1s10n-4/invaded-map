@@ -45,7 +45,7 @@ export const MapView = () => {
         setHasZoomed(false);
       }
     }
-  }, [map, invaderName]);
+  }, [map, invaderName, hasZoomed]);
   return (
     <>
       <LoadScriptNext
@@ -57,6 +57,7 @@ export const MapView = () => {
             className="relative h-full w-full object-contain"
           />
         }
+        preventGoogleFontsLoading
         libraries={gmapLibraries}
         googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY!}
       >

@@ -3,10 +3,11 @@ import cluster_blue from "./cluster_blue.png";
 import cluster_purple from "./cluster_purple.png";
 import cluster_red from "./cluster_red.png";
 import cluster_yellow from "./cluster_yellow.png";
-import mapStyles from "./mapStyles.json";
+import mapStyles from "@/utils/mapStyles.json";
 import invaders from "./locations.json";
 import marker from "./marker.svg?url";
 import { GoogleMapProps } from "@react-google-maps/api";
+import { Paris } from "@/utils";
 import MapOptions = google.maps.MapOptions;
 import LatLngLiteral = google.maps.LatLngLiteral;
 
@@ -71,11 +72,6 @@ export const mapOptions: MapOptions = {
   minZoom: 12,
   disableDefaultUI: true,
   styles: mapStyles.sixtyfour,
-};
-
-export const Paris: LatLngLiteral = {
-  lat: 48.861071,
-  lng: 2.350494,
 };
 
 export const defaultGoogleMapProps: GoogleMapProps = {
