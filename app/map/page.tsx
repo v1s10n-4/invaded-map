@@ -5,6 +5,7 @@ import Image from "next/image";
 import useIVDMapStore from "@/app/store";
 import { clsx } from "clsx";
 
+export const runtime = "edge";
 const MapPage: FC = () => {
   const invaders = useIVDMapStore((state) => state.invadersInView);
   const [isHydrated, setIsHydrated] = useState(false);

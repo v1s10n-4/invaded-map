@@ -8,6 +8,8 @@ import { clsx } from "clsx";
 import { ReactNode } from "react";
 import { Metadata } from "next";
 
+export const runtime = "edge";
+
 const sixtyfour = localFont({
   // src: "../public/assets/fonts/Sixtyfour[BLED,SCAN].woff2",
   src: "../public/assets/fonts/Sixtyfour-Normal.woff2",
