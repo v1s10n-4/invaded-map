@@ -8,7 +8,7 @@ const requestInit: RequestInit = {
     "sec-ch-ua-mobile": "?0",
     "sec-ch-ua-platform": '"macOS"',
   },
-  referrer: "https://www.invaded-map.com/",
+  // referrer: "https://www.invaded-map.com/",
   referrerPolicy: "strict-origin-when-cross-origin",
   body: null,
   method: "GET",
