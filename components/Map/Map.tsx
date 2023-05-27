@@ -57,7 +57,6 @@ export const MapView = () => {
             className="relative h-full w-full object-contain"
           />
         }
-        preventGoogleFontsLoading
         libraries={gmapLibraries}
         googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY!}
       >
