@@ -12,7 +12,7 @@ export const UserMarker = () => {
     watchPosition: true,
   });
   const { orientation, requestPermission } = useDeviceOrientation();
-
+  console.log(orientation);
   return (
     <>
       <button
