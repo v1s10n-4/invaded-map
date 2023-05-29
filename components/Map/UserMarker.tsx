@@ -63,9 +63,6 @@ export const UserMarker: FC<UserMarkerProps> = ({ map }) => {
           ? ""
           : "after:absolute after:inset-0 after:m-4 after:bg-black"
       )}
-      style={{
-        rotate: `${coords?.heading}deg`,
-      }}
       onClick={() => {
         getPosition();
         if (!orientation) {
