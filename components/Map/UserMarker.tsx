@@ -11,7 +11,7 @@ export const UserMarker = () => {
   const { isGeolocationEnabled, coords, getPosition } = useGeolocated({
     watchPosition: true,
   });
-  const orientation = useDeviceOrientation();
+  const { orientation, requestPermission } = useDeviceOrientation();
 
   return (
     <>
@@ -25,7 +25,10 @@ export const UserMarker = () => {
         style={{
           rotate: `${coords?.heading}deg`,
         }}
-        onClick={getPosition}
+        onClick={() => {
+          getPosition();
+          requestPermission();
+        }}
       >
         <GPSIcon className="h-full w-full" />
       </button>

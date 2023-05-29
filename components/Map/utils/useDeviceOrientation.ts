@@ -1,11 +1,12 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 type WebkitDeviceOrientationEvent = DeviceOrientationEvent & {
   webkitCompassHeading: number;
   webkitCompassAccuracy: number;
 };
 const useDeviceOrientation = () => {
+  const [alreadyRequested, setAlreaderRequested] = useState<boolean>(false);
   const [orientation, setOrientation] =
     useState<WebkitDeviceOrientationEvent>();
 
@@ -16,11 +17,6 @@ const useDeviceOrientation = () => {
   };
 
   useEffect(() => {
-    window.addEventListener(
-      "deviceorientation",
-      handleOrientationChange as EventListener,
-      true
-    );
     return () => {
       window.removeEventListener(
         "deviceorientation",
@@ -29,7 +25,18 @@ const useDeviceOrientation = () => {
     };
   }, []);
 
-  return orientation;
+  const requestPermission = useCallback(() => {
+    if (!alreadyRequested) {
+      setAlreaderRequested(true);
+      window.addEventListener(
+        "deviceorientation",
+        handleOrientationChange as EventListener,
+        true
+      );
+    }
+  }, [alreadyRequested]);
+
+  return { orientation, requestPermission };
 };
 
 export default useDeviceOrientation;
