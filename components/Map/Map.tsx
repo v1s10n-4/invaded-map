@@ -65,7 +65,7 @@ export const MapView = () => {
         onLoad={setMap}
         onIdle={() => setInvadersInView(filterInvadersInView(map))}
       >
-        <UserMarker />
+        {map && <UserMarker map={map} />}
         <MarkerClusterer options={clustererOptions}>
           {(clusterer) => (
             <>
