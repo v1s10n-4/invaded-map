@@ -41,7 +41,6 @@ export const UserMarker: FC<UserMarkerProps> = ({ map }) => {
         lat: coords.latitude,
         lng: coords.longitude,
       });
-      console.log({ coords });
     }
   }, [coords]);
 
@@ -50,15 +49,12 @@ export const UserMarker: FC<UserMarkerProps> = ({ map }) => {
       ...userMarkerIcon,
       rotation: orientation?.webkitCompassHeading || orientation?.alpha || 0,
     });
-    console.log({ orientation });
   }, [orientation]);
 
   useEffect(() => {
     console.log("map effect");
     markerRef.current?.setMap(map);
   }, [map]);
-
-  console.log("render");
   return (
     <button
       className={clsx(
@@ -70,7 +66,12 @@ export const UserMarker: FC<UserMarkerProps> = ({ map }) => {
       style={{
         rotate: `${coords?.heading}deg`,
       }}
-      onClick={() => getPosition()}
+      onClick={() => {
+        getPosition();
+        if (!orientation) {
+          (DeviceOrientationEvent as any).requestPermission();
+        }
+      }}
     >
       <GPSIcon className="h-full w-full" />
     </button>
