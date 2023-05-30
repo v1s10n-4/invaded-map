@@ -27,10 +27,13 @@ export const MapView = () => {
   const router = useRouter();
   const { invaderName } = useParams();
   const [map, setMap] = useState<google.maps.Map | null>(null);
-  const { setInvadersInView } = useIVDMapStore((state) => ({
-    setInvadersInView: state.setInvadersInView,
-    openSheet: state.openMapSheet,
-  }));
+  const { setInvadersInView, setLockUserPosition, setLockUserRotation } =
+    useIVDMapStore((state) => ({
+      setInvadersInView: state.setInvadersInView,
+      // openSheet: state.openMapSheet,
+      setLockUserPosition: state.setLockUserPosition,
+      setLockUserRotation: state.setLockUserRotation,
+    }));
   useEffect(() => {
     if (map) {
       const currentZoom = map.getZoom();
@@ -49,6 +52,7 @@ export const MapView = () => {
   }, [map, invaderName, hasZoomed]);
   return (
     <LoadScriptNext
+      version="beta"
       loadingElement={
         <Image
           priority
@@ -63,6 +67,10 @@ export const MapView = () => {
       <GoogleMap
         {...defaultGoogleMapProps}
         onLoad={setMap}
+        onDragStart={() => {
+          setLockUserPosition(false);
+          setLockUserRotation(false);
+        }}
         onIdle={() => setInvadersInView(filterInvadersInView(map))}
       >
         {map && <UserMarker map={map} />}

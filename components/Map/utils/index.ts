@@ -71,9 +71,12 @@ export const clustererOptions: ClustererOptions = {
 };
 
 export const mapOptions: MapOptions = {
-  minZoom: 12,
+  mapId: "bc9e5a99ff21e1e7",
+  heading: 0,
+  tilt: 0,
+  minZoom: 10,
+  maxZoom: 18,
   disableDefaultUI: true,
-  styles: mapStyles.sixtyfour,
 };
 
 export const defaultGoogleMapProps: GoogleMapProps = {
