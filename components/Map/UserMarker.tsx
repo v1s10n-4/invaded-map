@@ -67,7 +67,7 @@ export const UserMarker: FC<UserMarkerProps> = ({ map }) => {
       orientation?.webkitCompassHeading || orientation?.alpha || 0;
     markerRef.current.setIcon({
       ...userMarkerIcon,
-      rotation,
+      rotation: lockUserRotation ? 0 : rotation,
     });
 
     if (lockUserRotation) console.log(map.setHeading(rotation));
@@ -97,12 +97,15 @@ export const UserMarker: FC<UserMarkerProps> = ({ map }) => {
       if (lockUserPosition) {
         if (lockUserRotation) {
           setLockUserRotation(false);
+          map.moveCamera({
+            heading: 0,
+          });
         } else {
           const rotation =
             orientation?.webkitCompassHeading || orientation?.alpha || 0;
           markerRef.current.setIcon({
             ...userMarkerIcon,
-            rotation,
+            rotation: lockUserRotation ? 0 : rotation,
           });
           setLockUserRotation(true);
           // map.setHeading(45);
@@ -111,7 +114,10 @@ export const UserMarker: FC<UserMarkerProps> = ({ map }) => {
           });
         }
       } else {
-        if (!lockUserRotation) map.setHeading(0);
+        if (!lockUserRotation)
+          map.moveCamera({
+            heading: 0,
+          });
         const userPos = new google.maps.LatLng({
           lat: coords.latitude,
           lng: coords.longitude,
