@@ -52,7 +52,6 @@ export const MapView = () => {
   }, [map, invaderName, hasZoomed]);
   return (
     <LoadScriptNext
-      version="beta"
       loadingElement={
         <Image
           priority
