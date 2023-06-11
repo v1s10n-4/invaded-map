@@ -75,7 +75,7 @@ export const mapOptions: MapOptions = {
   heading: 0,
   tilt: 0,
   minZoom: 10,
-  maxZoom: 18,
+  maxZoom: 20,
   disableDefaultUI: true,
 };
 
