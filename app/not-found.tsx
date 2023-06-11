@@ -7,7 +7,7 @@ import {
 import Image from "next/image";
 import mapStyles from "@/utils/mapStyles.json";
 
-export const runtime = "nodejs";
+export const runtime = "edge";
 
 const searchParams = new URLSearchParams({
   ...gmapUrlParams,
