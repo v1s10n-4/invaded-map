@@ -9,7 +9,7 @@ export const GtmInit = () => {
     <>
       <Script
         async
-        src="https://www.googletagmanager.com/gtag/js?id=G-R50CL84MYF"
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GTM_ID}`}
       />
       <Script
         id="gtm-script"
@@ -20,7 +20,7 @@ export const GtmInit = () => {
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
-        gtag('config', '${process.env.GTM_ID}');
+        gtag('config', '${process.env.NEXT_PUBLIC_GTM_ID}');
   `,
         }}
       />
