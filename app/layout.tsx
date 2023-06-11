@@ -5,8 +5,9 @@ import Link from "next/link";
 import localFont from "next/font/local";
 import { BoxActiveClasses, BoxClasses, BoxHoverClasses } from "@/utils";
 import { clsx } from "clsx";
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
 import { Metadata } from "next";
+import { GtmInit } from "@/app/GtmInit";
 
 export const runtime = "edge";
 
@@ -279,6 +280,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </div>
       </body>
       <Analytics />
+      <Suspense>
+        <GtmInit />
+      </Suspense>
     </html>
   );
 }
