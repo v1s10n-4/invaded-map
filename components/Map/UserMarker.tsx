@@ -100,18 +100,18 @@ export const UserMarker: FC<UserMarkerProps> = ({ map }) => {
           map.moveCamera({
             heading: 0,
           });
-        } else {
-          const rotation =
-            orientation?.webkitCompassHeading || orientation?.alpha || 0;
-          markerRef.current.setIcon({
-            ...userMarkerIcon,
-            rotation: lockUserRotation ? 0 : rotation,
-          });
-          setLockUserRotation(true);
-          // map.setHeading(45);
-          map.moveCamera({
-            heading: 45,
-          });
+          // } else {
+          //   const rotation =
+          //     orientation?.webkitCompassHeading || orientation?.alpha || 0;
+          //   markerRef.current.setIcon({
+          //     ...userMarkerIcon,
+          //     rotation: lockUserRotation ? 0 : rotation,
+          //   });
+          //   setLockUserRotation(true);
+          //   // map.setHeading(45);
+          //   map.moveCamera({
+          //     heading: 45,
+          //   });
         }
       } else {
         if (!lockUserRotation)
