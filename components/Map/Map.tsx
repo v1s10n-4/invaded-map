@@ -18,7 +18,7 @@ import {
 } from "./utils";
 import { useParams, useRouter } from "next/navigation";
 import useIVDMapStore from "@/app/store";
-import SplashScreen from "@/public/assets/images/spashscreen.gif";
+import SplashScreen from "@/public/assets/images/splashscreen.gif";
 import Image from "next/image";
 import UserMarker from "@/components/Map/UserMarker";
 
