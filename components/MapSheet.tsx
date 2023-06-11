@@ -10,7 +10,7 @@ import React, {
 } from "react";
 import useIVDMapStore, { MapSheetState } from "@/app/store";
 import { useParams, useRouter } from "next/navigation";
-import ArrowBarDown from "pixelarticons/svg/arrow-bar-down.svg";
+import Close from "pixelarticons/svg/close.svg";
 import ChevronDown from "pixelarticons/svg/chevron-down.svg";
 import ChevronUp from "pixelarticons/svg/chevron-up.svg";
 import ArrowLeft from "pixelarticons/svg/arrow-left.svg";
@@ -112,9 +112,12 @@ export const MapSheet: FC<PropsWithChildren> = ({ children }) => {
           )}
           <button
             onClick={() => sheetRef.current?.snapTo(MapSheetState.CLOSED)}
-            className={SheetActionClassNames}
+            className={clsx(
+              SheetActionClassNames,
+              currentSnapPoint === MapSheetState.CLOSED && "opacity-0"
+            )}
           >
-            <ArrowBarDown className="h-full w-full" />
+            <Close className="h-full w-full" />
           </button>
         </Sheet.Header>
         <Sheet.Content

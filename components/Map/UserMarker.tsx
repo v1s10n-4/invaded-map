@@ -70,7 +70,10 @@ export const UserMarker: FC<UserMarkerProps> = ({ map }) => {
       rotation: lockUserRotation ? 0 : rotation,
     });
 
-    if (lockUserRotation) console.log(map.setHeading(rotation));
+    if (lockUserRotation)
+      map.moveCamera({
+        heading: rotation,
+      });
   }, [orientation, lockUserRotation, map]);
 
   useEffect(() => {
@@ -100,18 +103,18 @@ export const UserMarker: FC<UserMarkerProps> = ({ map }) => {
           map.moveCamera({
             heading: 0,
           });
-          // } else {
-          //   const rotation =
-          //     orientation?.webkitCompassHeading || orientation?.alpha || 0;
-          //   markerRef.current.setIcon({
-          //     ...userMarkerIcon,
-          //     rotation: lockUserRotation ? 0 : rotation,
-          //   });
-          //   setLockUserRotation(true);
-          //   // map.setHeading(45);
-          //   map.moveCamera({
-          //     heading: 45,
-          //   });
+        } else {
+          const rotation =
+            orientation?.webkitCompassHeading || orientation?.alpha || 0;
+          markerRef.current.setIcon({
+            ...userMarkerIcon,
+            rotation: lockUserRotation ? 0 : rotation,
+          });
+          setLockUserRotation(true);
+          // map.setHeading(45);
+          map.moveCamera({
+            heading: 45,
+          });
         }
       } else {
         if (!lockUserRotation)
