@@ -40,6 +40,7 @@ const nextConfig = {
     },
   ],
   images: {
+    formats: ["image/avif", "image/webp"],
     domains: ["maps.googleapis.com"],
   },
 };
