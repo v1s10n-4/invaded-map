@@ -10,6 +10,8 @@ import { clsx } from "clsx";
 import ImageFlash from "pixelarticons/svg/image-flash.svg";
 import Coin from "pixelarticons/svg/coin.svg";
 
+export const runtime = "edge";
+
 const vercelTempUrl = "https://invaded-map-git-dev-v1s10n4.vercel.app";
 type Params = { invaderName: string };
 type GenerateInvaderMapPageMetadata = ({

@@ -1,52 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
 
-import { getInvader, mapStyles, Paris } from "@/components/Map";
-import { ImageResponse, NextRequest } from "next/server";
-import { Colors } from "@/utils";
+import {baseGoogleStaticMapUrl, Colors, getStaticMapStyle, gmapUrlParams} from "@/utils";
+import {ImageResponse, NextRequest} from "next/server";
+import {getInvader, mapStyles} from "@/components/Map";
 
 export const runtime = "edge";
 
-function get_static_style(styles: google.maps.MapTypeStyle[]) {
-  const result: string[] = [];
-  styles.forEach(function (v) {
-    let style = "";
-    if (v.stylers) {
-      // only if there is a styler object
-      if (v.stylers.length > 0) {
-        // Needs to have a style rule to be valid.
-        style +=
-          (v.hasOwnProperty("featureType")
-            ? "feature:" + v.featureType
-            : "feature:all") + "|";
-        style +=
-          (v.hasOwnProperty("elementType")
-            ? "element:" + v.elementType
-            : "element:all") + "|";
-        v.stylers.forEach((val) => {
-          const propertyname = Object.keys(val)[0];
-          // @ts-ignore
-          const propertyval = val[propertyname].toString().replace("#", "0x");
-          style += propertyname + ":" + propertyval + "|";
-        });
-      }
-    }
-    result.push("style=" + encodeURIComponent(style));
-  });
-
-  return result.join("&");
-}
-
 type RouteParams = { params: { invaderName: string } };
-
-const baseGoogleStaticMapUrl = "https://maps.googleapis.com/maps/api/staticmap";
-const gmapUrlParams = {
-  size: "1200x1200",
-  scale: "2",
-  zoom: "12",
-  center: `${Paris.lat},${Paris.lng}`,
-  key: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY!,
-};
 
 export async function GET(request: NextRequest, params: RouteParams) {
   const fontResponse = await fetch(
@@ -76,7 +37,7 @@ export async function GET(request: NextRequest, params: RouteParams) {
         }}
       >
         <img
-          src={`${baseGoogleStaticMapUrl}?${searchParams.toString()}&${get_static_style(
+          src={`${baseGoogleStaticMapUrl}?${searchParams.toString()}&${getStaticMapStyle(
             mapStyles.sixtyfour
           )}`}
           width={1200}

@@ -5,8 +5,11 @@ import Link from "next/link";
 import localFont from "next/font/local";
 import { BoxActiveClasses, BoxClasses, BoxHoverClasses } from "@/utils";
 import { clsx } from "clsx";
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
 import { Metadata } from "next";
+import { GtmInit } from "@/app/GtmInit";
+
+export const runtime = "edge";
 
 const sixtyfour = localFont({
   // src: "../public/assets/fonts/Sixtyfour[BLED,SCAN].woff2",
@@ -17,8 +20,13 @@ const sixtyfour = localFont({
 const appName = "Invaded Map";
 const appDescription =
   "Locate all space invaders for Flash Invaders app & more!";
-const appUrl = "https://invaded-map.com";
+const appUrl = new URL(
+  process.env.NEXT_PUBLIC_VERCEL_ENV === "production"
+    ? "https://invaded-map.com"
+    : "https://staging.invaded-map.com"
+);
 export const metadata: Metadata = {
+  // metadataBase: appUrl,
   title: appName,
   description: appDescription,
   applicationName: appName,
@@ -274,6 +282,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </div>
       </body>
       <Analytics />
+      <Suspense>
+        <GtmInit />
+      </Suspense>
     </html>
   );
 }

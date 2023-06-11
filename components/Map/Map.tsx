@@ -18,61 +18,79 @@ import {
 } from "./utils";
 import { useParams, useRouter } from "next/navigation";
 import useIVDMapStore from "@/app/store";
-import SplashScreen from "@/public/assets/images/spashscreen.gif";
+import SplashScreen from "@/public/assets/images/splashscreen.gif";
 import Image from "next/image";
+import UserMarker from "@/components/Map/UserMarker";
 
 export const MapView = () => {
+  const [hasZoomed, setHasZoomed] = useState<boolean>(false);
   const router = useRouter();
   const { invaderName } = useParams();
   const [map, setMap] = useState<google.maps.Map | null>(null);
-  const { setInvadersInView, openSheet } = useIVDMapStore((state) => ({
-    setInvadersInView: state.setInvadersInView,
-    openSheet: state.openMapSheet,
-  }));
+  const { setInvadersInView, setLockUserPosition, setLockUserRotation } =
+    useIVDMapStore((state) => ({
+      setInvadersInView: state.setInvadersInView,
+      // openSheet: state.openMapSheet,
+      setLockUserPosition: state.setLockUserPosition,
+      setLockUserRotation: state.setLockUserRotation,
+    }));
   useEffect(() => {
-    if (map && invaderName) {
-      const invader = getInvader(invaderName);
-      if (invader) map?.panTo(getLatLng(invader));
-    }
-  }, [map, invaderName]);
-  return (
-    <>
-      <LoadScriptNext
-        loadingElement={
-          <Image
-            priority
-            src={SplashScreen}
-            alt={"Invaded map loading"}
-            className="relative h-full w-full object-contain"
-          />
+    if (map) {
+      const currentZoom = map.getZoom();
+      if (invaderName) {
+        const invader = getInvader(invaderName);
+        if (invader) map?.panTo(getLatLng(invader));
+        if (!hasZoomed) {
+          if (currentZoom) map?.setZoom(currentZoom + 2);
+          setHasZoomed(true);
         }
-        libraries={gmapLibraries}
-        googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY!}
+      } else if (hasZoomed) {
+        if (currentZoom) map.setZoom(currentZoom - 2);
+        setHasZoomed(false);
+      }
+    }
+  }, [map, invaderName, hasZoomed]);
+  return (
+    <LoadScriptNext
+      loadingElement={
+        <Image
+          priority
+          src={SplashScreen}
+          alt={"Invaded map loading"}
+          className="relative h-full w-full object-contain"
+        />
+      }
+      libraries={gmapLibraries}
+      googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY!}
+    >
+      <GoogleMap
+        {...defaultGoogleMapProps}
+        onLoad={setMap}
+        onDragStart={() => {
+          setLockUserPosition(false);
+          setLockUserRotation(false);
+        }}
+        onIdle={() => setInvadersInView(filterInvadersInView(map))}
       >
-        <GoogleMap
-          {...defaultGoogleMapProps}
-          onLoad={setMap}
-          onIdle={() => setInvadersInView(filterInvadersInView(map))}
-        >
-          <MarkerClusterer options={clustererOptions}>
-            {(clusterer) => (
-              <>
-                {invadersLocationList.map(({ lat, lng, name }) => (
-                  <Marker
-                    icon={markerIcon}
-                    key={`${lat}${lng}${name}`}
-                    position={{ lat, lng }}
-                    clusterer={clusterer}
-                    onClick={() => router.push(`/map/${name}`)}
-                    title={name}
-                  />
-                ))}
-              </>
-            )}
-          </MarkerClusterer>
-        </GoogleMap>
-      </LoadScriptNext>
-    </>
+        {map && <UserMarker map={map} />}
+        <MarkerClusterer options={clustererOptions}>
+          {(clusterer) => (
+            <>
+              {invadersLocationList.map(({ lat, lng, name }) => (
+                <Marker
+                  icon={markerIcon}
+                  key={`${lat}${lng}${name}`}
+                  position={{ lat, lng }}
+                  clusterer={clusterer}
+                  onClick={() => router.push(`/map/${name}`)}
+                  title={name}
+                />
+              ))}
+            </>
+          )}
+        </MarkerClusterer>
+      </GoogleMap>
+    </LoadScriptNext>
   );
 };
 export default MapView;

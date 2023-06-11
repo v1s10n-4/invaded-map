@@ -3,10 +3,12 @@ import cluster_blue from "./cluster_blue.png";
 import cluster_purple from "./cluster_purple.png";
 import cluster_red from "./cluster_red.png";
 import cluster_yellow from "./cluster_yellow.png";
-import mapStyles from "./mapStyles.json";
+import mapStyles from "@/utils/mapStyles.json";
 import invaders from "./locations.json";
-import marker from "./marker.png";
+import marker from "./marker.svg?url";
+import userPosition from "./userPosition.svg?url";
 import { GoogleMapProps } from "@react-google-maps/api";
+import { Paris } from "@/utils";
 import MapOptions = google.maps.MapOptions;
 import LatLngLiteral = google.maps.LatLngLiteral;
 
@@ -30,6 +32,7 @@ export type InvaderWithLocation = Invader & {
 
 const invadersLocationList = invaders as InvaderWithLocation[];
 const markerIcon = marker.src;
+const userPositionIcon = userPosition.src;
 export const clustererOptions: ClustererOptions = {
   styles: [
     {
@@ -68,14 +71,12 @@ export const clustererOptions: ClustererOptions = {
 };
 
 export const mapOptions: MapOptions = {
-  minZoom: 12,
+  mapId: "bc9e5a99ff21e1e7",
+  heading: 0,
+  tilt: 0,
+  minZoom: 10,
+  maxZoom: 18,
   disableDefaultUI: true,
-  styles: mapStyles.sixtyfour,
-};
-
-export const Paris: LatLngLiteral = {
-  lat: 48.861071,
-  lng: 2.350494,
 };
 
 export const defaultGoogleMapProps: GoogleMapProps = {
@@ -128,4 +129,4 @@ export const filterInvadersInView: (
     });
 };
 
-export { markerIcon, mapStyles, invadersLocationList };
+export { markerIcon, mapStyles, userPositionIcon, invadersLocationList };

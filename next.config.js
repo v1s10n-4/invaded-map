@@ -39,10 +39,15 @@ const nextConfig = {
       permanent: false,
     },
   ],
+  images: {
+    formats: ["image/avif", "image/webp"],
+    domains: ["maps.googleapis.com"],
+  },
 };
 
 const withPWA = require("@imbios/next-pwa")({
   dest: "public",
+  disable: process.env.NODE_ENV === "development",
 });
 
 module.exports = withPWA(nextConfig);

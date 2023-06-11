@@ -1,5 +1,5 @@
 import Image from "next/image";
-import SplashScreen from "@/public/assets/images/spashscreen.gif";
+import SplashScreen from "@/public/assets/images/splashscreen.gif";
 
 const RootLoading = () => (
   <Image

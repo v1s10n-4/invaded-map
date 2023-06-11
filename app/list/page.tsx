@@ -6,6 +6,8 @@ import InvaderList from "@/app/list/InvaderList";
 import { SearchInput } from "@/components/SearchInput";
 import FilterMenu from "@/app/list/FilterMenu";
 
+export const runtime = "edge";
+
 const searchClient = algoliasearch(
   process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID!,
   process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY!

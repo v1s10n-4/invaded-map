@@ -16,6 +16,10 @@ interface IVDMapStoreState {
   closeMapSheet: () => void;
   openMapSheet: () => void;
   setMapSheetState: (index: MapSheetState) => void;
+  lockUserPosition: boolean;
+  lockUserRotation: boolean;
+  setLockUserPosition: (isLocked: boolean) => void;
+  setLockUserRotation: (isLocked: boolean) => void;
 }
 
 export const useIVDMapStore = create<IVDMapStoreState>()(
@@ -29,6 +33,12 @@ export const useIVDMapStore = create<IVDMapStoreState>()(
         closeMapSheet: () => set(() => ({ isMapSheetOpen: false })),
         openMapSheet: () => set(() => ({ isMapSheetOpen: true })),
         setMapSheetState: (index) => set(() => ({ mapSheetState: index })),
+        lockUserPosition: false,
+        lockUserRotation: false,
+        setLockUserPosition: (isLocked) =>
+          set(() => ({ lockUserPosition: isLocked })),
+        setLockUserRotation: (isLocked) =>
+          set(() => ({ lockUserRotation: isLocked })),
       }),
       {
         name: "invaded-map",
