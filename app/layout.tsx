@@ -20,11 +20,11 @@ const sixtyfour = localFont({
 const appName = "Invaded Map";
 const appDescription =
   "Locate all space invaders for Flash Invaders app & more!";
-const appUrl = new URL(
-  process.env.VERCEL_URL || process.env.URL || "http://localhost:3000"
-);
+// const appUrl = new URL(
+//   process.env.VERCEL_URL || process.env.URL || "http://localhost:3000"
+// );
 export const metadata: Metadata = {
-  metadataBase: appUrl,
+  // metadataBase: appUrl,
   title: appName,
   description: appDescription,
   applicationName: appName,
