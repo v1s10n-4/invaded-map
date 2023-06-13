@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
+import invaders from "@/invaders.json";
 
-const host =
-  process.env.VERCEL_URL ?? process.env.URL ?? "http://localhost:3000";
+const host = process.env.URL!;
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
@@ -20,5 +20,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${host}/highscores`,
       lastModified: new Date(),
     },
+    ...invaders.map((invader) => ({
+      url: `${host}/map/${invader.name}`,
+      lastModified: new Date(),
+    })),
   ];
 }

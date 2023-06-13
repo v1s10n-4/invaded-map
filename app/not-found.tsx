@@ -3,9 +3,9 @@ import {
   Colors,
   getStaticMapStyle,
   gmapUrlParams,
+  mapStyles,
 } from "@/utils";
 import Image from "next/image";
-import mapStyles from "@/utils/mapStyles.json";
 
 export const runtime = "edge";
 
