@@ -145,18 +145,6 @@ export const UserMarker: FC<UserMarkerProps> = ({ map }) => {
   return (
     <div className="absolute bottom-14 right-2 z-10 flex flex-col gap-2">
       <button
-        className="h-12 w-12 select-none border-2 border-primary bg-black p-1 text-primary"
-        onClick={zoom}
-      >
-        <PlusIcon className="h-full w-full" />
-      </button>
-      <button
-        className="h-12 w-12 select-none border-2 border-primary bg-black p-1 text-primary"
-        onClick={unZoom}
-      >
-        <MinusIcon className="h-full w-full" />
-      </button>
-      <button
         className={clsx(
           "relative h-12 w-12 select-none border-2 border-primary bg-black p-1 text-primary",
           isGeolocationEnabled && lockUserPosition
@@ -170,6 +158,18 @@ export const UserMarker: FC<UserMarkerProps> = ({ map }) => {
         ) : (
           <GPSIcon className="h-full w-full" />
         )}
+      </button>
+      <button
+        className="h-12 w-12 select-none border-2 border-primary bg-black p-1 text-primary"
+        onClick={zoom}
+      >
+        <PlusIcon className="h-full w-full" />
+      </button>
+      <button
+        className="h-12 w-12 select-none border-2 border-primary bg-black p-1 text-primary"
+        onClick={unZoom}
+      >
+        <MinusIcon className="h-full w-full" />
       </button>
     </div>
   );
