@@ -38,6 +38,11 @@ const nextConfig = {
       destination: "/map",
       permanent: false,
     },
+    {
+      source: "/highscore",
+      destination: "/highscores",
+      permanent: true,
+    },
   ],
   images: {
     formats: ["image/avif", "image/webp"],
