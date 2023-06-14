@@ -77,7 +77,6 @@ export const UserMarker: FC<UserMarkerProps> = ({ map }) => {
   }, [orientation, lockUserRotation, map]);
 
   useEffect(() => {
-    console.log("map effect");
     markerRef.current?.setMap(map);
   }, [map]);
 

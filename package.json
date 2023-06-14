@@ -12,6 +12,7 @@
   "dependencies": {
     "@imbios/next-pwa": "^1.1.1",
     "@radix-ui/react-menubar": "^1.0.2",
+    "@radix-ui/react-scroll-area": "^1.0.4",
     "@react-google-maps/api": "^2.18.1",
     "@tailwindcss/typography": "^0.5.9",
     "@types/node": "20.3.0",

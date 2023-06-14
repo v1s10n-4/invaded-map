@@ -100,7 +100,7 @@ const MenuBarContent = React.forwardRef<
         alignOffset={alignOffset}
         sideOffset={sideOffset}
         className={cn(
-          "text-popover-foreground z-50 min-w-[12rem] overflow-hidden border border-primary bg-base-100 p-0.5 shadow-md animate-in slide-in-from-top-1",
+          "text-popover-foreground z-50 min-w-[12rem] border border-primary bg-base-100 p-0.5 shadow-md animate-in slide-in-from-top-1",
           className
         )}
         {...props}
