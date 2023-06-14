@@ -15,6 +15,7 @@ import { clsx } from "clsx";
 import BuildingCommunity from "pixelarticons/svg/building-community.svg";
 import ImageFlash from "pixelarticons/svg/image-flash.svg";
 import Coin from "pixelarticons/svg/coin.svg";
+import { ScrollArea } from "@/components/ScrollArea";
 
 export const Filter: FC<RefinementListProps> = (props) => {
   const { items, refine } = useRefinementList(props);
@@ -41,30 +42,32 @@ export const Filter: FC<RefinementListProps> = (props) => {
           )}
         </span>
       </MenuBarTrigger>
-      <MenuBarContent align="center" className="mx-2 max-w-[calc(100vw-16px)]">
+      <MenuBarContent
+        align="center"
+        className="mx-2 -mb-4 max-w-[calc(100vw-16px)]"
+      >
         {canRefine && (
           <MenuBarItem onClick={() => clear()}>
             <span className="mx-auto">Clear</span>
           </MenuBarItem>
         )}
-        {items.map((item) => (
-          <MenuBarCheckboxItem
-            key={item.value}
-            textValue={item.value}
-            checked={item.isRefined}
-            onClick={(e) => {
-              console.log(e);
-              refine(item.value);
-            }}
-            className={clsx(
-              "flex justify-between gap-2 text-base",
-              item.isRefined && "text-primary"
-            )}
-          >
-            <span className="truncate">{item.label}</span>
-            <span>({item.count})</span>
-          </MenuBarCheckboxItem>
-        ))}
+        <ScrollArea type="auto">
+          {items.map((item) => (
+            <MenuBarCheckboxItem
+              key={item.value}
+              textValue={item.value}
+              checked={item.isRefined}
+              onClick={() => refine(item.value)}
+              className={clsx(
+                "flex justify-between gap-2 text-base",
+                item.isRefined && "text-primary"
+              )}
+            >
+              <span className="truncate">{item.label}</span>
+              <span>({item.count})</span>
+            </MenuBarCheckboxItem>
+          ))}
+        </ScrollArea>
       </MenuBarContent>
     </MenuBarMenu>
   );
