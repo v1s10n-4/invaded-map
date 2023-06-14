@@ -12,7 +12,6 @@ import Coin from "pixelarticons/svg/coin.svg";
 
 export const runtime = "edge";
 
-const vercelTempUrl = "https://invaded-map-git-dev-v1s10n4.vercel.app";
 type Params = { invaderName: string };
 type GenerateInvaderMapPageMetadata = ({
   params,
@@ -41,8 +40,8 @@ export const generateMetadata: GenerateInvaderMapPageMetadata = ({
       description: "Locate all space invaders for Flash Invaders app & more!",
       siteName: "Invaded Map",
       locale: "EN",
-      url: `${vercelTempUrl}/map/${invader?.name || 404}`,
-      images: `${vercelTempUrl}/api/map/invaders/${invader?.name || 404}/OG`,
+      url: `${process.env.URL}/map/${invader?.name || 404}`,
+      images: `${process.env.URL}/api/map/invaders/${invader?.name || 404}/OG`,
       countryName: "France",
     },
     twitter: {
@@ -50,7 +49,7 @@ export const generateMetadata: GenerateInvaderMapPageMetadata = ({
       description: "Locate all space invaders for Flash Invaders app & more!",
       site: "Invaded Map",
       creator: "v1s10n_4",
-      images: `${vercelTempUrl}/api/map/invaders/${invader?.name || 404}/OG`,
+      images: `${process.env.URL}/api/map/invaders/${invader?.name || 404}/OG`,
     },
   };
 };
