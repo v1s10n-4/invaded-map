@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import invaders from "@/invaders.json";
 import { notFound } from "next/navigation";
-import { getInvader } from "@/components/Map";
 import { Metadata } from "next";
 import Image from "next/image";
 import { SliderActions } from "@/components/SliderActions";
@@ -21,10 +20,16 @@ type GenerateInvaderMapPageMetadata = ({
 export const generateMetadata: GenerateInvaderMapPageMetadata = ({
   params,
 }) => {
-  const invader = getInvader(params.invaderName);
+  const invader = invaders.find(
+    (invader) => invader.name === params.invaderName
+  );
+  const title = invader?.name || "Invader not found";
+  const description = `${
+    invader ? `Everything about ${invader.name}` : "Locate all space invaders"
+  } for Flash Invaders app`;
   return {
-    title: `${invader?.name || "Invader not found"} | Invaded Map`,
-    description: "Locate all space invaders for Flash Invaders app & more!",
+    title,
+    description,
     authors: {
       name: "v1s10n_4",
       url: "https://github.com/v1s10n-4/",
@@ -36,8 +41,8 @@ export const generateMetadata: GenerateInvaderMapPageMetadata = ({
     creator: "v1s10n_4",
     publisher: "not made by invader",
     openGraph: {
-      title: invader?.name || "Invader not found | Invaded Map",
-      description: "Locate all space invaders for Flash Invaders app & more!",
+      title,
+      description,
       siteName: "Invaded Map",
       locale: "EN",
       url: `${process.env.URL}/map/${invader?.name || 404}`,
@@ -45,8 +50,8 @@ export const generateMetadata: GenerateInvaderMapPageMetadata = ({
       countryName: "France",
     },
     twitter: {
-      title: invader?.name || "Invader not found | Invaded Map",
-      description: "Locate all space invaders for Flash Invaders app & more!",
+      title,
+      description,
       site: "Invaded Map",
       creator: "v1s10n_4",
       images: `${process.env.URL}/api/map/invaders/${invader?.name || 404}/OG`,
