@@ -38,7 +38,9 @@ export const MapView = () => {
     if (map) {
       const currentZoom = map.getZoom();
       if (invaderName) {
-        const invader = getInvader(invaderName);
+        const name =
+          typeof invaderName === "string" ? invaderName : invaderName.at(0)!;
+        const invader = getInvader(name);
         if (invader) map?.panTo(getLatLng(invader));
         if (!hasZoomed) {
           if (currentZoom) map?.setZoom(currentZoom + 2);

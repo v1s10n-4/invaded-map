@@ -1,15 +1,23 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
 
-import {baseGoogleStaticMapUrl, Colors, getStaticMapStyle, gmapUrlParams} from "@/utils";
-import {ImageResponse, NextRequest} from "next/server";
-import {getInvader, mapStyles} from "@/components/Map";
+import {
+  baseGoogleStaticMapUrl,
+  Colors,
+  getStaticMapStyle,
+  gmapUrlParams,
+} from "@/utils";
+import { ImageResponse, NextRequest } from "next/server";
+import { getInvader, mapStyles } from "@/components/Map";
 
 export const runtime = "edge";
 
 type RouteParams = { params: { invaderName: string } };
 
-export async function GET(request: NextRequest, params: RouteParams) {
+export async function GET(
+  request: NextRequest,
+  params: RouteParams
+): Promise<Response> {
   const fontResponse = await fetch(
     `${request.nextUrl.origin}/assets/fonts/Sixtyfour-Normal.ttf`
   );
@@ -121,6 +129,6 @@ export async function GET(request: NextRequest, params: RouteParams) {
         },
       ],
     }
-  );
+  ) as Response;
   // return NextResponse.json(request.nextUrl.origin);
 }

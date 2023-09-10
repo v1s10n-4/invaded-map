@@ -277,6 +277,19 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                   Highscores
                 </Link>
               </li>
+              <li className="mt-auto">
+                <Link
+                  href="/help"
+                  className={clsx(
+                    "text-xl text-primary",
+                    BoxClasses,
+                    BoxHoverClasses,
+                    BoxActiveClasses
+                  )}
+                >
+                  Help
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
