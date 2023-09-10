@@ -9,6 +9,7 @@ import marker from "./marker.svg?url";
 import userPosition from "./userPosition.svg?url";
 import { GoogleMapProps } from "@react-google-maps/api";
 import { Paris } from "@/utils";
+import { Library } from "@googlemaps/js-api-loader";
 import MapOptions = google.maps.MapOptions;
 import LatLngLiteral = google.maps.LatLngLiteral;
 
@@ -96,7 +97,7 @@ type Libraries = (
   | "places"
   | "visualization"
 )[];
-export const gmapLibraries = ["geometry"] as Libraries;
+export const gmapLibraries = ["geometry"] as Library[];
 
 export const getInvader: (name: string) => InvaderWithLocation | undefined = (
   name
