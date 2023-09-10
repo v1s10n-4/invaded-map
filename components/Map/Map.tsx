@@ -66,6 +66,13 @@ export const MapView = () => {
       <GoogleMap
         {...defaultGoogleMapProps}
         onLoad={setMap}
+        onTilesLoaded={() =>
+          Array.from(
+            document.querySelectorAll(
+              `img[src="https://maps.gstatic.com/mapfiles/api-3/images/google_gray.svg"]`
+            )
+          )?.forEach((el) => el.parentElement?.parentElement?.remove())
+        }
         onDragStart={() => {
           setLockUserPosition(false);
           setLockUserRotation(false);
