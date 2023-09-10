@@ -10,11 +10,12 @@ const FeedbackPage = () => {
     "use server";
     const { content } = Object.fromEntries(formData.entries());
     if (!content) return;
-    const url = process.env.DISCORD_WEBHOOK!;
-    const res = await fetch(url, {
+    const res = await fetch(process.env.DISCORD_WEBHOOK!, {
       method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
       body: JSON.stringify({
-        username: "Website feedback",
         content,
       }),
     });
