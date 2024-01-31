@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import MenuIcon from "pixelarticons/svg/menu.svg";
 import Link from "next/link";
 import localFont from "next/font/local";
@@ -296,6 +297,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </body>
       <Analytics />
       <GtmInit />
+      <SpeedInsights />
     </html>
   );
 }
