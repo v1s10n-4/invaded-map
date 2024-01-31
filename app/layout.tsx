@@ -202,7 +202,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       content="width=device-width, initial-scale=1, maximum-scale=1"
     >
       <body className={sixtyfour.className}>
-        <div className="lg:drawer-open drawer">
+        <div className="drawer h-screen lg:drawer-open">
           <input
             id="drawer-toggle"
             type="checkbox"
@@ -235,9 +235,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               {children}
             </div>
           </div>
-          <div className="drawer-side">
+          <div className="drawer-side z-40">
             <label htmlFor="drawer-toggle" className="drawer-overlay"></label>
-            <ul className="menu w-80 gap-3 border-r-4 border-double border-primary bg-base-100 p-4">
+            <ul className="menu h-full w-80 gap-3 border-r-4 border-double border-primary bg-base-100 p-4">
               <li>
                 <Link
                   href="/map"

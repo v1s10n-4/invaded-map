@@ -43,6 +43,9 @@ module.exports = {
   },
   theme: {
     extend: {
+      height: {
+        screen: ["100vh", "100dvh"],
+      },
       keyframes: {
         "accordion-down": {
           from: { height: 0 },
