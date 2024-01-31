@@ -202,20 +202,20 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       content="width=device-width, initial-scale=1, maximum-scale=1"
     >
       <body className={sixtyfour.className}>
-        <div className="drawer-mobile drawer">
+        <div className="lg:drawer-open drawer">
           <input
             id="drawer-toggle"
             type="checkbox"
             className="drawer-toggle"
             tabIndex={-1}
           />
-          <div className="drawer-content relative flex flex-col p-2  scrollbar scrollbar-thumb-current scrollbar-track-black">
+          <div className="scrollbar drawer-content relative flex flex-col  p-2 scrollbar-thumb-current scrollbar-track-black">
             <div className="sticky top-2 z-10 w-full place-self-center md:inset-x-6 md:top-5 md:w-fit">
               <div className={clsx("navbar bg-base-100", BoxClasses)}>
                 <div className="navbar-start">
                   <label
                     htmlFor="drawer-toggle"
-                    className="btn-ghost btn-square btn lg:hidden"
+                    className="btn btn-square btn-ghost lg:hidden"
                   >
                     <MenuIcon className="h-full w-full text-primary" />
                   </label>
