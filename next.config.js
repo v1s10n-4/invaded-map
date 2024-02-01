@@ -2,8 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
+    ppr: true,
     typedRoutes: true,
-    serverActions: true,
   },
   webpack(config) {
     const fileLoaderRule = config.module.rules.find((rule) =>

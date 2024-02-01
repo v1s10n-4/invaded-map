@@ -1,14 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
 
+import { getInvader, mapStyles } from "@/components/Map";
 import {
   baseGoogleStaticMapUrl,
   Colors,
   getStaticMapStyle,
   gmapUrlParams,
 } from "@/utils";
-import { ImageResponse, NextRequest } from "next/server";
-import { getInvader, mapStyles } from "@/components/Map";
+import { ImageResponse } from "next/og";
+import { NextRequest } from "next/server";
 
 export const runtime = "edge";
 
