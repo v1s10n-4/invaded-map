@@ -6,7 +6,7 @@ import Link from "next/link";
 import localFont from "next/font/local";
 import { BoxActiveClasses, BoxClasses, BoxHoverClasses } from "@/utils";
 import { clsx } from "clsx";
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { Metadata } from "next";
 import { GtmInit } from "@/app/GtmInit";
 
