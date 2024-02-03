@@ -294,10 +294,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </ul>
           </div>
         </div>
+        <SpeedInsights />
       </body>
       <Analytics />
       <GtmInit />
-      <SpeedInsights />
     </html>
   );
 }
