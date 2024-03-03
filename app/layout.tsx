@@ -6,8 +6,8 @@ import Link from "next/link";
 import localFont from "next/font/local";
 import { BoxActiveClasses, BoxClasses, BoxHoverClasses } from "@/utils";
 import { clsx } from "clsx";
-import { ReactNode } from "react";
-import { Metadata } from "next";
+import React, { ReactNode } from "react";
+import { Metadata, Viewport } from "next";
 import { GtmInit } from "@/app/GtmInit";
 
 export const runtime = "edge";
@@ -26,8 +26,17 @@ const appUrl = new URL(
     ? "https://invaded-map.com"
     : "https://staging.invaded-map.com"
 );
+
+export const viewport: Viewport = {
+  themeColor: "#000000",
+  colorScheme: "dark",
+  minimumScale: 1,
+  initialScale: 1,
+  width: "device-width",
+  viewportFit: "cover",
+};
 export const metadata: Metadata = {
-  // metadataBase: appUrl,
+  metadataBase: appUrl,
   title: appName,
   description: appDescription,
   applicationName: appName,
@@ -56,9 +65,6 @@ export const metadata: Metadata = {
     date: false,
     address: false,
   },
-  themeColor: "#000000",
-  viewport:
-    "minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover",
   icons: {
     shortcut: ["/favicon.ico", "/icons/ios/16.png"],
     icon: [
@@ -187,7 +193,6 @@ export const metadata: Metadata = {
     // { rel: "apple-touch-icon", url: "/icons/apple-touch-icon.png" },
     // { rel: "shortcut icon", url: "/favicon.ico" },
   },
-  colorScheme: "dark",
   manifest: "manifest.json",
   other: {
     "mobile-web-app-capable": "yes",
@@ -294,10 +299,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </ul>
           </div>
         </div>
+        <SpeedInsights />
       </body>
       <Analytics />
       <GtmInit />
-      <SpeedInsights />
     </html>
   );
 }
