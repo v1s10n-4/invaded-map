@@ -193,7 +193,7 @@ export const metadata: Metadata = {
     // { rel: "apple-touch-icon", url: "/icons/apple-touch-icon.png" },
     // { rel: "shortcut icon", url: "/favicon.ico" },
   },
-  manifest: "manifest.json",
+  manifest: "/manifest.json",
   other: {
     "mobile-web-app-capable": "yes",
   },
