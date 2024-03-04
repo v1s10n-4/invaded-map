@@ -9,8 +9,14 @@ export type HighScore = {
   isMe: boolean;
   isFollow: boolean;
   isFriend: boolean;
-}
+};
 
 export type HighScoresResponse = {
   Players: HighScore[];
-}
+};
+
+export type UserSearchResponse = {
+  Players: HighScore[];
+  message: string;
+  code: number;
+};
