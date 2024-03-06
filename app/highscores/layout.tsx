@@ -16,17 +16,9 @@ const HighScoreLayout: FC<PropsWithChildren> = async ({ children }) => {
         <input
           name="search"
           type="text"
-          placeholder="Search"
+          placeholder="Search by username"
           className="caret input input-bordered w-full border-primary px-10 caret-primary focus:outline-none focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black"
         />
-        {/*{query && (*/}
-        {/*  <button*/}
-        {/*    onClick={clear}*/}
-        {/*    className="absolute inset-y-0 right-0 h-full w-10 place-self-center hover:text-primary focus-visible:text-primary"*/}
-        {/*  >*/}
-        {/*    <CloseBox className="ml-1 h-6 w-6" />*/}
-        {/*  </button>*/}
-        {/*)}*/}
       </form>
       {children}
     </main>
