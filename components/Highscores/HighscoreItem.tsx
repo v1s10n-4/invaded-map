@@ -16,14 +16,14 @@ export const HighscoreItem = ({
       <span className="text-xl font-bold text-primary">{name}</span>
     </h4>
     <p className="whitespace-nowrap">
-      Score: <span className="font-bold text-primary">{score}</span>,
+      Score: <span className="font-bold text-primary">{score}</span>
     </p>
     <p>
       Invaders flashed:{" "}
       <span className="font-bold text-primary">{invaders_count}</span>
     </p>
     <p>
-      Shots: <span className="font-bold text-primary">{nbShots}</span>,
+      Shots: <span className="font-bold text-primary">{nbShots}</span>
     </p>
     <p>
       Cities discovered:{" "}
