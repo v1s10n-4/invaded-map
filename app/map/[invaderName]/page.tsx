@@ -36,8 +36,6 @@ export const generateMetadata: GenerateInvaderMapPageMetadata = ({
     },
     keywords: ["space", "invader", "map", invader?.name || ""],
     referrer: "origin",
-    themeColor: "#000000",
-    colorScheme: "dark",
     creator: "v1s10n_4",
     publisher: "not made by invader",
     openGraph: {
@@ -75,7 +73,7 @@ const InvaderPlacePage: FC<{ params: Params }> = ({
     | undefined;
   if (!invader) notFound();
   return (
-    <div className="flex flex-col items-center gap-4 p-4 scrollbar md:flex-row">
+    <div className="scrollbar flex flex-col items-center gap-4 p-4 md:flex-row">
       <div className={clsx("relative flex items-center p-0.5", BoxClasses)}>
         <div className="carousel w-full md:h-60">
           {invader.images.map((image, i, arr) => (
