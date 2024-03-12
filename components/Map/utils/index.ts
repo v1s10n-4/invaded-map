@@ -6,6 +6,7 @@ import cluster_yellow from "./cluster_yellow.png";
 import mapStyles from "@/utils/mapStyles.json";
 import invaders from "./locations.json";
 import marker from "./marker.svg?url";
+import markerSelected from "./marker-selected.svg?url";
 import userPosition from "./userPosition.svg?url";
 import { GoogleMapProps } from "@react-google-maps/api";
 import { Paris } from "@/utils";
@@ -33,6 +34,7 @@ export type InvaderWithLocation = Invader & {
 
 const invadersLocationList = invaders as InvaderWithLocation[];
 const markerIcon = marker.src;
+const markerSelectedIcon = markerSelected.src;
 const userPositionIcon = userPosition.src;
 export const clustererOptions: ClustererOptions = {
   styles: [
@@ -130,4 +132,10 @@ export const filterInvadersInView: (
     });
 };
 
-export { markerIcon, mapStyles, userPositionIcon, invadersLocationList };
+export {
+  markerIcon,
+  markerSelectedIcon,
+  mapStyles,
+  userPositionIcon,
+  invadersLocationList,
+};
