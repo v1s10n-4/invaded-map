@@ -15,6 +15,7 @@ import {
   gmapLibraries,
   invadersLocationList,
   markerIcon,
+  markerSelectedIcon,
 } from "./utils";
 import { useParams, useRouter } from "next/navigation";
 import useIVDMapStore from "@/app/store";
@@ -63,7 +64,9 @@ export const MapView = () => {
         />
       }
       libraries={gmapLibraries}
-      googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY!}
+      googleMapsApiKey={
+        process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY! + `&loading=async`
+      }
     >
       <GoogleMap
         {...defaultGoogleMapProps}
@@ -87,7 +90,7 @@ export const MapView = () => {
             <>
               {invadersLocationList.map(({ lat, lng, name }) => (
                 <Marker
-                  icon={markerIcon}
+                  icon={invaderName === name ? markerSelectedIcon : markerIcon}
                   key={`${lat}${lng}${name}`}
                   position={{ lat, lng }}
                   clusterer={clusterer}
