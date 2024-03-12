@@ -63,7 +63,9 @@ export const MapView = () => {
         />
       }
       libraries={gmapLibraries}
-      googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY!}
+      googleMapsApiKey={
+        process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY! + `&loading=async`
+      }
     >
       <GoogleMap
         {...defaultGoogleMapProps}
