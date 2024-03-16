@@ -1707,12 +1707,6 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-<<<<<<< Updated upstream
-"@next/env@14.2.0-canary.20":
-  version "14.2.0-canary.20"
-  resolved "https://registry.yarnpkg.com/@next/env/-/env-14.2.0-canary.20.tgz#e69470ca30d4c386fcc07b2f8d6488f6647c49c3"
-  integrity sha512-5Xl3N5QRWsEcQYzJwXcTj7Sl5yg+PmD1Hafnj0gUHSfA1D61An7OMgb/qb+gyPez9v0xgVYM30xe/B8Y7wynbw==
-=======
 "@neondatabase/serverless@0.7.2":
   version "0.7.2"
   resolved "https://registry.yarnpkg.com/@neondatabase/serverless/-/serverless-0.7.2.tgz#4deeda842df154e061b8e798dec5d03d1310fa92"
@@ -1720,11 +1714,10 @@
   dependencies:
     "@types/pg" "8.6.6"
 
-"@next/env@14.2.0-canary.18":
-  version "14.2.0-canary.18"
-  resolved "https://registry.yarnpkg.com/@next/env/-/env-14.2.0-canary.18.tgz#6f05c073a747df468eb9eaab3146ed092c795973"
-  integrity sha512-43D/fo0QrVzBcAzI4bRXM6iOfQ4+4y8l7FU6XYoSu/BVc2bD4QwR7j1nRCU9c1Kv2Y0PWU/4kN/7yINH6YMj5Q==
->>>>>>> Stashed changes
+"@next/env@14.2.0-canary.20":
+  version "14.2.0-canary.20"
+  resolved "https://registry.yarnpkg.com/@next/env/-/env-14.2.0-canary.20.tgz#e69470ca30d4c386fcc07b2f8d6488f6647c49c3"
+  integrity sha512-5Xl3N5QRWsEcQYzJwXcTj7Sl5yg+PmD1Hafnj0gUHSfA1D61An7OMgb/qb+gyPez9v0xgVYM30xe/B8Y7wynbw==
 
 "@next/eslint-plugin-next@14.2.0-canary.20":
   version "14.2.0-canary.20"
@@ -2325,6 +2318,13 @@
   resolved "https://registry.yarnpkg.com/@trysound/sax/-/sax-0.2.0.tgz#cccaab758af56761eb7bf37af6f03f326dd798ad"
   integrity sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==
 
+"@types/bun@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@types/bun/-/bun-1.0.8.tgz#5228b0c5c84150f8fe85d4eac851bca2d6250526"
+  integrity sha512-E6UWZuN4ymAxzUBWVIGDHJ3Zey7I8cMzDZ+cB1BqhZsmd1uPb9iAQzpWMruY1mKzsuD3R+dZPoBkZz8QL1KhSA==
+  dependencies:
+    bun-types "1.0.29"
+
 "@types/dom-speech-recognition@^0.0.1":
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/@types/dom-speech-recognition/-/dom-speech-recognition-0.0.1.tgz#e326761a04b4a49c0eec2ac7948afc1c6aa12baa"
@@ -2389,6 +2389,13 @@
   version "20.11.15"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-20.11.15.tgz#b853a86cfedbc768360c552b4653302b4e7417bf"
   integrity sha512-gscmuADZfvNULx1eyirVbr3kVOVZtpQtzKMCZpeSZcN6MfbkRXAR4s9/gsQ4CzxLHw6EStDtKLNtSDL3vbq05A==
+  dependencies:
+    undici-types "~5.26.4"
+
+"@types/node@~20.11.3":
+  version "20.11.28"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.11.28.tgz#4fd5b2daff2e580c12316e457473d68f15ee6f66"
+  integrity sha512-M/GPWVS2wLkSkNHVeLkrF2fD5Lx5UC4PxA0uZcKc6QqbIQUJyW1jVjueJYi1z8n0I5PxYrtpnPnWglE+y9A0KA==
   dependencies:
     undici-types "~5.26.4"
 
@@ -2459,6 +2466,13 @@
   version "2.0.7"
   resolved "https://registry.yarnpkg.com/@types/trusted-types/-/trusted-types-2.0.7.tgz#baccb07a970b91707df3a3e8ba6896c57ead2d11"
   integrity sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==
+
+"@types/ws@~8.5.10":
+  version "8.5.10"
+  resolved "https://registry.yarnpkg.com/@types/ws/-/ws-8.5.10.tgz#4acfb517970853fa6574a3a6886791d04a396787"
+  integrity sha512-vmQSUcfalpIq0R9q7uTo2lXs6eGIpt9wtnLdMv9LVpIjCA/+ufZRozlVoVelIYixx1ugCBKDhn89vnsEGOCx9A==
+  dependencies:
+    "@types/node" "*"
 
 "@typescript-eslint/parser@^5.4.2 || ^6.0.0 || ^7.0.1":
   version "7.1.1"
@@ -2920,6 +2934,14 @@ builtin-modules@^3.1.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/builtin-modules/-/builtin-modules-3.3.0.tgz#cae62812b89801e9656336e46223e030386be7b6"
   integrity sha512-zhaCDicdLuWN5UbN5IMnFqNMhNfo919sH85y2/ea+5Yg9TsTkeZxpL+JLbp6cgYFS4sRLp3YV4S6yDuqVWHYOw==
+
+bun-types@1.0.29:
+  version "1.0.29"
+  resolved "https://registry.yarnpkg.com/bun-types/-/bun-types-1.0.29.tgz#b761f9c181aa0efa1c749ddfba2a28e4778dfaf2"
+  integrity sha512-Z+U1ORr/2UCwxelIZxE83pyPLclviYL9UewQCNEUmGeLObY8ao+3WF3D8N1+NMv2+S+hUWsdBJam+4GoPEz35g==
+  dependencies:
+    "@types/node" "~20.11.3"
+    "@types/ws" "~8.5.10"
 
 busboy@1.6.0:
   version "1.6.0"
@@ -4333,6 +4355,11 @@ hasown@^2.0.0:
   dependencies:
     function-bind "^1.1.2"
 
+he@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
+  integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
+
 "heap@>= 0.2.0":
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/heap/-/heap-0.2.7.tgz#1e6adf711d3f27ce35a81fe3b7bd576c2260a8fc"
@@ -5102,22 +5129,15 @@ natural-compare@^1.4.0:
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==
 
-<<<<<<< Updated upstream
-next@14.2.0-canary.20:
-  version "14.2.0-canary.20"
-  resolved "https://registry.yarnpkg.com/next/-/next-14.2.0-canary.20.tgz#881fbd67189778c1d273685d4c7e498073e7d97a"
-  integrity sha512-oahpFRgRVDM6gxKRM7bDn0EElICOPfETrKLrVtz/g0G4+6EUkcFpOwtIZSApgmJfKjascpbyqtsNeaJ1lJ59NQ==
-=======
 next-tick@1, next-tick@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.1.0.tgz#1836ee30ad56d67ef281b22bd199f709449b35eb"
   integrity sha512-CXdUiJembsNjuToQvxayPZF9Vqht7hewsvy2sOWafLvi2awflj9mOC6bHIg50orX8IJvWKY9wYQ/zB2kogPslQ==
 
-next@14.2.0-canary.18:
-  version "14.2.0-canary.18"
-  resolved "https://registry.yarnpkg.com/next/-/next-14.2.0-canary.18.tgz#25b51cc946985d5bc9a464d55bec2d3045f5020c"
-  integrity sha512-Tsy1KgyfSazDUlZ39mrcWOPKs3FfCjq2tC4eLJ5MlsccB9tVM4/KRjLdzgAlBz/I6NKsrp1U3A2Q6DxnRLA+PQ==
->>>>>>> Stashed changes
+next@14.2.0-canary.20:
+  version "14.2.0-canary.20"
+  resolved "https://registry.yarnpkg.com/next/-/next-14.2.0-canary.20.tgz#881fbd67189778c1d273685d4c7e498073e7d97a"
+  integrity sha512-oahpFRgRVDM6gxKRM7bDn0EElICOPfETrKLrVtz/g0G4+6EUkcFpOwtIZSApgmJfKjascpbyqtsNeaJ1lJ59NQ==
   dependencies:
     "@next/env" "14.2.0-canary.20"
     "@swc/helpers" "0.5.5"
@@ -5149,6 +5169,14 @@ node-gyp-build@^4.3.0:
   version "4.8.0"
   resolved "https://registry.yarnpkg.com/node-gyp-build/-/node-gyp-build-4.8.0.tgz#3fee9c1731df4581a3f9ead74664369ff00d26dd"
   integrity sha512-u6fs2AEUljNho3EYTJNBfImO5QTo/J/1Etd+NVdCj7qWKUSN/bSLkZwhDv7I+w/MSC6qJ4cknepkAYykDdK8og==
+
+node-html-parser@^6.1.12:
+  version "6.1.12"
+  resolved "https://registry.yarnpkg.com/node-html-parser/-/node-html-parser-6.1.12.tgz#6138f805d0ad7a6b5ef415bcd91bca07374bf575"
+  integrity sha512-/bT/Ncmv+fbMGX96XG9g05vFt43m/+SYKIs9oAemQVYyVcZmDAI2Xq/SbNcpOA35eF0Zk2av3Ksf+Xk8Vt8abA==
+  dependencies:
+    css-select "^5.1.0"
+    he "1.2.0"
 
 node-releases@^2.0.14:
   version "2.0.14"
