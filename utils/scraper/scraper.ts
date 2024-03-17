@@ -1,11 +1,13 @@
-import invaders from "./awaz.json";
+import invaders from "./data.json";
 import { parse } from "node-html-parser";
 
 type Invader = (typeof invaders)[0];
 
 const rootUrl = "https://www.awazleon.space";
 
-const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));
+const sleep = (time: number) => new Promise((resolve) => setTimeout(resolve, time));
+
+const randomInRange = (min: number, max: number) => Math.floor(Math.random() * (max - min)) + min;
 
 const getImages = async (inv: Invader) => {
   console.log(`fetching ${inv.name}`);
@@ -52,10 +54,10 @@ const getImages = async (inv: Invader) => {
 
 const newInvadersList = [];
 
-const randomInRange = (min, max) => Math.floor(Math.random() * (max - min)) + min;
-
 for (let inv of invaders) {
+  // @ts-ignore
   newInvadersList.push({...inv, ...(await getImages(inv))});
+  // @ts-ignore
   await sleep(randomInRange(150, 250));
 }
 
