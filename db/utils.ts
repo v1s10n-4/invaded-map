@@ -1,5 +1,4 @@
-// Define a custom type for the point data type
-import { customType, pgEnum } from "drizzle-orm/pg-core";
+import { customType } from "drizzle-orm/pg-core";
 
 export type Image = {
   url: string;
@@ -16,17 +15,7 @@ export const location = customType<{
   toDriver(value) {
     return `(${value.lat},${value.lng})`;
   },
-  fromDriver(value: string) {
-    const [lat, lng] = value.slice(1, -1).split(",");
-    return { lat: parseFloat(lat), lng: parseFloat(lng) };
+  fromDriver(point: { x: number; y: number }) {
+    return { lat: point.x, lng: point.y };
   },
 });
-
-// {
-//   "A": "Actifs",
-//   "DG": "Dégradés",
-//   "H": "Non visibles",
-//   "D": "Détruits",
-//   "DD": "Def. détruits",
-//   "U": "Inconnu"
-// }

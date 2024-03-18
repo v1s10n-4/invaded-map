@@ -13,13 +13,14 @@ import {
 import { Image, location } from "@/db/utils";
 
 export const invaderStateEnum = pgEnum("invader_state", [
-  "A",
-  "DG",
-  "H",
-  "D",
-  "DD",
-  "U",
+  "A", // active
+  "DG", // degraded
+  "H", // hidden
+  "D", // destroyed
+  "DD", // def destroyed
+  "U", // unknown
 ]);
+
 export const invaders = pgTable("invaders", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 16 }).notNull(),
