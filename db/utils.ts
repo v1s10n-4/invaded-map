@@ -1,5 +1,5 @@
 // Define a custom type for the point data type
-import { customType, pgEnum } from 'drizzle-orm/pg-core';
+import { customType, pgEnum } from "drizzle-orm/pg-core";
 
 export type Image = {
   url: string;
@@ -22,11 +22,11 @@ export const location = customType<{
   },
 });
 
-
 // {
 //   "A": "Actifs",
 //   "DG": "Dégradés",
 //   "H": "Non visibles",
 //   "D": "Détruits",
-//   "DD": "Def. détruits"
+//   "DD": "Def. détruits",
+//   "U": "Inconnu"
 // }
