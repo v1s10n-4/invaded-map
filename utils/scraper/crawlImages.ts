@@ -20,7 +20,7 @@ const storeImage = async (url: string, name) => {
   await sleep(randomInRange(150, 250));
 };
 
-const resumeIndex = scraperData.findIndex((x) => x.name === "GNV_20");
+const resumeIndex = 0; // scraperData.findIndex((x) => x.name === "GNV_20");
 
 for (const inv of scraperData.slice(resumeIndex)) {
   await storeImage(inv.thumbnail, inv.name);
@@ -30,3 +30,4 @@ for (const inv of scraperData.slice(resumeIndex)) {
 }
 
 console.log(`🔥 Awesome! We've crawled ${scraperData.length} images! 🔥`);
+// $ bun x sharp-cli resize 900 --withoutEnlargement -i fesse/* -o q40/{name}.avif -f avif --chromaSubsampling 4:4:4 -q 35 --effort 6
