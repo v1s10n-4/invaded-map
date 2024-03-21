@@ -16,11 +16,7 @@ const searchClient = algoliasearch(
 const ListPage: FC = () => {
   return (
     <div className="flex h-full flex-col pt-24 md:pt-28 lg:pt-32">
-      <InstantSearch
-        routing={true}
-        searchClient={searchClient}
-        indexName="invaders"
-      >
+      <InstantSearch searchClient={searchClient} indexName="invaders">
         <div className="flex flex-row-reverse items-center gap-2 border-b-4 border-double border-primary px-2 pb-2 md:flex-col md:px-4 md:pb-4 lg:px-6 lg:pb-6">
           <FilterMenu />
           <SearchInput />
