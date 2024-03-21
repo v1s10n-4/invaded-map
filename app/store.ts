@@ -1,6 +1,6 @@
+import { InvaderWithLocation } from "@/db";
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
-import { InvaderWithLocation } from "@/components/Map";
 
 export enum MapSheetState {
   FULL,

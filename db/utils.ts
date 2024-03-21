@@ -15,6 +15,7 @@ export const location = customType<{
   toDriver(value) {
     return `(${value.lat},${value.lng})`;
   },
+  // @ts-ignore TODO fix this
   fromDriver(point: { x: number; y: number }) {
     return { lat: point.x, lng: point.y };
   },

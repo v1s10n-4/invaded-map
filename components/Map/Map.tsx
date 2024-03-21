@@ -61,7 +61,7 @@ export const MapView: FC<{ invaders: InvaderWithLocation[] }> = ({
         setHasZoomed(false);
       }
     }
-  }, [map, invaderName, hasZoomed]);
+  }, [map, invaderName, hasZoomed, invaders]);
   return (
     <LoadScriptNext
       loadingElement={
