@@ -1,6 +1,6 @@
 "use client";
+import { Invader } from "@/db";
 import React from "react";
-import { Invader } from "@/app/list/page";
 import InfiniteScroll from "react-infinite-scroller";
 import {
   useInfiniteHits,
@@ -13,7 +13,7 @@ const InvaderList = (props: UseInfiniteHitsProps<Invader>) => {
   const { hits, isLastPage, showMore, results } = useInfiniteHits(props);
   return (
     <div
-      className="carousel-vertical h-full scroll-pt-4 overflow-y-scroll scrollbar scrollbar-thumb-current scrollbar-track-black"
+      className="scrollbar carousel-vertical h-full scroll-pt-4 overflow-y-scroll scrollbar-thumb-current scrollbar-track-black"
       style={{ scrollbarColor: Colors.primary }}
     >
       <InfiniteScroll
