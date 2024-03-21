@@ -75,7 +75,7 @@ export async function GET(
         >
           {invader && (
             <img
-              src={`${request.nextUrl.origin}/assets/images/invaders/${invaderName}.png`}
+              src={invader.thumbnail}
               width={256}
               height={256}
               style={{
