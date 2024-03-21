@@ -1,5 +1,4 @@
 import { Invader } from "@/db";
-import { getState } from "@/utils/data";
 import { Hit } from "instantsearch.js";
 import Link from "next/link";
 import Image from "next/image";
@@ -43,7 +42,7 @@ export const InvaderHit = ({
       </div>
       <p className="flex items-center gap-2 text-xs">
         <ImageFlash className="flex h-5 w-5 shrink-0" />
-        {getState(state)} Created: {create_date.toLocaleDateString()}
+        {state}
       </p>
       <p className="flex items-center gap-2 text-xs">
         <BuildingCommunity className="h-5 w-5 shrink-0" />
