@@ -47,7 +47,10 @@ const nextConfig = {
   images: {
     // unoptimized: true,
     formats: ["image/avif", "image/webp"],
-    domains: ["maps.googleapis.com"],
+    domains: [
+      "kcdnccuifliyyw5b.public.blob.vercel-storage.com",
+      "maps.googleapis.com",
+    ],
   },
 };
 
