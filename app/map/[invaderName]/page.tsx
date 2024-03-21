@@ -1,5 +1,7 @@
+import { db, InvaderState, InvaderWithLocation } from "@/db";
+import { invaders } from "@/db/schema/invaders";
+import { eq, isNotNull } from "drizzle-orm";
 import React, { FC } from "react";
-import invaders from "@/invaders.json";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import Image from "next/image";
@@ -16,13 +18,26 @@ type GenerateInvaderMapPageMetadata = ({
   params,
 }: {
   params: Params;
-}) => Metadata;
-export const generateMetadata: GenerateInvaderMapPageMetadata = ({
+}) => Promise<Metadata>;
+
+const getState = (state: InvaderState) =>
+  ({
+    A: "Active",
+    DG: "Degraded",
+    H: "Hidden",
+    D: "Destroyed",
+    DD: "Exterminated",
+    U: "Unknown",
+  })[state];
+
+export const generateMetadata: GenerateInvaderMapPageMetadata = async ({
   params,
 }) => {
-  const invader = invaders.find(
-    (invader) => invader.name === params.invaderName
-  );
+  const [invader] = await db
+    .select()
+    .from(invaders)
+    .where(eq(invaders.name, params.invaderName));
+
   const title = invader?.name || "Invader not found";
   const description = `${
     invader ? `Everything about ${invader.name}` : "Locate all space invaders"
@@ -57,37 +72,32 @@ export const generateMetadata: GenerateInvaderMapPageMetadata = ({
   };
 };
 
-export type InvaderWithImage = {
-  name: string;
-  images: string[];
-  state: string;
-  reportDate: string;
-  city: string;
-  points: string;
-};
-const InvaderPlacePage: FC<{ params: Params }> = ({
+const InvaderPlacePage: FC<{ params: Params }> = async ({
   params: { invaderName },
 }) => {
-  const invader = invaders.find((i) => i.name === invaderName) as
-    | InvaderWithImage
-    | undefined;
+  const [invader] = await db
+    .select()
+    .from(invaders)
+    .where(eq(invaders.name, invaderName));
   if (!invader) notFound();
   return (
     <div className="scrollbar flex flex-col items-center gap-4 p-4 md:flex-row">
       <div className={clsx("relative flex items-center p-0.5", BoxClasses)}>
         <div className="carousel w-full md:h-60">
-          {invader.images.map((image, i, arr) => (
-            <div key={image} id={`slide${i}`} className="carousel-item w-full">
-              <Image
-                className="h-full w-full object-contain"
-                src={`/assets/images/invaders/${image}`}
-                alt={`${invader.name}'s invader picture`}
-                priority
-                width={400}
-                height={400}
-              />
-            </div>
-          ))}
+          {[invader.thumbnail, ...invader.images.map((x) => x.url)].map(
+            (url, i, arr) => (
+              <div key={url} id={`slide${i}`} className="carousel-item w-full">
+                <Image
+                  className="h-full w-full object-contain"
+                  src={url}
+                  alt="Image not found"
+                  priority
+                  width={400}
+                  height={400}
+                />
+              </div>
+            )
+          )}
           <SliderActions count={invader.images.length} />
         </div>
       </div>
@@ -97,9 +107,9 @@ const InvaderPlacePage: FC<{ params: Params }> = ({
           <span className="font-bold">{invader.points}</span> points
         </p>
         <p className="flex items-center gap-2">
-          <ImageFlash className="h-7 w-7" /> {invader.state} (
-          {invader.reportDate})
+          <ImageFlash className="h-7 w-7" /> {getState(invader.state)}
         </p>
+        <p>Created: {invader.create_date.toLocaleDateString()}</p>
       </div>
     </div>
   );
