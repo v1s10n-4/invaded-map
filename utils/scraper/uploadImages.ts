@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { db } from "@/db";
 import { invaders } from "@/db/schema/invaders";
 import { put } from "@vercel/blob";
