@@ -1,5 +1,4 @@
 import {
-  date,
   pgTable,
   pgEnum,
   serial,
@@ -7,7 +6,6 @@ import {
   text,
   timestamp,
   varchar,
-  customType,
   jsonb,
 } from "drizzle-orm/pg-core";
 import { Image, location } from "@/db/utils";
@@ -34,5 +32,5 @@ export const invaders = pgTable("invaders", {
   location: location("location"),
   info: text("info"),
   comment: text("comment"),
-  images: jsonb("images").$type<Image[]>(),
+  images: jsonb("images").default([]).notNull().$type<Image[]>(),
 });
