@@ -30,9 +30,9 @@ const MapPage: FC = () => {
             )}
           >
             <Image
-              className="h-fit w-full object-contain"
+              className="h-fit w-full text-wrap object-contain text-center align-middle text-xs leading-[192px]"
               src={invader.thumbnail}
-              alt={`${invader.name}'s invader picture`}
+              alt="Image not found"
               width={192}
               height={192}
             />

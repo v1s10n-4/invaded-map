@@ -1,15 +1,16 @@
-import { db, InvaderState, InvaderWithLocation } from "@/db";
+import { SliderActions } from "@/components/SliderActions";
+import { db } from "@/db";
 import { invaders } from "@/db/schema/invaders";
-import { eq, isNotNull } from "drizzle-orm";
-import React, { FC } from "react";
-import { notFound } from "next/navigation";
+import { BoxClasses } from "@/utils";
+import { getState } from "@/utils/data";
+import { clsx } from "clsx";
+import { eq } from "drizzle-orm";
 import { Metadata } from "next";
 import Image from "next/image";
-import { SliderActions } from "@/components/SliderActions";
-import { BoxClasses } from "@/utils";
-import { clsx } from "clsx";
-import ImageFlash from "pixelarticons/svg/image-flash.svg";
+import { notFound } from "next/navigation";
 import Coin from "pixelarticons/svg/coin.svg";
+import ImageFlash from "pixelarticons/svg/image-flash.svg";
+import React, { FC } from "react";
 
 export const runtime = "edge";
 
@@ -19,16 +20,6 @@ type GenerateInvaderMapPageMetadata = ({
 }: {
   params: Params;
 }) => Promise<Metadata>;
-
-const getState = (state: InvaderState) =>
-  ({
-    A: "Active",
-    DG: "Degraded",
-    H: "Hidden",
-    D: "Destroyed",
-    DD: "Exterminated",
-    U: "Unknown",
-  })[state];
 
 export const generateMetadata: GenerateInvaderMapPageMetadata = async ({
   params,
