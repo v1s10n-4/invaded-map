@@ -1,5 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { InvaderWithLocation } from "@/db";
+import React, { FC, useEffect, useState } from "react";
 import {
   GoogleMap,
   LoadScriptNext,
@@ -10,10 +11,7 @@ import {
   clustererOptions,
   defaultGoogleMapProps,
   filterInvadersInView,
-  getInvader,
-  getLatLng,
   gmapLibraries,
-  invadersLocationList,
   markerIcon,
   markerSelectedIcon,
 } from "./utils";
@@ -23,7 +21,16 @@ import SplashScreen from "@/public/assets/images/splashscreen.gif";
 import Image from "next/image";
 import UserMarker from "@/components/Map/UserMarker";
 
-export const MapView = () => {
+const removeGoogleCrap = () =>
+  Array.from(
+    document.querySelectorAll(
+      `img[src="https://maps.gstatic.com/mapfiles/api-3/images/google_gray.svg"]`
+    )
+  )?.forEach((el) => el.parentElement?.parentElement?.remove());
+
+export const MapView: FC<{ invaders: InvaderWithLocation[] }> = ({
+  invaders,
+}) => {
   const [hasZoomed, setHasZoomed] = useState<boolean>(false);
   const router = useRouter();
   const { invaderName } = useParams();
@@ -41,8 +48,10 @@ export const MapView = () => {
       if (invaderName) {
         const name =
           typeof invaderName === "string" ? invaderName : invaderName.at(0)!;
-        const invader = getInvader(name);
-        if (invader) map?.panTo(getLatLng(invader));
+        const invader = invaders.find(
+          (invader) => invader.name === invaderName
+        );
+        if (invader) map?.panTo(invader.location);
         if (!hasZoomed) {
           if (currentZoom) map?.setZoom(currentZoom + 2);
           setHasZoomed(true);
@@ -52,7 +61,7 @@ export const MapView = () => {
         setHasZoomed(false);
       }
     }
-  }, [map, invaderName, hasZoomed]);
+  }, [map, invaderName, hasZoomed, invaders]);
   return (
     <LoadScriptNext
       loadingElement={
@@ -71,28 +80,22 @@ export const MapView = () => {
       <GoogleMap
         {...defaultGoogleMapProps}
         onLoad={setMap}
-        onTilesLoaded={() =>
-          Array.from(
-            document.querySelectorAll(
-              `img[src="https://maps.gstatic.com/mapfiles/api-3/images/google_gray.svg"]`
-            )
-          )?.forEach((el) => el.parentElement?.parentElement?.remove())
-        }
+        onTilesLoaded={removeGoogleCrap}
         onDragStart={() => {
           setLockUserPosition(false);
           setLockUserRotation(false);
         }}
-        onIdle={() => setInvadersInView(filterInvadersInView(map))}
+        onIdle={() => setInvadersInView(filterInvadersInView(invaders, map))}
       >
         {map && <UserMarker map={map} />}
         <MarkerClusterer options={clustererOptions}>
           {(clusterer) => (
             <>
-              {invadersLocationList.map(({ lat, lng, name }) => (
+              {invaders.map(({ id, location, name }) => (
                 <Marker
                   icon={invaderName === name ? markerSelectedIcon : markerIcon}
-                  key={`${lat}${lng}${name}`}
-                  position={{ lat, lng }}
+                  key={id}
+                  position={location}
                   clusterer={clusterer}
                   onClick={() => router.push(`/map/${name}`)}
                   title={name}

@@ -1,0 +1,1 @@
+ALTER TYPE "invader_state" ADD VALUE 'U';
