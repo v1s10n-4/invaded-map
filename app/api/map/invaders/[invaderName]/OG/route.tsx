@@ -1,13 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
 
-import { getInvader, mapStyles } from "@/components/Map";
+import { mapStyles } from "@/components/Map";
+import { db } from "@/db";
+import { invaders } from "@/db/schema/invaders";
 import {
   baseGoogleStaticMapUrl,
   Colors,
   getStaticMapStyle,
   gmapUrlParams,
 } from "@/utils";
+import { eq } from "drizzle-orm";
 import { ImageResponse } from "next/og";
 import { NextRequest } from "next/server";
 
@@ -25,9 +28,16 @@ export async function GET(
   const fontData = await fontResponse.arrayBuffer();
   const searchParams = new URLSearchParams(gmapUrlParams);
   const invaderName = params.params.invaderName;
-  const invader = getInvader(invaderName);
-  if (invader) {
-    searchParams.set("center", `${invader.lat},${invader.lng}`);
+  const [invader] = await db
+    .select()
+    .from(invaders)
+    .where(eq(invaders.name, invaderName));
+
+  if (invader.location) {
+    searchParams.set(
+      "center",
+      `${invader.location.lat},${invader.location.lng}`
+    );
     searchParams.set("zoom", "16");
   }
   return new ImageResponse(
