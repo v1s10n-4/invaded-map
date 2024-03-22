@@ -28,11 +28,21 @@ export async function GET(
   const fontData = await fontResponse.arrayBuffer();
   const searchParams = new URLSearchParams(gmapUrlParams);
   const invaderName = params.params.invaderName;
+
   const [invader] = await db
     .select()
     .from(invaders)
     .where(eq(invaders.name, invaderName));
 
+  const res = await fetch(
+    `${request.nextUrl.origin}/api/get-thumbnail?url=${invader.thumbnail}`,
+    {
+      next: {
+        tags: [`${invader.name}:og`],
+      },
+    }
+  );
+  const b64ImageUrl = await res.json();
   if (invader.location) {
     searchParams.set(
       "center",
@@ -75,7 +85,7 @@ export async function GET(
         >
           {invader && (
             <img
-              src={invader.thumbnail}
+              src={`data:image/png;base64,${b64ImageUrl}`}
               width={256}
               height={256}
               style={{
