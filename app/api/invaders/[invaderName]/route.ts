@@ -16,5 +16,5 @@ export async function GET(
     .select()
     .from(invaders)
     .where(eq(invaders.name, invaderName));
-  return Response.json(invader);
+  return Response.json({ data: invader });
 }

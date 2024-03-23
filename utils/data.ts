@@ -21,7 +21,7 @@ export const getInvader = async (invaderName: string) => {
       tags: [route],
     },
   });
-  const invader: Invader | undefined = await res.json();
+  const { data: invader } = (await res.json()) as { data: Invader | undefined };
   return invader;
 };
 
