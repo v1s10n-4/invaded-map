@@ -1,17 +1,11 @@
 import Map from "@/components/Map";
 import MapSheet from "@/components/MapSheet";
-import { InvaderWithLocation } from "@/db";
+import { getInvadersWithLocation } from "@/utils/data";
 import React, { FC, PropsWithChildren } from "react";
 
 export const runtime = "edge";
 const MapLayout: FC<PropsWithChildren> = async ({ children }) => {
-  const route = "/api/map/invaders";
-  const response = await fetch(route, {
-    next: {
-      tags: [route],
-    },
-  });
-  const invaders: InvaderWithLocation[] = await response.json();
+  const invaders = await getInvadersWithLocation();
   return (
     <>
       <Map invaders={invaders} />
