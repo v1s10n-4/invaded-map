@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
-    ppr: true,
+    // ppr: true,
     typedRoutes: true,
   },
   webpack(config) {
