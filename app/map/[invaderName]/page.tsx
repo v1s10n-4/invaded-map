@@ -50,7 +50,7 @@ export const generateMetadata: GenerateInvaderMapPageMetadata = async ({
       siteName: "Invaded Map",
       locale: "EN",
       url: `${process.env.URL}/map/${invader?.name || 404}`,
-      images: `${process.env.URL}/api/map/invaders/${invader?.name || 404}/OG`,
+      images: `${process.env.URL}/api/invaders/${invader?.name || 404}/OG`,
       countryName: "France",
     },
     twitter: {
@@ -58,7 +58,7 @@ export const generateMetadata: GenerateInvaderMapPageMetadata = async ({
       description,
       site: "Invaded Map",
       creator: "v1s10n_4",
-      images: `${process.env.URL}/api/map/invaders/${invader?.name || 404}/OG`,
+      images: `${process.env.URL}/api/invaders/${invader?.name || 404}/OG`,
     },
   };
 };
