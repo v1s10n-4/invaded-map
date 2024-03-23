@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 
 import { InvaderImage } from "@/app/api/invaders/[invaderName]/OG/InvaderImage";
-import { Invader } from "@/db";
+import { getInvader } from "@/utils/data";
 import { ImageResponse } from "next/og";
 import { NextRequest } from "next/server";
 
@@ -20,15 +20,7 @@ export async function GET(
   const fontData = await fontResponse.arrayBuffer();
   const invaderName = params.params.invaderName;
 
-  const invaderRes = await fetch(
-    `${request.nextUrl.origin}/api/invaders/${invaderName}`,
-    {
-      next: {
-        tags: [`invaders/${invaderName}`],
-      },
-    }
-  );
-  const invader: Invader | undefined = await invaderRes.json();
+  const invader = await getInvader(invaderName);
   let b64ThumbnailDataURI;
 
   if (invader) {
