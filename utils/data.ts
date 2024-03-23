@@ -14,7 +14,7 @@ const headers: HeadersInit = {
   "api-token": process.env.API_TOKEN!,
 };
 export const getInvader = async (invaderName: string) => {
-  const route = `/api/invaders/${invaderName}`;
+  const route = `${process.env.URL}/api/invaders/${invaderName}`;
   const res = await fetch(route, {
     headers,
     next: {
@@ -26,7 +26,7 @@ export const getInvader = async (invaderName: string) => {
 };
 
 export const getInvadersWithLocation = async () => {
-  const route = "/api/map/invaders";
+  const route = `${process.env.URL}/api/map/invaders`;
   const response = await fetch(route, {
     headers,
     next: {
@@ -38,7 +38,7 @@ export const getInvadersWithLocation = async () => {
 };
 
 export const getInvaders = async () => {
-  const route = "/api/invaders";
+  const route = `${process.env.URL}/api/invaders`;
   const response = await fetch(route, {
     headers,
     next: {
