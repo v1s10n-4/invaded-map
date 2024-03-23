@@ -22,7 +22,6 @@ export const getInvader = async (invaderName: string) => {
     },
   });
   const invader: Invader | undefined = await res.json();
-  console.log({ invader });
   return invader;
 };
 

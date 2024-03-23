@@ -90,7 +90,7 @@ const InvaderPlacePage: FC<{ params: Params }> = async ({
         <p className="flex items-center gap-2">
           <ImageFlash className="h-7 w-7" /> {getState(invader.state)}
         </p>
-        <p>Created: {invader.create_date.toLocaleDateString()}</p>
+        <p>Created: {new Date(invader.create_date).toLocaleDateString()}</p>
       </div>
     </div>
   );
