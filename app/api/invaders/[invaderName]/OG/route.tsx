@@ -1,6 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
-/* eslint-disable jsx-a11y/alt-text */
-
 import { InvaderImage } from "@/app/api/invaders/[invaderName]/OG/InvaderImage";
 import { getInvader } from "@/utils/data";
 import { ImageResponse } from "next/og";
