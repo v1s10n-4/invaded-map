@@ -1,10 +1,7 @@
 import { SliderActions } from "@/components/SliderActions";
-import { db } from "@/db";
-import { invaders } from "@/db/schema/invaders";
 import { BoxClasses } from "@/utils";
-import { getState } from "@/utils/data";
+import { getInvader, getState } from "@/utils/data";
 import { clsx } from "clsx";
-import { eq } from "drizzle-orm";
 import { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -24,11 +21,7 @@ type GenerateInvaderMapPageMetadata = ({
 export const generateMetadata: GenerateInvaderMapPageMetadata = async ({
   params,
 }) => {
-  const [invader] = await db
-    .select()
-    .from(invaders)
-    .where(eq(invaders.name, params.invaderName));
-
+  const invader = await getInvader(params.invaderName);
   const title = invader?.name || "Invader not found";
   const description = `${
     invader ? `Everything about ${invader.name}` : "Locate all space invaders"
@@ -50,7 +43,7 @@ export const generateMetadata: GenerateInvaderMapPageMetadata = async ({
       siteName: "Invaded Map",
       locale: "EN",
       url: `${process.env.URL}/map/${invader?.name || 404}`,
-      images: `${process.env.URL}/api/map/invaders/${invader?.name || 404}/OG`,
+      images: `${process.env.URL}/api/invaders/${invader?.name || 404}/OG`,
       countryName: "France",
     },
     twitter: {
@@ -58,7 +51,7 @@ export const generateMetadata: GenerateInvaderMapPageMetadata = async ({
       description,
       site: "Invaded Map",
       creator: "v1s10n_4",
-      images: `${process.env.URL}/api/map/invaders/${invader?.name || 404}/OG`,
+      images: `${process.env.URL}/api/invaders/${invader?.name || 404}/OG`,
     },
   };
 };
@@ -66,10 +59,7 @@ export const generateMetadata: GenerateInvaderMapPageMetadata = async ({
 const InvaderPlacePage: FC<{ params: Params }> = async ({
   params: { invaderName },
 }) => {
-  const [invader] = await db
-    .select()
-    .from(invaders)
-    .where(eq(invaders.name, invaderName));
+  const invader = await getInvader(invaderName);
   if (!invader) notFound();
   return (
     <div className="scrollbar flex flex-col items-center gap-4 p-4 md:flex-row">
@@ -100,7 +90,7 @@ const InvaderPlacePage: FC<{ params: Params }> = async ({
         <p className="flex items-center gap-2">
           <ImageFlash className="h-7 w-7" /> {getState(invader.state)}
         </p>
-        <p>Created: {invader.create_date.toLocaleDateString()}</p>
+        <p>Created: {new Date(invader.create_date).toLocaleDateString()}</p>
       </div>
     </div>
   );

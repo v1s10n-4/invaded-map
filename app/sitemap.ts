@@ -1,8 +1,9 @@
+import { getInvaders } from "@/utils/data";
 import { MetadataRoute } from "next";
-import invaders from "@/invaders.json";
 
 const host = process.env.URL!;
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const invaders = await getInvaders();
   return [
     {
       url: `${host}`,

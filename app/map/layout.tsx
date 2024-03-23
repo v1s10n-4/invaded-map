@@ -1,20 +1,14 @@
-import { db, InvaderWithLocation } from "@/db";
-import { invaders } from "@/db/schema/invaders";
-import { isNotNull } from "drizzle-orm";
-import React, { FC, PropsWithChildren } from "react";
 import Map from "@/components/Map";
 import MapSheet from "@/components/MapSheet";
+import { getInvadersWithLocation } from "@/utils/data";
+import React, { FC, PropsWithChildren } from "react";
 
 export const runtime = "edge";
 const MapLayout: FC<PropsWithChildren> = async ({ children }) => {
-  const invadersWithLocation = (await db
-    .select()
-    .from(invaders)
-    .where(isNotNull(invaders.location))) as InvaderWithLocation[];
-
+  const invaders = await getInvadersWithLocation();
   return (
     <>
-      <Map invaders={invadersWithLocation} />
+      <Map invaders={invaders} />
       <MapSheet>{children}</MapSheet>
     </>
   );
