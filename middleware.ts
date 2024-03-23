@@ -6,7 +6,7 @@ export const config = {
 
 export function middleware(request: NextRequest) {
   const token = request.headers.get("api-token");
-  if (!token || token !== process.env.API_TOKEN)
+  if (!token || token !== process.env.API_SECRET)
     return NextResponse.json(
       { message: "Unauthorized access" },
       { status: 401 }

@@ -1,5 +1,5 @@
 import { InvaderImage } from "@/app/api/invaders/[invaderName]/OG/InvaderImage";
-import { getInvader } from "@/utils/data";
+import { get_PNG_b64_data_URI_from_AVIF_URL, getInvader } from "@/utils/data";
 import { ImageResponse } from "next/og";
 import { NextRequest } from "next/server";
 
@@ -16,21 +16,13 @@ export async function GET(
   );
   const fontData = await fontResponse.arrayBuffer();
   const invaderName = params.params.invaderName;
-
   const invader = await getInvader(invaderName);
   let b64ThumbnailDataURI;
 
   if (invader) {
-    const thumbnailRes = await fetch(
-      `${request.nextUrl.origin}/api/get-thumbnail?url=${invader.thumbnail}`,
-      {
-        next: {
-          tags: [`invaders/${invader.name}/og`],
-        },
-      }
+    b64ThumbnailDataURI = await get_PNG_b64_data_URI_from_AVIF_URL(
+      invader.thumbnail
     );
-    const b64Image = await thumbnailRes.json();
-    b64ThumbnailDataURI = `data:image/png;base64,${b64Image}`;
   }
 
   return new ImageResponse(

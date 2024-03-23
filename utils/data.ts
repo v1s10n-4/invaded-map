@@ -11,7 +11,7 @@ export const getState = (state: InvaderState) =>
   })[state];
 
 const headers: HeadersInit = {
-  "api-token": process.env.API_TOKEN!,
+  "api-token": process.env.API_SECRET!,
 };
 export const getInvader = async (invaderName: string) => {
   const route = `${process.env.URL}/api/invaders/${invaderName}`;
@@ -22,6 +22,7 @@ export const getInvader = async (invaderName: string) => {
     },
   });
   const invader: Invader | undefined = await res.json();
+  console.log({ invader });
   return invader;
 };
 
@@ -47,4 +48,16 @@ export const getInvaders = async () => {
   });
   const invaders: Invader[] = await response.json();
   return invaders;
+};
+
+export const get_PNG_b64_data_URI_from_AVIF_URL = async (url: string) => {
+  const route = `${process.env.URL}/api/get-thumbnail?url=${url}`;
+  const thumbnailRes = await fetch(route, {
+    headers,
+    next: {
+      tags: [route],
+    },
+  });
+  const b64Image = await thumbnailRes.json();
+  return `data:image/png;base64,${b64Image}`;
 };
