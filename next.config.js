@@ -47,9 +47,10 @@ const nextConfig = {
   images: {
     // unoptimized: true,
     formats: ["image/avif", "image/webp"],
-    domains: [
-      "kcdnccuifliyyw5b.public.blob.vercel-storage.com",
-      "maps.googleapis.com",
+    remotePatterns: [
+      { hostname: "kcdnccuifliyyw5b.public.blob.vercel-storage.com" },
+      { hostname: "maps.googleapis.com" },
+      { hostname: "picsum.photos" },
     ],
   },
 };

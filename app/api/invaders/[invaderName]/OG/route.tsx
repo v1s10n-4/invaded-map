@@ -17,9 +17,9 @@ export async function GET(
   const fontData = await fontResponse.arrayBuffer();
   const invaderName = params.params.invaderName;
   const invader = await getInvader(invaderName);
-  let b64ThumbnailDataURI;
+  let b64ThumbnailDataURI = invader?.thumbnail;
 
-  if (invader) {
+  if (invader && invader.thumbnail.endsWith(".avif")) {
     b64ThumbnailDataURI = await get_PNG_b64_data_URI_from_AVIF_URL(
       invader.thumbnail
     );
