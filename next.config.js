@@ -50,6 +50,7 @@ const nextConfig = {
     domains: [
       "kcdnccuifliyyw5b.public.blob.vercel-storage.com",
       "maps.googleapis.com",
+      "picsum.photos",
     ],
   },
 };
