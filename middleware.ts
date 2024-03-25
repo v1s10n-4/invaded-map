@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export const config = {
-  matcher: "/(api(?!/invaders/[^/]+/OG).*)",
+  matcher: "/(api(?!/invaders/[^/]+/OG|/revalidate).*)",
 };
 
 export function middleware(request: NextRequest) {
