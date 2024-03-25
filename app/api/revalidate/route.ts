@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
     return Response.json({ message: "unauthorized" }, { status: 401 });
   }
 
-  const paths = request.nextUrl.searchParams.get("path");
+  const paths = request.nextUrl.searchParams.getAll("path");
   if (paths) {
     for (const path of paths) {
       revalidatePath(path);
