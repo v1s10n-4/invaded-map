@@ -16,8 +16,8 @@ const headers: HeadersInit = {
 
 const base = `${process.env.URL}/api/`;
 export const getInvader = async (invaderName: string) => {
-  const route = `${base}invaders/${invaderName}`;
-  const res = await fetch(route, {
+  const route = `invaders/${invaderName}`;
+  const res = await fetch(base + route, {
     headers,
     next: {
       tags: [route],
@@ -28,8 +28,8 @@ export const getInvader = async (invaderName: string) => {
 };
 
 export const getInvadersWithLocation = async () => {
-  const route = `${base}map/invaders`;
-  const response = await fetch(route, {
+  const route = `map/invaders`;
+  const response = await fetch(base + route, {
     headers,
     next: {
       tags: [route],
@@ -40,8 +40,8 @@ export const getInvadersWithLocation = async () => {
 };
 
 export const getInvaders = async () => {
-  const route = `${base}invaders`;
-  const response = await fetch(route, {
+  const route = `invaders`;
+  const response = await fetch(base + route, {
     headers,
     next: {
       tags: [route],
@@ -52,8 +52,8 @@ export const getInvaders = async () => {
 };
 
 export const get_PNG_b64_data_URI_from_AVIF_URL = async (url: string) => {
-  const route = `${base}get-thumbnail?url=${url}`;
-  const thumbnailRes = await fetch(route, {
+  const route = `get-thumbnail?url=${url}`;
+  const thumbnailRes = await fetch(base + route, {
     headers,
     next: {
       tags: [route],
