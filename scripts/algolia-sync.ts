@@ -2,6 +2,10 @@ import { getInvaders, getState } from "@/utils/data";
 import { ObjectWithObjectID } from "@algolia/client-search";
 import algoliasearch from "algoliasearch";
 
+if (process.env.LOCAL === "true") {
+  console.warn("you're trying to update algolia data with local db data...");
+  process.exit(1);
+}
 const algoliaClient = algoliasearch(
   process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID!,
   "0287ad07d49e83fb11f554a7e10469b3"
@@ -10,15 +14,13 @@ const index = algoliaClient.initIndex("invaders");
 
 const list = await getInvaders().catch((error) => {
   console.error("Error getting records from api:", error);
-  process.exit(0);
+  process.exit(1);
 });
 
 if (!list.length) {
   console.error("there's no items return from api...");
-  process.exit(0);
+  process.exit(1);
 }
-console.log(list[0]);
-process.exit(0);
 
 let backupData: ObjectWithObjectID[] = [];
 await index.browseObjects({
