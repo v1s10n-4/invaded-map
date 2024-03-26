@@ -17,6 +17,7 @@
     "@imbios/next-pwa": "^1.1.1",
     "@radix-ui/react-menubar": "^1.0.3",
     "@radix-ui/react-scroll-area": "^1.0.4",
+    "@radix-ui/react-toggle": "^1.0.3",
     "@react-google-maps/api": "^2.19.3",
     "@tailwindcss/typography": "^0.5.10",
     "@types/node": "20.11.15",
