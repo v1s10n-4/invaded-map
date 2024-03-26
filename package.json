@@ -10,12 +10,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write './**/*.{js,ts,jsx,tsx,md,mdx,css,html,yml,yaml,json}' --ignore-path .gitignore"
+    "format": "prettier --write './**/*.{js,ts,jsx,tsx,md,mdx,css,html,yml,yaml,json}' --ignore-path .gitignore",
+    "algolia:regen": "bun run scripts/algolia-sync.ts"
   },
   "dependencies": {
     "@imbios/next-pwa": "^1.1.1",
     "@radix-ui/react-menubar": "^1.0.3",
     "@radix-ui/react-scroll-area": "^1.0.4",
+    "@radix-ui/react-toggle": "^1.0.3",
     "@react-google-maps/api": "^2.19.3",
     "@tailwindcss/typography": "^0.5.10",
     "@types/node": "20.11.15",
