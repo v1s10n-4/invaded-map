@@ -2,7 +2,7 @@ import { FC } from "react";
 
 const PrivacyPage: FC = () => {
   return (
-    <div className="prose-sm mt-32 pb-16 text-center lg:prose">
+    <div className="prose-sm mx-auto mt-32 pb-16 text-center lg:prose">
       <h1>Privacy Policy</h1>
       <p>Last updated: March 27, 2024</p>
       <p>

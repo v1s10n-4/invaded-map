@@ -2,7 +2,7 @@ import { FC } from "react";
 
 const PrivacyPage: FC = () => {
   return (
-    <div className="prose-sm mt-32 pb-16 text-center lg:prose">
+    <div className="prose-sm mx-auto mt-32 pb-16 text-center lg:prose">
       <h2>
         <strong>Terms and Conditions</strong>
       </h2>
@@ -22,15 +22,14 @@ const PrivacyPage: FC = () => {
 
       <p>
         The following terminology applies to these Terms and Conditions, Privacy
-        Statement and Disclaimer Notice and all Agreements:
-        &quote;Client&quote;, &quote;You&quote; and &quote;Your&quote; refers to
-        you, the person log on this website and compliant to the Company&apos;s
-        terms and conditions. &quote;The Company&quote;,
-        &quote;Ourselves&quote;, &quote;We&quote;, &quote;Our&quote; and
-        &quote;Us&quote;, refers to our Company. &quote;Party&quote;,
-        &quote;Parties&quote;, or &quote;Us&quote;, refers to both the Client
-        and ourselves. All terms refer to the offer, acceptance and
-        consideration of payment necessary to undertake the process of our
+        Statement and Disclaimer Notice and all Agreements: &quot;Client&quot;,
+        &quot;You&quot; and &quot;Your&quot; refers to you, the person log on
+        this website and compliant to the Company&apos;s terms and conditions.
+        &quot;The Company&quot;, &quot;Ourselves&quot;, &quot;We&quot;,
+        &quot;Our&quot; and &quot;Us&quot;, refers to our Company.
+        &quot;Party&quot;, &quot;Parties&quot;, or &quot;Us&quot;, refers to
+        both the Client and ourselves. All terms refer to the offer, acceptance
+        and consideration of payment necessary to undertake the process of our
         assistance to the Client in the most appropriate manner for the express
         purpose of meeting the Client&apos;s needs in respect of provision of
         the Company&apos;s stated services, in accordance with and subject to,
