@@ -11,9 +11,15 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write './**/*.{js,ts,jsx,tsx,md,mdx,css,html,yml,yaml,json}' --ignore-path .gitignore",
-    "algolia:regen": "bun run scripts/algolia-sync.ts"
+    "algolia:regen": "bun run scripts/algolia-sync.ts",
+    "db:migrate": "bun run drizzle-kit generate:pg",
+    "db:check": "bun run drizzle-kit check:pg",
+    "db:studio": "bun run drizzle-kit studio",
+    "db:push": "bun run drizzle-kit push:pg",
+    "db:drop": "bun run drizzle-kit drop"
   },
   "dependencies": {
+    "@auth/drizzle-adapter": "^0.8.1",
     "@imbios/next-pwa": "^1.1.1",
     "@radix-ui/react-menubar": "^1.0.3",
     "@radix-ui/react-scroll-area": "^1.0.4",
@@ -38,6 +44,7 @@
     "eslint-config-next": "14.2.0-canary.20",
     "framer-motion": "^11.0.3",
     "next": "14.2.0-canary.20",
+    "next-auth": "5.0.0-beta.16",
     "pg": "^8.11.3",
     "pixelarticons": "^1.7.0",
     "postcss": "8.4.35",
