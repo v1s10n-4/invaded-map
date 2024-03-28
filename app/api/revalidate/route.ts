@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
   }
 
   const paths = request.nextUrl.searchParams.getAll("path");
-  if (paths) {
+  if (paths.length) {
     for (const path of paths) {
       revalidatePath(path);
     }
