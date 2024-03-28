@@ -33,12 +33,11 @@ Bun.write(
   `algoliasearch_backup-${new Date().toLocaleString().replace(/(\ |,|\/)/g, "-")}.json`,
   JSON.stringify(backupData)
 );
-
 const newData = list.map(
   ({ images, state, create_date, location, ...rest }) => ({
     ...rest,
     state: getState(state),
-    create_date: create_date.getTime(),
+    create_date: new Date(create_date).getTime(),
     location: Boolean(location),
     // @ts-ignore
     objectID: backupData.find((hit) => hit.name === rest.name)?.objectID,
