@@ -48,10 +48,8 @@ export const MapView: FC<{ invaders: InvaderWithLocation[] }> = ({
       if (invaderName) {
         const name =
           typeof invaderName === "string" ? invaderName : invaderName.at(0)!;
-        const invader = invaders.find(
-          (invader) => invader.name === invaderName
-        );
-        if (invader) map?.panTo(invader.location);
+        const invader = invaders.find((invader) => invader.n === invaderName);
+        if (invader) map?.panTo(invader.l);
         if (!hasZoomed) {
           if (currentZoom) map?.setZoom(currentZoom + 2);
           setHasZoomed(true);
@@ -91,14 +89,14 @@ export const MapView: FC<{ invaders: InvaderWithLocation[] }> = ({
         <MarkerClusterer options={clustererOptions}>
           {(clusterer) => (
             <>
-              {invaders.map(({ id, location, name }) => (
+              {invaders.map(({ i, l, n }) => (
                 <Marker
-                  icon={invaderName === name ? markerSelectedIcon : markerIcon}
-                  key={id}
-                  position={location}
+                  icon={invaderName === n ? markerSelectedIcon : markerIcon}
+                  key={i}
+                  position={l}
                   clusterer={clusterer}
-                  onClick={() => router.push(`/map/${name}`)}
-                  title={name}
+                  onClick={() => router.push(`/map/${n}`)}
+                  title={n}
                 />
               ))}
             </>
