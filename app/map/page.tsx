@@ -21,8 +21,8 @@ const MapPage: FC = () => {
       {isHydrated &&
         invaders.slice(0, 20).map((invader) => (
           <Link
-            key={invader.name}
-            href={`/map/${invader.name}`}
+            key={invader.n}
+            href={`/map/${invader.n}`}
             className={clsx(
               "group carousel-item relative h-fit w-full outline-none",
               "hover:after:absolute hover:after:inset-0 hover:after:border hover:after:border-primary",
@@ -31,13 +31,13 @@ const MapPage: FC = () => {
           >
             <Image
               className="h-fit w-full text-wrap object-contain text-center align-middle text-xs leading-[192px]"
-              src={invader.thumbnail}
+              src={invader.t}
               alt="Image not found"
               width={192}
               height={192}
             />
             <p className="pointer-events-none absolute left-1 top-1 border border-secondary bg-base-100 px-1 text-lg text-primary group-hover:font-bold group-focus-visible:font-bold">
-              {invader.name}
+              {invader.n}
             </p>
           </Link>
         ))}

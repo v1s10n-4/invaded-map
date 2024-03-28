@@ -14,7 +14,7 @@ const headers: HeadersInit = {
   "api-token": process.env.API_SECRET!,
 };
 
-const base = `${process.env.URL}/api/`;
+const base = `https://${process.env.VERCEL_URL}/api/`;
 export const getInvader = async (invaderName: string) => {
   const route = `invaders/${invaderName}`;
   const res = await fetch(base + route, {
@@ -35,6 +35,11 @@ export const getInvadersWithLocation = async () => {
       tags: [route],
     },
   });
+  if (response.status !== 200) {
+    const text = await response.text();
+    console.warn(response.status, response.statusText);
+    return [{ n: "Error", i: 0, l: { lat: 0, lng: 0 }, t: text }];
+  }
   const invaders: InvaderWithLocation[] = await response.json();
   return invaders;
 };

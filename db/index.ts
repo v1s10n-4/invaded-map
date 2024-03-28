@@ -7,8 +7,11 @@ type InvaderTable = typeof invaders;
 export type NewInvader = InferInsertModel<InvaderTable>;
 export type Invader = InferSelectModel<InvaderTable>;
 export type InvaderState = Invader["state"];
-export type InvaderWithLocation = Invader & {
-  location: NonNullable<Invader["location"]>;
+export type InvaderWithLocation = {
+  i: Invader["id"];
+  n: Invader["name"];
+  t: Invader["thumbnail"];
+  l: NonNullable<Invader["location"]>;
 };
 
 let client;

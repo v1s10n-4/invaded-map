@@ -2,7 +2,6 @@ import SplashScreen from "@/public/assets/images/splashscreen.gif";
 import Image from "next/image";
 
 export const Loader = () => {
-  console.log("Loader shown");
   return (
     <Image
       src={SplashScreen}

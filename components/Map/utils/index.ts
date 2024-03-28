@@ -56,8 +56,8 @@ export const mapOptions: MapOptions = {
   mapId: "bc9e5a99ff21e1e7",
   heading: 0,
   tilt: 0,
-  minZoom: 10,
-  maxZoom: 20,
+  minZoom: 3,
+  maxZoom: 22,
   disableDefaultUI: true,
 };
 
@@ -89,15 +89,15 @@ export const filterInvadersInView: (
   const center = map.getCenter();
   if (!bounds || !center) return [];
   return invaders
-    .filter((invader) => bounds.contains(invader.location))
+    .filter((invader) => bounds.contains(invader.l))
     .sort((m1, m2) => {
       const d1 = google.maps.geometry.spherical.computeDistanceBetween(
         center,
-        m1.location
+        m1.l
       );
       const d2 = google.maps.geometry.spherical.computeDistanceBetween(
         center,
-        m2.location
+        m2.l
       );
       return d1 - d2;
     });
