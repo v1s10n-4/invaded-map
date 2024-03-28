@@ -9,18 +9,10 @@ export const getState = (state: InvaderState) =>
     DD: "Exterminated",
     U: "Unknown",
   })[state];
-const isVercelProductionBuild = process.env.VERCEL_ENV === "production";
-const isVercel = process.env.VERCEL === "production";
-const headers: HeadersInit = new Headers({
-  "api-token": process.env.API_SECRET!,
-});
 
-if (isVercel && !isVercelProductionBuild) {
-  headers.set(
-    "x-vercel-protection-bypass",
-    process.env.VERCEL_AUTOMATION_BYPASS_SECRET!
-  );
-}
+const headers: HeadersInit = {
+  "api-token": process.env.API_SECRET!,
+};
 
 const base = `https://${process.env.VERCEL_URL}/api/`;
 export const getInvader = async (invaderName: string) => {
