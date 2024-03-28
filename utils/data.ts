@@ -35,6 +35,7 @@ export const getInvadersWithLocation = async () => {
       tags: [route],
     },
   });
+  if (response.status !== 200) return [];
   const invaders: InvaderWithLocation[] = await response.json();
   return invaders;
 };

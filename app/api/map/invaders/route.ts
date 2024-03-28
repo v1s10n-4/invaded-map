@@ -14,5 +14,6 @@ export async function GET(): Promise<Response> {
     })
     .from(invaders)
     .where(isNotNull(invaders.location));
+  console.log(list[0]);
   return Response.json(list);
 }
