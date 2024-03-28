@@ -14,7 +14,7 @@ const headers: HeadersInit = {
   "api-token": process.env.API_SECRET!,
 };
 
-const base = `${process.env.URL}/api/`;
+const base = `https://${process.env.VERCEL_URL}/api/`;
 export const getInvader = async (invaderName: string) => {
   const route = `invaders/${invaderName}`;
   const res = await fetch(base + route, {
