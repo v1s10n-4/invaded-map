@@ -36,9 +36,9 @@ export const getInvadersWithLocation = async () => {
     },
   });
   if (response.status !== 200) {
-    const esse = await response.text();
+    const text = await response.text();
     console.warn(response.status, response.statusText);
-    return [{ n: "Error", i: 0, l: { lat: 0, lng: 0 }, t: esse }];
+    return [{ n: "Error", i: 0, l: { lat: 0, lng: 0 }, t: text }];
   }
   const invaders: InvaderWithLocation[] = await response.json();
   return invaders;
