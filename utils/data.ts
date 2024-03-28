@@ -14,10 +14,13 @@ const headers: HeadersInit = {
   "api-token": process.env.API_SECRET!,
 };
 
-const base = `https://${process.env.VERCEL_URL}/api/`;
+const base = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : process.env.URL!;
+const apiUrl = `${base}/api/`;
 export const getInvader = async (invaderName: string) => {
   const route = `invaders/${invaderName}`;
-  const res = await fetch(base + route, {
+  const res = await fetch(apiUrl + route, {
     headers,
     next: {
       tags: [route],
@@ -29,7 +32,7 @@ export const getInvader = async (invaderName: string) => {
 
 export const getInvadersWithLocation = async () => {
   const route = `map/invaders`;
-  const response = await fetch(base + route, {
+  const response = await fetch(apiUrl + route, {
     headers,
     next: {
       tags: [route],
@@ -46,7 +49,7 @@ export const getInvadersWithLocation = async () => {
 
 export const getInvaders = async () => {
   const route = `invaders`;
-  const response = await fetch(base + route, {
+  const response = await fetch(apiUrl + route, {
     headers,
     next: {
       tags: [route],
@@ -58,7 +61,7 @@ export const getInvaders = async () => {
 
 export const get_PNG_b64_data_URI_from_AVIF_URL = async (url: string) => {
   const route = `get-thumbnail?url=${url}`;
-  const thumbnailRes = await fetch(base + route, {
+  const thumbnailRes = await fetch(apiUrl + route, {
     headers,
     next: {
       tags: [route],

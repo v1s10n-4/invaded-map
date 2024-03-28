@@ -33,8 +33,16 @@ export const InvaderHit = ({
         <p className="absolute left-1 top-1 border border-secondary bg-base-100 px-1 py-0.5 text-2xl text-primary md:text-sm">
           {name}
         </p>
-        {location && (
-          <Pin className="absolute right-1 top-1 h-9 w-9 border border-secondary bg-base-100 px-1 py-0.5 text-primary md:h-7 md:w-7 md:px-0.5 md:py-0" />
+        {!location && (
+          <div
+            data-tip="location not available"
+            className="tooltip tooltip-bottom absolute right-1 top-1 h-9 w-9 border border-secondary bg-base-100 px-1 py-0.5 text-primary md:h-7 md:w-7 md:px-0.5 md:py-0"
+          >
+            <Pin className="h-full w-full" />
+            <p className="absolute left-0.5 top-1 text-[28px] md:left-0 md:top-0 md:text-[24px]">
+              /
+            </p>
+          </div>
         )}
         <p className="absolute bottom-1 right-1 border border-secondary bg-base-100 px-1 py-0.5 text-2xl text-primary md:text-sm">
           {points}pts
