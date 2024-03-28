@@ -1,11 +1,5 @@
-import BooleanFilter from "@/app/list/BooleanFilter";
-import {
-  MenuBar,
-  MenuBarItem,
-  MenuBarMenu,
-  MenuBarTrigger,
-} from "@/components/MenuBar";
 import { Filter } from "@/app/list/Filter";
+import { MenuBar } from "@/components/MenuBar";
 
 export const FilterMenu = () => {
   return (
@@ -13,7 +7,6 @@ export const FilterMenu = () => {
       <Filter attribute="city" limit={Infinity} />
       <Filter attribute="points" />
       <Filter attribute="state" />
-      <BooleanFilter attribute="location" />
     </MenuBar>
   );
 };
