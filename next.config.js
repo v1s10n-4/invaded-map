@@ -4,6 +4,14 @@ const nextConfig = {
   experimental: {
     // ppr: true,
     typedRoutes: true,
+    turbo: {
+      rules: {
+        "*.svg": {
+          loaders: ["@svgr/webpack"],
+          as: "*.js",
+        },
+      },
+    },
   },
   webpack(config) {
     const fileLoaderRule = config.module.rules.find((rule) =>
