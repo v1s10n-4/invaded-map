@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { clsx } from "clsx";
-import DiscordIcon from "@/app/help/discord.svg";
+import DiscordIcon from "@/public/icons/discord-logo.svg";
 import { Metadata } from "next";
 
 export const runtime = "edge";
@@ -60,7 +60,7 @@ const FeedbackPage = () => {
         <textarea
           required
           name="content"
-          className="input relative h-full w-full border border-primary p-4 placeholder-primary/40 !outline-primary scrollbar scrollbar-thumb-current scrollbar-track-black md:h-60"
+          className="scrollbar input relative h-full w-full border border-primary p-4 placeholder-primary/40 !outline-primary scrollbar-thumb-current scrollbar-track-black md:h-60"
           placeholder="Share your thoughts..."
         />
         <button
