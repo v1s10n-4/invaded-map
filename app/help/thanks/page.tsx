@@ -1,4 +1,4 @@
-import DiscordIcon from "@/app/help/discord.svg";
+import DiscordIcon from "@/public/icons/discord-logo.svg";
 
 export const runtime = "edge";
 
