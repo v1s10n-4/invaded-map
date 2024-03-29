@@ -1,13 +1,16 @@
+import {
+  AppProvider,
+  Providers,
+  signinErrors,
+  SignInPageErrorParam,
+} from "@/app/signin/utils";
 import { signIn } from "@/auth";
 import Icon, { IconProps } from "@/components/Icon/Icon";
-import { AppProvider } from "@auth/core/src/providers";
-import { SignInPageErrorParam } from "@auth/core/src/types";
 import { clsx } from "clsx";
 import { FC } from "react";
 
 export const runtime = "edge";
 
-type Providers = Record<string, AppProvider>;
 const ProviderLoginButton: FC<Pick<AppProvider, "id" | "name">> = ({
   id,
   name,
@@ -75,19 +78,4 @@ const SigninPage: FC<{
   );
 };
 
-const signinErrors: Record<SignInPageErrorParam | "default", string> = {
-  default: "Unable to sign in.",
-  Signin: "Try signing in with a different account.",
-  OAuthSignin: "Try signing in with a different account.",
-  OAuthCallbackError: "Try signing in with a different account.",
-  OAuthCreateAccount: "Try signing in with a different account.",
-  EmailCreateAccount: "Try signing in with a different account.",
-  Callback: "Try signing in with a different account.",
-  OAuthAccountNotLinked:
-    "To confirm your identity, sign in with the same account you used originally.",
-  EmailSignin: "The e-mail could not be sent.",
-  CredentialsSignin:
-    "Sign in failed. Check the details you provided are correct.",
-  SessionRequired: "Please sign in to access this page.",
-};
 export default SigninPage;
