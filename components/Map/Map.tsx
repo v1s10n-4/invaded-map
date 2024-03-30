@@ -1,12 +1,19 @@
 "use client";
+import useIVDMapStore from "@/app/store";
+import UserMarker from "@/components/Map/UserMarker";
 import { InvaderWithLocation } from "@/db";
-import React, { FC, useEffect, useState } from "react";
+import SplashScreen from "@/public/assets/images/splashscreen.gif";
+import { Paris } from "@/utils";
 import {
   GoogleMap,
   LoadScriptNext,
   MarkerClustererF as MarkerClusterer,
   MarkerF as Marker,
 } from "@react-google-maps/api";
+import Image from "next/image";
+import { useParams, useRouter } from "next/navigation";
+import { NextRequest } from "next/server";
+import React, { FC, useEffect, useState } from "react";
 import {
   clustererOptions,
   defaultGoogleMapProps,
@@ -15,12 +22,8 @@ import {
   markerIcon,
   markerSelectedIcon,
 } from "./utils";
-import { useParams, useRouter } from "next/navigation";
-import useIVDMapStore from "@/app/store";
-import SplashScreen from "@/public/assets/images/splashscreen.gif";
-import Image from "next/image";
-import UserMarker from "@/components/Map/UserMarker";
 
+type Geo = typeof NextRequest.prototype.geo;
 const removeGoogleCrap = () =>
   Array.from(
     document.querySelectorAll(
@@ -35,6 +38,7 @@ export const MapView: FC<{ invaders: InvaderWithLocation[] }> = ({
   const router = useRouter();
   const { invaderName } = useParams();
   const [map, setMap] = useState<google.maps.Map | null>(null);
+  const [initialGeolocation, setInitialGeolocation] = useState<Geo>();
   const { setInvadersInView, setLockUserPosition, setLockUserRotation } =
     useIVDMapStore((state) => ({
       setInvadersInView: state.setInvadersInView,
@@ -42,6 +46,14 @@ export const MapView: FC<{ invaders: InvaderWithLocation[] }> = ({
       setLockUserPosition: state.setLockUserPosition,
       setLockUserRotation: state.setLockUserRotation,
     }));
+  useEffect(() => {
+    const fesse = document.cookie.replace(
+      /(?:(?:^|.*;\s*)fesse\s*\=\s*([^;]*).*$)|^.*$/,
+      "$1"
+    );
+    const value = JSON.parse(decodeURIComponent(fesse));
+    setInitialGeolocation(value);
+  }, []);
   useEffect(() => {
     if (map) {
       const currentZoom = map.getZoom();
@@ -77,6 +89,14 @@ export const MapView: FC<{ invaders: InvaderWithLocation[] }> = ({
     >
       <GoogleMap
         {...defaultGoogleMapProps}
+        center={
+          initialGeolocation
+            ? {
+                lat: Number(initialGeolocation?.latitude),
+                lng: Number(initialGeolocation?.longitude),
+              }
+            : Paris
+        }
         onLoad={setMap}
         onTilesLoaded={removeGoogleCrap}
         onDragStart={() => {
