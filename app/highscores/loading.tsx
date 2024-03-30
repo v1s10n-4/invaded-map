@@ -24,10 +24,6 @@ const RootLoading = () => (
             <span className="skeleton inline-block h-4 w-16 bg-primary" />
           </p>
           <p>
-            c Shots:{" "}
-            <span className="skeleton inline-block h-4 w-16 bg-primary" />
-          </p>
-          <p>
             Cities discovered:{" "}
             <span className="skeleton inline-block h-4 w-8 bg-primary" />
           </p>
