@@ -1,7 +1,7 @@
 import BuildingCommunity from "pixelarticons/svg/building-community.svg";
 import ImageFlash from "pixelarticons/svg/image-flash.svg";
 import React from "react";
-import Placeholder from "./placeholder.svg";
+import Placeholder from "@/components/placeholder.svg";
 
 const defaultHtmlTextColor = {
   backgroundColor: "var(--fallback-bc, oklch(var(--bc) / 1))",

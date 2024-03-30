@@ -1,3 +1,4 @@
+import { HitPlaceholder } from "@/components/Placeholder";
 import { Invader } from "@/db";
 import { Hit } from "instantsearch.js";
 import Link from "next/link";
@@ -27,6 +28,7 @@ export const InvaderHit = ({
           className="h-fit w-full text-wrap object-contain text-center align-middle text-xs leading-[192px]"
           src={thumbnail}
           alt="image not found"
+          placeholder={HitPlaceholder(192, 192)}
           width={192}
           height={192}
         />

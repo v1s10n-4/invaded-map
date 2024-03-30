@@ -1,4 +1,5 @@
 "use client";
+import { HitPlaceholder } from "@/components/Placeholder";
 import React, { FC, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -33,6 +34,7 @@ const MapPage: FC = () => {
               className="h-fit w-full text-wrap object-contain text-center align-middle text-xs leading-[192px]"
               src={invader.t}
               alt="Image not found"
+              placeholder={HitPlaceholder(192, 192)}
               width={192}
               height={192}
             />
