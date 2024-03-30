@@ -1,3 +1,4 @@
+import { HitPlaceholder } from "@/components/Placeholder";
 import { SliderActions } from "@/components/SliderActions";
 import { BoxClasses } from "@/utils";
 import { getInvader, getState } from "@/utils/data";
@@ -74,6 +75,7 @@ const InvaderPlacePage: FC<{ params: Params }> = async ({
                   src={url}
                   alt="Image not found"
                   priority
+                  placeholder={HitPlaceholder(400, 400)}
                   width={400}
                   height={400}
                 />
