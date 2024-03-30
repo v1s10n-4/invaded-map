@@ -7,7 +7,6 @@ export const HighscoreItem = ({
   name,
   score,
   invaders_count,
-  nbShots,
   city_count,
 }: HighScore) => (
   <li key={rank} className={clsx("p-4", BoxClasses)}>
@@ -21,9 +20,6 @@ export const HighscoreItem = ({
     <p>
       Invaders flashed:{" "}
       <span className="font-bold text-primary">{invaders_count}</span>
-    </p>
-    <p>
-      Shots: <span className="font-bold text-primary">{nbShots}</span>
     </p>
     <p>
       Cities discovered:{" "}
