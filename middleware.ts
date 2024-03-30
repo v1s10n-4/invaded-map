@@ -1,9 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 
-// export const config = {
-//   matcher: "/(api(?!/invaders/[^/]+/OG|/revalidate).*)",
-// };
-
 const privateApiRoutesRegex = new RegExp(
   "/(api(?!/invaders/[^/]+/OG|/revalidate).*)"
 );
@@ -19,7 +15,6 @@ export function middleware(request: NextRequest, response: NextResponse) {
       );
   }
   if (new RegExp("/map.*").test(route)) {
-    console.log("map request", JSON.stringify(request.geo));
     const res = NextResponse.next();
     res.cookies.set("fesse", JSON.stringify(request.geo));
     return res;
