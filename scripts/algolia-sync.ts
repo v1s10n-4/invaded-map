@@ -8,7 +8,7 @@ if (process.env.LOCAL === "true") {
 }
 const algoliaClient = algoliasearch(
   process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID!,
-  "0287ad07d49e83fb11f554a7e10469b3"
+  process.env.ALGOLIA_ADMIN_API_KEY!
 );
 const index = algoliaClient.initIndex("invaders");
 
