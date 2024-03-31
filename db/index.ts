@@ -1,8 +1,10 @@
 import { invaders } from "@/db/schema/invaders";
+import { users } from "@/db/schema/users";
 import { createClient, sql } from "@vercel/postgres";
 import { InferInsertModel, InferSelectModel } from "drizzle-orm";
 import { drizzle as VercelDrizzle } from "drizzle-orm/vercel-postgres";
 
+// INVADER
 type InvaderTable = typeof invaders;
 export type NewInvader = InferInsertModel<InvaderTable>;
 export type Invader = InferSelectModel<InvaderTable>;
@@ -13,6 +15,9 @@ export type InvaderWithLocation = {
   t: Invader["thumbnail"];
   l: NonNullable<Invader["location"]>;
 };
+// USER
+type UserTable = typeof users;
+export type User = InferSelectModel<UserTable>;
 
 let client;
 if (process.env.LOCAL === "true") {
