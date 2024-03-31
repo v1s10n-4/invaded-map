@@ -19,6 +19,7 @@
     "db:drop": "bun run drizzle-kit drop"
   },
   "dependencies": {
+    "@algolia/requester-fetch": "^4.23.2",
     "@auth/drizzle-adapter": "^0.8.1",
     "@imbios/next-pwa": "^1.1.1",
     "@radix-ui/react-menubar": "^1.0.3",
@@ -33,7 +34,7 @@
     "@vercel/blob": "^0.22.1",
     "@vercel/postgres": "^0.7.2",
     "@vercel/speed-insights": "^1.0.10",
-    "algoliasearch": "^4.22.1",
+    "algoliasearch": "^4.23.2",
     "autoprefixer": "10.4.18",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
@@ -52,7 +53,8 @@
     "react-dom": "18.2.0",
     "react-geolocated": "^4.1.2",
     "react-infinite-scroll-hook": "^4.1.1",
-    "react-instantsearch-hooks-web": "^6.47.3",
+    "react-instantsearch": "^7.7.0",
+    "react-instantsearch-nextjs": "^0.1.14",
     "react-modal-sheet": "^2.0.0",
     "sharp": "^0.33.3",
     "tailwind-merge": "^2.2.1",
