@@ -1,7 +1,7 @@
 "use client";
 
 import { FC } from "react";
-import { SearchBoxProps, useSearchBox } from "react-instantsearch-hooks-web";
+import { SearchBoxProps, useSearchBox } from "react-instantsearch";
 import Search from "pixelarticons/svg/search.svg";
 import CloseBox from "pixelarticons/svg/close-box.svg";
 
@@ -14,7 +14,7 @@ export const SearchInput: FC<SearchBoxProps> = (props) => {
         type="text"
         value={query}
         placeholder="Search"
-        className="caret input-bordered input w-full border-primary px-10 caret-primary focus:outline-none focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+        className="caret input input-bordered w-full border-primary px-10 caret-primary focus:outline-none focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black"
         onChange={(e) => refine(e.target.value)}
       />
       {query && (

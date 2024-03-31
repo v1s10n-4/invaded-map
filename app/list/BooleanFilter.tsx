@@ -2,8 +2,10 @@
 import { MenuBarMenu, MenuBarTrigger } from "@/components/MenuBar";
 import Pin from "pixelarticons/svg/pin.svg";
 import { FC } from "react";
-import { useToggleRefinement } from "react-instantsearch-hooks";
-import { ToggleRefinementProps } from "react-instantsearch-hooks-web";
+import {
+  ToggleRefinementProps,
+  useToggleRefinement,
+} from "react-instantsearch";
 
 export const BooleanFilter: FC<ToggleRefinementProps> = (props) => {
   const { value, canRefine, refine, sendEvent, createURL } =

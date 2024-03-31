@@ -9,7 +9,7 @@ import {
   useInfiniteHits,
   UseInfiniteHitsProps,
   useInstantSearch,
-} from "react-instantsearch-hooks";
+} from "react-instantsearch";
 
 const InvaderList = (props: UseInfiniteHitsProps<Invader>) => {
   const { hits, isLastPage, showMore, results } = useInfiniteHits(props);

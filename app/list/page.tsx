@@ -1,3 +1,4 @@
+"use client";
 import InvaderList from "@/app/list/InvaderList";
 import React, { FC } from "react";
 
