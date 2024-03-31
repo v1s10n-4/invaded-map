@@ -16,7 +16,15 @@ export function middleware(request: NextRequest, response: NextResponse) {
   }
   if (new RegExp("/map.*").test(route)) {
     const res = NextResponse.next();
-    res.cookies.set("fesse", JSON.stringify(request.geo));
+    if (request.geo?.latitude && request.geo?.longitude)
+      res.cookies.set(
+        "geoip",
+        JSON.stringify({
+          lat: request.geo.latitude,
+          lng: request.geo.longitude,
+        })
+      );
+    else res.cookies.delete("geoip");
     return res;
   }
 }

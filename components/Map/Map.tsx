@@ -6,6 +6,7 @@ import SplashScreen from "@/public/assets/images/splashscreen.gif";
 import { Paris } from "@/utils";
 import {
   GoogleMap,
+  GoogleMapProps,
   LoadScriptNext,
   MarkerClustererF as MarkerClusterer,
   MarkerF as Marker,
@@ -38,7 +39,6 @@ export const MapView: FC<{ invaders: InvaderWithLocation[] }> = ({
   const router = useRouter();
   const { invaderName } = useParams();
   const [map, setMap] = useState<google.maps.Map | null>(null);
-  const [initialGeolocation, setInitialGeolocation] = useState<Geo>();
   const { setInvadersInView, setLockUserPosition, setLockUserRotation } =
     useIVDMapStore((state) => ({
       setInvadersInView: state.setInvadersInView,
@@ -46,14 +46,6 @@ export const MapView: FC<{ invaders: InvaderWithLocation[] }> = ({
       setLockUserPosition: state.setLockUserPosition,
       setLockUserRotation: state.setLockUserRotation,
     }));
-  useEffect(() => {
-    const fesse = document.cookie.replace(
-      /(?:(?:^|.*;\s*)fesse\s*\=\s*([^;]*).*$)|^.*$/,
-      "$1"
-    );
-    const value = JSON.parse(decodeURIComponent(fesse));
-    setInitialGeolocation(value);
-  }, []);
   useEffect(() => {
     if (map) {
       const currentZoom = map.getZoom();
@@ -72,6 +64,14 @@ export const MapView: FC<{ invaders: InvaderWithLocation[] }> = ({
       }
     }
   }, [map, invaderName, hasZoomed, invaders]);
+  const onLoad: GoogleMapProps["onLoad"] = (map) => {
+    const cookie = document.cookie.replace(
+      /(?:(?:^|.*;\s*)geoip\s*\=\s*([^;]*).*$)|^.*$/,
+      "$1"
+    );
+    map.setCenter(cookie ? JSON.parse(decodeURIComponent(cookie)) : Paris);
+    setMap(map);
+  };
   return (
     <LoadScriptNext
       loadingElement={
@@ -89,15 +89,7 @@ export const MapView: FC<{ invaders: InvaderWithLocation[] }> = ({
     >
       <GoogleMap
         {...defaultGoogleMapProps}
-        center={
-          initialGeolocation
-            ? {
-                lat: Number(initialGeolocation?.latitude),
-                lng: Number(initialGeolocation?.longitude),
-              }
-            : Paris
-        }
-        onLoad={setMap}
+        onLoad={onLoad}
         onTilesLoaded={removeGoogleCrap}
         onDragStart={() => {
           setLockUserPosition(false);
