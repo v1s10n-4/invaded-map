@@ -75,6 +75,7 @@ const InvaderPlacePage: FC<{ params: Params }> = async ({
                   src={url}
                   alt="Image not found"
                   priority
+                  style={{ objectFit: "contain" }}
                   placeholder={HitPlaceholder(400, 400)}
                   width={400}
                   height={400}
