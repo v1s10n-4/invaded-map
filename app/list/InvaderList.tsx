@@ -3,7 +3,7 @@ import InvaderHit from "@/app/list/InvaderHit";
 import { SkeletonHit } from "@/app/list/SkeletonHit";
 import { Invader } from "@/db";
 import { Colors } from "@/utils";
-import React, { useState } from "react";
+import React, { FC, PropsWithChildren, useEffect, useState } from "react";
 import useInfiniteScroll from "react-infinite-scroll-hook";
 import {
   useInfiniteHits,
@@ -11,19 +11,32 @@ import {
   useInstantSearch,
 } from "react-instantsearch";
 
+const Grid: FC<PropsWithChildren> = ({ children }) => (
+  <div className="grid grid-cols-1 gap-4 p-2 sm:grid-cols-2 md:grid-cols-3 md:p-4 lg:p-6 xl:grid-cols-4">
+    {children}
+  </div>
+);
 const InvaderList = (props: UseInfiniteHitsProps<Invader>) => {
-  const { hits, isLastPage, showMore, results } = useInfiniteHits(props);
+  const {
+    hits,
+    isLastPage,
+    showMore: onLoadMore,
+    results,
+  } = useInfiniteHits(props);
   const { status } = useInstantSearch();
   const loading = status === "stalled" || status === "loading";
-  const [triggered, setTriggered] = useState(false);
-
+  const disabled = isLastPage || status === "error";
+  const [mounted, setMounted] = useState(false);
   const [sentryRef, { rootRef }] = useInfiniteScroll({
-    loading: loading,
+    loading,
     hasNextPage: !isLastPage,
-    onLoadMore: showMore,
-    disabled: isLastPage || status === "error",
+    onLoadMore,
+    disabled,
     rootMargin: "0px 0px 400px 0px",
   });
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <div
@@ -31,17 +44,22 @@ const InvaderList = (props: UseInfiniteHitsProps<Invader>) => {
       style={{ scrollbarColor: Colors.primary }}
       ref={rootRef}
     >
-      <div className="grid grid-cols-1 gap-4 p-2 sm:grid-cols-2 md:grid-cols-3 md:p-4 lg:p-6 xl:grid-cols-4">
-        {hits.map((hit) => (
+      <Grid>
+        {(mounted ? hits : results?.hits || []).map((hit) => (
           <InvaderHit key={hit.id} {...hit} />
         ))}
-        {(loading || triggered) &&
-          !isLastPage &&
-          [...Array(20)].map((_x, i) => <SkeletonHit key={i} />)}
-      </div>
-      {(loading || !isLastPage) && <div ref={sentryRef}></div>}
+        {!disabled && (
+          <>
+            <SkeletonHit>
+              <div ref={sentryRef} />
+            </SkeletonHit>
+            {[...Array(19)].map((_x, i) => (
+              <SkeletonHit key={"skeleton" + i} />
+            ))}
+          </>
+        )}
+      </Grid>
     </div>
-    // </>
   );
 };
 

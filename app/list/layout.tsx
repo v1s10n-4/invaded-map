@@ -7,7 +7,7 @@ import FilterMenu from "@/app/list/FilterMenu";
 import { InstantSearchNext } from "react-instantsearch-nextjs";
 
 export const runtime = "edge";
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
 const searchClient = algoliasearch(
   process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID!,
