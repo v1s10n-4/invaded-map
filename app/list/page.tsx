@@ -1,15 +1,10 @@
 import { ListPage } from "@/app/list/ListPage";
-import { createFetchRequester } from "@algolia/requester-fetch";
-import React, { FC, PropsWithChildren } from "react";
-import algoliasearch from "algoliasearch/lite";
-import { SearchInput } from "@/components/SearchInput";
-import FilterMenu from "@/app/list/FilterMenu";
-import { InstantSearchNext } from "react-instantsearch-nextjs";
+import React, { FC } from "react";
 
 export const runtime = "edge";
-// export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
 
-const ListLayout: FC<PropsWithChildren> = ({ children }) => {
+const Page: FC = () => {
   return (
     <div className="flex h-full flex-col pt-24 md:pt-28 lg:pt-32">
       <ListPage />
@@ -17,4 +12,4 @@ const ListLayout: FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
-export default ListLayout;
+export default Page;
