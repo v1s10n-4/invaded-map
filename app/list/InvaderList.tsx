@@ -48,16 +48,14 @@ const InvaderList = (props: UseInfiniteHitsProps<Invader>) => {
         {(mounted ? hits : results?.hits || []).map((hit) => (
           <InvaderHit key={hit.id} {...hit} />
         ))}
-        {!disabled && (
-          <>
-            <SkeletonHit>
-              <div ref={sentryRef} />
-            </SkeletonHit>
-            {[...Array(19)].map((_x, i) => (
-              <SkeletonHit key={"skeleton" + i} />
-            ))}
-          </>
+        {!loading && !disabled && (
+          <SkeletonHit>
+            <div ref={sentryRef} />
+          </SkeletonHit>
         )}
+        {loading &&
+          !disabled &&
+          [...Array(19)].map((_x, i) => <SkeletonHit key={"skeleton" + i} />)}
       </Grid>
     </div>
   );
