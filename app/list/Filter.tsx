@@ -6,17 +6,17 @@ import {
   MenuBarMenu,
   MenuBarTrigger,
 } from "@/components/MenuBar";
-import {
-  useClearRefinements,
-  useRefinementList,
-} from "react-instantsearch-hooks";
-import { RefinementListProps } from "react-instantsearch-hooks-web";
-import { FC } from "react";
+import { ScrollArea } from "@/components/ScrollArea";
 import { clsx } from "clsx";
 import BuildingCommunity from "pixelarticons/svg/building-community.svg";
-import ImageFlash from "pixelarticons/svg/image-flash.svg";
 import Coin from "pixelarticons/svg/coin.svg";
-import { ScrollArea } from "@/components/ScrollArea";
+import ImageFlash from "pixelarticons/svg/image-flash.svg";
+import { FC } from "react";
+import {
+  RefinementListProps,
+  useClearRefinements,
+  useRefinementList,
+} from "react-instantsearch";
 
 export const Filter: FC<RefinementListProps> = (props) => {
   const { items, refine } = useRefinementList(props);

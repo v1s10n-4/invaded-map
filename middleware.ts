@@ -1,14 +1,30 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export const config = {
-  matcher: "/(api(?!/invaders/[^/]+/OG|/revalidate).*)",
-};
-
-export function middleware(request: NextRequest) {
-  const token = request.headers.get("api-token");
-  if (!token || token !== process.env.API_SECRET)
-    return NextResponse.json(
-      { message: "Unauthorized access" },
-      { status: 401 }
-    );
+const privateApiRoutesRegex = new RegExp(
+  "/(api(?!/invaders/[^/]+/OG|/revalidate).*)"
+);
+export function middleware(request: NextRequest, response: NextResponse) {
+  const route = request.nextUrl.pathname;
+  if (privateApiRoutesRegex.test(route)) {
+    console.log("api shield triggered");
+    const token = request.headers.get("api-token");
+    if (!token || token !== process.env.API_SECRET)
+      return NextResponse.json(
+        { message: "Unauthorized access" },
+        { status: 401 }
+      );
+  }
+  if (new RegExp("/map.*").test(route)) {
+    const res = NextResponse.next();
+    if (request.geo?.latitude && request.geo?.longitude)
+      res.cookies.set(
+        "geoip",
+        JSON.stringify({
+          lat: request.geo.latitude,
+          lng: request.geo.longitude,
+        })
+      );
+    else res.cookies.delete("geoip");
+    return res;
+  }
 }

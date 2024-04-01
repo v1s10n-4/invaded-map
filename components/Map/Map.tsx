@@ -1,12 +1,20 @@
 "use client";
+import useIVDMapStore from "@/app/store";
+import UserMarker from "@/components/Map/UserMarker";
 import { InvaderWithLocation } from "@/db";
-import React, { FC, useEffect, useState } from "react";
+import SplashScreen from "@/public/assets/images/splashscreen.gif";
+import { Paris } from "@/utils";
 import {
   GoogleMap,
+  GoogleMapProps,
   LoadScriptNext,
   MarkerClustererF as MarkerClusterer,
   MarkerF as Marker,
 } from "@react-google-maps/api";
+import Image from "next/image";
+import { useParams, useRouter } from "next/navigation";
+import { NextRequest } from "next/server";
+import React, { FC, useEffect, useState } from "react";
 import {
   clustererOptions,
   defaultGoogleMapProps,
@@ -15,12 +23,8 @@ import {
   markerIcon,
   markerSelectedIcon,
 } from "./utils";
-import { useParams, useRouter } from "next/navigation";
-import useIVDMapStore from "@/app/store";
-import SplashScreen from "@/public/assets/images/splashscreen.gif";
-import Image from "next/image";
-import UserMarker from "@/components/Map/UserMarker";
 
+type Geo = typeof NextRequest.prototype.geo;
 const removeGoogleCrap = () =>
   Array.from(
     document.querySelectorAll(
@@ -60,6 +64,14 @@ export const MapView: FC<{ invaders: InvaderWithLocation[] }> = ({
       }
     }
   }, [map, invaderName, hasZoomed, invaders]);
+  const onLoad: GoogleMapProps["onLoad"] = (map) => {
+    const cookie = document.cookie.replace(
+      /(?:(?:^|.*;\s*)geoip\s*\=\s*([^;]*).*$)|^.*$/,
+      "$1"
+    );
+    map.setCenter(cookie ? JSON.parse(decodeURIComponent(cookie)) : Paris);
+    setMap(map);
+  };
   return (
     <LoadScriptNext
       loadingElement={
@@ -77,7 +89,7 @@ export const MapView: FC<{ invaders: InvaderWithLocation[] }> = ({
     >
       <GoogleMap
         {...defaultGoogleMapProps}
-        onLoad={setMap}
+        onLoad={onLoad}
         onTilesLoaded={removeGoogleCrap}
         onDragStart={() => {
           setLockUserPosition(false);
