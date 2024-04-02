@@ -22,6 +22,7 @@ export const users = pgTable("user", {
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
   role: RoleEnum("role").notNull().default("user"),
+  created_at: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
 });
 
 export const accounts = pgTable(
