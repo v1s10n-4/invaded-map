@@ -1,9 +1,25 @@
-import { db } from "@/db";
+import { db, User as DrizzleUser } from "@/db";
+import { sessions, users } from "@/db/schema/users";
 import { Colors } from "@/utils";
-import Google from "next-auth/providers/google";
 import Discord from "@auth/core/providers/discord";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import NextAuth, { NextAuthConfig } from "next-auth";
+import { eq } from "drizzle-orm";
+import NextAuth, { DefaultSession, NextAuthConfig } from "next-auth";
+import Google from "next-auth/providers/google";
+
+declare module "next-auth" {
+  interface Session extends DefaultSession {
+    user: {
+      id: string;
+      created_at: DrizzleUser["created_at"];
+      role: DrizzleUser["role"];
+    } & DefaultSession["user"];
+  }
+  interface User {
+    created_at: DrizzleUser["created_at"];
+    role: DrizzleUser["role"];
+  }
+}
 
 export const config: NextAuthConfig = {
   theme: {
@@ -11,7 +27,21 @@ export const config: NextAuthConfig = {
     brandColor: Colors.primary,
     logo: `${process.env.URL}/icons/ios/128.png`,
   },
-  adapter: DrizzleAdapter(db),
+  adapter: {
+    ...DrizzleAdapter(db),
+    async getSessionAndUser(data) {
+      const sessionAndUsers = await db
+        .select({
+          session: sessions,
+          user: users,
+        })
+        .from(sessions)
+        .where(eq(sessions.sessionToken, data))
+        .innerJoin(users, eq(users.id, sessions.userId));
+
+      return sessionAndUsers[0] ?? null;
+    },
+  },
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -26,6 +56,17 @@ export const config: NextAuthConfig = {
   pages: {
     signIn: "/signin",
     error: "/auth-error",
+  },
+  callbacks: {
+    session: ({ session, user }) => ({
+      ...session,
+      user: {
+        ...session.user,
+        id: user.id,
+        role: user.role,
+        created_at: user.created_at,
+      },
+    }),
   },
 };
 
