@@ -25,7 +25,7 @@ export const tags = {
   "highscores search": (searchValue: string) => `search:${searchValue}`,
   "all highscores searches": "highscores/search",
   "highscores": "highscores",
-  "all highscores/searches": "highscores/*",
+  "all highscores related": "highscores/*",
 } as const;
 
 // get one revalidation tag (computed with `specific` if needed)
