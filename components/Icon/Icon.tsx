@@ -1,3 +1,4 @@
+"use client";
 import { FC, Suspense, SVGProps, useMemo } from "react";
 import icons from "@/components/Icon/icons";
 
@@ -11,15 +12,15 @@ export const Icon: FC<IconProps> = ({ icon, ...rest }) => {
   if (!Svg) return null;
   const defaultClassName = `h-6 w-6`;
   return (
-    <Suspense fallback={<div className={defaultClassName} />}>
-      <Svg
-        // @ts-ignore
-        width={24}
-        height={24}
-        className={defaultClassName}
-        {...rest}
-      />
-    </Suspense>
+    // <Suspense fallback={<div className={defaultClassName} />}>
+    <Svg
+      // @ts-ignore
+      width={24}
+      height={24}
+      className={defaultClassName}
+      {...rest}
+    />
+    // </Suspense>
   );
 };
 
