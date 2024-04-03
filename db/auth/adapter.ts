@@ -4,10 +4,9 @@ import {
   users,
   verificationTokens,
 } from "@/db/schema/users";
-import type { Adapter } from "@auth/core/adapters";
+import { Adapter } from "next-auth/adapters";
 import { and, eq } from "drizzle-orm";
-import { PgDatabase } from "drizzle-orm/pg-core";
-import { pgTable as defaultPgTableFn } from "drizzle-orm/pg-core/table";
+import { PgDatabase, pgTable } from "drizzle-orm/pg-core";
 
 type NonNullableProps<T> = {
   [P in keyof T]: null extends T[P] ? never : P;
@@ -21,7 +20,7 @@ export function stripUndefined<T>(obj: T): Pick<T, NonNullableProps<T>> {
 
 export function CustomDrizzleAdapter(
   client: InstanceType<typeof PgDatabase>,
-  tableFn = defaultPgTableFn
+  tableFn = pgTable
 ): Adapter {
   return {
     async createUser(data) {

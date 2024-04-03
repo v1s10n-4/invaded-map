@@ -1,7 +1,7 @@
 import { db, User as DrizzleUser } from "@/db";
 import { CustomDrizzleAdapter } from "@/db/auth/adapter";
 import { Colors } from "@/utils";
-import Discord from "@auth/core/providers/discord";
+import Discord from "next-auth/providers/discord";
 import NextAuth, { DefaultSession, NextAuthConfig } from "next-auth";
 import Google from "next-auth/providers/google";
 
@@ -19,7 +19,7 @@ declare module "next-auth" {
   }
 }
 
-export const config: NextAuthConfig = {
+const config: NextAuthConfig = {
   theme: {
     colorScheme: "dark",
     brandColor: Colors.primary,
