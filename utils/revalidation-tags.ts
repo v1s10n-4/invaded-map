@@ -4,7 +4,7 @@ export type DataTags = typeof tags;
 export type TagName = keyof DataTags;
 export type TagNameWithoutEverything = Exclude<TagName, "EVERYTHING">;
 export type Tag = ValueOf<DataTags>;
-export type GetTag = (tagName: TagName, param?: string) => string;
+export type GetTag = (tagName: TagName, param?: string | null) => string;
 export type GetTags = (
   neededTags: TagNameWithoutEverything | TagNameWithoutEverything[],
   specific?: Parameters<GetTag>[1]
