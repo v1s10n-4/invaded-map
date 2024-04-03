@@ -2,6 +2,7 @@ import { FlashInvadersAPI } from "@/app/highscores/utils";
 import HighscoreItem from "@/components/Highscores/HighscoreItem";
 import { UserSearchResponse } from "@/types/FlashInvadersAPI";
 import { BoxClasses } from "@/utils";
+import { getRequestConfig } from "@/utils/revalidation-tags";
 import { clsx } from "clsx";
 
 type Params = { params: { userName: string } };
@@ -10,15 +11,15 @@ const getUserSearch: (
   searchValue: string | null
 ) => Promise<UserSearchResponse> = async (searchValue) => {
   const { userSearch, fetchOptions } = FlashInvadersAPI;
-  const res = await fetch(userSearch(searchValue), {
-    ...fetchOptions,
-    next: {
-      tags: [`search:${searchValue}`],
-      revalidate: 60 * 5,
-    },
-  });
+  const next = getRequestConfig(
+    ["highscores search", "all highscores searches", "all highscores related"],
+    searchValue || "",
+    60 * 5
+  );
+  const res = await fetch(userSearch(searchValue), { ...fetchOptions, next });
   return await res.json();
 };
+
 const HighScoreSearchPage = async ({ params: { userName } }: Params) => {
   const highscores = await getUserSearch(userName);
   return (

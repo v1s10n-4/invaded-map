@@ -1,16 +1,16 @@
 import { FlashInvadersAPI } from "@/app/highscores/utils";
 import HighscoreItem from "@/components/Highscores/HighscoreItem";
 import { HighScoresResponse } from "@/types/FlashInvadersAPI";
+import { getRequestConfig } from "@/utils/revalidation-tags";
 
 const getHighScores: () => Promise<HighScoresResponse> = async () => {
   const { highscores, fetchOptions } = FlashInvadersAPI;
-  const res = await fetch(highscores, {
-    ...fetchOptions,
-    next: {
-      revalidate: 60 * 5,
-      tags: ["highscores"],
-    },
-  });
+  const next = getRequestConfig(
+    ["highscores", "all highscores related"],
+    undefined,
+    60 * 5
+  );
+  const res = await fetch(highscores, { ...fetchOptions, next });
   return await res.json();
 };
 const HighScorePage = async () => {

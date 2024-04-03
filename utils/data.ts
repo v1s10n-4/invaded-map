@@ -1,4 +1,7 @@
+import { FlashInvadersAPI } from "@/app/highscores/utils";
 import { Invader, InvaderState, InvaderWithLocation } from "@/db";
+import { UserSearchResponse } from "@/types/FlashInvadersAPI";
+import { getRequestConfig } from "@/utils/revalidation-tags";
 
 export const getState = (state: InvaderState) =>
   ({
@@ -19,25 +22,17 @@ const base = process.env.VERCEL_URL
   : process.env.URL!;
 const apiUrl = `${base}/api/`;
 export const getInvader = async (invaderName: string) => {
-  const route = `invaders/${invaderName}`;
-  const res = await fetch(apiUrl + route, {
-    headers,
-    next: {
-      tags: [route],
-    },
-  });
+  const route = `${apiUrl}invaders/${invaderName}`;
+  const next = getRequestConfig("invader", invaderName);
+  const res = await fetch(route, { headers, next });
   const { data: invader } = (await res.json()) as { data: Invader | undefined };
   return invader;
 };
 
 export const getInvadersWithLocation = async () => {
-  const route = `map/invaders`;
-  const response = await fetch(apiUrl + route, {
-    headers,
-    next: {
-      tags: [route],
-    },
-  });
+  const route = `${apiUrl}map/invaders`;
+  const next = getRequestConfig("all map invaders");
+  const response = await fetch(route, { headers, next });
   if (response.status !== 200) {
     const text = await response.text();
     console.warn(response.status, response.statusText);
@@ -48,25 +43,17 @@ export const getInvadersWithLocation = async () => {
 };
 
 export const getInvaders = async () => {
-  const route = `invaders`;
-  const response = await fetch(apiUrl + route, {
-    headers,
-    next: {
-      tags: [route],
-    },
-  });
+  const route = `${apiUrl}invaders`;
+  const next = getRequestConfig("all invaders");
+  const response = await fetch(route, { headers, next });
   const invaders: Invader[] = await response.json();
   return invaders;
 };
 
 export const get_PNG_b64_data_URI_from_AVIF_URL = async (url: string) => {
-  const route = `get-thumbnail?url=${url}`;
-  const thumbnailRes = await fetch(apiUrl + route, {
-    headers,
-    next: {
-      tags: [route],
-    },
-  });
+  const route = `${apiUrl}get-thumbnail?url=${url}`;
+  const next = getRequestConfig("invader OG", url);
+  const thumbnailRes = await fetch(route, { headers, next });
   const b64Image = await thumbnailRes.json();
   return `data:image/png;base64,${b64Image}`;
 };
