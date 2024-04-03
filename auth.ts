@@ -1,9 +1,7 @@
 import { db, User as DrizzleUser } from "@/db";
-import { sessions, users } from "@/db/schema/users";
+import { CustomDrizzleAdapter } from "@/db/auth/adapter";
 import { Colors } from "@/utils";
 import Discord from "@auth/core/providers/discord";
-import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import { eq } from "drizzle-orm";
 import NextAuth, { DefaultSession, NextAuthConfig } from "next-auth";
 import Google from "next-auth/providers/google";
 
@@ -27,21 +25,7 @@ export const config: NextAuthConfig = {
     brandColor: Colors.primary,
     logo: `${process.env.URL}/icons/ios/128.png`,
   },
-  adapter: {
-    ...DrizzleAdapter(db),
-    async getSessionAndUser(data) {
-      const sessionAndUsers = await db
-        .select({
-          session: sessions,
-          user: users,
-        })
-        .from(sessions)
-        .where(eq(sessions.sessionToken, data))
-        .innerJoin(users, eq(users.id, sessions.userId));
-
-      return sessionAndUsers[0] ?? null;
-    },
-  },
+  adapter: CustomDrizzleAdapter(db),
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID,
