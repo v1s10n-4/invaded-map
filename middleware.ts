@@ -14,7 +14,7 @@ export function middleware(request: NextRequest, response: NextResponse) {
         { status: 401 }
       );
   }
-  if (new RegExp("/map.*").test(route)) {
+  if (new RegExp("^/map.*").test(route)) {
     const res = NextResponse.next();
     if (request.geo?.latitude && request.geo?.longitude)
       res.cookies.set(
