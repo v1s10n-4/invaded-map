@@ -2,7 +2,7 @@ import { FC } from "react";
 
 const PrivacyPage: FC = () => {
   return (
-    <div className="prose-sm mx-auto mt-32 pb-16 text-center lg:prose">
+    <main className="prose-sm mx-auto mt-32 pb-16 text-center lg:prose">
       <h2>
         <strong>Terms and Conditions</strong>
       </h2>
@@ -310,7 +310,7 @@ const PrivacyPage: FC = () => {
         are provided free of charge, we will not be liable for any loss or
         damage of any nature.
       </p>
-    </div>
+    </main>
   );
 };
 

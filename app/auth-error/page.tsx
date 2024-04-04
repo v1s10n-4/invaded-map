@@ -12,7 +12,7 @@ const ErrorPage: FC<Params> = async ({
   const errorView = errors[errorType as ErrorPageParam];
   console.warn(`[${errorView.status}] ${errorView.heading}`);
   return (
-    <div className="relative mx-auto flex h-full flex-col items-center justify-center gap-16 pb-48">
+    <main className="relative mx-auto flex h-full flex-col items-center justify-center gap-16 pb-48">
       <Link href={"/"}>
         <Icon icon="invadedMap" className="h-32 w-32 text-primary" />
       </Link>
@@ -32,7 +32,7 @@ const ErrorPage: FC<Params> = async ({
         </h1>
         <h2 className="text-center">{errorView.message}</h2>
       </div>
-    </div>
+    </main>
   );
 };
 

@@ -24,12 +24,12 @@ export const runtime = "edge";
 //   </div>
 // </div>
 const ListLoading = () => (
-  <div className="scrollbar carousel-vertical h-full scroll-pt-4 overflow-y-scroll scrollbar-thumb-current scrollbar-track-black">
+  <main className="scrollbar carousel-vertical h-full scroll-pt-4 overflow-y-scroll scrollbar-thumb-current scrollbar-track-black">
     <div className="grid grid-cols-1 gap-4 p-2 sm:grid-cols-2 md:grid-cols-3 md:p-4 lg:p-6 xl:grid-cols-4">
       {[...Array(20)].map((_x, i) => (
         <SkeletonHit key={"loading" + i} />
       ))}
     </div>
-  </div>
+  </main>
 );
 export default ListLoading;
