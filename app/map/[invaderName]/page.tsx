@@ -1,8 +1,12 @@
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/app/map/[invaderName]/Carousel";
 import { HitPlaceholder } from "@/components/Placeholder";
 import { SliderActions } from "@/components/SliderActions";
 import { BoxClasses } from "@/utils";
 import { getInvader, getState } from "@/utils/data";
-import { clsx } from "clsx";
 import { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -65,11 +69,11 @@ const InvaderPlacePage: FC<{ params: Params }> = async ({
   if (!invader) notFound();
   return (
     <div className="scrollbar flex flex-col items-center gap-4 p-4 md:flex-row">
-      <div className={clsx("relative flex items-center p-0.5", BoxClasses)}>
-        <div className="carousel w-full md:h-60">
+      <Carousel className={BoxClasses}>
+        <CarouselContent className="w-full md:h-60">
           {[invader.thumbnail, ...invader.images.map((x) => x.url)].map(
-            (url, i, arr) => (
-              <div key={url} id={`slide${i}`} className="carousel-item w-full">
+            (url, i) => (
+              <CarouselItem key={i}>
                 <Image
                   className="h-full w-full object-contain"
                   src={url}
@@ -80,14 +84,12 @@ const InvaderPlacePage: FC<{ params: Params }> = async ({
                   width={400}
                   height={400}
                 />
-              </div>
+              </CarouselItem>
             )
           )}
-          {invader.images.length > 1 && (
-            <SliderActions count={invader.images.length} />
-          )}
-        </div>
-      </div>
+        </CarouselContent>
+        <SliderActions />
+      </Carousel>
       <div className="flex h-full w-full flex-col justify-around gap-4 px-4 sm:flex-row md:flex-col">
         <div className="flex flex-col gap-4">
           <p className="flex items-center gap-2 text-xl">

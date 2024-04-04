@@ -40,6 +40,7 @@
     "clsx": "^2.0.0",
     "daisyui": "^4.7.2",
     "drizzle-orm": "^0.30.6",
+    "embla-carousel-react": "^8.0.1",
     "eslint": "^8.57.0",
     "eslint-config-next": "14.2.0-canary.55",
     "framer-motion": "^11.0.3",
