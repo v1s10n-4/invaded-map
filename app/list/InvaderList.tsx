@@ -39,7 +39,7 @@ const InvaderList = (props: UseInfiniteHitsProps<Invader>) => {
   }, []);
 
   return (
-    <div
+    <main
       className="scrollbar carousel-vertical h-full scroll-pt-4 overflow-y-scroll scrollbar-thumb-current scrollbar-track-black"
       style={{ scrollbarColor: Colors.primary }}
       ref={rootRef}
@@ -57,7 +57,7 @@ const InvaderList = (props: UseInfiniteHitsProps<Invader>) => {
           !disabled &&
           [...Array(19)].map((_x, i) => <SkeletonHit key={"skeleton" + i} />)}
       </Grid>
-    </div>
+    </main>
   );
 };
 

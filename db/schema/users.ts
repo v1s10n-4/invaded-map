@@ -1,3 +1,4 @@
+import { AdapterAccount } from "@auth/core/adapters";
 import {
   timestamp,
   pgTable,
@@ -6,7 +7,6 @@ import {
   integer,
   pgEnum,
 } from "drizzle-orm/pg-core";
-import type { AdapterAccount } from "@auth/core/adapters";
 
 export const RoleEnum = pgEnum("role", [
   "user",

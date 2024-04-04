@@ -44,7 +44,7 @@ const SigninPage: FC<{
     );
   const providers = (await res.json()) as Providers;
   return (
-    <div className="relative mx-auto flex h-full flex-col items-center justify-center gap-16 pb-48">
+    <main className="relative mx-auto flex h-full flex-col items-center justify-center gap-16 pb-48">
       <Icon icon="invadedMap" className="h-32 w-32 text-primary" />
       <div
         className={clsx(
@@ -74,7 +74,7 @@ const SigninPage: FC<{
         </a>
         .
       </span>
-    </div>
+    </main>
   );
 };
 
