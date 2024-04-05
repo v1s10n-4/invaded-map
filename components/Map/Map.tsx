@@ -98,7 +98,10 @@ export const MapView: FC<{ invaders: InvaderWithLocation[] }> = ({
         onIdle={() => setInvadersInView(filterInvadersInView(invaders, map))}
       >
         {map && <UserMarker map={map} />}
-        <MarkerClusterer options={clustererOptions}>
+        <MarkerClusterer
+          options={clustererOptions}
+          onUnmount={(ref) => ref.clearMarkers()}
+        >
           {(clusterer) => (
             <>
               {invaders.map(({ i, l, n }) => (
