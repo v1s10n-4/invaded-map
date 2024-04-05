@@ -1,8 +1,8 @@
 import { lazy } from "react";
 
 const icons = {
-  google: lazy(async () => import("@/public/icons/google-logo.svg")),
-  discord: lazy(async () => import("@/public/icons/discord-logo.svg")),
-  invadedMap: lazy(async () => import("@/public/icons/logo.svg")),
+  google: lazy(() => import("@/public/icons/google-logo.svg")),
+  discord: lazy(() => import("@/public/icons/discord-logo.svg")),
+  invadedMap: lazy(() => import("@/public/icons/logo.svg")),
 };
 export default icons;

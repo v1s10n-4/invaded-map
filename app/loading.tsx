@@ -7,7 +7,6 @@ const RootLoading = () => (
     src={SplashScreen}
     alt="Invaded map slashscreen"
     className="h-full w-full object-contain"
-    priority
     unoptimized
   />
 );

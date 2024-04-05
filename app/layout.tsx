@@ -1,14 +1,13 @@
 import "./globals.css";
+import { GtmInit } from "@/app/GtmInit";
+import { Header } from "@/app/Header";
+import { SideMenuContent } from "@/app/SideMenuContent";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import MenuIcon from "pixelarticons/svg/menu.svg";
-import Link from "next/link";
-import localFont from "next/font/local";
-import { BoxActiveClasses, BoxClasses, BoxHoverClasses } from "@/utils";
 import { clsx } from "clsx";
-import React, { ReactNode } from "react";
 import { Metadata, Viewport } from "next";
-import { GtmInit } from "@/app/GtmInit";
+import localFont from "next/font/local";
+import React, { ReactNode } from "react";
 
 export const runtime = "edge";
 
@@ -207,7 +206,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       className="text-base"
       content="width=device-width, initial-scale=1, maximum-scale=1"
     >
-      <body className={sixtyfour.className}>
+      <body className={clsx("bg-black", sixtyfour.className)}>
         <div className="drawer h-screen lg:drawer-open">
           <input
             id="drawer-toggle"
@@ -216,87 +215,19 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             tabIndex={-1}
           />
           <div className="scrollbar drawer-content relative flex flex-col  p-2 scrollbar-thumb-current scrollbar-track-black">
-            <div className="sticky top-2 z-10 w-full place-self-center md:inset-x-6 md:top-5 md:w-fit">
-              <div className={clsx("navbar bg-base-100", BoxClasses)}>
-                <div className="navbar-start">
-                  <label
-                    htmlFor="drawer-toggle"
-                    className="btn btn-square btn-ghost lg:hidden"
-                  >
-                    <MenuIcon className="h-full w-full text-primary" />
-                  </label>
-                </div>
-                <div className="navbar-center">
-                  <Link
-                    href="/"
-                    className="box-border border-y-2 border-transparent pt-1 text-2xl uppercase text-primary outline-none hover:border-y-2 hover:border-primary hover:font-bold focus-visible:border-y-2 focus-visible:border-primary focus-visible:font-bold active:border-dashed sm:text-4xl lg:text-5xl"
-                  >
-                    <h1>Invaded map</h1>
-                  </Link>
-                </div>
-                <div className="navbar-end"></div>
-              </div>
-            </div>
-            <div id="content" className="absolute inset-0">
+            <Header />
+            <div
+              id="content"
+              vaul-drawer-wrapper=""
+              className="absolute inset-0"
+            >
               {children}
             </div>
           </div>
-          <div className="drawer-side z-40">
-            <label htmlFor="drawer-toggle" className="drawer-overlay"></label>
-            <ul className="menu h-full w-80 gap-3 border-r-4 border-double border-primary bg-base-100 p-4">
-              <li>
-                <Link
-                  href="/map"
-                  className={clsx(
-                    "text-xl text-primary",
-                    BoxClasses,
-                    BoxHoverClasses,
-                    BoxActiveClasses
-                  )}
-                >
-                  Map
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/list"
-                  className={clsx(
-                    "text-xl text-primary",
-                    BoxClasses,
-                    BoxHoverClasses,
-                    BoxActiveClasses
-                  )}
-                >
-                  All invaders
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/highscores"
-                  className={clsx(
-                    "text-xl text-primary",
-                    BoxClasses,
-                    BoxHoverClasses,
-                    BoxActiveClasses
-                  )}
-                >
-                  Highscores
-                </Link>
-              </li>
-              <li className="mt-auto">
-                <Link
-                  href="/help"
-                  className={clsx(
-                    "text-xl text-primary",
-                    BoxClasses,
-                    BoxHoverClasses,
-                    BoxActiveClasses
-                  )}
-                >
-                  Help
-                </Link>
-              </li>
-            </ul>
+          <div className="drawer-side z-40 hidden lg:block">
+            <nav className="flex h-full w-80 flex-col gap-3 border-y-0 border-r-4 border-double border-primary bg-base-100 p-4">
+              <SideMenuContent />
+            </nav>
           </div>
         </div>
         <SpeedInsights />
