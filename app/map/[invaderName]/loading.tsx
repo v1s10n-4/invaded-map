@@ -9,18 +9,20 @@ import React from "react";
 
 const Loading = () => (
   <div className="scrollbar flex flex-col items-center gap-4 p-4 md:flex-row">
-    <div className={clsx(BoxClasses, "flex overflow-hidden md:h-60")}>
-      <div className="min-w-0 shrink-0 grow-0 basis-full">
-        <Image
-          className="h-full w-full object-contain"
-          src={HitPlaceholder(400, 400)}
-          alt="Image not found"
-          unoptimized
-          style={{ objectFit: "contain" }}
-          placeholder={HitPlaceholder(400, 400)}
-          width={400}
-          height={400}
-        />
+    <div className={clsx(BoxClasses, "aspect-square w-full md:h-60 md:w-fit")}>
+      <div className="flex aspect-square md:h-60">
+        <div className="flex aspect-square min-w-0 shrink-0 grow-0 basis-full md:h-60">
+          <Image
+            className="h-full w-full object-contain"
+            src={HitPlaceholder(400, 400)}
+            alt="Image not found"
+            unoptimized
+            style={{ objectFit: "contain" }}
+            placeholder={HitPlaceholder(400, 400)}
+            width={400}
+            height={400}
+          />
+        </div>
       </div>
     </div>
     <div className="flex h-full w-full flex-col justify-around gap-4 px-4 sm:flex-row md:flex-col">

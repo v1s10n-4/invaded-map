@@ -7,6 +7,7 @@ import { HitPlaceholder } from "@/components/Placeholder";
 import { SliderActions } from "@/components/SliderActions";
 import { BoxClasses } from "@/utils";
 import { getInvader, getState } from "@/utils/data";
+import { clsx } from "clsx";
 import { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -69,8 +70,10 @@ const InvaderPlacePage: FC<{ params: Params }> = async ({
   if (!invader) notFound();
   return (
     <div className="scrollbar flex flex-col items-center gap-4 p-4 md:flex-row">
-      <Carousel className={BoxClasses}>
-        <CarouselContent className="w-full md:h-60">
+      <Carousel
+        className={clsx(BoxClasses, "aspect-square w-full md:h-60 md:w-fit")}
+      >
+        <CarouselContent className="flex aspect-square md:h-60">
           {[invader.thumbnail, ...invader.images.map((x) => x.url)].map(
             (url, i) => (
               <CarouselItem key={i}>
