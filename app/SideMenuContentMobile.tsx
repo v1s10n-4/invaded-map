@@ -79,7 +79,7 @@ export const SideMenuContentMobile: FC<
         href={"/help"}
         onOpenChange={onOpenChange}
         className={clsx(
-          "px-4 py-2 align-middle text-xl text-primary",
+          "mt-auto px-4 py-2 align-middle text-xl text-primary",
           BoxClasses,
           BoxHoverClasses,
           BoxActiveClasses

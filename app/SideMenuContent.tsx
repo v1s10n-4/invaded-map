@@ -42,7 +42,7 @@ export const SideMenuContent: FC = () => {
       <Link
         href={"/help"}
         className={clsx(
-          "px-4 py-2 align-middle text-xl text-primary",
+          "mt-auto px-4 py-2 align-middle text-xl text-primary",
           BoxClasses,
           BoxHoverClasses,
           BoxActiveClasses
