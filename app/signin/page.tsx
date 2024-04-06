@@ -7,6 +7,7 @@ import {
 import { signIn } from "@/auth";
 import Icon, { IconProps } from "@/components/Icon/Icon";
 import { clsx } from "clsx";
+import { notFound } from "next/navigation";
 import { FC } from "react";
 
 export const runtime = "edge";
@@ -15,9 +16,9 @@ const ProviderLoginButton: FC<Pick<AppProvider, "id" | "name">> = ({
   id,
   name,
 }) => {
-  const signinWith = async () => {
+  const signinWith = async (formData: FormData) => {
     "use server";
-    await signIn(id);
+    await signIn(id, formData);
   };
   return (
     <button
@@ -33,16 +34,46 @@ const ProviderLoginButton: FC<Pick<AppProvider, "id" | "name">> = ({
     </button>
   );
 };
-const SigninPage: FC<{
-  searchParams: Record<"error", SignInPageErrorParam>;
-}> = async ({ searchParams: { error } }) => {
-  const res = await fetch(`${process.env.URL}/auth/providers`);
-  const errorText = error && (signinErrors[error] ?? signinErrors.default);
-  if (res.status !== 200)
-    console.warn(
-      `error getting auth providers: [${res.status}] ${res.statusText}`
+
+const getCSRF = async () => {
+  const csrfResponse = await fetch(`${process.env.URL}/auth/csrf`);
+  if (csrfResponse.status !== 200) {
+    throw new Error(
+      `error getting csrf token: [${csrfResponse.status}] ${csrfResponse.statusText}`
     );
-  const providers = (await res.json()) as Providers;
+  }
+  const { csrfToken } = await csrfResponse.json();
+  return csrfToken;
+};
+
+const getProviders = async () => {
+  const providersResponse = await fetch(`${process.env.URL}/auth/providers`);
+  if (providersResponse.status !== 200) {
+    throw new Error(
+      `error getting auth providers: [${providersResponse.status}] ${providersResponse.statusText}`
+    );
+  }
+  return (await providersResponse.json()) as Providers;
+};
+
+type SigninPageType = FC<{
+  searchParams: {
+    error?: SignInPageErrorParam;
+    callbackUrl?: string;
+  };
+}>;
+
+const SigninPage: SigninPageType = async ({
+  searchParams: { error, callbackUrl },
+}) => {
+  const [providers, csrfToken] = await Promise.all([
+    getProviders(),
+    getCSRF(),
+  ]).catch((err) => {
+    console.error(err);
+    notFound();
+  });
+  const errorText = error && (signinErrors[error] ?? signinErrors.default);
   return (
     <main className="relative mx-auto flex h-full flex-col items-center justify-center gap-16 pb-48">
       <Icon icon="invadedMap" className="h-32 w-32 text-primary" />
@@ -63,6 +94,10 @@ const SigninPage: FC<{
         {error && <h5 className="text-center">{errorText}</h5>}
       </div>
       <form className="flex flex-col gap-4">
+        <input type="hidden" name="csrfToken" value={csrfToken} />
+        {callbackUrl && (
+          <input type="hidden" name="redirectTo" value={callbackUrl} />
+        )}
         {Object.values(providers).map((provider) => (
           <ProviderLoginButton key={provider.id} {...provider} />
         ))}
