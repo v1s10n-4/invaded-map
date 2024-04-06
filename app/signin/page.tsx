@@ -4,27 +4,22 @@ import {
   signinErrors,
   SignInPageErrorParam,
 } from "@/app/signin/utils";
-import { signIn } from "@/auth";
 import Icon, { IconProps } from "@/components/Icon/Icon";
 import { clsx } from "clsx";
+import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import { FC } from "react";
 
 export const runtime = "edge";
 
-const ProviderLoginButton: FC<Pick<AppProvider, "id" | "name">> = ({
-  id,
-  name,
-}) => {
-  const signinWith = async (formData: FormData) => {
-    "use server";
-    await signIn(id, formData);
-  };
+const ProviderLoginButton: FC<
+  Pick<AppProvider, "id" | "name" | "signinUrl">
+> = ({ id, name, signinUrl }) => {
   return (
     <button
       className="btn btn-primary btn-lg"
       key={name}
-      formAction={signinWith}
+      formAction={signinUrl}
     >
       <Icon
         icon={id as IconProps["icon"]}
@@ -33,17 +28,6 @@ const ProviderLoginButton: FC<Pick<AppProvider, "id" | "name">> = ({
       <span className="hidden md:block">Continue with </span> {name}
     </button>
   );
-};
-
-const getCSRF = async () => {
-  const csrfResponse = await fetch(`${process.env.URL}/auth/csrf`);
-  if (csrfResponse.status !== 200) {
-    throw new Error(
-      `error getting csrf token: [${csrfResponse.status}] ${csrfResponse.statusText}`
-    );
-  }
-  const { csrfToken } = await csrfResponse.json();
-  return csrfToken;
 };
 
 const getProviders = async () => {
@@ -66,13 +50,13 @@ type SigninPageType = FC<{
 const SigninPage: SigninPageType = async ({
   searchParams: { error, callbackUrl },
 }) => {
-  const [providers, csrfToken] = await Promise.all([
-    getProviders(),
-    getCSRF(),
-  ]).catch((err) => {
+  const providers = await getProviders().catch((err) => {
     console.error(err);
     notFound();
   });
+  const c = cookies();
+  const csrf = c.get("authjs.csrf-token");
+  const csrfToken = csrf?.value.split("|")[0];
   const errorText = error && (signinErrors[error] ?? signinErrors.default);
   return (
     <main className="relative mx-auto flex h-full flex-col items-center justify-center gap-16 pb-48">
@@ -93,10 +77,10 @@ const SigninPage: SigninPageType = async ({
         </h1>
         {error && <h5 className="text-center">{errorText}</h5>}
       </div>
-      <form className="flex flex-col gap-4">
+      <form className="flex flex-col gap-4" method="POST">
         <input type="hidden" name="csrfToken" value={csrfToken} />
         {callbackUrl && (
-          <input type="hidden" name="redirectTo" value={callbackUrl} />
+          <input type="hidden" name="callbackUrl" value={callbackUrl} />
         )}
         {Object.values(providers).map((provider) => (
           <ProviderLoginButton key={provider.id} {...provider} />
