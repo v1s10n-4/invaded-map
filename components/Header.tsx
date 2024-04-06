@@ -1,4 +1,4 @@
-import SidebarMobile from "@/app/SidebarMobile";
+import SidebarMobile from "@/components/SidebarMobile";
 import { BoxClasses } from "@/utils";
 import { clsx } from "clsx";
 import Link from "next/link";
@@ -13,7 +13,7 @@ export const Header = () => {
         </div>
         <div className="navbar-center">
           <Link
-            href="/"
+            href={"/"}
             className={clsx(
               "box-border border-y-2 border-transparent pt-1 text-2xl uppercase text-primary outline-none",
               "hover:border-y-2 hover:border-primary hover:font-bold focus-visible:border-y-2",

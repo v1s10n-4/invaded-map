@@ -1,3 +1,4 @@
+import UserProfile from "@/components/UserProfile";
 import { BoxActiveClasses, BoxClasses, BoxHoverClasses } from "@/utils";
 import { clsx } from "clsx";
 import Link from "next/link";
@@ -39,10 +40,11 @@ export const SideMenuContent: FC = () => {
       >
         Highscores
       </Link>
+      <UserProfile />
       <Link
         href={"/help"}
         className={clsx(
-          "mt-auto px-4 py-2 align-middle text-xl text-primary",
+          "px-4 py-2 align-middle text-xl text-primary",
           BoxClasses,
           BoxHoverClasses,
           BoxActiveClasses

@@ -1,7 +1,7 @@
 import "./globals.css";
 import { GtmInit } from "@/app/GtmInit";
-import { Header } from "@/app/Header";
-import { SideMenuContent } from "@/app/SideMenuContent";
+import { Header } from "@/components/Header";
+import { SideMenuContent } from "@/components/SideMenuContent";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { clsx } from "clsx";
