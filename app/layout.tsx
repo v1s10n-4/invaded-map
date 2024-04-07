@@ -6,6 +6,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { clsx } from "clsx";
 import { Metadata, Viewport } from "next";
+import { SessionProvider } from "next-auth/react";
 import localFont from "next/font/local";
 import React, { ReactNode } from "react";
 
@@ -207,29 +208,31 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       content="width=device-width, initial-scale=1, maximum-scale=1"
     >
       <body className={clsx("bg-black", sixtyfour.className)}>
-        <div className="drawer h-screen lg:drawer-open">
-          <input
-            id="drawer-toggle"
-            type="checkbox"
-            className="drawer-toggle"
-            tabIndex={-1}
-          />
-          <div className="scrollbar drawer-content relative flex flex-col  p-2 scrollbar-thumb-current scrollbar-track-black">
-            <Header />
-            <div
-              id="content"
-              vaul-drawer-wrapper=""
-              className="absolute inset-0"
-            >
-              {children}
+        <SessionProvider basePath="/auth">
+          <div className="drawer h-screen lg:drawer-open">
+            <input
+              id="drawer-toggle"
+              type="checkbox"
+              className="drawer-toggle"
+              tabIndex={-1}
+            />
+            <div className="scrollbar drawer-content relative flex flex-col  p-2 scrollbar-thumb-current scrollbar-track-black">
+              <Header />
+              <div
+                id="content"
+                vaul-drawer-wrapper=""
+                className="absolute inset-0"
+              >
+                {children}
+              </div>
+            </div>
+            <div className="drawer-side z-40 hidden lg:block">
+              <nav className="flex h-full w-80 flex-col gap-3 border-y-0 border-r-4 border-double border-primary bg-base-100 p-4">
+                <SideMenuContent />
+              </nav>
             </div>
           </div>
-          <div className="drawer-side z-40 hidden lg:block">
-            <nav className="flex h-full w-80 flex-col gap-3 border-y-0 border-r-4 border-double border-primary bg-base-100 p-4">
-              <SideMenuContent />
-            </nav>
-          </div>
-        </div>
+        </SessionProvider>
         <SpeedInsights />
       </body>
       <Analytics />
