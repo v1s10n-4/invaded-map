@@ -1,4 +1,4 @@
-import { updateUsername } from "@/app/account/actions";
+import { updateAvatar, updateUsername } from "@/app/account/actions";
 import CardForm from "@/app/account/CardForm";
 import { signOutAction } from "@/app/actions";
 import { auth, signIn } from "@/auth";
@@ -93,6 +93,21 @@ const FessePage: FC = async () => {
                 maxLength={32}
                 className="input input-primary w-full"
                 placeholder="username"
+              />
+            </CardForm>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Avatar</CardTitle>
+              <CardDescription>
+                An avatar is optional but recommended.
+              </CardDescription>
+            </CardHeader>
+            <CardForm action={updateAvatar} name="image">
+              <input
+                name="image"
+                type="file"
+                className="file-i file-input file-input-primary w-full max-w-md"
               />
             </CardForm>
           </Card>
