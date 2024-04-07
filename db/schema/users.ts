@@ -19,7 +19,7 @@ export const RoleEnum = pgEnum("role", [
 export const users = pgTable("user", {
   id: text("id").notNull().primaryKey(),
   name: text("name")
-    .default(generateUsername("-", 0, 32))
+    .$default(() => generateUsername("-", 0, 32))
     .notNull(),
   email: text("email").notNull(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
