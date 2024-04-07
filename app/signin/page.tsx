@@ -8,7 +8,7 @@ import Icon, { IconProps } from "@/components/Icon/Icon";
 import { clsx } from "clsx";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
-import { FC } from "react";
+import React, { FC } from "react";
 
 export const runtime = "edge";
 
@@ -60,7 +60,7 @@ const SigninPage: SigninPageType = async ({
   const errorText = error && (signinErrors[error] ?? signinErrors.default);
   return (
     <main className="relative mx-auto flex h-full flex-col items-center justify-center gap-16 pb-48">
-      <Icon icon="invadedMap" className="h-32 w-32 text-primary" />
+      <Icon icon="invadedMap" className="mt-32 h-32 w-32 text-primary" />
       <div
         className={clsx(
           "flex flex-col items-center gap-2",
