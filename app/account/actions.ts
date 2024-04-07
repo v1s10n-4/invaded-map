@@ -126,3 +126,14 @@ export const updateAvatar = async (prevState: any, formData: FormData) => {
 // console.log(safeData);
 // return safeData;
 // updateUser(data);
+
+export const deleteAvatar = async (_formData: FormData) => {
+  const session = await auth();
+  if (!session) return signIn();
+  if (!session.user.image) return;
+  void (await db
+    .update(users)
+    .set({ image: null })
+    .where(eq(users.id, session.user.id)));
+  void (await updateUser({}));
+};

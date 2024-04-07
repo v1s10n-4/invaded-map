@@ -1,5 +1,10 @@
-import { updateAvatar, updateUsername } from "@/app/account/actions";
+import {
+  deleteAvatar,
+  updateAvatar,
+  updateUsername,
+} from "@/app/account/actions";
 import CardForm from "@/app/account/CardForm";
+import { ACCEPTED_IMAGE_TYPES } from "@/app/account/schema";
 import { signOutAction } from "@/app/actions";
 import { auth, signIn } from "@/auth";
 import {
@@ -13,7 +18,6 @@ import SubmitButton from "@/components/SubmitButton";
 import { User } from "@/db";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import placeholder from "@/components/placeholder.svg?url";
 import LogOutIcon from "pixelarticons/svg/logout.svg";
 
 import React, { FC } from "react";
@@ -50,7 +54,7 @@ const FessePage: FC = async () => {
       <div className="mx-auto grid w-full max-w-2xl gap-8">
         <div className="flex w-full flex-col items-center gap-4 border border-primary p-6 md:flex-row md:gap-8">
           <Image
-            src={session.user.image || placeholder}
+            src={user.image || HitPlaceholder(96, 96)}
             className="md:w-22 md:h-22 border-3 h-28 w-28 border-4 border-double border-primary p-1 lg:h-24 lg:w-24"
             alt="your profile picture"
             width={96}
@@ -62,11 +66,8 @@ const FessePage: FC = async () => {
               <h2 className="mb-1 text-base text-primary md:text-lg">
                 <DisplayUserName {...user} />
               </h2>
-              <h2>{session.user.email}</h2>
-              <h4>
-                Created:{" "}
-                {new Date(session.user.created_at).toLocaleDateString()}
-              </h4>
+              <h2>{user.email}</h2>
+              <h4>Created: {new Date(user.created_at).toLocaleDateString()}</h4>
             </div>
             <form action={signOutAction}>
               <SubmitButton className="btn-outline btn-primary btn-wide flex !p-1 md:btn-square">
@@ -103,10 +104,16 @@ const FessePage: FC = async () => {
                 An avatar is optional but recommended.
               </CardDescription>
             </CardHeader>
-            <CardForm action={updateAvatar} name="image">
+            <CardForm
+              action={updateAvatar}
+              name="image"
+              deleteAction={user.image ? deleteAvatar : undefined}
+            >
               <input
                 name="image"
                 type="file"
+                required
+                accept={ACCEPTED_IMAGE_TYPES.join(", ")}
                 className="file-i file-input file-input-primary w-full max-w-md"
               />
             </CardForm>

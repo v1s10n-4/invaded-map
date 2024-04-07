@@ -1,9 +1,9 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { FC, HTMLAttributes } from "react";
+import { ButtonHTMLAttributes, FC, HTMLAttributes } from "react";
 import { useFormStatus } from "react-dom";
 
-type SubmitButtonProps = HTMLAttributes<HTMLButtonElement>;
+type SubmitButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
 const SubmitButton: FC<SubmitButtonProps> = ({
   className,
