@@ -1,7 +1,9 @@
 "use client";
 import { invalidateTag } from "@/app/fesse/actions";
+import SubmitButton from "@/components/SubmitButton";
+import { cn } from "@/lib/utils";
 import { TagName } from "@/utils/revalidation-tags";
-import { FC } from "react";
+import { FC, HTMLAttributes } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import Repeat from "pixelarticons/svg/repeat.svg";
 
@@ -15,21 +17,6 @@ const initialState = {
   error: false,
 };
 
-const SubmitButton = () => {
-  const { pending } = useFormStatus();
-  return (
-    <button
-      className="btn btn-square btn-outline btn-primary btn-sm"
-      disabled={pending}
-    >
-      {pending ? (
-        <span className="loading loading-spinner loading-sm" />
-      ) : (
-        <Repeat className="h-6 w-6" />
-      )}
-    </button>
-  );
-};
 export const InvalidateTag: FC<InvalidateTagProps> = ({
   tagName,
   isSpecific,
@@ -56,7 +43,9 @@ export const InvalidateTag: FC<InvalidateTagProps> = ({
             />
           )}
         </div>
-        <SubmitButton />
+        <SubmitButton className="btn-square btn-outline btn-primary btn-sm">
+          <Repeat className="h-6 w-6" />
+        </SubmitButton>
       </form>
       {(state.error || state.message) && (
         <p className={state.error ? "text-error" : "text-success"}>

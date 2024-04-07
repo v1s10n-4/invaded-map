@@ -1,3 +1,4 @@
+import { User } from "@/db";
 import {
   accounts,
   sessions,
@@ -23,7 +24,7 @@ export function CustomDrizzleAdapter(
   tableFn = pgTable
 ): Adapter {
   return {
-    async createUser(data) {
+    async createUser(data: User) {
       return await client
         .insert(users)
         .values({ ...data, id: crypto.randomUUID() })
@@ -62,7 +63,7 @@ export function CustomDrizzleAdapter(
         .innerJoin(users, eq(users.id, sessions.userId))
         .then((res) => res[0] ?? null);
     },
-    async updateUser(data) {
+    async updateUser(data: Partial<User> & Pick<User, "id">) {
       if (!data.id) {
         throw new Error("No user id.");
       }

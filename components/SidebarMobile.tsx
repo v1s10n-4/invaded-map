@@ -1,5 +1,5 @@
 "use client";
-import SideMenuContentMobile from "@/app/SideMenuContentMobile";
+import SideMenuContentMobile from "@/components/SideMenuContentMobile";
 import {
   Drawer,
   DrawerContent,

@@ -43,6 +43,13 @@
       "when": 1712022284904,
       "tag": "0005_perfect_brother_voodoo",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1712518018410,
+      "tag": "0006_unusual_raider",
+      "breakpoints": true
     }
   ]
 }

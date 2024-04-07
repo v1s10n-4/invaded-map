@@ -4,26 +4,22 @@ import {
   signinErrors,
   SignInPageErrorParam,
 } from "@/app/signin/utils";
-import { signIn } from "@/auth";
 import Icon, { IconProps } from "@/components/Icon/Icon";
 import { clsx } from "clsx";
-import { FC } from "react";
+import { cookies } from "next/headers";
+import { notFound } from "next/navigation";
+import React, { FC } from "react";
 
 export const runtime = "edge";
 
-const ProviderLoginButton: FC<Pick<AppProvider, "id" | "name">> = ({
-  id,
-  name,
-}) => {
-  const signinWith = async () => {
-    "use server";
-    await signIn(id);
-  };
+const ProviderLoginButton: FC<
+  Pick<AppProvider, "id" | "name" | "signinUrl">
+> = ({ id, name, signinUrl }) => {
   return (
     <button
       className="btn btn-primary btn-lg"
       key={name}
-      formAction={signinWith}
+      formAction={signinUrl}
     >
       <Icon
         icon={id as IconProps["icon"]}
@@ -33,19 +29,38 @@ const ProviderLoginButton: FC<Pick<AppProvider, "id" | "name">> = ({
     </button>
   );
 };
-const SigninPage: FC<{
-  searchParams: Record<"error", SignInPageErrorParam>;
-}> = async ({ searchParams: { error } }) => {
-  const res = await fetch(`${process.env.URL}/auth/providers`);
-  const errorText = error && (signinErrors[error] ?? signinErrors.default);
-  if (res.status !== 200)
-    console.warn(
-      `error getting auth providers: [${res.status}] ${res.statusText}`
+
+const getProviders = async () => {
+  const providersResponse = await fetch(`${process.env.URL}/auth/providers`);
+  if (providersResponse.status !== 200) {
+    throw new Error(
+      `error getting auth providers: [${providersResponse.status}] ${providersResponse.statusText}`
     );
-  const providers = (await res.json()) as Providers;
+  }
+  return (await providersResponse.json()) as Providers;
+};
+
+type SigninPageType = FC<{
+  searchParams: {
+    error?: SignInPageErrorParam;
+    callbackUrl?: string;
+  };
+}>;
+
+const SigninPage: SigninPageType = async ({
+  searchParams: { error, callbackUrl },
+}) => {
+  const providers = await getProviders().catch((err) => {
+    console.error(err);
+    notFound();
+  });
+  const c = cookies();
+  const csrf = c.get("authjs.csrf-token");
+  const csrfToken = csrf?.value.split("|")[0];
+  const errorText = error && (signinErrors[error] ?? signinErrors.default);
   return (
     <main className="relative mx-auto flex h-full flex-col items-center justify-center gap-16 pb-48">
-      <Icon icon="invadedMap" className="h-32 w-32 text-primary" />
+      <Icon icon="invadedMap" className="mt-32 h-32 w-32 text-primary" />
       <div
         className={clsx(
           "flex flex-col items-center gap-2",
@@ -62,7 +77,11 @@ const SigninPage: FC<{
         </h1>
         {error && <h5 className="text-center">{errorText}</h5>}
       </div>
-      <form className="flex flex-col gap-4">
+      <form className="flex flex-col gap-4" method="POST">
+        <input type="hidden" name="csrfToken" value={csrfToken} />
+        {callbackUrl && (
+          <input type="hidden" name="callbackUrl" value={callbackUrl} />
+        )}
         {Object.values(providers).map((provider) => (
           <ProviderLoginButton key={provider.id} {...provider} />
         ))}

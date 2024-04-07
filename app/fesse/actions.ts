@@ -6,13 +6,6 @@ import { getTag, TagName, tags } from "@/utils/revalidation-tags";
 import { revalidateTag } from "next/cache";
 
 export type TagNameFormEntry = TagName | File | null;
-export const signin = async () => {
-  const res = await signIn();
-};
-
-export const signout = async () => {
-  await signOut();
-};
 export const deleteUser = async () => {
   const session = await auth();
   const adapter = CustomDrizzleAdapter(db);

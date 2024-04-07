@@ -9,6 +9,7 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
+      name: DrizzleUser["name"];
       created_at: DrizzleUser["created_at"];
       role: DrizzleUser["role"];
     } & DefaultSession["user"];
@@ -54,4 +55,10 @@ const config: NextAuthConfig = {
   },
 };
 
-export const { handlers, auth, signIn, signOut } = NextAuth(config);
+export const {
+  handlers,
+  auth,
+  signIn,
+  signOut,
+  unstable_update: updateUser,
+} = NextAuth(config);

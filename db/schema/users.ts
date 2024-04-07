@@ -7,6 +7,7 @@ import {
   integer,
   pgEnum,
 } from "drizzle-orm/pg-core";
+import { generateUsername } from "edge-unique-username-generator";
 
 export const RoleEnum = pgEnum("role", [
   "user",
@@ -17,7 +18,9 @@ export const RoleEnum = pgEnum("role", [
 ]);
 export const users = pgTable("user", {
   id: text("id").notNull().primaryKey(),
-  name: text("name"),
+  name: text("name")
+    .$default(() => generateUsername("-", 0, 32))
+    .notNull(),
   email: text("email").notNull(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
