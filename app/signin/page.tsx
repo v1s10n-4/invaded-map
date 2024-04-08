@@ -55,7 +55,9 @@ const SigninPage: SigninPageType = async ({
     notFound();
   });
   const c = cookies();
-  const csrf = c.get("authjs.csrf-token");
+  const cookiePrefix =
+    new URL(process.env.URL!).protocol === "https:" ? "__Host-" : "";
+  const csrf = c.get(`${cookiePrefix}authjs.csrf-token`);
   const csrfToken = csrf?.value.split("|")[0];
   const errorText = error && (signinErrors[error] ?? signinErrors.default);
   return (
