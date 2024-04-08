@@ -54,9 +54,9 @@ export const updateAvatar = async (_prevState: any, formData: FormData) => {
   const safeData = updateUserImageSchema.safeParse(image);
   if (!safeData.success)
     return { success: false, errors: safeData.error.flatten().fieldErrors };
-  const fileName = `${session.user.id}.${safeData.data.type.split("/")[1]}`;
+  const fileName = `${session.user.name}.${safeData.data.type.split("/")[1]}`;
   if (session.user.image) await deleteImageFromVercel(session.user.image);
-  const putRes = await put(fileName, safeData.data, {
+  const putRes = await put(`users/avatar/${fileName}`, safeData.data, {
     access: "public",
   });
   await db
