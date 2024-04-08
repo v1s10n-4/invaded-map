@@ -22,7 +22,10 @@ const UserProfile: FC = async () => {
           Account
         </Link>
       ) : (
-        <button formAction={signInAction} className="w-full px-4 py-2">
+        <button
+          formAction={signInAction}
+          className="mt-auto flex w-full items-center justify-between px-4 py-2 align-middle"
+        >
           Log In
           <LoginIcon className="h-8 w-8" />
         </button>
