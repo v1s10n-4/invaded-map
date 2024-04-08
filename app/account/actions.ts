@@ -9,7 +9,7 @@ import {
 import { auth, signIn, updateUser } from "@/auth";
 import { db } from "@/db";
 import { users } from "@/db/schema/users";
-import { put } from "@vercel/blob";
+import { del, put } from "@vercel/blob";
 import { eq } from "drizzle-orm";
 
 export const updateUsername = async (_prevState: any, formData: FormData) => {
@@ -34,6 +34,19 @@ export const updateUsername = async (_prevState: any, formData: FormData) => {
   return safeData;
 };
 
+export const deleteImageFromVercel = async (url: string) => {
+  const oldImageurl = new URL(url);
+  const rootDomain = oldImageurl.host
+    .split(".")
+    .reverse()
+    .splice(0, 2)
+    .reverse()
+    .join(".");
+  if (rootDomain === "vercel-storage.com") {
+    await del(oldImageurl.href);
+  }
+};
+
 export const updateAvatar = async (_prevState: any, formData: FormData) => {
   const session = await auth();
   if (!session) return signIn();
@@ -42,6 +55,7 @@ export const updateAvatar = async (_prevState: any, formData: FormData) => {
   if (!safeData.success)
     return { success: false, errors: safeData.error.flatten().fieldErrors };
   const fileName = `${session.user.id}.${safeData.data.type.split("/")[1]}`;
+  if (session.user.image) await deleteImageFromVercel(session.user.image);
   const putRes = await put(fileName, safeData.data, {
     access: "public",
   });
@@ -57,6 +71,7 @@ export const deleteAvatar = async (_formData: FormData) => {
   const session = await auth();
   if (!session) return signIn();
   if (!session.user.image) return;
+  await deleteImageFromVercel(session.user.image);
   void (await db
     .update(users)
     .set({ image: null })
