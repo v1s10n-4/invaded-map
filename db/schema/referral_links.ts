@@ -1,0 +1,61 @@
+import { users } from "@/db/schema/users";
+import { relations } from "drizzle-orm";
+import {
+  pgEnum,
+  pgTable,
+  serial,
+  smallint,
+  text,
+  timestamp,
+} from "drizzle-orm/pg-core";
+import { generateUsername } from "edge-unique-username-generator";
+
+export const referralTypeEnum = pgEnum("referral_type", [
+  "basic",
+  "qr-code",
+  "email",
+]);
+
+export const referralLinks = pgTable("referral_links", {
+  id: serial("id").primaryKey(),
+  referrer_id: text("userId")
+    .references(() => users.id, {
+      onDelete: "set null",
+    })
+    .notNull(),
+  code: text("code")
+    .notNull()
+    .unique()
+    .$default(() => generateUsername("-", 4, 32)),
+  type: referralTypeEnum("type").default("basic").notNull(),
+  used: smallint("used").default(0).notNull(),
+  created_at: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const referralLinksRelations = relations(
+  referralLinks,
+  ({ one, many }) => ({
+    referrer: one(users, {
+      relationName: "referral_links",
+      fields: [referralLinks.referrer_id],
+      references: [users.id],
+    }),
+    referees: many(users, { relationName: "referrer_link" }),
+  })
+);
+
+// export const referees = pgTable("referees", {
+//   id: serial("id").primaryKey(),
+//   referee_id: text("referee_id")
+//     .default("deleted")
+//     .references(() => users.id, { onDelete: "set default" })
+//     .notNull(),
+//   referral_link_id: integer("").notNull(),
+// });
+//
+// export const refereesRelations = relations(referees, ({ one }) => ({
+//   referees: one(referral_links, {
+//     fields: [referees.referral_link_id],
+//     references: [referral_links.id],
+//   }),
+// }));

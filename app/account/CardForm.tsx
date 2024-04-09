@@ -22,11 +22,13 @@ type CardFormProps = {
   action: CardFormAction;
   deleteAction?: (formData: FormData) => void;
   name: string;
+  submitText?: string;
 } & PropsWithChildren;
 
 const CardForm: FC<CardFormProps> = ({
   action,
   name,
+  submitText = "Save",
   deleteAction,
   children,
 }) => {
@@ -57,7 +59,7 @@ const CardForm: FC<CardFormProps> = ({
             Delete
           </SubmitButton>
         )}
-        <SubmitButton className="btn-primary">Save</SubmitButton>
+        <SubmitButton className="btn-primary">{submitText}</SubmitButton>
       </CardFooter>
     </form>
   );

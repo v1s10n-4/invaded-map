@@ -1,4 +1,6 @@
+import { referralLinks } from "@/db/schema/referral_links";
 import { AdapterAccount } from "@auth/core/adapters";
+import { relations } from "drizzle-orm";
 import {
   timestamp,
   pgTable,
@@ -26,6 +28,7 @@ export const users = pgTable("user", {
   image: text("image"),
   role: RoleEnum("role").notNull().default("user"),
   created_at: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+  referrer_link_id: integer("referrer_id"),
 });
 
 export const accounts = pgTable(
@@ -71,3 +74,12 @@ export const verificationTokens = pgTable(
     compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
   })
 );
+
+export const usersRelations = relations(users, ({ one, many }) => ({
+  referrer_link: one(referralLinks, {
+    relationName: "referrer_link",
+    fields: [users.referrer_link_id],
+    references: [referralLinks.id],
+  }),
+  referral_links: many(referralLinks, { relationName: "referral_links" }),
+}));

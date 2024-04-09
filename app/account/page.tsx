@@ -4,6 +4,7 @@ import {
   updateUsername,
 } from "@/app/account/actions";
 import CardForm from "@/app/account/CardForm";
+import ReferralLink from "@/app/account/ReferralLink";
 import { ACCEPTED_IMAGE_TYPES } from "@/app/account/schema";
 import { signOutAction } from "@/app/actions";
 import { auth, signIn } from "@/auth";
@@ -20,7 +21,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import LogOutIcon from "pixelarticons/svg/logout.svg";
 
-import React, { FC } from "react";
+import React, { FC, Suspense } from "react";
 
 export const runtime = "edge";
 
@@ -78,6 +79,25 @@ const FessePage: FC = async () => {
           </div>
         </div>
         <div className="grid gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Invitation link</CardTitle>
+              <CardDescription>
+                Earn contribution points by inviting people.
+              </CardDescription>
+            </CardHeader>
+            <Suspense
+              fallback={
+                <div className="px-6 pb-6">
+                  <div className="flex items-center justify-center border border-primary p-2">
+                    <span className="loading loading-bars h-8 w-8" />
+                  </div>
+                </div>
+              }
+            >
+              <ReferralLink id={user.id} />
+            </Suspense>
+          </Card>
           <Card>
             <CardHeader>
               <CardTitle>Username</CardTitle>
