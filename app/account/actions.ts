@@ -8,6 +8,7 @@ import {
 } from "@/app/account/schema";
 import { auth, signIn, updateUser } from "@/auth";
 import { db } from "@/db";
+import { referralLinks } from "@/db/schema/referral_links";
 import { users } from "@/db/schema/users";
 import { del, put } from "@vercel/blob";
 import { eq } from "drizzle-orm";
@@ -77,4 +78,12 @@ export const deleteAvatar = async (_formData: FormData) => {
     .set({ image: null })
     .where(eq(users.id, session.user.id)));
   void (await updateUser({}));
+};
+
+export const createReferralLink = async (formData: FormData) => {
+  const session = await auth();
+  if (!session) return signIn();
+  await db.insert(referralLinks).values({ referrer_id: session.user.id });
+  void (await updateUser({}));
+  return { success: true };
 };
