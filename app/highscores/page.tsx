@@ -11,6 +11,19 @@ const getHighScores: () => Promise<HighScoresResponse> = async () => {
     60 * 5
   );
   const res = await fetch(highscores, { ...fetchOptions, next });
+  if (res.status !== 200) {
+    return {
+      Players: [
+        {
+          rank: res.status,
+          name: `Error ${res.statusText}`,
+          score: 0,
+          city_count: 0,
+          invaders_count: 0,
+        },
+      ],
+    };
+  }
   return await res.json();
 };
 const HighScorePage = async () => {
