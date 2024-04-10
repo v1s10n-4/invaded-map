@@ -9,6 +9,7 @@ const search = async (data: FormData) => {
   if (value) redirect(`/highscores/search/${value}`);
   else redirect("/highscores");
 };
+
 const HighScoreLayout: FC<PropsWithChildren> = async ({ children }) => {
   return (
     <main className="flex flex-col justify-center gap-4 bg-black px-2 pb-8 pt-32 text-white">
