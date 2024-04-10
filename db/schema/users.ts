@@ -1,3 +1,4 @@
+import { usersToRewards } from "@/db/schema/rewards";
 import { referralLinks } from "@/db/schema/referral_links";
 import { AdapterAccount } from "@auth/core/adapters";
 import { relations } from "drizzle-orm";
@@ -82,4 +83,5 @@ export const usersRelations = relations(users, ({ one, many }) => ({
     references: [referralLinks.id],
   }),
   referral_links: many(referralLinks, { relationName: "referral_links" }),
+  rewards: many(usersToRewards),
 }));
