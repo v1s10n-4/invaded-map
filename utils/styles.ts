@@ -15,3 +15,6 @@ export const toBase64 = (str: string) =>
   typeof window === "undefined"
     ? Buffer.from(str).toString("base64")
     : window.btoa(str);
+
+export const tooltipClass =
+  "tooltip before:rounded-none before:border before:border-primary before:bg-black before:text-xs before:text-base-content after:border-t-primary";

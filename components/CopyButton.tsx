@@ -1,4 +1,5 @@
 "use client";
+import { tooltipClass } from "@/utils";
 import { clsx } from "clsx";
 import CopyIcon from "pixelarticons/svg/copy.svg";
 import ChechIcon from "pixelarticons/svg/check.svg";
@@ -12,8 +13,6 @@ type CopyLinkButtonProps = {
   confirmationDuration?: number;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-const tooltipClass =
-  "tooltip before:rounded-none before:border before:border-primary before:bg-black before:text-xs before:text-base-content after:border-t-primary";
 const CopyLinkButton: FC<CopyLinkButtonProps> = ({
   link,
   icons = true,
