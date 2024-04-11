@@ -41,6 +41,8 @@ const config: NextAuthConfig = {
   pages: {
     signIn: "/signin",
     error: "/auth-error",
+    signOut: "/map",
+    newUser: "/account",
   },
   callbacks: {
     session: ({ session, user }) => ({
