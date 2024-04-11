@@ -2505,10 +2505,10 @@
     is-buffer "2.0.5"
     undici "5.28.3"
 
-"@vercel/postgres@^0.7.2":
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/@vercel/postgres/-/postgres-0.7.2.tgz#a3d1737a7e3717c2a9088b73f8bba0401666173a"
-  integrity sha512-IqR/ZAvoPGcPaXl9eWWB5KaA+w/81RzZa/18P4izQRHpNBkTGt9HwGfYi9+wut5UgxNq4QSX9A7HIQR6QDvX2Q==
+"@vercel/postgres@^0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@vercel/postgres/-/postgres-0.8.0.tgz#ea658c8b19d883b1225d2e3d195e7251254936cd"
+  integrity sha512-/QUV9ExwaNdKooRjOQqvrKNVnRvsaXeukPNI5DB1ovUTesglfR/fparw7ngo1KUWWKIVpEj2TRrA+ObRHRdaLg==
   dependencies:
     "@neondatabase/serverless" "0.7.2"
     bufferutil "4.0.8"
@@ -3525,10 +3525,10 @@ drizzle-kit@^0.20.14:
     semver "^7.5.4"
     zod "^3.20.2"
 
-drizzle-orm@^0.30.6:
-  version "0.30.6"
-  resolved "https://registry.yarnpkg.com/drizzle-orm/-/drizzle-orm-0.30.6.tgz#c0d3ee85ce3bccdf2e5c1e89b4e5c01cd35a4d36"
-  integrity sha512-8RgNUmY7J03GRuRgBV5SaJNbYgLVPjdSWNS/bRkIMIHt2TFCA439lJsNpqYX8asyKMqkw8ceBiamUnCIXZIt9w==
+drizzle-orm@^0.30.8:
+  version "0.30.8"
+  resolved "https://registry.yarnpkg.com/drizzle-orm/-/drizzle-orm-0.30.8.tgz#bf74a958b74d8c5fe55ce8d7f901dd2870c4e7c7"
+  integrity sha512-9pBJA0IjnpPpzZ6s9jlS1CQAbKoBmbn2GJesPhXaVblAA/joOJ4AWWevYcqvLGj9SvThBAl7WscN8Zwgg5mnTw==
 
 drizzle-zod@^0.5.1:
   version "0.5.1"
