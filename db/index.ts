@@ -2,6 +2,7 @@ import { invaders } from "@/db/schema/invaders";
 import * as Users from "@/db/schema/users";
 import * as Invaders from "@/db/schema/invaders";
 import * as ReferralLinks from "@/db/schema/referral_links";
+import * as Rewards from "@/db/schema/rewards";
 import { createClient, sql } from "@vercel/postgres";
 import { InferInsertModel, InferSelectModel } from "drizzle-orm";
 import { drizzle as VercelDrizzle } from "drizzle-orm/vercel-postgres";
@@ -33,7 +34,7 @@ if (process.env.LOCAL === "true") {
   client = sql;
 }
 const db = VercelDrizzle(client, {
-  schema: { ...Users, ...Invaders, ...ReferralLinks },
+  schema: { ...Users, ...Invaders, ...ReferralLinks, ...Rewards },
 });
 
 export { db };
