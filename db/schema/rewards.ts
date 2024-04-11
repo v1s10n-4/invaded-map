@@ -1,3 +1,4 @@
+import { referralLinks } from "@/db/schema/referral_links";
 import { users } from "@/db/schema/users";
 import { relations } from "drizzle-orm";
 import {
@@ -28,20 +29,22 @@ export const rewardTypes = pgTable("reward_type", {
 
 export const rewardTypesRelations = relations(rewardTypes, ({ many }) => ({
   users: many(usersToRewards),
+  referral_link: many(referralLinks),
 }));
 
 export const usersToRewards = pgTable(
   "users_to_rewards",
   {
-    user_id: text("user_id").references(() => users.id, {
-      onDelete: "set null",
-    }),
-    reward_id: integer("reward_id").references(() => rewardTypes.id, {
-      onDelete: "set null",
-    }),
+    user_id: text("user_id")
+      .notNull()
+      .references(() => users.id),
+    reward_id: integer("reward_id")
+      .notNull()
+      .references(() => rewardTypes.id),
   },
   (table) => ({
     pk: primaryKey({
+      name: "users_to_rewards_pk",
       columns: [table.reward_id, table.user_id],
     }),
   })

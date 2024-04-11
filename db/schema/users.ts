@@ -20,7 +20,7 @@ export const RoleEnum = pgEnum("role", [
   "superuser",
 ]);
 export const users = pgTable("user", {
-  id: text("id").notNull().primaryKey(),
+  id: text("id").notNull().primaryKey().unique(),
   name: text("name")
     .$default(() => generateUsername("-", 0, 32))
     .notNull(),
@@ -29,7 +29,7 @@ export const users = pgTable("user", {
   image: text("image"),
   role: RoleEnum("role").notNull().default("user"),
   created_at: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
-  referrer_link_id: integer("referrer_id"),
+  referrer_link_id: integer("referrer_link_id"),
 });
 
 export const accounts = pgTable(
