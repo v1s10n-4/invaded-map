@@ -1,9 +1,8 @@
-import { NextApiRequest } from "next";
-import { NextResponse } from "next/server";
+import { REFERRAL_CODE_COOKIE_NAME } from "@/utils/data";
+import { NextRequest, NextResponse } from "next/server";
 
-export const REFERRAL_CODE_COOKIE_NAME = "referral-code";
 export const GET = async (
-  _req: NextApiRequest,
+  _req: NextRequest,
   { params: { code } }: { params: { code: string } }
 ) => {
   const response = NextResponse.redirect(`${process.env.URL}/map`);

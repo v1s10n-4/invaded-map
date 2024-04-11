@@ -1,17 +1,17 @@
-import { REFERRAL_CODE_COOKIE_NAME } from "@/app/invite/[code]/route";
 import { auth, signIn } from "@/auth";
 import { db } from "@/db";
 import { referralLinks } from "@/db/schema/referral_links";
 import { usersToRewards } from "@/db/schema/rewards";
 import { users } from "@/db/schema/users";
+import { REFERRAL_CODE_COOKIE_NAME } from "@/utils/data";
 import { getTags } from "@/utils/revalidation-tags";
 import { eq } from "drizzle-orm";
-import { NextApiRequest } from "next";
 import { unstable_cache } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { NextRequest } from "next/server";
 
-export const GET = async (req: NextApiRequest) => {
+export const GET = async (req: NextRequest) => {
   const session = await auth();
   if (!session) return signIn();
 

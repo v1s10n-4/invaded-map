@@ -1,6 +1,4 @@
-import { FlashInvadersAPI } from "@/app/highscores/utils";
 import { Invader, InvaderState, InvaderWithLocation } from "@/db";
-import { UserSearchResponse } from "@/types/FlashInvadersAPI";
 import { getRequestConfig } from "@/utils/revalidation-tags";
 
 export const getState = (state: InvaderState) =>
@@ -12,6 +10,8 @@ export const getState = (state: InvaderState) =>
     DD: "Exterminated",
     U: "Unknown",
   })[state];
+
+export const REFERRAL_CODE_COOKIE_NAME = "referral-code";
 
 const headers: HeadersInit = {
   "api-token": process.env.API_SECRET!,

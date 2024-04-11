@@ -1,4 +1,3 @@
-import { REFERRAL_CODE_COOKIE_NAME } from "@/app/invite/[code]/route";
 import {
   AppProvider,
   Providers,
@@ -6,6 +5,7 @@ import {
   SignInPageErrorParam,
 } from "@/app/signin/utils";
 import Icon, { IconProps } from "@/components/Icon/Icon";
+import { REFERRAL_CODE_COOKIE_NAME } from "@/utils/data";
 import { clsx } from "clsx";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
