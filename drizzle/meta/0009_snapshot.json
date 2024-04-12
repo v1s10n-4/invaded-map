@@ -1,6 +1,6 @@
 {
-  "id": "1e1ff480-6a9f-4593-b6a1-29c063098ed0",
-  "prevId": "36155667-933f-452f-9aef-5ef25c6278f0",
+  "id": "75157c8c-4006-4eb0-982a-9ffc54628e47",
+  "prevId": "1e1ff480-6a9f-4593-b6a1-29c063098ed0",
   "version": "5",
   "dialect": "pg",
   "tables": {
@@ -477,8 +477,8 @@
           "notNull": true,
           "default": "now()"
         },
-        "referrer_id": {
-          "name": "referrer_id",
+        "referrer_link_id": {
+          "name": "referrer_link_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": false

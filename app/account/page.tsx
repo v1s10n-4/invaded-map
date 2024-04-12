@@ -18,6 +18,7 @@ import { HitPlaceholder } from "@/components/Placeholder";
 import SubmitButton from "@/components/SubmitButton";
 import { User } from "@/db";
 import { cn } from "@/lib/utils";
+import { tooltipClass } from "@/utils";
 import Image from "next/image";
 import LogOutIcon from "pixelarticons/svg/logout.svg";
 
@@ -70,7 +71,11 @@ const FessePage: FC = async () => {
               <h2>{user.email}</h2>
               <h4>Created: {new Date(user.created_at).toLocaleDateString()}</h4>
             </div>
-            <form action={signOutAction}>
+            <form
+              action={signOutAction}
+              className={tooltipClass}
+              data-tip="Log out"
+            >
               <SubmitButton className="btn-outline btn-primary btn-wide flex !p-1 md:btn-square">
                 <span className="md:hidden">Sign out</span>
                 <LogOutIcon className="aspect-square h-full w-8 md:w-full" />

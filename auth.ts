@@ -7,12 +7,7 @@ import Google from "next-auth/providers/google";
 
 declare module "next-auth" {
   interface Session extends DefaultSession {
-    user: {
-      id: string;
-      name: DrizzleUser["name"];
-      created_at: DrizzleUser["created_at"];
-      role: DrizzleUser["role"];
-    } & DefaultSession["user"];
+    user: DrizzleUser & DefaultSession["user"];
   }
   interface User {
     created_at: DrizzleUser["created_at"];
@@ -41,6 +36,8 @@ const config: NextAuthConfig = {
   pages: {
     signIn: "/signin",
     error: "/auth-error",
+    signOut: "/map",
+    newUser: "/welcome",
   },
   callbacks: {
     session: ({ session, user }) => ({

@@ -1,6 +1,8 @@
+import { rewardTypes } from "@/db/schema/rewards";
 import { users } from "@/db/schema/users";
 import { relations } from "drizzle-orm";
 import {
+  integer,
   pgEnum,
   pgTable,
   serial,
@@ -18,7 +20,7 @@ export const referralTypeEnum = pgEnum("referral_type", [
 
 export const referralLinks = pgTable("referral_links", {
   id: serial("id").primaryKey(),
-  referrer_id: text("userId")
+  referrer_id: text("referrer_id")
     .references(() => users.id, {
       onDelete: "set null",
     })
@@ -30,6 +32,7 @@ export const referralLinks = pgTable("referral_links", {
   type: referralTypeEnum("type").default("basic").notNull(),
   used: smallint("used").default(0).notNull(),
   created_at: timestamp("created_at").notNull().defaultNow(),
+  reward_type_id: integer("reward_type_id").references(() => rewardTypes.id),
 });
 
 export const referralLinksRelations = relations(
@@ -39,6 +42,10 @@ export const referralLinksRelations = relations(
       relationName: "referral_links",
       fields: [referralLinks.referrer_id],
       references: [users.id],
+    }),
+    reward: one(rewardTypes, {
+      fields: [referralLinks.reward_type_id],
+      references: [rewardTypes.id],
     }),
     referees: many(users, { relationName: "referrer_link" }),
   })
