@@ -1,8 +1,4 @@
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/app/map/[invaderName]/Carousel";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/Carousel";
 import { HitPlaceholder } from "@/components/Placeholder";
 import { SliderActions } from "@/components/SliderActions";
 import { BoxClasses } from "@/utils";
