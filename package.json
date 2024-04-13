@@ -22,6 +22,7 @@
     "@algolia/requester-fetch": "^4.23.2",
     "@auth/drizzle-adapter": "^0.8.2",
     "@imbios/next-pwa": "^1.1.1",
+    "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-menubar": "^1.0.3",
     "@radix-ui/react-scroll-area": "^1.0.4",
     "@radix-ui/react-toggle": "^1.0.3",
