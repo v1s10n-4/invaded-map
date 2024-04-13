@@ -68,7 +68,7 @@ const FessePage: FC = async () => {
               <h2 className="mb-1 text-base text-primary md:text-lg">
                 <DisplayUserName {...user} />
               </h2>
-              <h2>{user.email}</h2>
+              <h2 className="break-all text-center">{user.email}</h2>
               <h4>Created: {new Date(user.created_at).toLocaleDateString()}</h4>
             </div>
             <form

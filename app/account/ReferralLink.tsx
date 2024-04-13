@@ -1,11 +1,13 @@
 import { createReferralLink } from "@/app/account/actions";
+import QRCodeIcon from "@/app/account/qr-code.svg";
+import QRCode, { ShowQRCodeButton } from "@/app/account/QRCode";
 import { CardContent, CardFooter } from "@/components/Card";
 import CopyButton from "@/components/CopyButton";
 import SubmitButton from "@/components/SubmitButton";
 import { db, User } from "@/db";
 import { referralLinks } from "@/db/schema/referral_links";
 import { and, desc, eq } from "drizzle-orm";
-import React, { FC } from "react";
+import React, { FC, Suspense } from "react";
 
 type ReferralLinkProps = Pick<User, "id">;
 
@@ -19,13 +21,25 @@ export const CopylLink: FC<{ host?: string; pathname: string }> = ({
     {...props}
   >
     <p className="w-full overflow-x-auto break-all text-xs selection:bg-primary selection:text-black">
-      <span className="text-base-content/40">{host}</span>/{pathname}
+      <span className="text-base-content/40">{host}/invite</span>/{pathname}
     </p>
-    <CopyButton
-      link={host + pathname}
-      icons="only"
-      className="btn btn-ghost h-[2.3em] min-h-[2.3em] w-[2.3em] p-1"
-    />
+    <div className="flex items-center gap-2">
+      <CopyButton
+        link={`${host}/invite/${pathname}`}
+        icons="only"
+        className="btn btn-ghost h-[2.3em] min-h-[2.3em] w-[2.3em] p-1"
+      />
+      <Suspense
+        fallback={
+          <ShowQRCodeButton
+            tooltipText="generating qr code..."
+            className="skeleton bg-base-200"
+          />
+        }
+      >
+        <QRCode link={`${host}/invite/${pathname}`} />
+      </Suspense>
+    </div>
   </div>
 );
 
