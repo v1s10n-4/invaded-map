@@ -1,3 +1,4 @@
+import InvaderPageCarousel from "@/app/map/[invaderName]/InvaderPageCarousel";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/Carousel";
 import { HitPlaceholder } from "@/components/Placeholder";
 import { SliderActions } from "@/components/SliderActions";
@@ -66,29 +67,10 @@ const InvaderPlacePage: FC<{ params: Params }> = async ({
   if (!invader) notFound();
   return (
     <div className="scrollbar flex flex-col items-center gap-4 p-4 md:flex-row">
-      <Carousel
-        className={clsx(BoxClasses, "aspect-square w-full md:h-60 md:w-fit")}
-      >
-        <CarouselContent className="flex aspect-square md:h-60">
-          {[invader.thumbnail, ...invader.images.map((x) => x.url)].map(
-            (url, i) => (
-              <CarouselItem key={i}>
-                <Image
-                  className="h-full w-full object-contain"
-                  src={url}
-                  alt="Image not found"
-                  style={{ objectFit: "contain" }}
-                  placeholder={HitPlaceholder(400, 400)}
-                  width={400}
-                  height={400}
-                />
-              </CarouselItem>
-            )
-          )}
-        </CarouselContent>
-        <SliderActions />
-      </Carousel>
-      <div className="flex h-full w-full flex-col justify-around gap-4 px-4 sm:flex-row md:flex-col">
+      <InvaderPageCarousel
+        imageList={[invader.thumbnail, ...invader.images.map((x) => x.url)]}
+      />
+      <div className="relative flex h-full w-full flex-col justify-around gap-4 px-4 sm:flex-row md:flex-col">
         <div className="flex flex-col gap-4">
           <p className="flex items-center gap-2 text-xl">
             <Coin className="h-7 w-7" />
