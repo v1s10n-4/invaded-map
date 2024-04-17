@@ -1,7 +1,4 @@
-import {
-  CarouselNext,
-  CarouselPrevious,
-} from "@/app/map/[invaderName]/Carousel";
+import { CarouselNext, CarouselPrevious } from "@/components/Carousel";
 import ChevronLeft from "pixelarticons/svg/chevron-left.svg";
 import ChevronRight from "pixelarticons/svg/chevron-right.svg";
 import React, { FC } from "react";

@@ -68,6 +68,7 @@ export const MapSheet: FC<PropsWithChildren> = ({ children }) => {
       onSnap={setCurrentSnapPoint}
       initialSnap={invaderName ? MapSheetState.FULL : MapSheetState.CLOSED}
       detent={invaderName ? "content-height" : "full-height"}
+      className="!z-20"
       style={{
         position: "absolute",
       }}
@@ -121,7 +122,7 @@ export const MapSheet: FC<PropsWithChildren> = ({ children }) => {
           </button>
         </Sheet.Header>
         <Sheet.Content
-          className="border-t border-primary scrollbar"
+          className="scrollbar border-t border-primary"
           disableDrag={
             !!invaderName ||
             currentSnapPoint === MapSheetState.MIN ||
