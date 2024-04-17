@@ -1,17 +1,12 @@
+import EditModal from "@/app/map/[invaderName]/EditModal";
 import InvaderPageCarousel from "@/app/map/[invaderName]/InvaderPageCarousel";
-import { Carousel, CarouselContent, CarouselItem } from "@/components/Carousel";
-import { HitPlaceholder } from "@/components/Placeholder";
-import { SliderActions } from "@/components/SliderActions";
-import { BoxClasses } from "@/utils";
 import { getInvader, getState } from "@/utils/data";
-import { clsx } from "clsx";
 import { Metadata } from "next";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import BuildingCommunity from "pixelarticons/svg/building-community.svg";
 import Coin from "pixelarticons/svg/coin.svg";
-import ImageFlash from "pixelarticons/svg/image-flash.svg";
-import React, { FC } from "react";
+import ImageFlashIcon from "pixelarticons/svg/image-flash.svg";
+import React, { FC, Suspense } from "react";
 
 export const runtime = "edge";
 
@@ -77,7 +72,7 @@ const InvaderPlacePage: FC<{ params: Params }> = async ({
             <span className="font-bold">{invader.points}</span> points
           </p>
           <p className="flex items-center gap-2">
-            <ImageFlash className="h-7 w-7" /> {getState(invader.state)}
+            <ImageFlashIcon className="h-7 w-7" /> {getState(invader.state)}
           </p>
         </div>
         <div className="flex flex-col gap-4">
@@ -87,6 +82,9 @@ const InvaderPlacePage: FC<{ params: Params }> = async ({
           </p>
           <p>Created: {new Date(invader.create_date).toLocaleDateString()}</p>
         </div>
+        <Suspense fallback={<div>loading</div>}>
+          <EditModal data={invader} />
+        </Suspense>
       </div>
     </div>
   );

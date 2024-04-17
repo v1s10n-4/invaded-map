@@ -139,7 +139,7 @@ const FessePage: FC = async () => {
                 type="file"
                 required
                 accept={ACCEPTED_IMAGE_TYPES.join(", ")}
-                className="file-i file-input file-input-primary w-full max-w-md"
+                className="file-input file-input-primary w-full max-w-md"
               />
             </CardForm>
           </Card>
