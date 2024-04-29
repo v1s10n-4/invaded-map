@@ -47,6 +47,11 @@ const nextConfig = {
       permanent: false,
     },
     {
+      source: "/invite/grandmaster-flash42",
+      destination: "/map",
+      permanent: false,
+    },
+    {
       source: "/highscore",
       destination: "/highscores",
       permanent: true,
