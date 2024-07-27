@@ -12,15 +12,16 @@
     "lint": "next lint",
     "format": "prettier --write './**/*.{js,ts,jsx,tsx,md,mdx,css,html,yml,yaml,json}' --ignore-path .gitignore",
     "algolia:regen": "bun run scripts/algolia-sync.ts",
-    "db:migrate": "bun run drizzle-kit generate:pg",
-    "db:check": "bun run drizzle-kit check:pg",
+    "db:generate": "bun run drizzle-kit generate",
+    "db:check": "bun run drizzle-kit check",
     "db:studio": "bun run drizzle-kit studio",
-    "db:push": "bun run drizzle-kit push:pg",
+    "db:migrate": "bun run drizzle-kit migrate",
+    "db:push": "bun run drizzle-kit push",
     "db:drop": "bun run drizzle-kit drop"
   },
   "dependencies": {
     "@algolia/requester-fetch": "^4.23.2",
-    "@auth/drizzle-adapter": "^0.8.2",
+    "@auth/drizzle-adapter": "^0.9.0",
     "@imbios/next-pwa": "^1.1.1",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-menubar": "^1.0.3",
@@ -44,7 +45,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "daisyui": "^4.7.2",
-    "drizzle-orm": "^0.30.8",
+    "drizzle-orm": "^0.32.1",
     "drizzle-zod": "^0.5.1",
     "edge-unique-username-generator": "^1.2.0",
     "embla-carousel-react": "^8.0.1",
@@ -71,7 +72,7 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.3.3",
     "vaul": "^0.9.0",
-    "zod": "^3.22.4",
+    "zod": "^3.23.8",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
@@ -80,7 +81,7 @@
     "@types/invariant": "^2.2.35",
     "daisyui-tailwind-scrollbar": "^1.3.3",
     "dotenv": "^16.4.5",
-    "drizzle-kit": "^0.20.14",
+    "drizzle-kit": "^0.22.8",
     "node-html-parser": "^6.1.12",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.4"

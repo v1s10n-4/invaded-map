@@ -71,6 +71,20 @@
       "when": 1712875726693,
       "tag": "0009_glamorous_rick_jones",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1721934634580,
+      "tag": "0010_mature_rogue",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1721964403585,
+      "tag": "0011_curved_may_parker",
+      "breakpoints": true
     }
   ]
 }

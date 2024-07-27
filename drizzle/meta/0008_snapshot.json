@@ -1,10 +1,8 @@
 {
-  "id": "1e1ff480-6a9f-4593-b6a1-29c063098ed0",
-  "prevId": "36155667-933f-452f-9aef-5ef25c6278f0",
-  "version": "5",
-  "dialect": "pg",
+  "version": "7",
+  "dialect": "postgresql",
   "tables": {
-    "invaders": {
+    "public.invaders": {
       "name": "invaders",
       "schema": "",
       "columns": {
@@ -93,7 +91,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "referral_links": {
+    "public.referral_links": {
       "name": "referral_links",
       "schema": "",
       "columns": {
@@ -148,42 +146,42 @@
         "referral_links_referrer_id_user_id_fk": {
           "name": "referral_links_referrer_id_user_id_fk",
           "tableFrom": "referral_links",
-          "tableTo": "user",
           "columnsFrom": [
             "referrer_id"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "set null"
         },
         "referral_links_reward_type_id_reward_type_id_fk": {
           "name": "referral_links_reward_type_id_reward_type_id_fk",
           "tableFrom": "referral_links",
-          "tableTo": "reward_type",
           "columnsFrom": [
             "reward_type_id"
           ],
+          "tableTo": "reward_type",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "referral_links_code_unique": {
           "name": "referral_links_code_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "code"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "reward_type": {
+    "public.reward_type": {
       "name": "reward_type",
       "schema": "",
       "columns": {
@@ -225,14 +223,14 @@
       "uniqueConstraints": {
         "reward_type_name_unique": {
           "name": "reward_type_name_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "name"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "users_to_rewards": {
+    "public.users_to_rewards": {
       "name": "users_to_rewards",
       "schema": "",
       "columns": {
@@ -254,28 +252,28 @@
         "users_to_rewards_user_id_user_id_fk": {
           "name": "users_to_rewards_user_id_user_id_fk",
           "tableFrom": "users_to_rewards",
-          "tableTo": "user",
           "columnsFrom": [
             "user_id"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "users_to_rewards_reward_id_reward_type_id_fk": {
           "name": "users_to_rewards_reward_id_reward_type_id_fk",
           "tableFrom": "users_to_rewards",
-          "tableTo": "reward_type",
           "columnsFrom": [
             "reward_id"
           ],
+          "tableTo": "reward_type",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {
@@ -289,7 +287,7 @@
       },
       "uniqueConstraints": {}
     },
-    "account": {
+    "public.account": {
       "name": "account",
       "schema": "",
       "columns": {
@@ -365,15 +363,15 @@
         "account_userId_user_id_fk": {
           "name": "account_userId_user_id_fk",
           "tableFrom": "account",
-          "tableTo": "user",
           "columnsFrom": [
             "userId"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {
@@ -387,7 +385,7 @@
       },
       "uniqueConstraints": {}
     },
-    "session": {
+    "public.session": {
       "name": "session",
       "schema": "",
       "columns": {
@@ -415,21 +413,21 @@
         "session_userId_user_id_fk": {
           "name": "session_userId_user_id_fk",
           "tableFrom": "session",
-          "tableTo": "user",
           "columnsFrom": [
             "userId"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "user": {
+    "public.user": {
       "name": "user",
       "schema": "",
       "columns": {
@@ -490,14 +488,14 @@
       "uniqueConstraints": {
         "user_id_unique": {
           "name": "user_id_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "id"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "verificationToken": {
+    "public.verificationToken": {
       "name": "verificationToken",
       "schema": "",
       "columns": {
@@ -535,49 +533,55 @@
     }
   },
   "enums": {
-    "invader_state": {
+    "public.invader_state": {
       "name": "invader_state",
-      "values": {
-        "A": "A",
-        "DG": "DG",
-        "H": "H",
-        "D": "D",
-        "DD": "DD",
-        "U": "U"
-      }
+      "schema": "public",
+      "values": [
+        "A",
+        "DG",
+        "H",
+        "D",
+        "DD",
+        "U"
+      ]
     },
-    "referral_type": {
+    "public.referral_type": {
       "name": "referral_type",
-      "values": {
-        "basic": "basic",
-        "qr-code": "qr-code",
-        "email": "email"
-      }
+      "schema": "public",
+      "values": [
+        "basic",
+        "qr-code",
+        "email"
+      ]
     },
-    "rewardableActionType": {
+    "public.rewardableActionType": {
       "name": "rewardableActionType",
-      "values": {
-        "POPULARITY": "POPULARITY",
-        "CONTRIBUTION": "CONTRIBUTION",
-        "ACHIEVEMENT": "ACHIEVEMENT",
-        "TOXICITY": "TOXICITY"
-      }
+      "schema": "public",
+      "values": [
+        "POPULARITY",
+        "CONTRIBUTION",
+        "ACHIEVEMENT",
+        "TOXICITY"
+      ]
     },
-    "role": {
+    "public.role": {
       "name": "role",
-      "values": {
-        "user": "user",
-        "poweruser": "poweruser",
-        "moderator": "moderator",
-        "admin": "admin",
-        "superuser": "superuser"
-      }
+      "schema": "public",
+      "values": [
+        "user",
+        "poweruser",
+        "moderator",
+        "admin",
+        "superuser"
+      ]
     }
   },
   "schemas": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
-  }
+    "tables": {},
+    "columns": {}
+  },
+  "id": "1e1ff480-6a9f-4593-b6a1-29c063098ed0",
+  "prevId": "36155667-933f-452f-9aef-5ef25c6278f0"
 }
