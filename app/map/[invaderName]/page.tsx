@@ -82,7 +82,16 @@ const InvaderPlacePage: FC<{ params: Params }> = async ({
           </p>
           <p>Created: {new Date(invader.create_date).toLocaleDateString()}</p>
         </div>
-        <Suspense fallback={<div>loading</div>}>
+        <Suspense
+          fallback={
+            <button
+              disabled
+              className="btn btn-square btn-outline absolute right-0 top-0 self-start p-2"
+            >
+              <span className="loading loading-bars" />
+            </button>
+          }
+        >
           <EditModal data={invader} />
         </Suspense>
       </div>

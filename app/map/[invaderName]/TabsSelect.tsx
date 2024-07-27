@@ -4,15 +4,14 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/Select";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/Tabs";
+import { Tabs } from "@/components/Tabs";
 import React, { FC, PropsWithChildren, useState } from "react";
 
 type TabsSelectProps = PropsWithChildren<{
-  values: string[];
+  values: { value: string; label: string }[];
   defaultValue?: string;
   placeholder?: string;
 }>;
@@ -25,16 +24,16 @@ const TabsSelect: FC<TabsSelectProps> = ({
 }) => {
   const [selected, setSelected] = useState<string | undefined>(defaultValue);
   return (
-    <Tabs className="w-full" value={selected}>
-      <Select onValueChange={setSelected} value={selected}>
+    <Tabs className="mt-4 w-full" value={selected}>
+      <Select name="type" onValueChange={setSelected} value={selected}>
         <SelectTrigger>
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            {values.map((value) => (
+            {values.map(({ value, label }) => (
               <SelectItem key={value} value={value} className="h-12">
-                {value}
+                {label}
               </SelectItem>
             ))}
           </SelectGroup>

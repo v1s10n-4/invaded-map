@@ -1,4 +1,4 @@
-"use client";
+import { ACCEPTED_IMAGE_TYPES } from "@/app/account/schema";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/Popover";
 import { TabsContent } from "@/components/Tabs";
 import { Invader } from "@/db";
@@ -7,7 +7,7 @@ import React, { FC } from "react";
 
 type StateFormProps = Pick<Invader, "state">;
 
-const states = [
+export const invaderValidStates = [
   { value: "A", label: "active", description: "flashable & no degradation" },
   {
     value: "DG",
@@ -27,7 +27,7 @@ const states = [
   },
   {
     value: "DD",
-    label: "unrebuildable",
+    label: "unfixable",
     description: "can't be rebuilt, ex: due to environment changes",
   },
   {
@@ -58,7 +58,7 @@ const StateForm: FC<StateFormProps> = ({ state }) => {
           </PopoverContent>
         </Popover>
       </h4>
-      {states.map(({ value, label, description }) => (
+      {invaderValidStates.map(({ value, label, description }) => (
         <div key={value} className="form-control">
           <label className="label cursor-pointer" htmlFor={`state-${value}`}>
             <span className="label-text flex items-center">
@@ -111,8 +111,9 @@ const StateForm: FC<StateFormProps> = ({ state }) => {
           required
           name="proof"
           type="file"
-          accept="image/*"
-          capture="environment"
+          accept={ACCEPTED_IMAGE_TYPES.join(", ")}
+          // accept="image/*"
+          // capture="environment"
           className="file-input w-full px-0 text-xs file:text-xs"
         />
         <div className="label">
