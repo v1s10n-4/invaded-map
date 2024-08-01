@@ -7,8 +7,9 @@ import {
   updateUsernameSchema,
 } from "@/app/account/schema";
 import { auth, signIn, updateUser } from "@/auth";
-import { db } from "@/db";
+import { db, ReviewTask } from "@/db";
 import { referralLinks } from "@/db/schema/referral_links";
+import { reviewTasks } from "@/db/schema/reviewTasks";
 import { users } from "@/db/schema/users";
 import { del, put } from "@vercel/blob";
 import { eq } from "drizzle-orm";
@@ -86,4 +87,17 @@ export const createReferralLink = async (formData: FormData) => {
   await db.insert(referralLinks).values({ referrer_id: session.user.id });
   void (await updateUser({}));
   return { success: true };
+};
+
+export const deleteContribution = async (id: ReviewTask["id"]) => {
+  const session = await auth();
+  if (!session) return signIn();
+  const contribution = await db.query.reviewTasks.findFirst({
+    where: eq(reviewTasks.id, id),
+  });
+  console.log({ id, contribution });
+  if (!contribution || contribution.editor_id !== session.user.id)
+    return { success: false };
+  await deleteImageFromVercel(contribution.proof_image);
+  await db.delete(reviewTasks).where(eq(reviewTasks.id, id));
 };
