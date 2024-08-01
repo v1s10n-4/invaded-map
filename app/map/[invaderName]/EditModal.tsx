@@ -1,5 +1,5 @@
 "use client";
-import { UpdateInvaderField } from "@/app/map/[invaderName]/actions";
+import { submitContribution } from "@/app/map/[invaderName]/actions";
 import CreateDateForm from "@/app/map/[invaderName]/CreateDateForm";
 import PointsForm from "@/app/map/[invaderName]/PointsForm";
 import StateForm from "@/app/map/[invaderName]/StateForm";
@@ -28,7 +28,7 @@ import { useFormState } from "react-dom";
 type EditModalProps = { data: Invader };
 
 const EditModal: FC<EditModalProps> = ({ data }) => {
-  const submitWithId = UpdateInvaderField.bind(null, data.name);
+  const submitWithId = submitContribution.bind(null, data.name);
   const [state, formAction] = useFormState(
     submitWithId,
     InvaderEditResponseState

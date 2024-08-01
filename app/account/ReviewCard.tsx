@@ -1,4 +1,8 @@
-import { ContributionActions, ReviewActions } from "@/app/account/utils";
+import {
+  ContributionActions,
+  getReview,
+  ReviewActions,
+} from "@/app/account/utils";
 import {
   Card,
   CardContent,
@@ -29,13 +33,8 @@ const ReviewCard: FC<ReviewCardProps> = async ({
   currentUserRole,
   currentUserId,
 }) => {
-  const res = await db.query.reviewTasks.findFirst({
-    with: {
-      entity: true,
-      editor: true,
-    },
-    where: eq(reviewTasks.id, id),
-  });
+  const getter = await getReview(id);
+  const res = await getter();
   if (!res) {
     return (
       <div className="flex border border-primary p-6">

@@ -1,16 +1,17 @@
 import ReviewCard from "@/app/account/ReviewCard";
 import ReviewsCarousel from "@/app/account/ReviewsCarousel";
-import { DisplayRole } from "@/app/account/utils";
+import { DisplayRole, getAllReviews } from "@/app/account/utils";
 import { CarouselItem } from "@/components/Carousel";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/Tabs";
 import { db, ReviewTask, User } from "@/db";
 import { reviewTasks } from "@/db/schema/reviewTasks";
+import { unstable_cache } from "next/cache";
 import React, { FC, Suspense } from "react";
 
 type ReviewsSectionProps = { user: User };
 
 const ReviewsSection: FC<ReviewsSectionProps> = async ({ user }) => {
-  const res = await db.select().from(reviewTasks);
+  const res = await getAllReviews();
   const [ownReviews, othersReviews] = res.reduce<[ReviewTask[], ReviewTask[]]>(
     ([own, others], review) => {
       if (review.editor_id === user.id) {

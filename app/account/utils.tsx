@@ -1,8 +1,12 @@
 import { deleteContribution } from "@/app/account/actions";
 import { CardFooter } from "@/components/Card";
 import SubmitButton from "@/components/SubmitButton";
-import { ReviewTask, User } from "@/db";
+import { db, ReviewTask, User } from "@/db";
+import { reviewTasks } from "@/db/schema/reviewTasks";
 import { cn } from "@/lib/utils";
+import { getTags } from "@/utils/revalidation-tags";
+import { eq } from "drizzle-orm";
+import { unstable_cache } from "next/cache";
 import React, { FC } from "react";
 
 export const DisplayRole: FC<Pick<User, "role"> & { className?: string }> = ({
@@ -52,3 +56,29 @@ export const ContributionActions: FC<Pick<ReviewTask, "id">> = ({ id }) => {
     </form>
   );
 };
+
+export const getAllReviews = unstable_cache(
+  async () => {
+    const res = await db.select().from(reviewTasks);
+    return res;
+  },
+  getTags("all reviews"),
+  { tags: getTags("all reviews") }
+);
+
+export const getReview = async (id: ReviewTask["id"]) =>
+  unstable_cache(
+    () => {
+      return db.query.reviewTasks.findFirst({
+        with: {
+          entity: true,
+          editor: true,
+        },
+        where: eq(reviewTasks.id, id),
+      });
+    },
+    ["review", id.toString()],
+    {
+      tags: getTags("review", id.toString()),
+    }
+  );

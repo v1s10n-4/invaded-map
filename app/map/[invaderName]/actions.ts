@@ -7,11 +7,13 @@ import { auth, signIn } from "@/auth";
 import { db } from "@/db";
 import { reviewTasks } from "@/db/schema/reviewTasks";
 import { getInvader } from "@/utils/data";
+import { getTag } from "@/utils/revalidation-tags";
 import { put } from "@vercel/blob";
 import { and, eq, sql } from "drizzle-orm";
+import { revalidateTag } from "next/cache";
 import { z } from "zod";
 
-export type UpdateInvaderResponse = { errors: string[]; success: boolean };
+export type SubmitContributionResponse = { errors: string[]; success: boolean };
 
 const invaderCreatedDateSchema = z.string().date();
 const invaderPointsSchema = z
@@ -21,9 +23,9 @@ const invaderPointsSchema = z
   .finite()
   .safe();
 
-export const UpdateInvaderField = async (
+export const submitContribution = async (
   invaderName: string,
-  state: UpdateInvaderResponse,
+  state: SubmitContributionResponse,
   formData: FormData
 ) => {
   const session = await auth();
@@ -138,7 +140,8 @@ export const UpdateInvaderField = async (
       success: false,
       errors: ["Error, please contact me on discord (error code: 15)"],
     };
+  revalidateTag(getTag("all reviews"));
   return { success: true, errors: [] };
 };
 
-export type UpdateInvaderFieldType = typeof UpdateInvaderField;
+export type SubmitContributionFieldType = typeof submitContribution;
