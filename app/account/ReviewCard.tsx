@@ -11,10 +11,8 @@ import {
   CardTitle,
 } from "@/components/Card";
 import { HitPlaceholder } from "@/components/Placeholder";
-import { db, ReviewTask, User } from "@/db";
-import { reviewTasks } from "@/db/schema/reviewTasks";
+import { ReviewTask, User } from "@/db";
 import { getState } from "@/utils/data";
-import { eq } from "drizzle-orm";
 import Image from "next/image";
 import Link from "next/link";
 import ArrowRight from "pixelarticons/svg/arrow-right.svg";
@@ -50,8 +48,8 @@ const ReviewCard: FC<ReviewCardProps> = async ({
     oldValue = getState(invader.state);
     newValue = getState(change.value);
   } else if (change.field === "create_date") {
-    oldValue = invader.create_date.toLocaleDateString();
-    newValue = (change.value as Date).toLocaleDateString();
+    oldValue = new Date(invader.create_date).toLocaleDateString();
+    newValue = new Date(change.value).toLocaleDateString();
   } else if (change.field === "points") {
     oldValue = invader.points.toString();
     newValue = change.value.toString();
@@ -83,13 +81,14 @@ const ReviewCard: FC<ReviewCardProps> = async ({
           </div>
         </div>
         <CardDescription>
-          {created_at.toLocaleString()}
+          {new Date(created_at).toLocaleDateString()} (
+          {new Date(created_at).toLocaleTimeString()})
           <br />
           what changed: <b>{change.field}</b>
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="grid grid-cols-3 place-items-center gap-4 border border-dashed border-primary px-1">
+        <div className="grid grid-cols-[1fr_auto_1fr] place-items-center border border-dashed border-primary px-1">
           <p className="w-full text-center text-sm text-error">{oldValue}</p>
           <ArrowRight className="h-12 w-12 justify-self-center" />
           <p className="w-full text-center text-sm text-success">{newValue}</p>
