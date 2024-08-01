@@ -6,9 +6,8 @@ import { InvaderEditableKeys } from "@/app/map/[invaderName]/utils";
 import { auth, signIn } from "@/auth";
 import { db } from "@/db";
 import { reviewTasks } from "@/db/schema/reviewTasks";
-import { getInvader } from "@/utils/data";
+import { getInvader, uploadImage } from "@/utils/data";
 import { getTag } from "@/utils/revalidation-tags";
-import { put } from "@vercel/blob";
 import { and, eq, sql } from "drizzle-orm";
 import { revalidateTag } from "next/cache";
 import { z } from "zod";
@@ -81,8 +80,8 @@ export const submitContribution = async (
     }
   }
 
-  if (type === "points") {
-    const safeData = invaderPointsSchema.safeParse(newValue);
+  if (type === "points" && !(newValue instanceof File)) {
+    const safeData = invaderPointsSchema.safeParse(Number.parseFloat(newValue));
     if (!safeData.success) {
       return {
         success: false,
@@ -117,10 +116,8 @@ export const submitContribution = async (
     };
   }
 
-  const blobRes = await put(`reviews/${invaderName}`, safeData.data, {
-    access: "public",
-  });
-  if (!blobRes) {
+  const vercelBlobResponse = await uploadImage(safeData.data, invader.name);
+  if (!vercelBlobResponse || vercelBlobResponse.error) {
     return {
       success: false,
       errors: ["Error, please contact me on discord (error code: 14)"],
@@ -132,7 +129,7 @@ export const submitContribution = async (
     type: "edit",
     editor_id: session.user.id,
     change: { field: type, value: newValue },
-    proof_image: blobRes.url,
+    proof_image: vercelBlobResponse.data.url,
     reward_id: 4,
   });
   if (!insertRes || insertRes.rowCount === 0)
