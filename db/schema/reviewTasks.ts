@@ -33,8 +33,8 @@ export const reviewTasks = pgTable("review_task", {
     .references(() => rewardTypes.id),
   type: reviewTaskTypes("type").notNull(),
   created_at: timestamp("created_at").notNull().defaultNow(),
-  change: json("change"),
-  proof_image: varchar("proof_image", { length: 192 }),
+  change: json("change").$type<{ field: string; value: any }>().notNull(),
+  proof_image: varchar("proof_image", { length: 192 }).notNull(),
 });
 
 export const reviewTasksRelations = relations(reviewTasks, ({ one }) => ({
