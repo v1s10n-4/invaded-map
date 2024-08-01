@@ -8,6 +8,7 @@ import { db } from "@/db";
 import { reviewTasks } from "@/db/schema/reviewTasks";
 import { getInvader } from "@/utils/data";
 import { put } from "@vercel/blob";
+import { and, eq, sql } from "drizzle-orm";
 import { z } from "zod";
 
 export type UpdateInvaderResponse = { errors: string[]; success: boolean };
@@ -94,6 +95,23 @@ export const UpdateInvaderField = async (
     return {
       success: false,
       errors: safeData.error.format()._errors,
+    };
+  }
+
+  const res = await db
+    .select()
+    .from(reviewTasks)
+    .where(
+      and(
+        eq(reviewTasks.entity_id, invader.id),
+        sql`change->>'field' = ${type}`
+      )
+    );
+
+  if (res.length > 0) {
+    return {
+      success: false,
+      errors: ["A change for this field is already in review"],
     };
   }
 
