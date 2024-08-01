@@ -36,7 +36,6 @@ const EditModal: FC<EditModalProps> = ({ data }) => {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     if (state.success) {
-      console.log("success");
       closeButtonRef?.current?.click();
     }
   }, [state.success, closeButtonRef]);
