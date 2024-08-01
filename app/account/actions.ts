@@ -1,20 +1,18 @@
 "use server";
 import {
-  ACCEPTED_IMAGE_TYPES,
-  MAX_IMAGE_SIZE,
-  sizeInMB,
   updateUserImageSchema,
   updateUsernameSchema,
 } from "@/app/account/schema";
-import { invalidateTag } from "@/app/fesse/actions";
 import { auth, signIn, updateUser } from "@/auth";
 import { db, ReviewTask } from "@/db";
 import { referralLinks } from "@/db/schema/referral_links";
 import { reviewTasks } from "@/db/schema/reviewTasks";
 import { users } from "@/db/schema/users";
+import { getTag } from "@/utils/revalidation-tags";
 import { del, put } from "@vercel/blob";
 import { eq } from "drizzle-orm";
 import { revalidateTag } from "next/cache";
+import { wait } from "next/dist/lib/wait";
 
 export const updateUsername = async (_prevState: any, formData: FormData) => {
   const session = await auth();
@@ -101,5 +99,7 @@ export const deleteContribution = async (id: ReviewTask["id"]) => {
     return { success: false };
   await deleteImageFromVercel(contribution.proof_image);
   await db.delete(reviewTasks).where(eq(reviewTasks.id, id));
-  revalidateTag("reviews");
+  revalidateTag(getTag("review", id.toString()));
+  await wait(1);
+  revalidateTag(getTag("all reviews"));
 };
