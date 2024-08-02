@@ -47,11 +47,14 @@ export const ContributionActions: FC<Pick<ReviewTask, "id">> = ({ id }) => {
   const erase = deleteContribution.bind(null, id);
   return (
     <form>
-      <CardFooter className="justify-between">
+      <CardFooter
+        // className="justify-between"
+        className="justify-start"
+      >
         <SubmitButton formAction={erase} className="btn-outline btn-primary">
           Delete
         </SubmitButton>
-        <SubmitButton className="btn-primary">Edit</SubmitButton>
+        {/*<SubmitButton className="btn-primary">Edit</SubmitButton>*/}
       </CardFooter>
     </form>
   );
