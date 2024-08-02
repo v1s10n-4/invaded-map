@@ -12,6 +12,7 @@ import {
 } from "@/components/Card";
 import { HitPlaceholder } from "@/components/Placeholder";
 import { ReviewTask, User } from "@/db";
+import { canReviewOwnContribution } from "@/lib/utils";
 import { getState } from "@/utils/data";
 import Image from "next/image";
 import Link from "next/link";
@@ -56,8 +57,6 @@ const ReviewCard: FC<ReviewCardProps> = async ({
   }
 
   const isOwnContribution = currentUserId === editor.id;
-  const canReviewOwnContribution =
-    currentUserRole === "admin" || currentUserRole === "superuser";
 
   return (
     <Card>
@@ -111,7 +110,9 @@ const ReviewCard: FC<ReviewCardProps> = async ({
         </div>
       </CardContent>
       {isOwnContribution && <ContributionActions id={reviewId} />}
-      {(!isOwnContribution || canReviewOwnContribution) && <ReviewActions />}
+      {(!isOwnContribution || canReviewOwnContribution(currentUserRole)) && (
+        <ReviewActions id={reviewId} />
+      )}
     </Card>
   );
 };

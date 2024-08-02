@@ -1,4 +1,4 @@
-import { deleteContribution } from "@/app/account/actions";
+import { acceptContribution, deleteContribution } from "@/app/account/actions";
 import { CardFooter } from "@/components/Card";
 import SubmitButton from "@/components/SubmitButton";
 import { db, ReviewTask, User } from "@/db";
@@ -34,12 +34,20 @@ export const DisplayUserName: FC<Pick<User, "name" | "role">> = ({
   </>
 );
 
-export const ReviewActions = () => {
+export const ReviewActions: FC<Pick<ReviewTask, "id">> = ({ id }) => {
+  const reject = deleteContribution.bind(null, id);
+  const accept = acceptContribution.bind(null, id);
   return (
-    <CardFooter className="justify-between">
-      <SubmitButton className="btn-outline btn-primary">Reject</SubmitButton>
-      <SubmitButton className="btn-primary">Accept</SubmitButton>
-    </CardFooter>
+    <form>
+      <CardFooter className="justify-between">
+        <SubmitButton formAction={reject} className="btn-outline btn-primary">
+          Reject
+        </SubmitButton>
+        <SubmitButton formAction={accept} className="btn-primary">
+          Accept
+        </SubmitButton>
+      </CardFooter>
+    </form>
   );
 };
 
