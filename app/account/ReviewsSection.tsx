@@ -26,7 +26,7 @@ const ReviewsSection: FC<ReviewsSectionProps> = async ({ user }) => {
     <Tabs defaultValue="own" className="w-full">
       <TabsList className="grid h-auto grid-cols-2 text-current">
         <TabsTrigger
-          className="z-10 border-b-0 border-r-0 border-dashed data-[state=active]:border-r data-[state=active]:border-solid data-[state=active]:border-primary data-[state=active]:shadow-[1px_1px_0_0_black]"
+          className="border-b-0 border-r-0 border-dashed data-[state=active]:border-r data-[state=active]:border-solid data-[state=active]:border-primary data-[state=active]:shadow-[1px_1px_0_0_black]"
           value="own"
         >
           Yours
@@ -88,7 +88,7 @@ const ReviewsSection: FC<ReviewsSectionProps> = async ({ user }) => {
           </ReviewsCarousel>
         ) : (
           <div className="flex flex-col items-center justify-center gap-4 border border-primary p-6">
-            {user.role === "user" || user.role === "superuser" ? (
+            {user.role === "user" || user.role === "poweruser" ? (
               <>
                 <p className="text-xs">
                   You must be at least a <DisplayRole role="moderator" /> to

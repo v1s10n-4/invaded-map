@@ -53,12 +53,18 @@ export const submitContribution = async (
       errors: ["Good job, hacker!"],
     };
 
-  const newValue = formData.get(type);
+  let newValue: FormDataEntryValue | Date | number | null = formData.get(type);
   if (!newValue)
     return {
       success: false,
       errors: ["Error, please contact me on discord (error code: 13)"],
     };
+  if (newValue instanceof File) {
+    return {
+      success: false,
+      errors: ["Good job, hacker!"],
+    };
+  }
 
   if (type === "state") {
     const newState = invaderValidStates.find(({ value }) => newValue === value);
@@ -78,10 +84,27 @@ export const submitContribution = async (
         errors: safeData.error.format()._errors,
       };
     }
+    newValue = new Date(newValue);
+    if (
+      newValue.toLocaleDateString() ===
+      new Date(invader.create_date).toLocaleDateString()
+    ) {
+      return {
+        success: false,
+        errors: ["Date must differ from the saved date."],
+      };
+    }
   }
 
-  if (type === "points" && !(newValue instanceof File)) {
-    const safeData = invaderPointsSchema.safeParse(Number.parseFloat(newValue));
+  if (type === "points") {
+    newValue = Number(newValue);
+    if (newValue === invader.points) {
+      return {
+        success: false,
+        errors: ["Points value must differ from the saved value."],
+      };
+    }
+    const safeData = invaderPointsSchema.safeParse(newValue);
     if (!safeData.success) {
       return {
         success: false,
