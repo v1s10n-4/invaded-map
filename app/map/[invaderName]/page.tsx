@@ -1,20 +1,12 @@
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/app/map/[invaderName]/Carousel";
-import { HitPlaceholder } from "@/components/Placeholder";
-import { SliderActions } from "@/components/SliderActions";
-import { BoxClasses } from "@/utils";
+import EditModal from "@/app/map/[invaderName]/EditModal";
+import InvaderPageCarousel from "@/app/map/[invaderName]/InvaderPageCarousel";
 import { getInvader, getState } from "@/utils/data";
-import { clsx } from "clsx";
 import { Metadata } from "next";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import BuildingCommunity from "pixelarticons/svg/building-community.svg";
 import Coin from "pixelarticons/svg/coin.svg";
-import ImageFlash from "pixelarticons/svg/image-flash.svg";
-import React, { FC } from "react";
+import ImageFlashIcon from "pixelarticons/svg/image-flash.svg";
+import React, { FC, Suspense } from "react";
 
 export const runtime = "edge";
 
@@ -70,36 +62,17 @@ const InvaderPlacePage: FC<{ params: Params }> = async ({
   if (!invader) notFound();
   return (
     <div className="scrollbar flex flex-col items-center gap-4 p-4 md:flex-row">
-      <Carousel
-        className={clsx(BoxClasses, "aspect-square w-full md:h-60 md:w-fit")}
-      >
-        <CarouselContent className="flex aspect-square md:h-60">
-          {[invader.thumbnail, ...invader.images.map((x) => x.url)].map(
-            (url, i) => (
-              <CarouselItem key={i}>
-                <Image
-                  className="h-full w-full object-contain"
-                  src={url}
-                  alt="Image not found"
-                  style={{ objectFit: "contain" }}
-                  placeholder={HitPlaceholder(400, 400)}
-                  width={400}
-                  height={400}
-                />
-              </CarouselItem>
-            )
-          )}
-        </CarouselContent>
-        <SliderActions />
-      </Carousel>
-      <div className="flex h-full w-full flex-col justify-around gap-4 px-4 sm:flex-row md:flex-col">
+      <InvaderPageCarousel
+        imageList={[invader.thumbnail, ...invader.images.map((x) => x.url)]}
+      />
+      <div className="relative flex h-full w-full flex-col justify-around gap-4 px-4 sm:flex-row md:flex-col">
         <div className="flex flex-col gap-4">
           <p className="flex items-center gap-2 text-xl">
             <Coin className="h-7 w-7" />
             <span className="font-bold">{invader.points}</span> points
           </p>
           <p className="flex items-center gap-2">
-            <ImageFlash className="h-7 w-7" /> {getState(invader.state)}
+            <ImageFlashIcon className="h-7 w-7" /> {getState(invader.state)}
           </p>
         </div>
         <div className="flex flex-col gap-4">
@@ -109,6 +82,18 @@ const InvaderPlacePage: FC<{ params: Params }> = async ({
           </p>
           <p>Created: {new Date(invader.create_date).toLocaleDateString()}</p>
         </div>
+        <Suspense
+          fallback={
+            <button
+              disabled
+              className="btn btn-square btn-outline absolute right-0 top-0 self-start p-2"
+            >
+              <span className="loading loading-bars" />
+            </button>
+          }
+        >
+          <EditModal data={invader} />
+        </Suspense>
       </div>
     </div>
   );

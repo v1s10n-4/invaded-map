@@ -6,7 +6,6 @@ const privateApiRoutesRegex = new RegExp(
 export function middleware(request: NextRequest, response: NextResponse) {
   const route = request.nextUrl.pathname;
   if (privateApiRoutesRegex.test(route)) {
-    console.log("api shield triggered");
     const token = request.headers.get("api-token");
     if (!token || token !== process.env.API_SECRET)
       return NextResponse.json(

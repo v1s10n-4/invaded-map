@@ -1,10 +1,8 @@
 {
-  "id": "d6b12d8c-a374-433e-bef1-cc92c3cb9a03",
-  "prevId": "50fe6e0b-4a8b-4fb7-8038-0bc61dd5b971",
-  "version": "5",
-  "dialect": "pg",
+  "version": "7",
+  "dialect": "postgresql",
   "tables": {
-    "invaders": {
+    "public.invaders": {
       "name": "invaders",
       "schema": "",
       "columns": {
@@ -93,7 +91,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "account": {
+    "public.account": {
       "name": "account",
       "schema": "",
       "columns": {
@@ -169,15 +167,15 @@
         "account_userId_user_id_fk": {
           "name": "account_userId_user_id_fk",
           "tableFrom": "account",
-          "tableTo": "user",
           "columnsFrom": [
             "userId"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {
@@ -191,7 +189,7 @@
       },
       "uniqueConstraints": {}
     },
-    "session": {
+    "public.session": {
       "name": "session",
       "schema": "",
       "columns": {
@@ -219,21 +217,21 @@
         "session_userId_user_id_fk": {
           "name": "session_userId_user_id_fk",
           "tableFrom": "session",
-          "tableTo": "user",
           "columnsFrom": [
             "userId"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "user": {
+    "public.user": {
       "name": "user",
       "schema": "",
       "columns": {
@@ -287,7 +285,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "verificationToken": {
+    "public.verificationToken": {
       "name": "verificationToken",
       "schema": "",
       "columns": {
@@ -325,32 +323,36 @@
     }
   },
   "enums": {
-    "invader_state": {
+    "public.invader_state": {
       "name": "invader_state",
-      "values": {
-        "A": "A",
-        "DG": "DG",
-        "H": "H",
-        "D": "D",
-        "DD": "DD",
-        "U": "U"
-      }
+      "schema": "public",
+      "values": [
+        "A",
+        "DG",
+        "H",
+        "D",
+        "DD",
+        "U"
+      ]
     },
-    "role": {
+    "public.role": {
       "name": "role",
-      "values": {
-        "user": "user",
-        "poweruser": "poweruser",
-        "moderator": "moderator",
-        "admin": "admin",
-        "superuser": "superuser"
-      }
+      "schema": "public",
+      "values": [
+        "user",
+        "poweruser",
+        "moderator",
+        "admin",
+        "superuser"
+      ]
     }
   },
   "schemas": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
-  }
+    "tables": {},
+    "columns": {}
+  },
+  "id": "d6b12d8c-a374-433e-bef1-cc92c3cb9a03",
+  "prevId": "50fe6e0b-4a8b-4fb7-8038-0bc61dd5b971"
 }

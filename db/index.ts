@@ -3,6 +3,7 @@ import * as Users from "@/db/schema/users";
 import * as Invaders from "@/db/schema/invaders";
 import * as ReferralLinks from "@/db/schema/referral_links";
 import * as Rewards from "@/db/schema/rewards";
+import * as ReviewTasks from "@/db/schema/reviewTasks";
 import { createClient, sql } from "@vercel/postgres";
 import { InferInsertModel, InferSelectModel } from "drizzle-orm";
 import { drizzle as VercelDrizzle } from "drizzle-orm/vercel-postgres";
@@ -22,6 +23,10 @@ export type InvaderWithLocation = {
 type UserTable = typeof Users.users;
 export type User = InferSelectModel<UserTable>;
 
+// REVIEWTASK
+type ReviewTaskTable = typeof ReviewTasks.reviewTasks;
+export type ReviewTask = InferSelectModel<ReviewTaskTable>;
+
 let client;
 if (process.env.LOCAL === "true") {
   client = createClient();
@@ -34,7 +39,13 @@ if (process.env.LOCAL === "true") {
   client = sql;
 }
 const db = VercelDrizzle(client, {
-  schema: { ...Users, ...Invaders, ...ReferralLinks, ...Rewards },
+  schema: {
+    ...Users,
+    ...Invaders,
+    ...ReferralLinks,
+    ...Rewards,
+    ...ReviewTasks,
+  },
 });
 
 export { db };

@@ -1,10 +1,8 @@
 {
-  "id": "36155667-933f-452f-9aef-5ef25c6278f0",
-  "prevId": "e0ce3a6b-56d4-4536-b28f-0a937190a096",
-  "version": "5",
-  "dialect": "pg",
+  "version": "7",
+  "dialect": "postgresql",
   "tables": {
-    "invaders": {
+    "public.invaders": {
       "name": "invaders",
       "schema": "",
       "columns": {
@@ -93,7 +91,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "referral_links": {
+    "public.referral_links": {
       "name": "referral_links",
       "schema": "",
       "columns": {
@@ -142,29 +140,29 @@
         "referral_links_userId_user_id_fk": {
           "name": "referral_links_userId_user_id_fk",
           "tableFrom": "referral_links",
-          "tableTo": "user",
           "columnsFrom": [
             "userId"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "set null"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "referral_links_code_unique": {
           "name": "referral_links_code_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "code"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "account": {
+    "public.account": {
       "name": "account",
       "schema": "",
       "columns": {
@@ -240,15 +238,15 @@
         "account_userId_user_id_fk": {
           "name": "account_userId_user_id_fk",
           "tableFrom": "account",
-          "tableTo": "user",
           "columnsFrom": [
             "userId"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {
@@ -262,7 +260,7 @@
       },
       "uniqueConstraints": {}
     },
-    "session": {
+    "public.session": {
       "name": "session",
       "schema": "",
       "columns": {
@@ -290,21 +288,21 @@
         "session_userId_user_id_fk": {
           "name": "session_userId_user_id_fk",
           "tableFrom": "session",
-          "tableTo": "user",
           "columnsFrom": [
             "userId"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "user": {
+    "public.user": {
       "name": "user",
       "schema": "",
       "columns": {
@@ -364,7 +362,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "verificationToken": {
+    "public.verificationToken": {
       "name": "verificationToken",
       "schema": "",
       "columns": {
@@ -402,40 +400,45 @@
     }
   },
   "enums": {
-    "invader_state": {
+    "public.invader_state": {
       "name": "invader_state",
-      "values": {
-        "A": "A",
-        "DG": "DG",
-        "H": "H",
-        "D": "D",
-        "DD": "DD",
-        "U": "U"
-      }
+      "schema": "public",
+      "values": [
+        "A",
+        "DG",
+        "H",
+        "D",
+        "DD",
+        "U"
+      ]
     },
-    "referral_type": {
+    "public.referral_type": {
       "name": "referral_type",
-      "values": {
-        "basic": "basic",
-        "qr-code": "qr-code",
-        "email": "email"
-      }
+      "schema": "public",
+      "values": [
+        "basic",
+        "qr-code",
+        "email"
+      ]
     },
-    "role": {
+    "public.role": {
       "name": "role",
-      "values": {
-        "user": "user",
-        "poweruser": "poweruser",
-        "moderator": "moderator",
-        "admin": "admin",
-        "superuser": "superuser"
-      }
+      "schema": "public",
+      "values": [
+        "user",
+        "poweruser",
+        "moderator",
+        "admin",
+        "superuser"
+      ]
     }
   },
   "schemas": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
-  }
+    "tables": {},
+    "columns": {}
+  },
+  "id": "36155667-933f-452f-9aef-5ef25c6278f0",
+  "prevId": "e0ce3a6b-56d4-4536-b28f-0a937190a096"
 }

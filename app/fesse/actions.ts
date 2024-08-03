@@ -19,7 +19,6 @@ export const invalidateTag = async (prevState: any, formData: FormData) => {
   const session = await auth();
   if (!session || session.user.role !== "superuser")
     return { message: "Unauthorized revalidation", error: true };
-  console.log(Object.fromEntries(formData.entries()));
   const tagName = formData.get("tag") as TagNameFormEntry;
   if (tagName === null || tagName instanceof File)
     return { message: "Missing tag", error: true };

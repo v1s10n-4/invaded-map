@@ -5,7 +5,9 @@ import {
 } from "@/app/account/actions";
 import CardForm from "@/app/account/CardForm";
 import ReferralLink from "@/app/account/ReferralLink";
+import ReviewsSection from "@/app/account/ReviewsSection";
 import { ACCEPTED_IMAGE_TYPES } from "@/app/account/schema";
+import { DisplayUserName } from "@/app/account/utils";
 import { signOutAction } from "@/app/actions";
 import { auth, signIn } from "@/auth";
 import {
@@ -16,8 +18,6 @@ import {
 } from "@/components/Card";
 import { HitPlaceholder } from "@/components/Placeholder";
 import SubmitButton from "@/components/SubmitButton";
-import { User } from "@/db";
-import { cn } from "@/lib/utils";
 import { tooltipClass } from "@/utils";
 import Image from "next/image";
 import LogOutIcon from "pixelarticons/svg/logout.svg";
@@ -26,34 +26,20 @@ import React, { FC, Suspense } from "react";
 
 export const runtime = "edge";
 
-const DisplayUserName: FC<Pick<User, "name" | "role">> = ({ name, role }) => (
-  <>
-    {name}{" "}
-    {role !== "user" && (
-      <span
-        className={cn(
-          "text-sm",
-          role === "superuser" ? "text-warning" : "text-info"
-        )}
-      >
-        ({role === "superuser" ? "god" : role})
-      </span>
-    )}
-  </>
-);
-
 const FessePage: FC = async () => {
   const session = await auth();
   if (!session?.user) return await signIn();
   const user = session.user;
+
   return (
-    <main className="mt-20 flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10 lg:mt-24">
+    <main className="mt-20 flex flex-1 flex-col gap-4 overflow-hidden p-4 md:gap-8 md:p-10 lg:mt-24">
       <div className="divider divider-primary mx-auto w-full">
         <h1 className="text-xl font-semibold md:text-2xl lg:text-3xl">
           Account
         </h1>
       </div>
-      <div className="mx-auto grid w-full max-w-2xl gap-8">
+
+      <div className="mx-auto flex w-full max-w-2xl flex-col gap-8">
         <div className="flex w-full flex-col items-center gap-4 border border-primary p-6 md:flex-row md:gap-8">
           <Image
             src={user.image || HitPlaceholder(96, 96)}
@@ -83,6 +69,15 @@ const FessePage: FC = async () => {
             </form>
           </div>
         </div>
+        <Suspense
+          fallback={
+            <div className="flex h-64 items-center justify-center border border-primary p-2">
+              <span className="loading loading-bars h-8 w-8" />
+            </div>
+          }
+        >
+          <ReviewsSection user={user} />
+        </Suspense>
         <div className="grid gap-6">
           <Card>
             <CardHeader>
@@ -139,7 +134,7 @@ const FessePage: FC = async () => {
                 type="file"
                 required
                 accept={ACCEPTED_IMAGE_TYPES.join(", ")}
-                className="file-i file-input file-input-primary w-full max-w-md"
+                className="file-input file-input-primary w-full max-w-md"
               />
             </CardForm>
           </Card>

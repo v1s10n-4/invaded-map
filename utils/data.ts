@@ -1,5 +1,13 @@
 import { Invader, InvaderState, InvaderWithLocation } from "@/db";
 import { getRequestConfig } from "@/utils/revalidation-tags";
+import { PutBlobResult } from "@vercel/blob";
+
+type UploadImage = (
+  image: File,
+  name: string
+) => Promise<
+  { error: false; data: PutBlobResult } | { error: true; data: null } | null
+>;
 
 export const getState = (state: InvaderState) =>
   ({
@@ -56,4 +64,16 @@ export const get_PNG_b64_data_URI_from_AVIF_URL = async (url: string) => {
   const thumbnailRes = await fetch(route, { headers, next });
   const b64Image = await thumbnailRes.json();
   return `data:image/png;base64,${b64Image}`;
+};
+
+export const uploadImage: UploadImage = async (image, name) => {
+  const route = `${apiUrl}upload-image`;
+  const formData = new FormData();
+  formData.append("image", image, name);
+  const thumbnailRes = await fetch(route, {
+    headers,
+    body: formData,
+    method: "POST",
+  });
+  return await thumbnailRes.json();
 };

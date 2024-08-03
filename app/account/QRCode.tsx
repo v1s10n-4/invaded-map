@@ -10,8 +10,6 @@ import {
 import Icon from "@/components/Icon/Icon";
 import { cn } from "@/lib/utils";
 import { Colors, tooltipClass } from "@/utils";
-import { clsx } from "clsx";
-import { wait } from "next/dist/lib/wait";
 import Close from "pixelarticons/svg/close.svg";
 import { toString } from "qrcode";
 import React, { ButtonHTMLAttributes, FC } from "react";
