@@ -1,7 +1,7 @@
 "use client";
 import EditModal from "@/app/map/[invaderName]/EditModal";
 import HistoryIcon from "@/app/map/[invaderName]/history.svg";
-import HistoryModal from "@/app/map/[invaderName]/historyModal";
+import { Dialog } from "@/components/Dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,11 +16,11 @@ import { cn } from "@/lib/utils";
 import { tooltipClass } from "@/utils";
 import EditIcon from "pixelarticons/svg/edit.svg";
 import MoreVerticalIcon from "pixelarticons/svg/more-vertical.svg";
-import React, { FC, useState } from "react";
+import React, { FC, PropsWithChildren, useState } from "react";
 
-type ThreeDotsMenuProps = { invader: Invader };
+type ThreeDotsMenuProps = { invader: Invader } & PropsWithChildren;
 
-const ThreeDotsMenu: FC<ThreeDotsMenuProps> = ({ invader }) => {
+const ThreeDotsMenu: FC<ThreeDotsMenuProps> = ({ invader, children }) => {
   const [dialogOpen, setDialogOpen] = useState<Record<string, boolean>>({});
 
   const handleDialogToggle = (id: string, open: boolean) => {
@@ -60,11 +60,12 @@ const ThreeDotsMenu: FC<ThreeDotsMenuProps> = ({ invader }) => {
         open={dialogOpen["edit"]}
         onOpenChange={(open) => handleDialogToggle("edit", open)}
       />
-      <HistoryModal
-        id={invader.id}
+      <Dialog
         open={dialogOpen["history"]}
         onOpenChange={(open) => handleDialogToggle("history", open)}
-      />
+      >
+        {children}
+      </Dialog>
     </>
   );
 };

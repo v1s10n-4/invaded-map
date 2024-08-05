@@ -1,27 +1,13 @@
-import EditModal from "@/app/map/[invaderName]/EditModal";
-import HistoryModal from "@/app/map/[invaderName]/historyModal";
+import HistoryModalContent from "@/app/map/[invaderName]/historyModalContent";
 import InvaderPageCarousel from "@/app/map/[invaderName]/InvaderPageCarousel";
 import ThreeDotsMenu from "@/app/map/[invaderName]/ThreeDotsMenu";
-import { Dialog } from "@/components/Dialog";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuTrigger,
-} from "@/components/DropdownMenu";
-import { cn } from "@/lib/utils";
-import { tooltipClass } from "@/utils";
 import { getInvader, getState } from "@/utils/data";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import BuildingCommunity from "pixelarticons/svg/building-community.svg";
 import Coin from "pixelarticons/svg/coin.svg";
-import MoreVerticalIcon from "pixelarticons/svg/more-vertical.svg";
 import ImageFlashIcon from "pixelarticons/svg/image-flash.svg";
-import React, { FC, Suspense } from "react";
+import React, { FC } from "react";
 
 export const runtime = "edge";
 
@@ -97,7 +83,9 @@ const InvaderPlacePage: FC<{ params: Params }> = async ({
           </p>
           <p>Created: {new Date(invader.create_date).toLocaleDateString()}</p>
         </div>
-        <ThreeDotsMenu invader={invader} />
+        <ThreeDotsMenu invader={invader}>
+          <HistoryModalContent {...invader} />
+        </ThreeDotsMenu>
       </div>
     </div>
   );
