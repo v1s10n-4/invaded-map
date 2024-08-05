@@ -126,26 +126,28 @@ export const acceptContribution = async (id: ReviewTask["id"]) => {
     return { success: false };
   }
 
-  const searchClient = algoliasearch(
-    process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID!,
-    process.env.ALGOLIA_ADMIN_API_KEY!,
-    { requester: createFetchRequester() }
-  );
-  const index = searchClient.initIndex("invaders");
-  const found = await index.search<Invader>(contribution.entity.name);
-  const algoliaItem = found.hits.find(
-    (invader) => invader.name === contribution.entity.name
-  );
-  if (!algoliaItem) {
-    console.log("algolia error");
-    return { success: false };
-  }
-  const algoliaUpdateRes = await index.partialUpdateObject({
-    objectID: algoliaItem.objectID,
-    [contribution.change.field]: 20, //contribution.change.value
-  });
-  if (!algoliaUpdateRes.objectID) {
-    return { success: false };
+  if (process.env.NODE_ENV !== "development") {
+    const searchClient = algoliasearch(
+      process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID!,
+      process.env.ALGOLIA_ADMIN_API_KEY!,
+      { requester: createFetchRequester() }
+    );
+    const index = searchClient.initIndex("invaders");
+    const found = await index.search<Invader>(contribution.entity.name);
+    const algoliaItem = found.hits.find(
+      (invader) => invader.name === contribution.entity.name
+    );
+    if (!algoliaItem) {
+      console.log("algolia error");
+      return { success: false };
+    }
+    const algoliaUpdateRes = await index.partialUpdateObject({
+      objectID: algoliaItem.objectID,
+      [contribution.change.field]: 20, //contribution.change.value
+    });
+    if (!algoliaUpdateRes.objectID) {
+      return { success: false };
+    }
   }
 
   const toUpdate: Partial<Invader> = {
