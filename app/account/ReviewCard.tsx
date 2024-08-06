@@ -1,5 +1,7 @@
 import {
   ContributionActions,
+  getChangedValue,
+  getInvaderValue,
   getReview,
   ReviewActions,
 } from "@/app/account/utils";
@@ -11,7 +13,7 @@ import {
   CardTitle,
 } from "@/components/Card";
 import { HitPlaceholder } from "@/components/Placeholder";
-import { ReviewTask, User } from "@/db";
+import { Invader, ReviewTask, User } from "@/db";
 import { canReviewOwnContribution } from "@/lib/utils";
 import { getState } from "@/utils/data";
 import Image from "next/image";
@@ -43,18 +45,8 @@ const ReviewCard: FC<ReviewCardProps> = async ({
   }
 
   const { entity: invader, editor, id: reviewId } = res;
-  let oldValue: string | number = "Error";
-  let newValue: string | number = "Error";
-  if (change.field === "state") {
-    oldValue = getState(invader.state);
-    newValue = getState(change.value);
-  } else if (change.field === "create_date") {
-    oldValue = new Date(invader.create_date).toLocaleDateString();
-    newValue = new Date(change.value).toLocaleDateString();
-  } else if (change.field === "points") {
-    oldValue = invader.points.toString();
-    newValue = change.value.toString();
-  }
+  let oldValue = getInvaderValue(invader, change.field);
+  let newValue = getChangedValue(change);
 
   const isOwnContribution = currentUserId === editor.id;
 

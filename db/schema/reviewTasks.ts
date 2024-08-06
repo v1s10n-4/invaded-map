@@ -1,3 +1,4 @@
+import { Invader } from "@/db";
 import { invaders } from "@/db/schema/invaders";
 import { rewardTypes } from "@/db/schema/rewards";
 import { users } from "@/db/schema/users";
@@ -12,7 +13,10 @@ import {
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
-
+export type InvaderEditableField = keyof Pick<
+  Invader,
+  "state" | "points" | "create_date"
+>;
 export const reviewTaskTypes = pgEnum("review_task_type", [
   "edit",
   "create",
@@ -33,7 +37,12 @@ export const reviewTasks = pgTable("review_task", {
     .references(() => rewardTypes.id),
   type: reviewTaskTypes("type").notNull(),
   created_at: timestamp("created_at").notNull().defaultNow(),
-  change: json("change").$type<{ field: string; value: any }>().notNull(),
+  change: json("change")
+    .$type<{
+      field: InvaderEditableField;
+      value: any;
+    }>()
+    .notNull(),
   proof_image: varchar("proof_image", { length: 192 }).notNull(),
 });
 
