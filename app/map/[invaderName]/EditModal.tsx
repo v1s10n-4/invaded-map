@@ -17,17 +17,19 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/Dialog";
+import { DropdownMenuItem } from "@/components/DropdownMenu";
 import SubmitButton from "@/components/SubmitButton";
 import { Invader } from "@/db";
 import { cn } from "@/lib/utils";
 import { tooltipClass } from "@/utils";
+import { DialogProps } from "@radix-ui/react-dialog";
 import EditIcon from "pixelarticons/svg/edit.svg";
 import React, { FC, useEffect, useRef } from "react";
 import { useFormState } from "react-dom";
 
-type EditModalProps = { data: Invader };
+type EditModalProps = { data: Invader } & DialogProps;
 
-const EditModal: FC<EditModalProps> = ({ data }) => {
+const EditModal: FC<EditModalProps> = ({ data, ...props }) => {
   const submitWithId = submitContribution.bind(null, data.name);
   const [state, formAction] = useFormState(
     submitWithId,
@@ -40,18 +42,7 @@ const EditModal: FC<EditModalProps> = ({ data }) => {
     }
   }, [state.success, closeButtonRef]);
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <button
-          className={cn(
-            "btn btn-square btn-outline absolute right-0 top-0 self-start p-2",
-            tooltipClass
-          )}
-          data-tip="edit"
-        >
-          <EditIcon className="h-full w-full" />
-        </button>
-      </DialogTrigger>
+    <Dialog {...props}>
       <DialogContent className="p-0">
         <form action={formAction} className="flex max-h-dvh flex-col gap-4 p-4">
           <DialogHeader>

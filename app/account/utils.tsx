@@ -1,9 +1,10 @@
 import { acceptContribution, deleteContribution } from "@/app/account/actions";
 import { CardFooter } from "@/components/Card";
 import SubmitButton from "@/components/SubmitButton";
-import { db, ReviewTask, User } from "@/db";
+import { db, Invader, ReviewTask, User } from "@/db";
 import { reviewTasks } from "@/db/schema/reviewTasks";
 import { cn } from "@/lib/utils";
+import { getState } from "@/utils/data";
 import { getTags } from "@/utils/revalidation-tags";
 import { eq } from "drizzle-orm";
 import { unstable_cache } from "next/cache";
@@ -93,3 +94,30 @@ export const getReview = async (id: ReviewTask["id"]) =>
       tags: getTags("review", id.toString()),
     }
   );
+
+export const getChangedValue = (change: ReviewTask["change"]) => {
+  if (change.field === "state") {
+    return getState(change.value);
+  } else if (change.field === "create_date") {
+    return new Date(change.value).toLocaleDateString();
+  } else if (change.field === "points") {
+    return change.value.toString();
+  } else {
+    return "Error";
+  }
+};
+
+export const getInvaderValue = (
+  invader: Invader,
+  field: keyof Pick<Invader, "state" | "create_date" | "points">
+) => {
+  if (field === "state") {
+    return getState(invader.state);
+  } else if (field === "create_date") {
+    return new Date(invader.create_date).toLocaleDateString();
+  } else if (field === "points") {
+    return invader.points.toString();
+  } else {
+    return "Error";
+  }
+};

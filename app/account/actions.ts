@@ -5,6 +5,7 @@ import {
 } from "@/app/account/schema";
 import { auth, signIn, updateUser } from "@/auth";
 import { db, Invader, ReviewTask, User } from "@/db";
+import { contributions } from "@/db/schema/contributions";
 import { invaders } from "@/db/schema/invaders";
 import { referralLinks } from "@/db/schema/referral_links";
 import { reviewTasks } from "@/db/schema/reviewTasks";
@@ -126,49 +127,67 @@ export const acceptContribution = async (id: ReviewTask["id"]) => {
     return { success: false };
   }
 
-  const searchClient = algoliasearch(
-    process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID!,
-    process.env.ALGOLIA_ADMIN_API_KEY!,
-    { requester: createFetchRequester() }
-  );
-  const index = searchClient.initIndex("invaders");
-  const found = await index.search<Invader>(contribution.entity.name);
-  const algoliaItem = found.hits.find(
-    (invader) => invader.name === contribution.entity.name
-  );
-  if (!algoliaItem) {
-    console.log("algolia error");
-    return { success: false };
-  }
-  const algoliaUpdateRes = await index.partialUpdateObject({
-    objectID: algoliaItem.objectID,
-    [contribution.change.field]: 20, //contribution.change.value
-  });
-  if (!algoliaUpdateRes.objectID) {
-    return { success: false };
+  const { entity, change, proof_image, entity_id, editor_id, editor } =
+    contribution;
+
+  if (process.env.NODE_ENV !== "development") {
+    const searchClient = algoliasearch(
+      process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID!,
+      process.env.ALGOLIA_ADMIN_API_KEY!,
+      { requester: createFetchRequester() }
+    );
+    const index = searchClient.initIndex("invaders");
+    const found = await index.search<Invader>(entity.name);
+    const algoliaItem = found.hits.find(
+      (invader) => invader.name === entity.name
+    );
+    if (!algoliaItem) {
+      return { success: false };
+    }
+    const algoliaUpdateRes = await index.partialUpdateObject({
+      objectID: algoliaItem.objectID,
+      [change.field]: change.value,
+    });
+    if (!algoliaUpdateRes.objectID) {
+      return { success: false };
+    }
   }
 
+  const newValue =
+    change.field === "create_date" ? new Date(change.value) : change.value;
   const toUpdate: Partial<Invader> = {
-    [contribution.change.field]: contribution.change.value,
+    [change.field]: newValue,
   };
-  if (contribution.change.field === "state")
+  if (change.field === "state")
     toUpdate.images = [
-      ...contribution.entity.images,
-      { url: contribution.proof_image, author: contribution.editor.name },
+      ...entity.images,
+      { url: proof_image, author: editor.name },
     ];
   else {
-    await deleteImageFromVercel(contribution.proof_image);
+    await deleteImageFromVercel(proof_image);
   }
-  const res = await db
-    .update(invaders)
-    .set(toUpdate)
-    .where(eq(invaders.id, contribution.entity_id));
-  if (res.rowCount !== 1) return { success: false };
 
-  await db.delete(reviewTasks).where(eq(reviewTasks.id, id));
-  revalidateTag(getTag("review", id.toString()));
-  await wait(1);
-  revalidateTag(getTag("all reviews"));
-  await wait(1);
-  revalidateTag(getTag("invader", contribution.entity.name));
+  try {
+    await db.transaction(async (tx) => {
+      await tx.update(invaders).set(toUpdate).where(eq(invaders.id, entity_id));
+      await tx.delete(reviewTasks).where(eq(reviewTasks.id, id));
+      await tx.insert(contributions).values({
+        entity_id: entity_id,
+        editor_id: editor_id,
+        reviewer_id: session.user.id,
+        type: "edit",
+        data: toUpdate,
+      });
+    });
+  } catch (err) {
+    return { success: false };
+  } finally {
+    revalidateTag(getTag("review", id.toString()));
+    await wait(1);
+    revalidateTag(getTag("all reviews"));
+    await wait(1);
+    revalidateTag(getTag("invader", entity.name));
+    await wait(1);
+    revalidateTag(getTag("invader history", entity.id.toString()));
+  }
 };

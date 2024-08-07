@@ -29,6 +29,7 @@ export const tags = {
   "all highscores related": "highscores/*",
   "all reviews": "reviews/*",
   "review": (id: string) => `reviews/${id}`,
+  "invader history": (invaderId: string) => `invaders/${invaderId}/history`,
 } as const;
 
 // get one revalidation tag (computed with `specific` if needed)

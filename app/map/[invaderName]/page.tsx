@@ -1,12 +1,13 @@
-import EditModal from "@/app/map/[invaderName]/EditModal";
+import HistoryModalContent from "@/app/map/[invaderName]/historyModalContent";
 import InvaderPageCarousel from "@/app/map/[invaderName]/InvaderPageCarousel";
+import ThreeDotsMenu from "@/app/map/[invaderName]/ThreeDotsMenu";
 import { getInvader, getState } from "@/utils/data";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import BuildingCommunity from "pixelarticons/svg/building-community.svg";
 import Coin from "pixelarticons/svg/coin.svg";
 import ImageFlashIcon from "pixelarticons/svg/image-flash.svg";
-import React, { FC, Suspense } from "react";
+import React, { FC } from "react";
 
 export const runtime = "edge";
 
@@ -82,18 +83,9 @@ const InvaderPlacePage: FC<{ params: Params }> = async ({
           </p>
           <p>Created: {new Date(invader.create_date).toLocaleDateString()}</p>
         </div>
-        <Suspense
-          fallback={
-            <button
-              disabled
-              className="btn btn-square btn-outline absolute right-0 top-0 self-start p-2"
-            >
-              <span className="loading loading-bars" />
-            </button>
-          }
-        >
-          <EditModal data={invader} />
-        </Suspense>
+        <ThreeDotsMenu invader={invader}>
+          <HistoryModalContent {...invader} />
+        </ThreeDotsMenu>
       </div>
     </div>
   );
