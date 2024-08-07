@@ -1,0 +1,1 @@
+ALTER TABLE "review_task" ADD COLUMN "created_at" timestamp DEFAULT now() NOT NULL;

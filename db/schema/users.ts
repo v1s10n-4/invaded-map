@@ -1,4 +1,7 @@
+import { usersToRewards } from "@/db/schema/rewards";
+import { referralLinks } from "@/db/schema/referral_links";
 import { AdapterAccount } from "@auth/core/adapters";
+import { relations } from "drizzle-orm";
 import {
   timestamp,
   pgTable,
@@ -7,6 +10,7 @@ import {
   integer,
   pgEnum,
 } from "drizzle-orm/pg-core";
+import { generateUsername } from "edge-unique-username-generator";
 
 export const RoleEnum = pgEnum("role", [
   "user",
@@ -16,13 +20,16 @@ export const RoleEnum = pgEnum("role", [
   "superuser",
 ]);
 export const users = pgTable("user", {
-  id: text("id").notNull().primaryKey(),
-  name: text("name"),
+  id: text("id").notNull().primaryKey().unique(),
+  name: text("name")
+    .$default(() => generateUsername("-", 0, 32))
+    .notNull(),
   email: text("email").notNull(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
   role: RoleEnum("role").notNull().default("user"),
   created_at: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+  referrer_link_id: integer("referrer_link_id"),
 });
 
 export const accounts = pgTable(
@@ -68,3 +75,13 @@ export const verificationTokens = pgTable(
     compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
   })
 );
+
+export const usersRelations = relations(users, ({ one, many }) => ({
+  referrer_link: one(referralLinks, {
+    relationName: "referrer_link",
+    fields: [users.referrer_link_id],
+    references: [referralLinks.id],
+  }),
+  referral_links: many(referralLinks, { relationName: "referral_links" }),
+  rewards: many(usersToRewards),
+}));

@@ -23,9 +23,13 @@ export const tags = {
   "all invaders": `invaders`,
   "invader OG": (url: string) => `get-thumbnail?url=${url}`,
   "highscores search": (searchValue: string) => `search:${searchValue}`,
+  "referral code data": (code: string) => `refferal:${code}`,
   "all highscores searches": "highscores/search",
   "highscores": "highscores",
   "all highscores related": "highscores/*",
+  "all reviews": "reviews/*",
+  "review": (id: string) => `reviews/${id}`,
+  "invader history": (invaderId: string) => `invaders/${invaderId}/history`,
 } as const;
 
 // get one revalidation tag (computed with `specific` if needed)

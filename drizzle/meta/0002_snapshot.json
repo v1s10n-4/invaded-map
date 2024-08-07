@@ -1,10 +1,8 @@
 {
-  "id": "f951dd78-e6f9-442c-bb6c-5c0e553cb4e5",
-  "prevId": "f5ef5408-6511-413f-a12d-79cedf7c9d75",
-  "version": "5",
-  "dialect": "pg",
+  "version": "7",
+  "dialect": "postgresql",
   "tables": {
-    "invaders": {
+    "public.invaders": {
       "name": "invaders",
       "schema": "",
       "columns": {
@@ -95,22 +93,25 @@
     }
   },
   "enums": {
-    "invader_state": {
+    "public.invader_state": {
       "name": "invader_state",
-      "values": {
-        "A": "A",
-        "DG": "DG",
-        "H": "H",
-        "D": "D",
-        "DD": "DD",
-        "U": "U"
-      }
+      "schema": "public",
+      "values": [
+        "A",
+        "DG",
+        "H",
+        "D",
+        "DD",
+        "U"
+      ]
     }
   },
   "schemas": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
-  }
+    "tables": {},
+    "columns": {}
+  },
+  "id": "f951dd78-e6f9-442c-bb6c-5c0e553cb4e5",
+  "prevId": "f5ef5408-6511-413f-a12d-79cedf7c9d75"
 }

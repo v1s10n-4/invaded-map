@@ -17,6 +17,27 @@ const getUserSearch: (
     60 * 5
   );
   const res = await fetch(userSearch(searchValue), { ...fetchOptions, next });
+  if (res.status === 200) {
+    return {
+      message: "Error",
+      code: res.status,
+      Players: [
+        {
+          rank: res.status,
+          name: `Error ${res.statusText}`,
+          score: 0,
+          city_count: 0,
+          invaders_count: 0,
+          nbShots: 0,
+          nbCity: 0,
+          isMe: 0,
+          isFollow: 0,
+          isFriend: 0,
+        },
+      ],
+    };
+  }
+
   return await res.json();
 };
 
