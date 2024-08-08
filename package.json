@@ -23,6 +23,7 @@
     "@algolia/requester-fetch": "^4.23.2",
     "@auth/drizzle-adapter": "^1.4.2",
     "@imbios/next-pwa": "^1.1.1",
+    "@novu/framework": "^2.0.0-canary.5",
     "@neondatabase/serverless": "^0.9.5",
     "@next/env": "15.0.0-canary.155",
     "@novu/framework": "^2.0.0-canary.5",
@@ -65,6 +66,7 @@
     "qrcode": "^1.5.3",
     "react": "19.0.0-rc-206df66e-20240912",
     "react-dom": "19.0.0-rc-206df66e-20240912",
+    "react-email": "^2.1.6",
     "react-geolocated": "^4.1.2",
     "react-infinite-scroll-hook": "^4.1.1",
     "react-instantsearch": "^7.7.0",
@@ -77,6 +79,7 @@
     "typescript": "5.3.3",
     "vaul": "^0.9.3",
     "zod": "^3.23.8",
+    "zod-to-json-schema": "^3.23.2",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
