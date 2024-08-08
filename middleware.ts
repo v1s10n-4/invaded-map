@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const privateApiRoutesRegex = new RegExp(
-  "/(api(?!/invaders/[^/]+/OG|/revalidate).*)"
+  "/(api(?!/invaders/[^/]+/OG|/revalidate|/novu).*)"
 );
 export function middleware(request: NextRequest, response: NextResponse) {
   const route = request.nextUrl.pathname;
