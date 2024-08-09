@@ -2,6 +2,7 @@ import { FlashInvadersAPI } from "@/app/highscores/utils";
 import HighscoreItem from "@/components/Highscores/HighscoreItem";
 import { HighScoresResponse } from "@/types/FlashInvadersAPI";
 import { getRequestConfig } from "@/utils/revalidation-tags";
+import { Table } from "@radix-ui/themes";
 
 const getHighScores: () => Promise<HighScoresResponse> = async () => {
   const { highscores, fetchOptions } = FlashInvadersAPI;
@@ -29,11 +30,22 @@ const getHighScores: () => Promise<HighScoresResponse> = async () => {
 const HighScorePage = async () => {
   const highscores = await getHighScores();
   return (
-    <ul className="flex w-full flex-col gap-4 px-1">
-      {highscores.Players.map((entry) => (
-        <HighscoreItem key={entry.name + entry.rank} {...entry} />
-      ))}
-    </ul>
+    <Table.Root variant="surface">
+      <Table.Header>
+        <Table.Row>
+          <Table.ColumnHeaderCell>#</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell>Score</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell>Invaders</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell>Cities</Table.ColumnHeaderCell>
+        </Table.Row>
+      </Table.Header>
+      <Table.Body>
+        {highscores.Players.map((entry) => (
+          <HighscoreItem key={entry.name + entry.rank} {...entry} />
+        ))}
+      </Table.Body>
+    </Table.Root>
   );
 };
 

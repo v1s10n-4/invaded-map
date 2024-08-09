@@ -1,34 +1,40 @@
-const RootLoading = () => (
-  <ul className="flex w-full flex-col gap-4 px-1">
-    {Array(6)
-      .fill(undefined)
-      .map((_, i) => (
-        <li
-          key={i}
-          className="border border-primary p-4 ring-1 ring-primary ring-offset-2 ring-offset-black"
-        >
-          <h4>
-            #
-            <span className="skeleton inline-block h-4 w-6 bg-primary" />:{" "}
-            <span
-              className="skeleton inline-block h-4 bg-primary"
-              style={{ width: i * 10 * Math.round(Math.random() * 10) }}
-            />
-          </h4>
-          <p className="whitespace-nowrap">
-            Score:{" "}
-            <span className="skeleton inline-block h-4 w-24 bg-primary" />
-          </p>
-          <p>
-            Invaders flashed:{" "}
-            <span className="skeleton inline-block h-4 w-16 bg-primary" />
-          </p>
-          <p>
-            Cities discovered:{" "}
-            <span className="skeleton inline-block h-4 w-8 bg-primary" />
-          </p>
-        </li>
-      ))}
-  </ul>
+import { getRandomLengthString } from "@/app/highscores/utils";
+import { Skeleton, Table } from "@radix-ui/themes";
+
+const HighscoresLoading = () => (
+  <Table.Root variant="surface">
+    <Table.Header>
+      <Table.Row>
+        <Table.ColumnHeaderCell>#</Table.ColumnHeaderCell>
+        <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
+        <Table.ColumnHeaderCell>Score</Table.ColumnHeaderCell>
+        <Table.ColumnHeaderCell>Invaders</Table.ColumnHeaderCell>
+        <Table.ColumnHeaderCell>Cities</Table.ColumnHeaderCell>
+      </Table.Row>
+    </Table.Header>
+    <Table.Body>
+      {Array(32)
+        .fill(undefined)
+        .map((_, i) => (
+          <Table.Row key={i}>
+            <Table.RowHeaderCell>
+              <Skeleton>{i}</Skeleton>
+            </Table.RowHeaderCell>
+            <Table.Cell>
+              <Skeleton>{getRandomLengthString(8, 32)}</Skeleton>
+            </Table.Cell>
+            <Table.Cell>
+              <Skeleton>{getRandomLengthString(2, 5)}</Skeleton>
+            </Table.Cell>
+            <Table.Cell>
+              <Skeleton>{getRandomLengthString(1, 3)}</Skeleton>
+            </Table.Cell>
+            <Table.Cell>
+              <Skeleton>{getRandomLengthString(1, 2)}</Skeleton>
+            </Table.Cell>
+          </Table.Row>
+        ))}
+    </Table.Body>
+  </Table.Root>
 );
-export default RootLoading;
+export default HighscoresLoading;

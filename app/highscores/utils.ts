@@ -22,3 +22,9 @@ export const FlashInvadersAPI = {
       FlashInvaderBaseUrl
     ),
 };
+
+export const getRandomNumber = (min: number, max: number): number =>
+  Math.floor(Math.random() * (max - min + 1)) + min;
+
+export const getRandomLengthString = (min: number, max: number) =>
+  new Array(getRandomNumber(min, max)).fill("0");

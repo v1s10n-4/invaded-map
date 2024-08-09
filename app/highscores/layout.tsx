@@ -1,4 +1,5 @@
-import { FormLoader } from "@/app/highscores/FormLoader";
+import SubmitButton from "@/components/SubmitButton";
+import { Container, Flex, Heading, Section, TextField } from "@radix-ui/themes";
 import { redirect } from "next/navigation";
 import Search from "pixelarticons/svg/search.svg";
 import { FC, PropsWithChildren } from "react";
@@ -12,21 +13,35 @@ const search = async (data: FormData) => {
 
 const HighScoreLayout: FC<PropsWithChildren> = async ({ children }) => {
   return (
-    <main className="flex flex-col justify-center gap-4 bg-black px-2 pb-8 pt-32 text-white">
-      <form action={search} className="flex flex-col gap-6">
-        <div className="relative flex">
-          <Search className="absolute inset-y-0 left-2 h-full w-7 place-self-center md:w-6" />
-          <input
-            name="search"
-            type="text"
-            placeholder="Search by username"
-            className="caret input input-bordered w-full border-primary px-10 caret-primary focus:outline-none focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-          />
-        </div>
-        <FormLoader />
-      </form>
-      {children}
-    </main>
+    <Container px={{ initial: "1", sm: "2" }}>
+      <Section>
+        <Heading weight={{ lg: "light" }} mb="6" align="center">
+          Flash Invaders highscores
+        </Heading>
+        <Flex direction="column" justify="center" gap="4" asChild>
+          <main>
+            <Flex asChild gap="4">
+              <form action={search}>
+                <TextField.Root
+                  name="search"
+                  type="search"
+                  placeholder="username"
+                  size="3"
+                  required
+                  className="w-full"
+                >
+                  <TextField.Slot>
+                    <Search width={16} height={16} />
+                  </TextField.Slot>
+                </TextField.Root>
+                <SubmitButton size="3">Search</SubmitButton>
+              </form>
+            </Flex>
+            {children}
+          </main>
+        </Flex>
+      </Section>
+    </Container>
   );
 };
 
