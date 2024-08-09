@@ -1,4 +1,6 @@
-@tailwind base;
+@import "tailwindcss/base";
+@import "@radix-ui/themes/styles.css";
+
 @tailwind components;
 @tailwind utilities;
 
@@ -10,4 +12,8 @@
     background-color: transparent;
     border: 1px solid var(--fallback-p,oklch(var(--p)/var(--tw-text-opacity)));
 background-image: linear-gradient(    90deg,    transparent 0%,    transparent 49%,    var(--fallback-p,oklch(var(--p)/var(--tw-text-opacity))) 50%,    transparent 51%,    transparent 100%  );
+}
+
+.radix-themes {
+    --default-font-family: var(--font-sixtyfour);
 }
