@@ -79,7 +79,7 @@ export const MapView: FC<{ invaders: InvaderWithLocation[] }> = ({
           priority
           src={SplashScreen}
           alt={"Invaded map loading"}
-          className="relative h-full w-full object-contain"
+          className="fixed inset-0"
         />
       }
       libraries={gmapLibraries}

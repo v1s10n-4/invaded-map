@@ -1,14 +1,27 @@
 import "./globals.css";
 import { GtmInit } from "@/app/GtmInit";
-import { Header } from "@/components/Header";
-import { SideMenuContent } from "@/components/SideMenuContent";
-import { Theme, ThemePanel } from "@radix-ui/themes";
+import { HitPlaceholder } from "@/components/Placeholder";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/Sheet";
+import {
+  Box,
+  Button,
+  DropdownMenu,
+  Flex,
+  IconButton,
+  TextField,
+  Theme,
+  ThemePanel,
+  Tooltip,
+} from "@radix-ui/themes";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { clsx } from "clsx";
 import { Metadata, Viewport } from "next";
 import { SessionProvider } from "next-auth/react";
 import localFont from "next/font/local";
+import Image from "next/image";
+import Link from "next/link";
+import Search from "pixelarticons/svg/search.svg";
 import React, { ReactNode } from "react";
 
 export const runtime = "edge";
@@ -210,31 +223,164 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       content="width=device-width, initial-scale=1, maximum-scale=1"
     >
       <body className={clsx("bg-black", sixtyfour.className)}>
-        <Theme appearance="dark" radius="none" accentColor="tomato">
+        <Theme appearance="dark" radius="none" accentColor="red">
           <SessionProvider basePath="/auth">
-            <div className="drawer h-screen lg:drawer-open">
-              <input
-                id="drawer-toggle"
-                type="checkbox"
-                className="drawer-toggle"
-                tabIndex={-1}
-              />
-              <div className="scrollbar drawer-content relative flex flex-col  p-2 scrollbar-thumb-current scrollbar-track-black">
-                <Header />
-                <div
-                  id="content"
-                  vaul-drawer-wrapper=""
-                  className="absolute inset-0"
-                >
-                  {children}
-                </div>
-              </div>
-              <div className="drawer-side z-40 hidden lg:block">
-                <nav className="flex h-full w-80 flex-col gap-3 border-y-0 border-r-4 border-double border-primary bg-base-100 p-4">
-                  <SideMenuContent />
+            <Flex direction="column" minHeight="100dvh">
+              <aside className="bg-background fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r sm:flex">
+                <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
+                  <Link
+                    href="#"
+                    className="text-primary-foreground group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold md:h-8 md:w-8 md:text-base"
+                  >
+                    <Search className="h-4 w-4 transition-all group-hover:scale-110" />
+                    <span className="sr-only">Map</span>
+                  </Link>
+                  <Tooltip content="List" side="right">
+                    <Link
+                      href="#"
+                      className="text-muted-foreground hover:text-foreground flex h-9 w-9 items-center justify-center rounded-lg transition-colors md:h-8 md:w-8"
+                    >
+                      <Search className="h-5 w-5" />
+                      <span className="sr-only">List</span>
+                    </Link>
+                  </Tooltip>
+                  <Tooltip content="Highscores" side="right">
+                    <Link
+                      href="#"
+                      className="text-accent-foreground hover:text-foreground flex h-9 w-9 items-center justify-center rounded-lg bg-accent transition-colors md:h-8 md:w-8"
+                    >
+                      <Search className="h-5 w-5" />
+                      <span className="sr-only">Highscores</span>
+                    </Link>
+                  </Tooltip>
+                  <Tooltip content="Products" side="right">
+                    <Link
+                      href="#"
+                      className="text-muted-foreground hover:text-foreground flex h-9 w-9 items-center justify-center rounded-lg transition-colors md:h-8 md:w-8"
+                    >
+                      <Search className="h-5 w-5" />
+                      <span className="sr-only">Products</span>
+                    </Link>
+                  </Tooltip>
                 </nav>
-              </div>
-            </div>
+                <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
+                  <Tooltip content="Settings" side="right">
+                    <Link
+                      href="#"
+                      className="text-muted-foreground hover:text-foreground flex h-9 w-9 items-center justify-center rounded-lg transition-colors md:h-8 md:w-8"
+                    >
+                      <Search className="h-5 w-5" />
+                      <span className="sr-only">Settings</span>
+                    </Link>
+                  </Tooltip>
+                </nav>
+              </aside>
+              <Flex
+                direction="column"
+                gap="4"
+                py={{ sm: "4" }}
+                className="sm:pl-14"
+              >
+                <header className="bg-background sticky top-0 z-30 flex h-14 items-center gap-4 border-b px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+                  <Sheet>
+                    <SheetTrigger asChild>
+                      <IconButton variant="outline" className="sm:hidden">
+                        <Search className="h-5 w-5" />
+                        <span className="sr-only">Toggle Menu</span>
+                      </IconButton>
+                    </SheetTrigger>
+                    <SheetContent side="left">
+                      <nav className="grid gap-6 text-lg font-medium">
+                        <Link
+                          href="#"
+                          className="text-primary-foreground group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold md:text-base"
+                        >
+                          <Search className="h-5 w-5 transition-all group-hover:scale-110" />
+                          <span className="sr-only">Acme Inc</span>
+                        </Link>
+                        <Link
+                          href="#"
+                          className="text-muted-foreground hover:text-foreground flex items-center gap-4 px-2.5"
+                        >
+                          <Search className="h-5 w-5" />
+                          Dashboard
+                        </Link>
+                        <Link
+                          href="#"
+                          className="text-foreground flex items-center gap-4 px-2.5"
+                        >
+                          <Search className="h-5 w-5" />
+                          Orders
+                        </Link>
+                        <Link
+                          href="#"
+                          className="text-muted-foreground hover:text-foreground flex items-center gap-4 px-2.5"
+                        >
+                          <Search className="h-5 w-5" />
+                          Products
+                        </Link>
+                        <Link
+                          href="#"
+                          className="text-muted-foreground hover:text-foreground flex items-center gap-4 px-2.5"
+                        >
+                          <Search className="h-5 w-5" />
+                          Customers
+                        </Link>
+                        <Link
+                          href="#"
+                          className="text-muted-foreground hover:text-foreground flex items-center gap-4 px-2.5"
+                        >
+                          <Search className="h-5 w-5" />
+                          Settings
+                        </Link>
+                      </nav>
+                    </SheetContent>
+                  </Sheet>
+                  <Box className="hidden md:flex">Fesse</Box>
+                  <div className="relative ml-auto flex-1 md:grow-0">
+                    <TextField.Root
+                      name="search"
+                      type="search"
+                      placeholder="Search Invader"
+                      size="3"
+                      required
+                      // className="bg-background w-full rounded-lg pl-8 md:w-[200px] lg:w-[336px]"
+                      className="w-full"
+                    >
+                      <TextField.Slot>
+                        <Search width={16} height={16} />
+                      </TextField.Slot>
+                    </TextField.Root>
+                  </div>
+                  <DropdownMenu.Root>
+                    <DropdownMenu.Trigger>
+                      <IconButton
+                        variant="outline"
+                        // size="icon"
+                        // className="overflow-hidden rounded-full"
+                      >
+                        <Image
+                          src={HitPlaceholder(36, 36)}
+                          width={36}
+                          height={36}
+                          alt="Avatar"
+                          // className="overflow-hidden rounded-full"
+                        />
+                      </IconButton>
+                    </DropdownMenu.Trigger>
+                    <DropdownMenu.Content align="end">
+                      <DropdownMenu.Label>My Account</DropdownMenu.Label>
+                      <DropdownMenu.Separator />
+                      <DropdownMenu.Item>Settings</DropdownMenu.Item>
+                      <DropdownMenu.Item>Support</DropdownMenu.Item>
+                      <DropdownMenu.Separator />
+                      <DropdownMenu.Item>Logout</DropdownMenu.Item>
+                    </DropdownMenu.Content>
+                  </DropdownMenu.Root>
+                </header>
+                {children}
+              </Flex>
+            </Flex>
           </SessionProvider>
           <ThemePanel defaultOpen={false} />
         </Theme>

@@ -66,8 +66,7 @@ export const defaultGoogleMapProps: GoogleMapProps = {
   zoom: 10,
   options: mapOptions,
   mapContainerStyle: {
-    width: "100%",
-    height: "100%",
+    height: "100dvh",
   },
 };
 
