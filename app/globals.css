@@ -5,83 +5,296 @@
 @tailwind utilities;
 
 .gm-style iframe + div {
-    border: none !important;
+  border: none !important;
 }
 
 .radix-themes {
-    --default-font-family: var(--font-sixtyfour);
+  --default-font-family: var(--font-sixtyfour);
 }
 
-.dark, .dark-theme, :is(.dark, .dark-theme) :where(.radix-themes:not(.light, .light-theme)) {
-    --color-background: #000;
+.dark,
+.dark-theme,
+:is(.dark, .dark-theme) :where(.radix-themes:not(.light, .light-theme)) {
+  --color-background: #000;
 }
 
-.dark, .dark-theme {
-    --red-1: #000;
-    --red-2: #190d0b;
-    --red-3: #3a0e08;
-    --red-4: #540300;
-    --red-5: #660901;
-    --red-6: #781b0f;
-    --red-7: #922c1e;
-    --red-8: #bc3a29;
-    --red-9: #ff2100;
-    --red-10: #e72500;
-    --red-11: #ff8e76;
-    --red-12: #ffd0c6;
+.dark,
+.dark-theme {
+  --red-1: #000;
+  --red-2: #190d0b;
+  --red-3: #3a0e08;
+  --red-4: #540300;
+  --red-5: #660901;
+  --red-6: #781b0f;
+  --red-7: #922c1e;
+  --red-8: #bc3a29;
+  --red-9: #ff2100;
+  --red-10: #e72500;
+  --red-11: #ff8e76;
+  --red-12: #ffd0c6;
 
-    --red-a1: #00000000;
-    --red-a2: #ff857119;
-    --red-a3: #ff3e243a;
-    --red-a4: #ff0a0054;
-    --red-a5: #ff170366;
-    --red-a6: #ff3a2078;
-    --red-a7: #ff4d3592;
-    --red-a8: #ff4f38bc;
-    --red-a9: #ff2100;
-    --red-a10: #ff2900e7;
-    --red-a11: #ff8e76;
-    --red-a12: #ffd0c6;
+  --red-a1: #00000000;
+  --red-a2: #ff857119;
+  --red-a3: #ff3e243a;
+  --red-a4: #ff0a0054;
+  --red-a5: #ff170366;
+  --red-a6: #ff3a2078;
+  --red-a7: #ff4d3592;
+  --red-a8: #ff4f38bc;
+  --red-a9: #ff2100;
+  --red-a10: #ff2900e7;
+  --red-a11: #ff8e76;
+  --red-a12: #ffd0c6;
 
-    --red-contrast: #fff;
-    --red-surface: #321a1680;
-    --red-indicator: #ff2100;
-    --red-track: #ff2100;
+  --red-contrast: #fff;
+  --red-surface: #321a1680;
+  --red-indicator: #ff2100;
+  --red-track: #ff2100;
 }
 
 @supports (color: color(display-p3 1 1 1)) {
-    @media (color-gamut: p3) {
-        .dark, .dark-theme {
-            --red-1: oklch(0% 0.015 30.77);
-            --red-2: oklch(17.6% 0.022 30.77);
-            --red-3: oklch(23.8% 0.071 30.77);
-            --red-4: oklch(28.3% 0.113 30.77);
-            --red-5: oklch(32.7% 0.126 30.77);
-            --red-6: oklch(37.8% 0.129 30.77);
-            --red-7: oklch(44.7% 0.139 30.77);
-            --red-8: oklch(53.8% 0.169 30.77);
-            --red-9: oklch(63.7% 0.25 30.77);
-            --red-10: oklch(59.6% 0.25 30.77);
-            --red-11: oklch(78.4% 0.21 30.77);
-            --red-12: oklch(89.9% 0.06 30.77);
+  @media (color-gamut: p3) {
+    .dark,
+    .dark-theme {
+      --red-1: oklch(0% 0.015 30.77);
+      --red-2: oklch(17.6% 0.022 30.77);
+      --red-3: oklch(23.8% 0.071 30.77);
+      --red-4: oklch(28.3% 0.113 30.77);
+      --red-5: oklch(32.7% 0.126 30.77);
+      --red-6: oklch(37.8% 0.129 30.77);
+      --red-7: oklch(44.7% 0.139 30.77);
+      --red-8: oklch(53.8% 0.169 30.77);
+      --red-9: oklch(63.7% 0.25 30.77);
+      --red-10: oklch(59.6% 0.25 30.77);
+      --red-11: oklch(78.4% 0.21 30.77);
+      --red-12: oklch(89.9% 0.06 30.77);
 
-            --red-a1: color(display-p3 0 0 0 / 0);
-            --red-a2: color(display-p3 0.992 0.604 0.475 / 0.091);
-            --red-a3: color(display-p3 1 0.322 0.208 / 0.208);
-            --red-a4: color(display-p3 1 0.161 0.067 / 0.299);
-            --red-a5: color(display-p3 1 0.216 0.098 / 0.365);
-            --red-a6: color(display-p3 1 0.322 0.212 / 0.432);
-            --red-a7: color(display-p3 1 0.388 0.275 / 0.53);
-            --red-a8: color(display-p3 1 0.392 0.286 / 0.683);
-            --red-a9: color(display-p3 1 0.267 0.157 / 0.918);
-            --red-a10: color(display-p3 1 0.278 0.157 / 0.832);
-            --red-a11: color(display-p3 1 0.616 0.518 / 0.942);
-            --red-a12: color(display-p3 1 0.847 0.808 / 0.973);
+      --red-a1: color(display-p3 0 0 0 / 0);
+      --red-a2: color(display-p3 0.992 0.604 0.475 / 0.091);
+      --red-a3: color(display-p3 1 0.322 0.208 / 0.208);
+      --red-a4: color(display-p3 1 0.161 0.067 / 0.299);
+      --red-a5: color(display-p3 1 0.216 0.098 / 0.365);
+      --red-a6: color(display-p3 1 0.322 0.212 / 0.432);
+      --red-a7: color(display-p3 1 0.388 0.275 / 0.53);
+      --red-a8: color(display-p3 1 0.392 0.286 / 0.683);
+      --red-a9: color(display-p3 1 0.267 0.157 / 0.918);
+      --red-a10: color(display-p3 1 0.278 0.157 / 0.832);
+      --red-a11: color(display-p3 1 0.616 0.518 / 0.942);
+      --red-a12: color(display-p3 1 0.847 0.808 / 0.973);
 
-            --red-contrast: #fff;
-            --red-surface: color(display-p3 0.188 0.11 0.086 / 0.5);
-            --red-indicator: oklch(63.7% 0.25 30.77);
-            --red-track: oklch(63.7% 0.25 30.77);
-        }
+      --red-contrast: #fff;
+      --red-surface: color(display-p3 0.188 0.11 0.086 / 0.5);
+      --red-indicator: oklch(63.7% 0.25 30.77);
+      --red-track: oklch(63.7% 0.25 30.77);
     }
+  }
+}
+
+/* SPINNER OVERRIDE */
+
+.rt-Spinner {
+  display: block;
+  position: relative;
+  opacity: var(--spinner-opacity);
+  --pixel-width: 14.28%;
+  --pixel-height: 14.28%;
+  /*--spinner-animation-duration: 5s;*/
+}
+
+.rt-SpinnerLeaf {
+  transform: none;
+  position: absolute;
+  top: inherit;
+  left: inherit;
+  width: var(--pixel-width);
+  height: var(--pixel-height);
+  background-color: currentColor;
+  animation: rt-spinner-leaf-fade var(--spinner-animation-duration) linear infinite;
+
+  &::before {
+    position: absolute;
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: currentColor;
+    animation: rt-spinner-leaf-fade var(--spinner-animation-duration) linear infinite;
+  }
+
+  &::after {
+    position: absolute;
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: currentColor;
+    animation: rt-spinner-leaf-fade var(--spinner-animation-duration) linear infinite;
+  }
+
+  /**/
+
+  &:where(:nth-child(1))::before {
+    bottom: 100%;
+    left: 0;
+    animation-delay: calc(-24 / 24 * var(--spinner-animation-duration));
+  }
+
+  &:where(:nth-child(1)) {
+    bottom: var(--pixel-width);
+    left: 0;
+    animation-delay: calc(-23 / 24 * var(--spinner-animation-duration));
+  }
+
+  &:where(:nth-child(1))::after {
+    bottom: 100%;
+    left: 100%;
+    animation-delay: calc(-22 / 24 * var(--spinner-animation-duration));
+  }
+
+  /**/
+
+  &:where(:nth-child(2))::before {
+    bottom: 200%;
+    left: -100%;
+    animation-delay: calc(-21 / 24 * var(--spinner-animation-duration));
+  }
+
+  &:where(:nth-child(2)) {
+    left: calc(var(--pixel-width) * 2);
+    bottom: var(--pixel-width);
+    animation-delay: calc(-20 / 24 * var(--spinner-animation-duration));
+  }
+
+  &:where(:nth-child(2))::after {
+    bottom: 100%;
+    left: 0;
+    animation-delay: calc(-19 / 24 * var(--spinner-animation-duration));
+  }
+
+  /**/
+
+  &:where(:nth-child(3))::before {
+    bottom: 200%;
+    left: -200%;
+    animation-delay: calc(-18 / 24 * var(--spinner-animation-duration));
+  }
+
+  &:where(:nth-child(3)) {
+    left: calc(var(--pixel-width) * 3);
+    bottom: calc(var(--pixel-width) * 2);
+    animation-delay: calc(-17 / 24 * var(--spinner-animation-duration));
+  }
+
+  &:where(:nth-child(3))::after {
+    left: 0;
+    bottom: 100%;
+    animation-delay: calc(-16 / 24 * var(--spinner-animation-duration));
+  }
+
+  /**/
+
+  &:where(:nth-child(4))::before {
+    left: -200%;
+    bottom: 200%;
+    animation-delay: calc(-15 / 24 * var(--spinner-animation-duration));
+  }
+
+  &:where(:nth-child(4)) {
+    left: calc(var(--pixel-width) * 4);
+    bottom: calc(var(--pixel-width) * 2);
+    animation-delay: calc(-14 / 24 * var(--spinner-animation-duration));
+  }
+
+  &:where(:nth-child(4))::after {
+    left: -200%;
+    bottom: 300%;
+    animation-delay: calc(-13 / 24 * var(--spinner-animation-duration));
+  }
+
+  /**/
+
+  &:where(:nth-child(5))::before {
+    left: 100%;
+    bottom: -300%;
+    animation-delay: calc(-12 / 24 * var(--spinner-animation-duration));
+  }
+
+  &:where(:nth-child(5)) {
+    left: calc(var(--pixel-width) * 3);
+    bottom: calc(var(--pixel-width) * 4);
+    animation-delay: calc(-11 / 24 * var(--spinner-animation-duration));
+  }
+
+  &:where(:nth-child(5))::after {
+    left: 200%;
+    bottom: -200%;
+    animation-delay: calc(-10 / 24 * var(--spinner-animation-duration));
+  }
+
+  /**/
+
+  &:where(:nth-child(6))::before {
+    left: -100%;
+    bottom: 100%;
+    animation-delay: calc(-9 / 24 * var(--spinner-animation-duration));
+  }
+
+  &:where(:nth-child(6)) {
+    left: calc(var(--pixel-width) * 5);
+    bottom: calc(var(--pixel-width) * 3);
+    animation-delay: calc(-8 / 24 * var(--spinner-animation-duration));
+  }
+
+  &:where(:nth-child(6))::after {
+    bottom: -200%;
+    left: 100%;
+    animation-delay: calc(-7 / 24 * var(--spinner-animation-duration));
+  }
+
+  /**/
+
+  &:where(:nth-child(7))::before {
+    left: -100%;
+    bottom: 100%;
+    animation-delay: calc(-6 / 24 * var(--spinner-animation-duration));
+  }
+
+  &:where(:nth-child(7)) {
+
+    left: calc(var(--pixel-width) * 5);
+    bottom: calc(var(--pixel-width) * 4);
+    animation-delay: calc(-5 / 24 * var(--spinner-animation-duration));
+  }
+
+  &:where(:nth-child(7))::after {
+    bottom: -200%;
+    left: 100%;
+    animation-delay: calc(-4 / 24 * var(--spinner-animation-duration));
+  }
+
+  /**/
+
+  &:where(:nth-child(8))::before {
+    background-color: transparent;
+    animation-delay: calc(-3 / 24 * var(--spinner-animation-duration));
+  }
+
+  &:where(:nth-child(8)) {
+    background-color: transparent;
+    animation-delay: calc(-2 / 24 * var(--spinner-animation-duration));
+  }
+
+  &:where(:nth-child(8))::after {
+    background-color: transparent;
+    animation-delay: calc(-1 / 24 * var(--spinner-animation-duration));
+  }
+}
+
+@keyframes rt-spinner-leaf-fade {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.1;
+  }
 }
