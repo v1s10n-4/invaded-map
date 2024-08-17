@@ -1,3 +1,13 @@
+import SubmitButton from "@/components/SubmitButton";
+import {
+  Button,
+  Flex,
+  Separator,
+  Slot,
+  Spinner,
+  Text,
+  TextArea,
+} from "@radix-ui/themes";
 import { redirect } from "next/navigation";
 import { clsx } from "clsx";
 import DiscordIcon from "@/public/icons/discord-logo.svg";
@@ -35,43 +45,41 @@ const FeedbackPage = () => {
       <h1 className="text-center text-2xl uppercase md:mb-8 md:mt-12 md:text-3xl">
         Help & support
       </h1>
+      <Flex p={"4"} gap={"4"} justify="center" align="center">
+        <Spinner size="1" />
+        <Spinner size="2" />
+        <Spinner size="3" />
+        <Button loading>
+          <Slot>asdf</Slot>
+          Fesse
+        </Button>
+      </Flex>
       <a
         href={DISCORD_INVITE_LINK}
         className="flex items-center gap-2 border-2 border-dashed border-primary px-6 py-2 text-2xl outline-none"
       >
         <DiscordIcon className="h-16 w-16" /> Discord
       </a>
-      <div
-        className={clsx(
-          "flex w-full items-center border-none text-center",
-          "before:mr-2 before:flex-1 before:border before:border-primary",
-          "after:ml-2 after:flex-1 after:border after:border-primary"
-        )}
+      <Separator
+      // className={clsx(
+      //   "flex w-full items-center border-none text-center",
+      //   "before:mr-2 before:flex-1 before:border before:border-primary",
+      //   "after:ml-2 after:flex-1 after:border after:border-primary"
+      // )}
       >
         Or
-      </div>
-      <p className="md:text-md text-sm">
-        Ask questions, report problems, or just leave some feedback.
-      </p>
+      </Separator>
+      <Text>Ask questions, report problems, or just leave some feedback.</Text>
       <form
         action={submitFeedback}
         className="flex h-full w-full flex-col gap-4 md:h-fit"
       >
-        <textarea
+        <TextArea
           required
           name="content"
-          className="scrollbar input relative h-full w-full border border-primary p-4 placeholder-primary/40 !outline-primary scrollbar-thumb-current scrollbar-track-black md:h-60"
           placeholder="Share your thoughts..."
         />
-        <button
-          className={clsx(
-            "px-4 py-2 text-2xl",
-            "border border-primary outline-none",
-            "ring-2 ring-transparent ring-offset-2 ring-offset-black focus-within:ring-primary"
-          )}
-        >
-          Submit
-        </button>
+        <SubmitButton>Submit</SubmitButton>
       </form>
     </main>
   );
