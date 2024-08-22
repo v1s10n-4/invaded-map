@@ -11,10 +11,12 @@ import {
 import {
   Box,
   Button,
+  Card,
   DropdownMenu,
   Flex,
   IconButton,
   Spinner,
+  Text,
   TextField,
   Theme,
   ThemePanel,
@@ -28,6 +30,7 @@ import { SessionProvider } from "next-auth/react";
 import localFont from "next/font/local";
 import Image from "next/image";
 import Link from "next/link";
+import MenuIcon from "pixelarticons/svg/menu.svg";
 import Search from "pixelarticons/svg/search.svg";
 import React, { ReactNode } from "react";
 
@@ -232,7 +235,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className={clsx("bg-black", sixtyfour.className)}>
         <Theme appearance="dark" radius="none" accentColor="red">
           <SessionProvider basePath="/auth">
-            <Flex direction="column" minHeight="100dvh">
+            <Flex
+              position="relative"
+              direction="column"
+              minHeight="100dvh"
+              vaul-drawer-wrapper=""
+            >
               <aside className="bg-background fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r sm:flex">
                 <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
                   <Link
@@ -282,70 +290,53 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                   </Tooltip>
                 </nav>
               </aside>
-              <Flex
-                direction="column"
-                gap="4"
-                py={{ sm: "4" }}
-                className="sm:pl-14"
-                vaul-drawer-wrapper=""
-              >
-                <header className="bg-background sticky top-0 z-30 flex h-14 items-center gap-4 border-b px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
-                  <Drawer direction="left">
-                    <DrawerTrigger asChild>
-                      <IconButton variant="outline" className="sm:hidden">
-                        <Search className="h-5 w-5" />
-                        <span className="sr-only">Toggle Menu</span>
-                      </IconButton>
-                    </DrawerTrigger>
-                    <DrawerContent>
-                      <DrawerHeader>Invaded map</DrawerHeader>
-                      <Flex direction="column" gap="2"></Flex>
-                      <DrawerFooter>Settings</DrawerFooter>
-                    </DrawerContent>
-                  </Drawer>
-                  <Box className="hidden md:flex">Fesse</Box>
-                  <Spinner size="3" />
-                  <div className="relative ml-auto flex-1 md:grow-0">
-                    <TextField.Root
-                      name="search"
-                      type="search"
-                      placeholder="Search Invader"
-                      size="3"
-                      required
-                      // className="bg-background w-full rounded-lg pl-8 md:w-[200px] lg:w-[336px]"
-                      className="w-full"
-                    >
-                      <TextField.Slot>
-                        <Search width={16} height={16} />
-                      </TextField.Slot>
-                    </TextField.Root>
-                  </div>
-                  <DropdownMenu.Root>
-                    <DropdownMenu.Trigger>
-                      <IconButton
-                        variant="outline"
-                        // size="icon"
-                        // className="overflow-hidden rounded-full"
+              <Flex direction="column" pl={{ initial: "0", sm: "56px" }}>
+                <Card asChild className="sticky top-2 z-[1]" m="2">
+                  <header>
+                    <Flex align="center" gap="2" px={{ initial: "2", sm: "3" }}>
+                      <Drawer direction="left">
+                        <DrawerTrigger asChild>
+                          <IconButton
+                            size="4"
+                            variant="ghost"
+                            className="sm:hidden"
+                          >
+                            <MenuIcon className="h-8 w-8" />
+                            <span className="sr-only">Toggle Menu</span>
+                          </IconButton>
+                        </DrawerTrigger>
+                        <DrawerContent>
+                          <DrawerHeader>Invaded map</DrawerHeader>
+                          <Flex direction="column" gap="2"></Flex>
+                          <DrawerFooter>Settings</DrawerFooter>
+                        </DrawerContent>
+                      </Drawer>
+                      <Flex
+                        flexGrow="1"
+                        justify={{ initial: "center", sm: "start" }}
                       >
-                        <Image
-                          src={HitPlaceholder(36, 36)}
-                          width={36}
-                          height={36}
-                          alt="Avatar"
-                          // className="overflow-hidden rounded-full"
-                        />
-                      </IconButton>
-                    </DropdownMenu.Trigger>
-                    <DropdownMenu.Content align="end">
-                      <DropdownMenu.Label>My Account</DropdownMenu.Label>
-                      <DropdownMenu.Separator />
-                      <DropdownMenu.Item>Settings</DropdownMenu.Item>
-                      <DropdownMenu.Item>Support</DropdownMenu.Item>
-                      <DropdownMenu.Separator />
-                      <DropdownMenu.Item>Logout</DropdownMenu.Item>
-                    </DropdownMenu.Content>
-                  </DropdownMenu.Root>
-                </header>
+                        <Text size="5" className="uppercase">
+                          Invaded Map
+                        </Text>
+                      </Flex>
+                      <DropdownMenu.Root>
+                        <DropdownMenu.Trigger>
+                          <IconButton size="3" variant="outline">
+                            <Spinner />
+                          </IconButton>
+                        </DropdownMenu.Trigger>
+                        <DropdownMenu.Content align="end">
+                          <DropdownMenu.Label>My Account</DropdownMenu.Label>
+                          <DropdownMenu.Separator />
+                          <DropdownMenu.Item>Settings</DropdownMenu.Item>
+                          <DropdownMenu.Item>Support</DropdownMenu.Item>
+                          <DropdownMenu.Separator />
+                          <DropdownMenu.Item>Logout</DropdownMenu.Item>
+                        </DropdownMenu.Content>
+                      </DropdownMenu.Root>
+                    </Flex>
+                  </header>
+                </Card>
                 {children}
               </Flex>
             </Flex>
