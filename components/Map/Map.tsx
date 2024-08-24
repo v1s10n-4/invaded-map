@@ -4,6 +4,7 @@ import UserMarker from "@/components/Map/UserMarker";
 import { InvaderWithLocation } from "@/db";
 import SplashScreen from "@/public/assets/images/splashscreen.gif";
 import { Paris } from "@/utils";
+import { Box, Flex, Spinner } from "@radix-ui/themes";
 import {
   GoogleMap,
   GoogleMapProps,
@@ -75,12 +76,9 @@ export const MapView: FC<{ invaders: InvaderWithLocation[] }> = ({
   return (
     <LoadScriptNext
       loadingElement={
-        <Image
-          priority
-          src={SplashScreen}
-          alt={"Invaded map loading"}
-          className="fixed inset-0"
-        />
+        <Flex position="fixed" inset="0" align="center" justify="center">
+          <Spinner size="3" />
+        </Flex>
       }
       libraries={gmapLibraries}
       googleMapsApiKey={

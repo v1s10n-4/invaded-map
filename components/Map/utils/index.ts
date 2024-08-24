@@ -65,9 +65,7 @@ export const defaultGoogleMapProps: GoogleMapProps = {
   center: Paris,
   zoom: 10,
   options: mapOptions,
-  mapContainerStyle: {
-    height: "100dvh",
-  },
+  mapContainerClassName: "!absolute inset-0",
 };
 
 type Libraries = (
