@@ -1,23 +1,14 @@
 import "./globals.css";
 import { GtmInit } from "@/app/GtmInit";
-import { HitPlaceholder } from "@/components/Placeholder";
+import RootDrawer from "@/app/RootDrawer";
 import {
-  Drawer,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTrigger,
-} from "@/components/Drawer";
-import {
-  Box,
-  Button,
   Card,
   DropdownMenu,
   Flex,
   IconButton,
+  ScrollArea,
   Spinner,
   Text,
-  TextField,
   Theme,
   ThemePanel,
   Tooltip,
@@ -28,9 +19,7 @@ import { clsx } from "clsx";
 import { Metadata, Viewport } from "next";
 import { SessionProvider } from "next-auth/react";
 import localFont from "next/font/local";
-import Image from "next/image";
 import Link from "next/link";
-import MenuIcon from "pixelarticons/svg/menu.svg";
 import Search from "pixelarticons/svg/search.svg";
 import React, { ReactNode } from "react";
 
@@ -232,13 +221,19 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       className="text-base"
       content="width=device-width, initial-scale=1, maximum-scale=1"
     >
-      <body className={clsx("bg-black", sixtyfour.className)}>
-        <Theme appearance="dark" radius="none" accentColor="red">
+      <body className={clsx("bg-[--color-background]", sixtyfour.className)}>
+        <Theme
+          appearance="dark"
+          radius="none"
+          accentColor="red"
+          grayColor="slate"
+        >
           <SessionProvider basePath="/auth">
             <Flex
               position="relative"
               direction="column"
               minHeight="100dvh"
+              maxHeight="100dvh"
               vaul-drawer-wrapper=""
             >
               <aside className="bg-background fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r sm:flex">
@@ -290,55 +285,55 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                   </Tooltip>
                 </nav>
               </aside>
-              <Flex direction="column" pl={{ initial: "0", sm: "56px" }}>
-                <Card asChild className="sticky top-2 z-[1]" m="2">
-                  <header>
-                    <Flex align="center" gap="2" px={{ initial: "2", sm: "3" }}>
-                      <Drawer direction="left">
-                        <DrawerTrigger asChild>
-                          <IconButton
-                            size="4"
-                            variant="ghost"
-                            className="sm:hidden"
-                          >
-                            <MenuIcon className="h-8 w-8" />
-                            <span className="sr-only">Toggle Menu</span>
-                          </IconButton>
-                        </DrawerTrigger>
-                        <DrawerContent>
-                          <DrawerHeader>Invaded map</DrawerHeader>
-                          <Flex direction="column" gap="2"></Flex>
-                          <DrawerFooter>Settings</DrawerFooter>
-                        </DrawerContent>
-                      </Drawer>
+              <ScrollArea
+                scrollbars="vertical"
+                // prevent horizontal-scrolling
+                className="[&>div>div]:w-[initial]"
+                asChild
+              >
+                <Flex
+                  direction="column"
+                  pl={{ initial: "0", sm: "56px" }}
+                  minHeight="100dvh"
+                  maxHeight="100dvh"
+                >
+                  <Card asChild className="sticky top-2 z-[1]" my="2" mx="4">
+                    <header>
                       <Flex
-                        flexGrow="1"
-                        justify={{ initial: "center", sm: "start" }}
+                        align="center"
+                        gap="2"
+                        px={{ initial: "2", sm: "3" }}
                       >
-                        <Text size="5" className="uppercase">
-                          Invaded Map
-                        </Text>
+                        <RootDrawer />
+                        <Flex
+                          flexGrow="1"
+                          justify={{ initial: "center", sm: "start" }}
+                        >
+                          <Text size="5" className="uppercase">
+                            Invaded Map
+                          </Text>
+                        </Flex>
+                        <DropdownMenu.Root>
+                          <DropdownMenu.Trigger>
+                            <IconButton size="4" variant="outline">
+                              <Spinner />
+                            </IconButton>
+                          </DropdownMenu.Trigger>
+                          <DropdownMenu.Content align="end">
+                            <DropdownMenu.Label>My Account</DropdownMenu.Label>
+                            <DropdownMenu.Separator />
+                            <DropdownMenu.Item>Settings</DropdownMenu.Item>
+                            <DropdownMenu.Item>Support</DropdownMenu.Item>
+                            <DropdownMenu.Separator />
+                            <DropdownMenu.Item>Logout</DropdownMenu.Item>
+                          </DropdownMenu.Content>
+                        </DropdownMenu.Root>
                       </Flex>
-                      <DropdownMenu.Root>
-                        <DropdownMenu.Trigger>
-                          <IconButton size="3" variant="outline">
-                            <Spinner />
-                          </IconButton>
-                        </DropdownMenu.Trigger>
-                        <DropdownMenu.Content align="end">
-                          <DropdownMenu.Label>My Account</DropdownMenu.Label>
-                          <DropdownMenu.Separator />
-                          <DropdownMenu.Item>Settings</DropdownMenu.Item>
-                          <DropdownMenu.Item>Support</DropdownMenu.Item>
-                          <DropdownMenu.Separator />
-                          <DropdownMenu.Item>Logout</DropdownMenu.Item>
-                        </DropdownMenu.Content>
-                      </DropdownMenu.Root>
-                    </Flex>
-                  </header>
-                </Card>
-                {children}
-              </Flex>
+                    </header>
+                  </Card>
+                  {children}
+                </Flex>
+              </ScrollArea>
             </Flex>
           </SessionProvider>
           <ThemePanel defaultOpen={false} />
