@@ -3,7 +3,7 @@ import { FC } from "react";
 
 const PrivacyPage: FC = () => {
   return (
-    <Container asChild>
+    <Container pr="4" asChild>
       <main>
         <Section mx="auto" className="prose text-center">
           <h1>Privacy Policy</h1>
