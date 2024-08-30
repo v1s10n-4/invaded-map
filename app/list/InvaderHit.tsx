@@ -25,6 +25,7 @@ export const InvaderHit = ({
     >
       <div className="relative w-full">
         <Image
+          unoptimized
           className="h-fit w-full text-wrap object-contain text-center align-middle text-xs leading-[192px]"
           src={thumbnail}
           alt="image not found"
