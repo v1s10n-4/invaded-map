@@ -296,6 +296,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                   pl={{ initial: "0", sm: "56px" }}
                   minHeight="100dvh"
                   maxHeight="100dvh"
+                  id="content"
                 >
                   <Card asChild className="sticky top-2 z-[1]" my="2" mx="4">
                     <header>
