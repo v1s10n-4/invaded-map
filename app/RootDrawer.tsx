@@ -40,7 +40,7 @@ const RootDrawer: FC<RootDrawerProps> = ({}) => {
           <span className="sr-only">Toggle Menu</span>
         </IconButton>
       </DrawerTrigger>
-      <DrawerContent className="pt-[env(safe-area-inset-top)] focus-visible:outline-0">
+      <DrawerContent className="fixed bottom-0 left-0 mr-[--space-5] flex h-full w-auto flex-col rounded-r-[--radius-5] pt-[env(safe-area-inset-top)] focus-visible:outline-0">
         <DrawerHeader mb="2">
           <Icon icon="invadedMap" className="mx-auto h-12 w-12" />
         </DrawerHeader>
@@ -59,6 +59,9 @@ const RootDrawer: FC<RootDrawerProps> = ({}) => {
             </RadioCards.Item>
             <RadioCards.Item value={"/highscores"} className="justify-start">
               <Text>Highscores</Text>
+            </RadioCards.Item>
+            <RadioCards.Item value={"/help"} className="justify-start">
+              <Text>help</Text>
             </RadioCards.Item>
           </RadioCards.Root>
         </Flex>
