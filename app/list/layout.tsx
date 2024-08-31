@@ -1,5 +1,6 @@
 "use client";
 import { createFetchRequester } from "@algolia/requester-fetch";
+import { Flex, Separator } from "@radix-ui/themes";
 import React, { FC, PropsWithChildren } from "react";
 import algoliasearch from "algoliasearch/lite";
 import { SearchInput } from "@/components/SearchInput";
@@ -17,20 +18,21 @@ const searchClient = algoliasearch(
 
 const ListLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <div className="flex h-full flex-col pt-24 md:pt-28 lg:pt-32">
+    <Flex direction="column" height="100%">
       <InstantSearchNext
         searchClient={searchClient}
         indexName="invaders"
         future={{ preserveSharedStateOnUnmount: true }}
         // routing
       >
-        <div className="flex flex-row-reverse items-center gap-2 border-b-4 border-double border-primary px-2 pb-2 md:flex-col md:px-4 md:pb-4 lg:px-6 lg:pb-6">
-          <FilterMenu />
+        <Flex align="center" gap="2" px="4" pb="2">
           <SearchInput />
-        </div>
+          <FilterMenu />
+        </Flex>
+        <Separator size="4" />
         {children}
       </InstantSearchNext>
-    </div>
+    </Flex>
   );
 };
 

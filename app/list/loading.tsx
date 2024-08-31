@@ -1,4 +1,5 @@
 import { SkeletonHit } from "@/app/list/SkeletonHit";
+import { Grid, ScrollArea } from "@radix-ui/themes";
 import React from "react";
 
 export const runtime = "edge";
@@ -24,12 +25,25 @@ export const runtime = "edge";
 //   </div>
 // </div>
 const ListLoading = () => (
-  <main className="scrollbar carousel-vertical h-full scroll-pt-4 overflow-y-scroll scrollbar-thumb-current scrollbar-track-black">
-    <div className="grid grid-cols-1 gap-4 p-2 sm:grid-cols-2 md:grid-cols-3 md:p-4 lg:p-6 xl:grid-cols-4">
-      {[...Array(20)].map((_x, i) => (
-        <SkeletonHit key={"loading" + i} />
-      ))}
-    </div>
-  </main>
+  <ScrollArea
+    type="always"
+    scrollbars="vertical"
+    size="2"
+    className="h-[600px] flex-grow"
+    asChild
+  >
+    <main>
+      <Grid
+        columns={{ initial: "1", sm: "2", md: "3", lg: "4" }}
+        p={{ initial: "2", md: "4", lg: "6" }}
+        px="4"
+        gap="4"
+      >
+        {[...Array(20)].map((_x, i) => (
+          <SkeletonHit key={"loading" + i} />
+        ))}
+      </Grid>
+    </main>
+  </ScrollArea>
 );
 export default ListLoading;
