@@ -66,11 +66,17 @@
 
 /* PWA NOTCH SUPPORT */
 
-@supports(padding: max(0px)) {
+@supports (padding: max(0px)) {
   @media (display-mode: standalone) {
     header {
       top: calc(0.5rem + env(safe-area-inset-top)) !important;
       margin-top: env(safe-area-inset-top) !important;
     }
   }
+}
+
+.rt-Card-accent::after {
+  --base-card-surface-box-shadow: 0 0 0 1px var(--accent-a5);
+  --base-card-surface-hover-box-shadow: 0 0 0 1px var(--accent-a7);
+  --base-card-surface-active-box-shadow: 0 0 0 1px var(--accent-a6);
 }
