@@ -2,9 +2,11 @@ import HistoryModalContent from "@/app/map/[invaderName]/historyModalContent";
 import InvaderPageCarousel from "@/app/map/[invaderName]/InvaderPageCarousel";
 import ThreeDotsMenu from "@/app/map/[invaderName]/ThreeDotsMenu";
 import { getInvader, getState } from "@/utils/data";
+import { DataList, Flex, Text, VisuallyHidden } from "@radix-ui/themes";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import BuildingCommunity from "pixelarticons/svg/building-community.svg";
+import Calendar from "pixelarticons/svg/calendar-month.svg";
 import Coin from "pixelarticons/svg/coin.svg";
 import ImageFlashIcon from "pixelarticons/svg/image-flash.svg";
 import React, { FC } from "react";
@@ -62,32 +64,58 @@ const InvaderPlacePage: FC<{ params: Params }> = async ({
   const invader = await getInvader(invaderName);
   if (!invader) notFound();
   return (
-    <div className="scrollbar flex flex-col items-center gap-4 p-4 md:flex-row">
+    <Flex direction={{ initial: "column", sm: "row" }} gap="4" p="4">
       <InvaderPageCarousel
         imageList={[invader.thumbnail, ...invader.images.map((x) => x.url)]}
       />
-      <div className="relative flex h-full w-full flex-col justify-around gap-4 px-4 sm:flex-row md:flex-col">
-        <div className="flex flex-col gap-4">
-          <p className="flex items-center gap-2 text-xl">
-            <Coin className="h-7 w-7" />
-            <span className="font-bold">{invader.points}</span> points
-          </p>
-          <p className="flex items-center gap-2">
-            <ImageFlashIcon className="h-7 w-7" /> {getState(invader.state)}
-          </p>
-        </div>
-        <div className="flex flex-col gap-4">
-          <p className="flex items-center gap-2">
-            <BuildingCommunity className="h-7 w-7" />
-            {invader.city_name}
-          </p>
-          <p>Created: {new Date(invader.create_date).toLocaleDateString()}</p>
-        </div>
+      <Flex
+        direction={{ initial: "column", sm: "row", md: "column" }}
+        gap="2"
+        flexGrow="1"
+        justify={{ initial: "start", md: "center" }}
+        align={{ initial: "start", sm: "center", md: "start" }}
+        position="relative"
+      >
+        <DataList.Root
+          orientation={{ initial: "horizontal", sm: "vertical" }}
+          size={{ initial: "1", xs: "2", sm: "3" }}
+        >
+          <DataList.Item>
+            <DataList.Label className="flex items-center">
+              <Coin className="mr-2 h-6 w-6" />
+              Points
+            </DataList.Label>
+            <DataList.Value>{invader.points}</DataList.Value>
+          </DataList.Item>
+          <DataList.Item>
+            <DataList.Label className="flex items-center">
+              <ImageFlashIcon className="mr-2 h-6 w-6" />
+              State
+            </DataList.Label>
+            <DataList.Value>{getState(invader.state)}</DataList.Value>
+          </DataList.Item>
+          <DataList.Item>
+            <DataList.Label className="flex items-center">
+              <BuildingCommunity className="mr-2 h-6 w-6" />
+              City
+            </DataList.Label>
+            <DataList.Value>{invader.city_name}</DataList.Value>
+          </DataList.Item>
+          <DataList.Item>
+            <DataList.Label className="flex items-center">
+              <Calendar className="mr-2 h-6 w-6" />
+              Created
+            </DataList.Label>
+            <DataList.Value>
+              {new Date(invader.create_date).toLocaleDateString()}
+            </DataList.Value>
+          </DataList.Item>
+        </DataList.Root>
         <ThreeDotsMenu invader={invader}>
           <HistoryModalContent {...invader} />
         </ThreeDotsMenu>
-      </div>
-    </div>
+      </Flex>
+    </Flex>
   );
 };
 export default InvaderPlacePage;
