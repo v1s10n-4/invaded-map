@@ -1,5 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
+import { IconButton, IconButtonProps } from "@radix-ui/themes";
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from "embla-carousel-react";
@@ -196,7 +197,7 @@ CarouselItem.displayName = "CarouselItem";
 const CarouselPrevious = React.forwardRef<
   HTMLButtonElement,
   // React.ComponentProps<typeof Button>
-  HTMLAttributes<HTMLButtonElement>
+  IconButtonProps
 >(
   (
     {
@@ -211,7 +212,7 @@ const CarouselPrevious = React.forwardRef<
     if (api && api.slideNodes().length < 2) return null;
     return (
       // previously `Button` from shadcn
-      <button
+      <IconButton
         ref={ref}
         // variant={variant}
         // size={size}
@@ -228,7 +229,7 @@ const CarouselPrevious = React.forwardRef<
       >
         <ChevronLeft className="h-full w-full" />
         <span className="sr-only">Previous slide</span>
-      </button>
+      </IconButton>
     );
   }
 );
@@ -237,7 +238,7 @@ CarouselPrevious.displayName = "CarouselPrevious";
 const CarouselNext = React.forwardRef<
   HTMLButtonElement,
   // React.ComponentProps<typeof Button>
-  HTMLAttributes<HTMLButtonElement>
+  IconButtonProps
 >(
   (
     {
@@ -252,7 +253,7 @@ const CarouselNext = React.forwardRef<
     if (api && api.slideNodes().length < 2) return null;
     return (
       // previously `Button` from shadcn
-      <button
+      <IconButton
         ref={ref}
         // variant={variant}
         // size={size}
@@ -269,7 +270,7 @@ const CarouselNext = React.forwardRef<
       >
         <ChevronRight className="h-full w-full" />
         <span className="sr-only">Next slide</span>
-      </button>
+      </IconButton>
     );
   }
 );
