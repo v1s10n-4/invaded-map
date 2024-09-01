@@ -2,9 +2,8 @@
 import InvaderHit from "@/app/list/InvaderHit";
 import { SkeletonHit } from "@/app/list/SkeletonHit";
 import { Invader } from "@/db";
-import { Colors } from "@/utils";
 import { Grid, ScrollArea } from "@radix-ui/themes";
-import React, { FC, PropsWithChildren, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import useInfiniteScroll from "react-infinite-scroll-hook";
 import {
   useInfiniteHits,
@@ -40,7 +39,7 @@ const InvaderList = (props: UseInfiniteHitsProps<Invader>) => {
       type="always"
       scrollbars="vertical"
       size="2"
-      className="h-[calc(100dvh-(140px+env(safe-area-inset-bottom)))]"
+      className="h-[calc(100dvh-(140px+env(safe-area-inset-bottom)))] [&>div]:snap-y [&>div]:snap-mandatory [&>div]:scroll-py-[--space-4] [&>div]:scroll-smooth"
       asChild
     >
       <main>
