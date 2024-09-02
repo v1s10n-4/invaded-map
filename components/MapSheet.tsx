@@ -76,7 +76,7 @@ export const MapSheet: FC<PropsWithChildren> = ({ children }) => {
           }}
         >
           <Sheet.Header>
-            <Flex justify="between" px="3" pt="3" pb="1" align="center">
+            <Flex justify="between" px="3" pb="3" align="center">
               <IconButton variant="ghost" size="3" onClick={onLeftActionClick}>
                 {invaderName ? (
                   <ArrowLeft className="h-8 w-8" />
