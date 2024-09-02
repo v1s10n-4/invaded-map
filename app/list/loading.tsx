@@ -29,7 +29,7 @@ const ListLoading = () => (
     type="always"
     scrollbars="vertical"
     size="2"
-    className="h-[600px] flex-grow"
+    className="h-[calc(100dvh-(140px+env(safe-area-inset-bottom)))] [&>div]:snap-y [&>div]:snap-mandatory [&>div]:scroll-py-[--space-4] [&>div]:scroll-smooth"
     asChild
   >
     <main>
@@ -40,7 +40,7 @@ const ListLoading = () => (
         gap="4"
       >
         {[...Array(20)].map((_x, i) => (
-          <SkeletonHit key={"loading" + i} />
+          <SkeletonHit key={"loading" + i} index={i} />
         ))}
       </Grid>
     </main>

@@ -1,10 +1,10 @@
 "use client";
+import FilterMenu from "@/app/list/FilterMenu";
+import { SearchInput } from "@/components/SearchInput";
 import { createFetchRequester } from "@algolia/requester-fetch";
 import { Flex, Separator } from "@radix-ui/themes";
-import React, { FC, PropsWithChildren } from "react";
 import algoliasearch from "algoliasearch/lite";
-import { SearchInput } from "@/components/SearchInput";
-import FilterMenu from "@/app/list/FilterMenu";
+import React, { FC, PropsWithChildren } from "react";
 import { InstantSearchNext } from "react-instantsearch-nextjs";
 
 export const runtime = "edge";

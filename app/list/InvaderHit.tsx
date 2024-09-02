@@ -32,9 +32,8 @@ export const InvaderHit = ({
         <Link href={`/map/${name}`} key={name}>
           <div className="relative w-full">
             <Image
-              data-radius="medium"
               unoptimized
-              className="h-fit w-full text-wrap object-contain text-center align-middle text-xs leading-[192px]"
+              className="h-fit w-full text-wrap rounded-[--radius-3] object-contain text-center align-middle text-xs leading-[192px]"
               src={thumbnail}
               alt="image not found"
               placeholder={HitPlaceholder(192, 192)}
@@ -42,7 +41,7 @@ export const InvaderHit = ({
               height={192}
             />
             <Text
-              className="absolute left-1 top-1 border border-[--gray-6] bg-[--color-panel-solid] px-1 py-0.5"
+              className="absolute left-1 top-1 rounded-[--radius-1] border border-[--gray-6] bg-[--color-panel-solid] px-1 py-0.5"
               size="4"
             >
               {name}
@@ -50,7 +49,7 @@ export const InvaderHit = ({
             {!location && (
               <Tooltip content="location not available">
                 <Box
-                  className="absolute right-1 top-1 h-9 w-9 border border-[--gray-6] bg-[--color-panel-solid]"
+                  className="absolute right-1 top-1 h-9 w-9 rounded-[--radius-1] border border-[--gray-6] bg-[--color-panel-solid]"
                   px="1"
                 >
                   <Pin className="h-full w-full" />
@@ -61,7 +60,7 @@ export const InvaderHit = ({
               </Tooltip>
             )}
             <Text
-              className="absolute bottom-1 right-1 border border-[--gray-6] bg-[--color-panel-solid] px-1 py-0.5"
+              className="absolute bottom-1 right-1 rounded-[--radius-1] border border-[--gray-6] bg-[--color-panel-solid] px-1 py-0.5"
               size="3"
             >
               {points}pts
