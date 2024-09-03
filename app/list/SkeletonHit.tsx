@@ -2,9 +2,9 @@ import {
   getRandomLengthString,
   getRandomLengthStringSSR,
 } from "@/app/highscores/utils";
+import { Card } from "@/components/Card";
 import Placeholder from "@/components/placeholder.svg";
 import {
-  Card,
   DataList,
   Flex,
   Skeleton,
@@ -21,7 +21,7 @@ export const SkeletonHit: FC<{ index: number } & PropsWithChildren> = ({
   children,
 }) => {
   return (
-    <Card className="group carousel-item" asChild>
+    <Card elevation className="group carousel-item" asChild>
       <Flex direction="column" gap="2" p="2">
         <div className="relative w-full">
           <Skeleton>

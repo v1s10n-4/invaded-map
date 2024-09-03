@@ -1,8 +1,8 @@
+import { Card } from "@/components/Card";
 import { HitPlaceholder } from "@/components/Placeholder";
 import { Invader } from "@/db";
 import {
   Box,
-  Card,
   DataList,
   Flex,
   Text,
@@ -27,7 +27,7 @@ export const InvaderHit = ({
   create_date,
 }: Hit<Invader>) => {
   return (
-    <Card className="group carousel-item" asChild>
+    <Card elevation className="group carousel-item" asChild>
       <Flex direction="column" gap="2" p="2" asChild>
         <Link href={`/map/${name}`} key={name}>
           <div className="relative w-full">
