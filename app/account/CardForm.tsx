@@ -1,13 +1,8 @@
 "use client";
 import { CardContent, CardFooter } from "@/components/Card";
 import SubmitButton from "@/components/SubmitButton";
-import { cn } from "@/lib/utils";
-import { clsx } from "clsx";
-import React, {
-  DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS,
-  FC,
-  PropsWithChildren,
-} from "react";
+import { Flex, Separator, Text } from "@radix-ui/themes";
+import React, { FC, PropsWithChildren } from "react";
 import { useFormState } from "react-dom";
 import { SafeParseSuccess } from "zod";
 import { typeToFlattenedError } from "zod/lib/ZodError";
@@ -38,28 +33,19 @@ const CardForm: FC<CardFormProps> = ({
       <CardContent>
         {children}
         {!state.success && (
-          <div className="label">
-            <span className="label-text-alt text-error">
-              {state.errors[name]?.join(", ")}
-            </span>
-          </div>
+          <Text size="1" className="text-[--red-9]">
+            {state.errors[name]?.join(", ")}
+          </Text>
         )}
       </CardContent>
-      <CardFooter
-        className={cn(
-          "border-t border-primary px-6 py-4",
-          deleteAction && "justify-between"
-        )}
-      >
+      <Separator size="4" mb="5" />
+      <CardFooter justify={deleteAction ? "between" : "end"}>
         {deleteAction && (
-          <SubmitButton
-            formAction={deleteAction}
-            className="btn-outline btn-primary"
-          >
+          <SubmitButton variant="outline" formAction={deleteAction}>
             Delete
           </SubmitButton>
         )}
-        <SubmitButton className="btn-primary">{submitText}</SubmitButton>
+        <SubmitButton>{submitText}</SubmitButton>
       </CardFooter>
     </form>
   );
