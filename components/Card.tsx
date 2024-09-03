@@ -1,79 +1,53 @@
+import {
+  Card as RadixThemeCard,
+  CardProps,
+  Flex,
+  FlexProps,
+  Heading,
+  HeadingProps,
+  Text,
+  TextProps,
+} from "@radix-ui/themes";
 import * as React from "react";
 
-import { cn } from "@/lib/utils";
-
-const Card = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn(
-      // "bg-card text-card-foreground rounded-lg border shadow-sm",
-      "bg-card border border-primary",
-      className
-    )}
-    {...props}
-  />
+const Card = React.forwardRef<HTMLDivElement, CardProps>((props, ref) => (
+  <RadixThemeCard ref={ref} {...props} />
 ));
 Card.displayName = "Card";
 
-const CardHeader = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn("flex flex-col space-y-1.5 p-6", className)}
-    {...props}
-  />
-));
+const CardHeader = React.forwardRef<HTMLDivElement, FlexProps>(
+  ({ ...props }, ref) => (
+    <Flex direction="column" gap="1" p="5" ref={ref} {...props} />
+  )
+);
 CardHeader.displayName = "CardHeader";
 
-const CardTitle = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLHeadingElement>
->(({ className, ...props }, ref) => (
-  <h3
-    ref={ref}
-    className={cn(
-      "text-lg font-semibold leading-none tracking-tight text-primary md:text-xl lg:text-2xl",
-      className
-    )}
-    {...props}
-  />
-));
+const CardTitle = React.forwardRef<HTMLParagraphElement, HeadingProps>(
+  (props, ref) => (
+    <Heading
+      as="h3"
+      size={{ initial: "4", md: "5", lg: "6" }}
+      ref={ref}
+      {...props}
+    />
+  )
+);
 CardTitle.displayName = "CardTitle";
 
-const CardDescription = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement>
->(({ className, ...props }, ref) => (
-  <p
-    ref={ref}
-    className={cn("text-muted-foreground text-xs md:text-sm", className)}
-    {...props}
-  />
-));
+const CardDescription = React.forwardRef<HTMLParagraphElement, TextProps>(
+  (props, ref) => <Text size={{ initial: "1", md: "2" }} ref={ref} {...props} />
+);
 CardDescription.displayName = "CardDescription";
 
-const CardContent = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
-));
+const CardContent = React.forwardRef<HTMLDivElement, FlexProps>(
+  (props, ref) => (
+    <Flex direction="column" gap="2" p="5" pt="0" ref={ref} {...props} />
+  )
+);
 CardContent.displayName = "CardContent";
 
-const CardFooter = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn("flex items-center justify-end p-6 pt-0", className)}
-    {...props}
-  />
+const CardFooter = React.forwardRef<HTMLDivElement, FlexProps>((props, ref) => (
+  <Flex align="center" justify="end" p="5" pt="0" ref={ref} {...props} />
 ));
 CardFooter.displayName = "CardFooter";
 
