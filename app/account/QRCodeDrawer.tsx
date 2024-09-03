@@ -5,7 +5,6 @@ import {
   DrawerContent,
   DrawerFooter,
   DrawerHeader,
-  DrawerOverlay,
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/Drawer";

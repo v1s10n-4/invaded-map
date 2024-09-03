@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Flex, Grid, Heading, Text, Theme } from "@radix-ui/themes";
+import { Flex, FlexProps, Grid, Heading, Text, Theme } from "@radix-ui/themes";
 import {
   ComponentPropsAs,
   ComponentPropsWithout,
@@ -42,20 +42,10 @@ DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName;
 const DrawerContent = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content>
->(({ className, children, ...props }, ref) => (
+>((props, ref) => (
   <DrawerPortal>
     <Theme>
-      <DrawerPrimitive.Content
-        ref={ref}
-        className={cn(
-          "rt-BaseCard rt-Card rt-variant-surface",
-          "fixed bottom-0 left-0 mr-[--space-5] flex h-full w-auto flex-col rounded-r-[--radius-5]",
-          className
-        )}
-        {...props}
-      >
-        {children}
-      </DrawerPrimitive.Content>
+      <DrawerPrimitive.Content ref={ref} {...props} />
     </Theme>
   </DrawerPortal>
 ));
@@ -71,10 +61,7 @@ const DrawerHeader = ({ className, ...props }: ComponentProps<typeof Grid>) => (
 );
 DrawerHeader.displayName = "DrawerHeader";
 
-const DrawerFooter = ({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) => (
+const DrawerFooter = ({ className, ...props }: FlexProps) => (
   <Flex direction="column" gap="2" p="4" mt="auto" {...props} />
 );
 DrawerFooter.displayName = "DrawerFooter";
