@@ -1,13 +1,12 @@
 import "./globals.css";
 import { GtmInit } from "@/app/GtmInit";
 import RootDrawer from "@/app/RootDrawer";
+import { AuthButton } from "@/components/AuthButton";
 import {
   Card,
-  DropdownMenu,
   Flex,
-  IconButton,
   ScrollArea,
-  Spinner,
+  Skeleton,
   Text,
   Theme,
   ThemePanel,
@@ -21,7 +20,7 @@ import { SessionProvider } from "next-auth/react";
 import localFont from "next/font/local";
 import Link from "next/link";
 import Search from "pixelarticons/svg/search.svg";
-import React, { ReactNode } from "react";
+import React, { ReactNode, Suspense } from "react";
 
 export const runtime = "edge";
 
@@ -298,7 +297,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                   maxHeight="100dvh"
                   id="content"
                 >
-                  <Card asChild className="sticky top-2 z-[1]" my="2" mx="4">
+                  <Card
+                    className="sticky top-2 z-[1] rounded-[max(var(--radius-5),var(--radius-full))] [box-shadow:--shadow-5] after:rounded-[max(var(--radius-5),var(--radius-full))] has-[+#map,+#root-loader]:mb-16"
+                    my="2"
+                    mx="4"
+                    asChild
+                  >
                     <header>
                       <Flex
                         align="center"
@@ -314,21 +318,20 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                             Invaded Map
                           </Text>
                         </Flex>
-                        <DropdownMenu.Root>
-                          <DropdownMenu.Trigger>
-                            <IconButton size="4" variant="outline">
-                              <Spinner />
-                            </IconButton>
-                          </DropdownMenu.Trigger>
-                          <DropdownMenu.Content align="end">
-                            <DropdownMenu.Label>My Account</DropdownMenu.Label>
-                            <DropdownMenu.Separator />
-                            <DropdownMenu.Item>Settings</DropdownMenu.Item>
-                            <DropdownMenu.Item>Support</DropdownMenu.Item>
-                            <DropdownMenu.Separator />
-                            <DropdownMenu.Item>Logout</DropdownMenu.Item>
-                          </DropdownMenu.Content>
-                        </DropdownMenu.Root>
+                        <Suspense
+                          fallback={
+                            <Skeleton
+                              width="var(--space-8)"
+                              height="var(--space-8)"
+                              style={{
+                                borderRadius:
+                                  "max(var(--radius-4), var(--radius-full))",
+                              }}
+                            />
+                          }
+                        >
+                          <AuthButton />
+                        </Suspense>
                       </Flex>
                     </header>
                   </Card>

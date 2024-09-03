@@ -3,7 +3,13 @@ import React from "react";
 
 export const runtime = "edge";
 const RootLoading = () => (
-  <Flex position="fixed" inset="0" align="center" justify="center">
+  <Flex
+    id="root-loader"
+    position="fixed"
+    inset="0"
+    align="center"
+    justify="center"
+  >
     <Spinner size="3" />
   </Flex>
 );

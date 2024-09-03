@@ -66,6 +66,7 @@ export const defaultGoogleMapProps: GoogleMapProps = {
   zoom: 10,
   options: mapOptions,
   mapContainerClassName: "!absolute inset-0",
+  id: "map",
 };
 
 type Libraries = (
