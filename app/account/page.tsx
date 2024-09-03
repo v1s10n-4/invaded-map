@@ -16,9 +16,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/Card";
+import { FileInput } from "@/components/FileInput";
 import { HitPlaceholder } from "@/components/Placeholder";
 import SubmitButton from "@/components/SubmitButton";
 import { tooltipClass } from "@/utils";
+import { TextField } from "@radix-ui/themes";
 import Image from "next/image";
 import LogOutIcon from "pixelarticons/svg/logout.svg";
 
@@ -26,7 +28,7 @@ import React, { FC, Suspense } from "react";
 
 export const runtime = "edge";
 
-const FessePage: FC = async () => {
+const AccountPage: FC = async () => {
   const session = await auth();
   if (!session?.user) return await signIn();
   const user = session.user;
@@ -79,7 +81,7 @@ const FessePage: FC = async () => {
           <ReviewsSection user={user} />
         </Suspense>
         <div className="grid gap-6">
-          <Card>
+          <Card elevation>
             <CardHeader>
               <CardTitle>Invitation link</CardTitle>
               <CardDescription>
@@ -98,7 +100,7 @@ const FessePage: FC = async () => {
               <ReferralLink id={user.id} />
             </Suspense>
           </Card>
-          <Card>
+          <Card elevation>
             <CardHeader>
               <CardTitle>Username</CardTitle>
               <CardDescription>
@@ -106,18 +108,18 @@ const FessePage: FC = async () => {
               </CardDescription>
             </CardHeader>
             <CardForm action={updateUsername} name="name">
-              <input
+              <TextField.Root
+                size="3"
                 name="name"
                 defaultValue={user.name!}
                 required
                 minLength={3}
                 maxLength={32}
-                className="input input-primary w-full"
                 placeholder="username"
               />
             </CardForm>
           </Card>
-          <Card>
+          <Card elevation>
             <CardHeader>
               <CardTitle>Avatar</CardTitle>
               <CardDescription>
@@ -129,13 +131,7 @@ const FessePage: FC = async () => {
               name="image"
               deleteAction={user.image ? deleteAvatar : undefined}
             >
-              <input
-                name="image"
-                type="file"
-                required
-                accept={ACCEPTED_IMAGE_TYPES.join(", ")}
-                className="file-input file-input-primary w-full max-w-md"
-              />
+              <FileInput size="3" required />
             </CardForm>
           </Card>
         </div>
@@ -144,4 +140,4 @@ const FessePage: FC = async () => {
   );
 };
 
-export default FessePage;
+export default AccountPage;
