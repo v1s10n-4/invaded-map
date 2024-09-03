@@ -1,11 +1,19 @@
 import { createReferralLink } from "@/app/account/actions";
 import QRCodeIcon from "@/app/account/qr-code.svg";
-import QRCode, { ShowQRCodeButton } from "@/app/account/QRCode";
+import QRCodeDrawer from "@/app/account/QRCodeDrawer";
 import { CardContent, CardFooter } from "@/components/Card";
 import CopyButton from "@/components/CopyButton";
 import SubmitButton from "@/components/SubmitButton";
 import { db, User } from "@/db";
 import { referralLinks } from "@/db/schema/referral_links";
+import {
+  Card,
+  Flex,
+  IconButton,
+  Skeleton,
+  Spinner,
+  Text,
+} from "@radix-ui/themes";
 import { and, desc, eq } from "drizzle-orm";
 import React, { FC, Suspense } from "react";
 
@@ -14,33 +22,33 @@ type ReferralLinkProps = Pick<User, "id">;
 export const CopylLink: FC<{ host?: string; pathname: string }> = ({
   host = process.env.URL,
   pathname,
-  ...props
 }) => (
-  <div
-    className="flex select-all items-center justify-between gap-4 border border-primary p-2 pl-4"
-    {...props}
-  >
-    <p className="w-full overflow-x-auto break-all text-xs selection:bg-primary selection:text-black">
-      <span className="text-base-content/40">{host}/invite</span>/{pathname}
-    </p>
-    <div className="flex items-center gap-2">
-      <CopyButton
-        link={`${host}/invite/${pathname}`}
-        icons="only"
-        className="btn btn-ghost h-[2.3em] min-h-[2.3em] w-[2.3em] p-1"
-      />
-      <Suspense
-        fallback={
-          <ShowQRCodeButton
-            tooltipText="generating qr code..."
-            className="skeleton bg-base-200"
-          />
-        }
-      >
-        <QRCode link={`${host}/invite/${pathname}`} />
-      </Suspense>
-    </div>
-  </div>
+  <Card className="select-all">
+    <Flex px="1" gap="4" justify="between" align="center">
+      <Text size="1" className="overflow-x-auto break-all">
+        <Text as="span" className="text-[--gray-7]">
+          {host}/invite
+        </Text>
+        /{pathname}
+      </Text>
+      <Flex align="center" gap="4">
+        <CopyButton
+          link={`${host}/invite/${pathname}`}
+          icons="only"
+          variant="ghost"
+        />
+        <Suspense
+          fallback={
+            <IconButton variant="ghost" disabled>
+              <Spinner className="h-[--space-5] w-[--space-5]" />
+            </IconButton>
+          }
+        >
+          <QRCodeDrawer link={`${host}/invite/${pathname}`} />
+        </Suspense>
+      </Flex>
+    </Flex>
+  </Card>
 );
 
 const ReferralLink: FC<ReferralLinkProps> = async ({ id }) => {
