@@ -7,6 +7,7 @@ import CardForm from "@/app/account/CardForm";
 import ProfileHeader from "@/app/account/ProfileHeader";
 import ReferralLink from "@/app/account/ReferralLink";
 import ReviewsSection from "@/app/account/ReviewsSection";
+import { ReviewSectionSkeleton } from "@/app/account/utils";
 import { auth, signIn } from "@/auth";
 import {
   Card,
@@ -21,7 +22,6 @@ import {
   Heading,
   Section,
   Separator,
-  Skeleton,
   TextField,
 } from "@radix-ui/themes";
 
@@ -48,22 +48,7 @@ const AccountPage: FC = async () => {
             <Separator size="4" />
           </Flex>
           <ProfileHeader {...user} />
-          <Suspense
-            fallback={
-              <Card className="h-[215px]">
-                <CardHeader>
-                  <CardTitle>
-                    <Skeleton>Contributions</Skeleton>
-                  </CardTitle>
-                  <CardDescription>
-                    <Skeleton>
-                      Review others contributions to earn points.
-                    </Skeleton>
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            }
-          >
+          <Suspense fallback={<ReviewSectionSkeleton />}>
             <ReviewsSection user={user} />
           </Suspense>
           <Card elevation>

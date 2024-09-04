@@ -80,3 +80,8 @@
   --base-card-surface-hover-box-shadow: 0 0 0 1px var(--accent-a7);
   --base-card-surface-active-box-shadow: 0 0 0 1px var(--accent-a6);
 }
+
+.rt-Skeleton:where([data-inline-skeleton]) {
+  line-height: 0;
+  font-family: var(--font-sixtyfour) !important;
+}

@@ -1,19 +1,21 @@
 import { CarouselNext, CarouselPrevious } from "@/components/Carousel";
-import { IconButton } from "@radix-ui/themes";
+import { Flex } from "@radix-ui/themes";
 import ChevronLeft from "pixelarticons/svg/chevron-left.svg";
 import ChevronRight from "pixelarticons/svg/chevron-right.svg";
 import React, { FC } from "react";
-import { clsx } from "clsx";
 
 export const SliderActions: FC = () => {
   return (
-    <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+    <Flex
+      justify="between"
+      className="absolute left-4 right-4 top-1/2 -translate-y-1/2 transform"
+    >
       <CarouselPrevious color="gray" variant="surface" size="3">
-        <ChevronLeft className="h-full w-full" />
+        <ChevronLeft className="h-6 w-6" />
       </CarouselPrevious>
       <CarouselNext color="gray" variant="surface" size="3">
-        <ChevronRight className="h-full w-full" />
+        <ChevronRight className="h-6 w-6" />
       </CarouselNext>
-    </div>
+    </Flex>
   );
 };

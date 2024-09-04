@@ -1,14 +1,48 @@
 import { acceptContribution, deleteContribution } from "@/app/account/actions";
-import { CardFooter } from "@/components/Card";
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/Card";
 import SubmitButton from "@/components/SubmitButton";
 import { db, Invader, ReviewTask, User } from "@/db";
 import { reviewTasks } from "@/db/schema/reviewTasks";
 import { getState } from "@/utils/data";
 import { getTags } from "@/utils/revalidation-tags";
-import { Text } from "@radix-ui/themes";
+import { Flex, Inset, Separator, Skeleton, Text } from "@radix-ui/themes";
 import { eq } from "drizzle-orm";
 import { unstable_cache } from "next/cache";
 import React, { FC } from "react";
+
+export const ReviewSectionSkeleton = () => (
+  <Card elevation className="h-[215px]">
+    <CardHeader>
+      <CardTitle>
+        <Skeleton>Contributions</Skeleton>
+      </CardTitle>
+      <CardDescription>
+        <Skeleton>Review others contributions to earn points.</Skeleton>
+      </CardDescription>
+    </CardHeader>
+    <Inset side="x">
+      <Separator size="4" mt="5" />
+      <Flex align="center" py="2">
+        <Text mx="auto">
+          <Skeleton>Yours</Skeleton>
+        </Text>
+        <Text mx="auto">
+          <Skeleton>Others</Skeleton>
+        </Text>
+      </Flex>
+      <Separator size="4" mb="3" />
+    </Inset>
+    <Skeleton>
+      <Card>Fesse</Card>
+    </Skeleton>
+  </Card>
+);
 
 export const DisplayRole: FC<Pick<User, "role"> & { className?: string }> = ({
   role,
