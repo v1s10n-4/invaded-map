@@ -1,13 +1,20 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { IconButton, IconButtonProps } from "@radix-ui/themes";
+import {
+  Box,
+  BoxProps,
+  Flex,
+  FlexProps,
+  IconButton,
+  IconButtonProps,
+  VisuallyHidden,
+} from "@radix-ui/themes";
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from "embla-carousel-react";
 import ChevronLeft from "pixelarticons/svg/chevron-left.svg";
 import ChevronRight from "pixelarticons/svg/chevron-right.svg";
 import * as React from "react";
-import { HTMLAttributes } from "react";
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
@@ -42,10 +49,7 @@ function useCarousel() {
   return context;
 }
 
-const Carousel = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & CarouselProps
->(
+const Carousel = React.forwardRef<HTMLDivElement, BoxProps & CarouselProps>(
   (
     {
       orientation = "horizontal",
@@ -134,7 +138,7 @@ const Carousel = React.forwardRef<
           canScrollNext,
         }}
       >
-        <div
+        <Box
           ref={ref}
           onKeyDownCapture={handleKeyDown}
           className={cn("relative", className)}
@@ -143,7 +147,7 @@ const Carousel = React.forwardRef<
           {...props}
         >
           {children}
-        </div>
+        </Box>
       </CarouselContext.Provider>
     );
   }
@@ -152,124 +156,74 @@ Carousel.displayName = "Carousel";
 
 const CarouselContent = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & { rootClassName?: string }
->(({ className, rootClassName, ...props }, ref) => {
+  FlexProps & { rootClassName?: string }
+>(({ rootClassName, ...props }, ref) => {
   const { carouselRef, orientation } = useCarousel();
 
   return (
     <div ref={carouselRef} className={cn("overflow-hidden", rootClassName)}>
-      <div
-        ref={ref}
-        className={cn(
-          "flex",
-          // orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
-          className
-        )}
-        {...props}
-      />
+      <Flex ref={ref} {...props} />
     </div>
   );
 });
 CarouselContent.displayName = "CarouselContent";
 
-const CarouselItem = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
-  const { orientation } = useCarousel();
+const CarouselItem = React.forwardRef<HTMLDivElement, BoxProps>(
+  (props, ref) => {
+    const { orientation } = useCarousel();
 
-  return (
-    <div
-      ref={ref}
-      role="group"
-      aria-roledescription="slide"
-      className={cn(
-        "min-w-0 shrink-0 grow-0 basis-full",
-        // orientation === "horizontal" ? "pl-4" : "pt-4",
-        className
-      )}
-      {...props}
-    />
-  );
-});
+    return (
+      <Box
+        flexShrink="0"
+        flexGrow="0"
+        minWidth="0"
+        flexBasis="100%"
+        ref={ref}
+        role="group"
+        aria-roledescription="slide"
+        {...props}
+      />
+    );
+  }
+);
 CarouselItem.displayName = "CarouselItem";
 
-const CarouselPrevious = React.forwardRef<
-  HTMLButtonElement,
-  // React.ComponentProps<typeof Button>
-  IconButtonProps
->(
-  (
-    {
-      className,
-      // variant = "outline",
-      // size = "icon",
-      ...props
-    },
-    ref
-  ) => {
+const CarouselPrevious = React.forwardRef<HTMLButtonElement, IconButtonProps>(
+  (props, ref) => {
     const { orientation, scrollPrev, canScrollPrev, api } = useCarousel();
     if (api && api.slideNodes().length < 2) return null;
     return (
-      // previously `Button` from shadcn
       <IconButton
         ref={ref}
-        // variant={variant}
-        // size={size}
-        className={cn(
-          // "absolute h-8 w-8 rounded-full",
-          // orientation === "horizontal"
-          //   ? "-left-12 top-1/2 -translate-y-1/2"
-          //   : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
-          className
-        )}
         disabled={!canScrollPrev}
         onClick={scrollPrev}
         {...props}
       >
         <ChevronLeft className="h-full w-full" />
-        <span className="sr-only">Previous slide</span>
+        <VisuallyHidden>
+          <span>Previous slide</span>
+        </VisuallyHidden>
       </IconButton>
     );
   }
 );
 CarouselPrevious.displayName = "CarouselPrevious";
 
-const CarouselNext = React.forwardRef<
-  HTMLButtonElement,
-  // React.ComponentProps<typeof Button>
-  IconButtonProps
->(
-  (
-    {
-      className,
-      // variant = "outline",
-      // size = "icon",
-      ...props
-    },
-    ref
-  ) => {
+const CarouselNext = React.forwardRef<HTMLButtonElement, IconButtonProps>(
+  (props, ref) => {
     const { orientation, scrollNext, canScrollNext, api } = useCarousel();
     if (api && api.slideNodes().length < 2) return null;
     return (
-      // previously `Button` from shadcn
       <IconButton
         ref={ref}
-        // variant={variant}
-        // size={size}
-        className={cn(
-          // "absolute h-8 w-8 rounded-full",
-          // orientation === "horizontal"
-          //   ? "-right-12 top-1/2 -translate-y-1/2"
-          //   : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
-          className
-        )}
         disabled={!canScrollNext}
         onClick={scrollNext}
         {...props}
       >
         <ChevronRight className="h-full w-full" />
-        <span className="sr-only">Next slide</span>
+        <VisuallyHidden>
+          <span>Next slide</span>
+        </VisuallyHidden>
       </IconButton>
     );
   }
