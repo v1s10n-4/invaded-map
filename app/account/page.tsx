@@ -6,7 +6,6 @@ import {
 import CardForm from "@/app/account/CardForm";
 import ReferralLink from "@/app/account/ReferralLink";
 import ReviewsSection from "@/app/account/ReviewsSection";
-import { ACCEPTED_IMAGE_TYPES } from "@/app/account/schema";
 import { DisplayUserName } from "@/app/account/utils";
 import { signOutAction } from "@/app/actions";
 import { auth, signIn } from "@/auth";
@@ -20,13 +19,48 @@ import { FileInput } from "@/components/FileInput";
 import { HitPlaceholder } from "@/components/Placeholder";
 import SubmitButton from "@/components/SubmitButton";
 import { tooltipClass } from "@/utils";
-import { TextField } from "@radix-ui/themes";
+import {
+  Avatar,
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Slot,
+  Text,
+  TextField,
+  Tooltip,
+} from "@radix-ui/themes";
+import { User } from "next-auth";
 import Image from "next/image";
 import LogOutIcon from "pixelarticons/svg/logout.svg";
 
 import React, { FC, Suspense } from "react";
 
 export const runtime = "edge";
+
+const ProfilePicture: FC<User> = ({ name, image }) => {
+  if (!image) {
+    return (
+      <Avatar
+        fallback={name?.charAt(0) || "?"}
+        size={{ initial: "7", md: "6" }}
+      />
+    );
+  }
+
+  return (
+    <span className="rt-reset rt-AvatarRoot rt-r-size-7 md:rt-r-size-6 rt-variant-soft">
+      <Image
+        src={image}
+        alt="your profile picture"
+        className="rt-AvatarImage"
+        width={96}
+        height={96}
+        placeholder={HitPlaceholder(96, 96)}
+      />
+    </span>
+  );
+};
 
 const AccountPage: FC = async () => {
   const session = await auth();
@@ -42,35 +76,59 @@ const AccountPage: FC = async () => {
       </div>
 
       <div className="mx-auto flex w-full max-w-2xl flex-col gap-8">
-        <div className="flex w-full flex-col items-center gap-4 border border-primary p-6 md:flex-row md:gap-8">
-          <Image
-            src={user.image || HitPlaceholder(96, 96)}
-            className="md:w-22 md:h-22 border-3 h-28 w-28 border-4 border-double border-primary p-1 lg:h-24 lg:w-24"
-            alt="your profile picture"
-            width={96}
-            height={96}
-            placeholder={HitPlaceholder(96, 96)}
-          />
-          <div className="flex h-full w-full flex-col items-center justify-between gap-2 md:flex-row md:items-end">
-            <div className="flex flex-col items-center gap-2 text-xs md:my-auto md:items-start">
-              <h2 className="mb-1 text-base text-primary md:text-lg">
-                <DisplayUserName {...user} />
-              </h2>
-              <h2 className="break-all text-center">{user.email}</h2>
-              <h4>Created: {new Date(user.created_at).toLocaleDateString()}</h4>
-            </div>
-            <form
-              action={signOutAction}
-              className={tooltipClass}
-              data-tip="Log out"
+        <Card>
+          <Flex
+            direction={{ initial: "column", sm: "row" }}
+            align="center"
+            gap={{ initial: "4", md: "8" }}
+            p="3"
+            width="100%"
+            style={{ border: "1px solid var(--color-primary)" }}
+          >
+            <Card className="shrink-0">
+              <ProfilePicture {...user} />
+            </Card>
+
+            <Flex
+              direction={{ initial: "column", md: "row" }}
+              align={{ initial: "center", md: "end" }}
+              justify="between"
+              gap="2"
+              width="100%"
+              height="100%"
             >
-              <SubmitButton className="btn-outline btn-primary btn-wide flex !p-1 md:btn-square">
-                <span className="md:hidden">Sign out</span>
-                <LogOutIcon className="aspect-square h-full w-8 md:w-full" />
-              </SubmitButton>
-            </form>
-          </div>
-        </div>
+              <Flex
+                direction="column"
+                align={{ initial: "center", md: "start" }}
+                gap="2"
+                my={{ md: "auto" }}
+              >
+                <Heading as="h2" size={{ initial: "3", md: "4" }} mb="1">
+                  <DisplayUserName {...user} />
+                </Heading>
+                <Text
+                  size="1"
+                  align={{ initial: "center", md: "left" }}
+                  style={{ wordBreak: "break-all" }}
+                >
+                  {user.email}
+                </Text>
+                <Text size="1">
+                  Created: {new Date(user.created_at).toLocaleDateString()}
+                </Text>
+              </Flex>
+
+              <form action={signOutAction}>
+                <Button variant="soft" size={{ initial: "3", md: "2" }}>
+                  Sign out
+                  <Slot>
+                    <LogOutIcon className="h-6 w-6" />
+                  </Slot>
+                </Button>
+              </form>
+            </Flex>
+          </Flex>
+        </Card>
         <Suspense
           fallback={
             <div className="flex h-64 items-center justify-center border border-primary p-2">

@@ -6,6 +6,7 @@ import { reviewTasks } from "@/db/schema/reviewTasks";
 import { cn } from "@/lib/utils";
 import { getState } from "@/utils/data";
 import { getTags } from "@/utils/revalidation-tags";
+import { Text } from "@radix-ui/themes";
 import { eq } from "drizzle-orm";
 import { unstable_cache } from "next/cache";
 import React, { FC } from "react";
@@ -15,15 +16,14 @@ export const DisplayRole: FC<Pick<User, "role"> & { className?: string }> = ({
   className,
 }) =>
   role !== "user" ? (
-    <span
-      className={cn(
-        "text-sm",
-        role === "superuser" ? "text-warning" : "text-info",
-        className
-      )}
+    <Text
+      as="span"
+      size="1"
+      color={role === "superuser" ? "pink" : "cyan"}
+      className={className}
     >
       ({role === "superuser" ? "god" : role})
-    </span>
+    </Text>
   ) : null;
 
 export const DisplayUserName: FC<Pick<User, "name" | "role">> = ({
