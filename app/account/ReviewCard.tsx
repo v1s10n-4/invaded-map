@@ -13,9 +13,9 @@ import {
   CardTitle,
 } from "@/components/Card";
 import { HitPlaceholder } from "@/components/Placeholder";
-import { Invader, ReviewTask, User } from "@/db";
+import { ReviewTask, User } from "@/db";
 import { canReviewOwnContribution } from "@/lib/utils";
-import { getState } from "@/utils/data";
+import { Flex, Strong, Text } from "@radix-ui/themes";
 import Image from "next/image";
 import Link from "next/link";
 import ArrowRight from "pixelarticons/svg/arrow-right.svg";
@@ -53,14 +53,14 @@ const ReviewCard: FC<ReviewCardProps> = async ({
   return (
     <Card>
       <CardHeader>
-        <div className="flex items-center justify-between">
+        <Flex align="center" justify="between">
           <Link
             className="decoration-primary hover:underline focus:underline"
             href={`/map/${invader.name}`}
           >
             <CardTitle>{invader.name}</CardTitle>
           </Link>
-          <div className="flex items-center gap-2">
+          <Flex align="center" gap="2">
             <Image
               src={editor.image || HitPlaceholder(32, 32)}
               width={32}
@@ -68,22 +68,26 @@ const ReviewCard: FC<ReviewCardProps> = async ({
               className="h-6 w-6 md:h-8 md:w-8"
               alt="editor's profile picture"
             />
-            <span className="text-xs">{editor.name}</span>
-          </div>
-        </div>
-        <CardDescription>
+            <Text size="1">{editor.name}</Text>
+          </Flex>
+        </Flex>
+        <CardDescription size="1">
           {new Date(created_at).toLocaleDateString()} (
           {new Date(created_at).toLocaleTimeString()})
           <br />
-          what changed: <b>{change.field}</b>
+          what changed: <Strong>{change.field}</Strong>
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="grid grid-cols-[1fr_auto_1fr] place-items-center border border-dashed border-primary px-1">
-          <p className="w-full text-center text-sm text-error">{oldValue}</p>
+      <CardContent gap="4">
+        <Card className="grid grid-cols-[1fr_auto_1fr] place-items-center px-1">
+          <Text align="center" color="red">
+            {oldValue}
+          </Text>
           <ArrowRight className="h-12 w-12 justify-self-center" />
-          <p className="w-full text-center text-sm text-success">{newValue}</p>
-        </div>
+          <Text align="center" color="green">
+            {newValue}
+          </Text>
+        </Card>
         <div className="grid grid-cols-2 justify-items-center">
           <Image
             src={invader.thumbnail}
