@@ -15,7 +15,15 @@ import {
   CardTitle,
 } from "@/components/Card";
 import { FileInput } from "@/components/FileInput";
-import { TextField } from "@radix-ui/themes";
+import {
+  Container,
+  Flex,
+  Heading,
+  Section,
+  Separator,
+  Skeleton,
+  TextField,
+} from "@radix-ui/themes";
 
 import React, { FC, Suspense } from "react";
 
@@ -27,25 +35,37 @@ const AccountPage: FC = async () => {
   const user = session.user;
 
   return (
-    <main className="mt-20 flex flex-1 flex-col gap-4 overflow-hidden p-4 md:gap-8 md:p-10 lg:mt-24">
-      <div className="divider divider-primary mx-auto w-full">
-        <h1 className="text-xl font-semibold md:text-2xl lg:text-3xl">
-          Account
-        </h1>
-      </div>
-
-      <div className="mx-auto flex w-full max-w-2xl flex-col gap-8">
-        <ProfileHeader {...user} />
-        <Suspense
-          fallback={
-            <div className="flex h-64 items-center justify-center border border-primary p-2">
-              <span className="loading loading-bars h-8 w-8" />
-            </div>
-          }
+    <Container px={{ initial: "1", sm: "2" }}>
+      <Section>
+        <Flex
+          direction="column"
+          gap={{ initial: "4", sm: "5", md: "6" }}
+          className="mx-auto w-full max-w-2xl"
         >
-          <ReviewsSection user={user} />
-        </Suspense>
-        <div className="grid gap-6">
+          <Flex align="center" gap="3">
+            <Separator size="4" />
+            <Heading>Account</Heading>
+            <Separator size="4" />
+          </Flex>
+          <ProfileHeader {...user} />
+          <Suspense
+            fallback={
+              <Card className="h-[215px]">
+                <CardHeader>
+                  <CardTitle>
+                    <Skeleton>Contributions</Skeleton>
+                  </CardTitle>
+                  <CardDescription>
+                    <Skeleton>
+                      Review others contributions to earn points.
+                    </Skeleton>
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            }
+          >
+            <ReviewsSection user={user} />
+          </Suspense>
           <Card elevation>
             <CardHeader>
               <CardTitle>Invitation link</CardTitle>
@@ -99,9 +119,9 @@ const AccountPage: FC = async () => {
               <FileInput size="3" required />
             </CardForm>
           </Card>
-        </div>
-      </div>
-    </main>
+        </Flex>
+      </Section>
+    </Container>
   );
 };
 

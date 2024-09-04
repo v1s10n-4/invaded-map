@@ -34,7 +34,7 @@ export const ProfilePicture: FC<User> = ({ name, image }) => {
 
 const ProfileHeader: FC<User> = (user) => {
   return (
-    <Card>
+    <Card elevation>
       <Flex
         direction={{ initial: "column", sm: "row" }}
         align="center"

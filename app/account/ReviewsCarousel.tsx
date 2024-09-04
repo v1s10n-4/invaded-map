@@ -1,6 +1,7 @@
 "use client";
 import { Carousel, CarouselApi, CarouselContent } from "@/components/Carousel";
 import { SliderActions } from "@/components/SliderActions";
+import { Badge } from "@radix-ui/themes";
 import React, { FC, PropsWithChildren } from "react";
 
 export const ReviewsCarousel: FC<PropsWithChildren> = ({ children }) => {
@@ -22,13 +23,16 @@ export const ReviewsCarousel: FC<PropsWithChildren> = ({ children }) => {
   }, [api]);
   return (
     <Carousel setApi={setApi}>
-      <CarouselContent className="-ml-2" rootClassName="overflow-visible">
-        {children || <h1>fesse</h1>}
+      <CarouselContent rootClassName="overflow-visible" ml="-3">
+        {children}
       </CarouselContent>
-      <span className="absolute bottom-0 right-1/2 z-10 flex translate-x-1/2 translate-y-1/2 justify-center border border-dashed border-primary bg-black px-2 py-1">
+      <Badge
+        color="gray"
+        variant="solid"
+        className="absolute bottom-0 right-1/2 z-10 translate-x-1/2 translate-y-1/2"
+      >
         {current} / {count}
-      </span>
-
+      </Badge>
       <SliderActions />
     </Carousel>
   );

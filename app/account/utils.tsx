@@ -3,7 +3,6 @@ import { CardFooter } from "@/components/Card";
 import SubmitButton from "@/components/SubmitButton";
 import { db, Invader, ReviewTask, User } from "@/db";
 import { reviewTasks } from "@/db/schema/reviewTasks";
-import { cn } from "@/lib/utils";
 import { getState } from "@/utils/data";
 import { getTags } from "@/utils/revalidation-tags";
 import { Text } from "@radix-ui/themes";
@@ -41,12 +40,10 @@ export const ReviewActions: FC<Pick<ReviewTask, "id">> = ({ id }) => {
   return (
     <form>
       <CardFooter className="justify-between">
-        <SubmitButton formAction={reject} className="btn-outline btn-primary">
+        <SubmitButton formAction={reject} variant="outline">
           Reject
         </SubmitButton>
-        <SubmitButton formAction={accept} className="btn-primary">
-          Accept
-        </SubmitButton>
+        <SubmitButton formAction={accept}>Accept</SubmitButton>
       </CardFooter>
     </form>
   );
@@ -60,7 +57,7 @@ export const ContributionActions: FC<Pick<ReviewTask, "id">> = ({ id }) => {
         // className="justify-between"
         className="justify-start"
       >
-        <SubmitButton formAction={erase} className="btn-outline btn-primary">
+        <SubmitButton formAction={erase} variant="outline">
           Delete
         </SubmitButton>
         {/*<SubmitButton className="btn-primary">Edit</SubmitButton>*/}
