@@ -18,7 +18,11 @@ const getUserSearch: (
     60 * 5
   );
   const res = await fetch(userSearch(searchValue), { ...fetchOptions, next });
-  return await res.json();
+  try {
+    return await res.json();
+  } catch (err) {
+    return {};
+  }
 };
 
 const HighScoreSearchPage = async ({ params: { userName } }: Params) => {

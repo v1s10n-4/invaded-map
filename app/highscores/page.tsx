@@ -12,7 +12,11 @@ const getHighScores: () => Promise<HighScoresResponse> = async () => {
     60 * 5
   );
   const res = await fetch(highscores, { ...fetchOptions, next });
-  return await res.json();
+  try {
+    return await res.json();
+  } catch (err) {
+    return {};
+  }
 };
 const HighScorePage = async () => {
   const highscores = await getHighScores();
