@@ -3,7 +3,7 @@ import { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
   const token = request.nextUrl.searchParams.get("token");
-  if (token !== process.env.REVALIDATION_TOKEN) {
+  if (token !== process.env.REVALIDATION_TOKEN!.toLowerCase()) {
     return Response.json({ message: "unauthorized" }, { status: 401 });
   }
 
