@@ -5,25 +5,15 @@ import PointsForm from "@/app/map/[invaderName]/PointsForm";
 import StateForm from "@/app/map/[invaderName]/StateForm";
 import TabsSelect from "@/app/map/[invaderName]/TabsSelect";
 import {
-  InvaderEditResponseState,
   InvaderEditableKeys,
+  InvaderEditResponseState,
 } from "@/app/map/[invaderName]/utils";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/Dialog";
-import { DropdownMenuItem } from "@/components/DropdownMenu";
+import { CardFooter } from "@/components/Card";
 import SubmitButton from "@/components/SubmitButton";
 import { Invader } from "@/db";
-import { cn } from "@/lib/utils";
-import { tooltipClass } from "@/utils";
 import { DialogProps } from "@radix-ui/react-dialog";
-import EditIcon from "pixelarticons/svg/edit.svg";
+import { Button, Dialog, IconButton, Text } from "@radix-ui/themes";
+import CloseIcon from "pixelarticons/svg/close.svg";
 import React, { FC, useEffect, useRef } from "react";
 import { useFormState } from "react-dom";
 
@@ -42,16 +32,26 @@ const EditModal: FC<EditModalProps> = ({ data, ...props }) => {
     }
   }, [state.success, closeButtonRef]);
   return (
-    <Dialog {...props}>
-      <DialogContent className="p-0">
-        <form action={formAction} className="flex max-h-dvh flex-col gap-4 p-4">
-          <DialogHeader>
-            <DialogTitle>What changed?</DialogTitle>
-          </DialogHeader>
+    <Dialog.Root {...props}>
+      <Dialog.Content asChild>
+        <form action={formAction} className="relative max-h-dvh">
+          <Dialog.Close ref={closeButtonRef}>
+            <IconButton
+              size="2"
+              color="gray"
+              variant="ghost"
+              type="button"
+              className="absolute right-3 top-3"
+            >
+              <CloseIcon className="h-6 w-6" />
+            </IconButton>
+          </Dialog.Close>
+          <Dialog.Title>What changed?</Dialog.Title>
           <div className="overflow-auto">
             <TabsSelect
               values={InvaderEditableKeys}
               placeholder="Select a field"
+              required
             >
               <StateForm state={data.state} />
               <CreateDateForm create_date={data.create_date} />
@@ -60,19 +60,21 @@ const EditModal: FC<EditModalProps> = ({ data, ...props }) => {
           </div>
           {!state.success &&
             state.errors.map((message, i) => (
-              <p key={i} className="text-xs text-error">
+              <Text key={i} size="1" color="red" mt="1">
                 {message}
-              </p>
+              </Text>
             ))}
-          <DialogFooter className="mt-4">
-            <DialogClose className="btn" type="button" ref={closeButtonRef}>
-              Cancel
-            </DialogClose>
-            <SubmitButton className="btn btn-primary">Submit</SubmitButton>
-          </DialogFooter>
+          <CardFooter px="0" pb="0" mt="4" gap="2">
+            <Dialog.Close ref={closeButtonRef}>
+              <Button size="3" color="gray" variant="surface" type="button">
+                Cancel
+              </Button>
+            </Dialog.Close>
+            <SubmitButton size="3">Submit</SubmitButton>
+          </CardFooter>
         </form>
-      </DialogContent>
-    </Dialog>
+      </Dialog.Content>
+    </Dialog.Root>
   );
 };
 

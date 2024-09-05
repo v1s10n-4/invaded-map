@@ -1,46 +1,44 @@
 "use client";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/Select";
-import { Tabs } from "@/components/Tabs";
+import { Select, Tabs } from "@radix-ui/themes";
 import React, { FC, PropsWithChildren, useState } from "react";
 
 type TabsSelectProps = PropsWithChildren<{
   values: { value: string; label: string }[];
   defaultValue?: string;
   placeholder?: string;
+  required?: boolean;
 }>;
 
 const TabsSelect: FC<TabsSelectProps> = ({
   values,
   defaultValue,
   placeholder,
+  required,
   children,
 }) => {
   const [selected, setSelected] = useState<string | undefined>(defaultValue);
   return (
-    <Tabs className="mt-4 w-full" value={selected}>
-      <Select name="type" onValueChange={setSelected} value={selected}>
-        <SelectTrigger>
-          <SelectValue placeholder={placeholder} />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
+    <Tabs.Root className="mt-4 w-full" value={selected}>
+      <Select.Root
+        name="type"
+        onValueChange={setSelected}
+        value={selected}
+        required={required}
+        size="3"
+      >
+        <Select.Trigger className="w-full" placeholder={placeholder} />
+        <Select.Content>
+          <Select.Group>
             {values.map(({ value, label }) => (
-              <SelectItem key={value} value={value} className="h-12">
+              <Select.Item key={value} value={value}>
                 {label}
-              </SelectItem>
+              </Select.Item>
             ))}
-          </SelectGroup>
-        </SelectContent>
-      </Select>
+          </Select.Group>
+        </Select.Content>
+      </Select.Root>
       {children}
-    </Tabs>
+    </Tabs.Root>
   );
 };
 
