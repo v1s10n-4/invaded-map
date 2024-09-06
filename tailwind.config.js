@@ -42,6 +42,22 @@ module.exports = {
     ],
   },
   theme: {
+    screens: {
+      // Phones (portrait)
+      initial: "0px",
+      // Phones (landscape)
+      xs: "520px",
+      // Tablets (portrait)
+      sm: "768px",
+      // Tablets (landscape)
+      md: "1024px",
+      // Laptops
+      lg: "1280px",
+      // Desktops
+      xl: "1640px",
+      // Notched devices
+      pwa: { raw: "(display-mode: standalone)" },
+    },
     extend: {
       height: {
         screen: ["100vh", "100dvh"],

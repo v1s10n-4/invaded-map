@@ -25,7 +25,13 @@ const ListLayout: FC<PropsWithChildren> = ({ children }) => {
         future={{ preserveSharedStateOnUnmount: true }}
         // routing
       >
-        <Flex align="center" gap="2" px="4" pb="2">
+        <Flex
+          align="center"
+          gap="2"
+          pr="4"
+          pl={{ initial: "4", sm: "2" }}
+          py="2"
+        >
           <SearchInput />
           <FilterMenu />
         </Flex>

@@ -1,6 +1,7 @@
 import "./globals.css";
 import { GtmInit } from "@/app/GtmInit";
 import RootDrawer from "@/app/RootDrawer";
+import RootNav from "@/app/RootNav";
 import { AuthButton } from "@/components/AuthButton";
 import {
   Card,
@@ -10,7 +11,6 @@ import {
   Text,
   Theme,
   ThemePanel,
-  Tooltip,
 } from "@radix-ui/themes";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -18,8 +18,6 @@ import { clsx } from "clsx";
 import { Metadata, Viewport } from "next";
 import { SessionProvider } from "next-auth/react";
 import localFont from "next/font/local";
-import Link from "next/link";
-import Search from "pixelarticons/svg/search.svg";
 import React, { ReactNode, Suspense } from "react";
 
 export const runtime = "edge";
@@ -235,55 +233,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               maxHeight="100dvh"
               vaul-drawer-wrapper=""
             >
-              <aside className="bg-background fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r sm:flex">
-                <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
-                  <Link
-                    href="#"
-                    className="text-primary-foreground group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold md:h-8 md:w-8 md:text-base"
-                  >
-                    <Search className="h-4 w-4 transition-all group-hover:scale-110" />
-                    <span className="sr-only">Map</span>
-                  </Link>
-                  <Tooltip content="List" side="right">
-                    <Link
-                      href="#"
-                      className="text-muted-foreground hover:text-foreground flex h-9 w-9 items-center justify-center rounded-lg transition-colors md:h-8 md:w-8"
-                    >
-                      <Search className="h-5 w-5" />
-                      <span className="sr-only">List</span>
-                    </Link>
-                  </Tooltip>
-                  <Tooltip content="Highscores" side="right">
-                    <Link
-                      href="#"
-                      className="text-accent-foreground hover:text-foreground flex h-9 w-9 items-center justify-center rounded-lg bg-accent transition-colors md:h-8 md:w-8"
-                    >
-                      <Search className="h-5 w-5" />
-                      <span className="sr-only">Highscores</span>
-                    </Link>
-                  </Tooltip>
-                  <Tooltip content="Products" side="right">
-                    <Link
-                      href="#"
-                      className="text-muted-foreground hover:text-foreground flex h-9 w-9 items-center justify-center rounded-lg transition-colors md:h-8 md:w-8"
-                    >
-                      <Search className="h-5 w-5" />
-                      <span className="sr-only">Products</span>
-                    </Link>
-                  </Tooltip>
-                </nav>
-                <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
-                  <Tooltip content="Settings" side="right">
-                    <Link
-                      href="#"
-                      className="text-muted-foreground hover:text-foreground flex h-9 w-9 items-center justify-center rounded-lg transition-colors md:h-8 md:w-8"
-                    >
-                      <Search className="h-5 w-5" />
-                      <span className="sr-only">Settings</span>
-                    </Link>
-                  </Tooltip>
-                </nav>
-              </aside>
+              <RootNav />
               <ScrollArea
                 scrollbars="vertical"
                 // prevent horizontal-scrolling
@@ -292,15 +242,16 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               >
                 <Flex
                   direction="column"
-                  pl={{ initial: "0", sm: "56px" }}
+                  pl={{ initial: "0", sm: "96px" }}
                   minHeight="100dvh"
                   maxHeight="100dvh"
                   id="content"
                 >
                   <Card
-                    className="sticky top-2 z-[1] rounded-[max(var(--radius-5),var(--radius-full))] [box-shadow:--shadow-5] after:rounded-[max(var(--radius-5),var(--radius-full))] has-[+#map,+#root-loader]:mb-16"
+                    className="pwa:mt-[calc(env(safe-area-inset-top)+var(--space-2))] pwa:!top-[calc(env(safe-area-inset-top)+var(--space-2))] sticky top-2 z-[1] rounded-[max(var(--radius-5),var(--radius-full))] [box-shadow:--shadow-5] after:rounded-[max(var(--radius-5),var(--radius-full))] has-[+#map,+#root-loader]:mb-16"
                     my="2"
-                    mx="4"
+                    mr="4"
+                    ml={{ initial: "4", sm: "2" }}
                     asChild
                   >
                     <header>

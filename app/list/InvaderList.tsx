@@ -39,7 +39,7 @@ const InvaderList = (props: UseInfiniteHitsProps<Invader>) => {
       type="always"
       scrollbars="vertical"
       size="2"
-      className="h-[calc(100dvh-(144px+env(safe-area-inset-bottom)))] [&>div]:snap-y [&>div]:snap-mandatory [&>div]:scroll-py-[--space-4] [&>div]:scroll-smooth"
+      className="h-[calc(100dvh-(160px+env(safe-area-inset-bottom)))] [&>div]:snap-y [&>div]:snap-mandatory [&>div]:scroll-py-[--space-4] [&>div]:scroll-smooth"
       asChild
     >
       <main>
