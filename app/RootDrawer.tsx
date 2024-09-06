@@ -28,7 +28,12 @@ const RootDrawer: FC<RootDrawerProps> = ({}) => {
     router.push(value as "/");
   };
   return (
-    <Drawer direction="left" open={open} onOpenChange={setOpen}>
+    <Drawer
+      direction="left"
+      open={open}
+      onOpenChange={setOpen}
+      shouldScaleBackground={pathname !== "/list"}
+    >
       <DrawerTrigger asChild>
         <IconButton size="4" variant="surface" className="flex sm:hidden">
           <MenuIcon className="h-8 w-8" />
