@@ -31,8 +31,13 @@ const RootDrawer: FC<RootDrawerProps> = ({}) => {
           <span className="sr-only">Toggle Menu</span>
         </IconButton>
       </DrawerTrigger>
-      <DrawerContent asChild forceMount>
-        <Card className="fixed bottom-0 left-0 -ml-11 flex h-full w-auto flex-col rounded-l-none pl-14 pt-[env(safe-area-inset-top)] before:rounded-l-none after:!inset-[--base-card-border-width] after:!w-[inherit] after:rounded-l-none focus-visible:outline-0">
+      <DrawerContent
+        forceMount
+        className="fixed inset-y-0 left-0 focus-visible:outline-0"
+        // prevent lag due to default focus handler
+        onOpenAutoFocus={(e) => e.preventDefault()}
+      >
+        <Card className="-ml-11 flex h-full w-auto flex-col rounded-l-none pl-14 pt-[env(safe-area-inset-top)] before:rounded-l-none after:!inset-[--base-card-border-width] after:!w-[inherit] after:rounded-l-none">
           <DrawerHeader mb="2">
             <Icon icon="invadedMap" className="mx-auto h-12 w-12" />
           </DrawerHeader>
