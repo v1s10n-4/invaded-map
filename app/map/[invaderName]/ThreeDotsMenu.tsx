@@ -1,9 +1,8 @@
 "use client";
 import EditModal from "@/app/map/[invaderName]/EditModal";
 import HistoryIcon from "@/app/map/[invaderName]/history.svg";
-import { Dialog } from "@/components/Dialog";
 import { Invader } from "@/db";
-import { DropdownMenu, IconButton, Text } from "@radix-ui/themes";
+import { Dialog, DropdownMenu, IconButton, Text } from "@radix-ui/themes";
 import EditIcon from "pixelarticons/svg/edit.svg";
 import MoreVerticalIcon from "pixelarticons/svg/more-vertical.svg";
 import React, { FC, PropsWithChildren, useState } from "react";
@@ -52,12 +51,12 @@ const ThreeDotsMenu: FC<ThreeDotsMenuProps> = ({ invader, children }) => {
         open={dialogOpen["edit"]}
         onOpenChange={(open) => handleDialogToggle("edit", open)}
       />
-      <Dialog
+      <Dialog.Root
         open={dialogOpen["history"]}
         onOpenChange={(open) => handleDialogToggle("history", open)}
       >
         {children}
-      </Dialog>
+      </Dialog.Root>
     </>
   );
 };
