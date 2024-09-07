@@ -1,12 +1,10 @@
 "use client";
 import { AuthButton } from "@/components/AuthButton";
-import { cn } from "@/lib/utils";
 import { BoxActiveClasses, BoxClasses, BoxHoverClasses } from "@/utils";
 import { clsx } from "clsx";
-import { SessionContextValue, signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Link, { LinkProps } from "next/link";
 import { useRouter } from "next/navigation";
-import LoginIcon from "pixelarticons/svg/login.svg";
 import React, { FC } from "react";
 
 type MobileLinkProps<RouteInferType = any> = LinkProps<RouteInferType> & {
@@ -72,7 +70,7 @@ export const SideMenuContentMobile: FC<
       >
         Highscores
       </MobileLink>
-      <AuthButton status={status} />
+      <AuthButton />
       <MobileLink
         href={"/help"}
         onOpenChange={onOpenChange}

@@ -7,11 +7,7 @@ import React, { FC, Suspense } from "react";
 
 const UserProfile: FC = async () => {
   const session = await auth();
-  return (
-    <AuthButton
-      status={session?.user?.id ? "authenticated" : "unauthenticated"}
-    />
-  );
+  return <AuthButton />;
 };
 
 export const SideMenuContent: FC = () => {
