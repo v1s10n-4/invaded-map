@@ -7,7 +7,7 @@ import {
   MenuBarSeparator,
   MenuBarTrigger,
 } from "@/components/MenuBar";
-import { Badge, ScrollArea, Text } from "@radix-ui/themes";
+import { Badge, Text } from "@radix-ui/themes";
 import { clsx } from "clsx";
 import BuildingCommunity from "pixelarticons/svg/building-community.svg";
 import Coin from "pixelarticons/svg/coin.svg";

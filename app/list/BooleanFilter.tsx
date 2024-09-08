@@ -29,7 +29,7 @@ export const BooleanFilter: FC<ToggleRefinementProps> = (props) => {
       >
         {Icon}
         {value.isRefined && (
-          <div className="absolute bottom-1 right-1 h-2 w-2 border-4 border-double border-primary" />
+          <div className="absolute bottom-1 right-1 h-2 w-2 bg-[--accent-7]" />
         )}
       </MenuBarTrigger>
     </MenuBarMenu>

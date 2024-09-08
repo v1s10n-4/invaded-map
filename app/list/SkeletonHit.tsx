@@ -1,7 +1,4 @@
-import {
-  getRandomLengthString,
-  getRandomLengthStringSSR,
-} from "@/app/highscores/utils";
+import { getRandomLengthStringSSR } from "@/app/highscores/utils";
 import { Card } from "@/components/Card";
 import Placeholder from "@/components/placeholder.svg";
 import {

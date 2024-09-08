@@ -31,7 +31,7 @@ export async function POST(request: NextRequest): Promise<Response> {
 
     return Response.json({ error: false, data: blobRes });
   } catch (err) {
-    console.error(err);
+    console.error("Error in app/api/upload-image/route.ts:19", err);
     return Response.json({ error: true, data: null });
   }
 }

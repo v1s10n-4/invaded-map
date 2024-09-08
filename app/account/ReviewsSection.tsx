@@ -1,6 +1,7 @@
+import { getAllReviews } from "@/app/account/actions";
 import ReviewCard from "@/app/account/ReviewCard";
 import ReviewsCarousel from "@/app/account/ReviewsCarousel";
-import { DisplayRole, getAllReviews } from "@/app/account/utils";
+import { DisplayRole } from "@/app/account/utils";
 import {
   Card,
   CardDescription,
@@ -9,7 +10,15 @@ import {
 } from "@/components/Card";
 import { CarouselItem } from "@/components/Carousel";
 import { ReviewTask, User } from "@/db";
-import { Badge, Flex, Inset, Separator, Tabs, Text } from "@radix-ui/themes";
+import {
+  Badge,
+  Flex,
+  Inset,
+  Separator,
+  Skeleton,
+  Tabs,
+  Text,
+} from "@radix-ui/themes";
 import React, { FC, Suspense } from "react";
 
 type ReviewsSectionProps = { user: User };
@@ -65,9 +74,7 @@ const ReviewsSection: FC<ReviewsSectionProps> = async ({ user }) => {
                 <CarouselItem key={review.id} className="flex flex-col" pl="3">
                   <Suspense
                     fallback={
-                      <div className="flex h-64 items-center justify-center border border-primary p-2">
-                        <span className="loading loading-bars h-8 w-8" />
-                      </div>
+                      <Skeleton height={{ initial: "423px", sm: "476px" }} />
                     }
                   >
                     <ReviewCard
@@ -92,9 +99,7 @@ const ReviewsSection: FC<ReviewsSectionProps> = async ({ user }) => {
                 <CarouselItem key={review.id} className="flex flex-col" pl="3">
                   <Suspense
                     fallback={
-                      <div className="flex h-64 items-center justify-center border border-primary p-2">
-                        <span className="loading loading-bars h-8 w-8" />
-                      </div>
+                      <Skeleton height={{ initial: "423px", sm: "476px" }} />
                     }
                   >
                     <ReviewCard

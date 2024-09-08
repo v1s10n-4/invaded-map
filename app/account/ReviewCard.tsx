@@ -1,8 +1,8 @@
+import { getReview } from "@/app/account/actions";
 import {
   ContributionActions,
   getChangedValue,
   getInvaderValue,
-  getReview,
   ReviewActions,
 } from "@/app/account/utils";
 import {
@@ -15,7 +15,7 @@ import {
 import { HitPlaceholder } from "@/components/Placeholder";
 import { ReviewTask, User } from "@/db";
 import { canReviewOwnContribution } from "@/lib/utils";
-import { Flex, Strong, Text } from "@radix-ui/themes";
+import { Callout, Flex, Link as RLink, Strong, Text } from "@radix-ui/themes";
 import Image from "next/image";
 import Link from "next/link";
 import ArrowRight from "pixelarticons/svg/arrow-right.svg";
@@ -38,9 +38,11 @@ const ReviewCard: FC<ReviewCardProps> = async ({
   const res = await getter();
   if (!res) {
     return (
-      <div className="flex border border-primary p-6">
-        Unexpected error: please contact me on discord (error code: 21)
-      </div>
+      <Callout.Root color="red">
+        <Callout.Text>
+          Unexpected error: please contact me on discord (error code: 21)
+        </Callout.Text>
+      </Callout.Root>
     );
   }
 
@@ -54,12 +56,11 @@ const ReviewCard: FC<ReviewCardProps> = async ({
     <Card>
       <CardHeader>
         <Flex align="center" justify="between">
-          <Link
-            className="decoration-primary hover:underline focus:underline"
-            href={`/map/${invader.name}`}
-          >
-            <CardTitle>{invader.name}</CardTitle>
-          </Link>
+          <RLink asChild>
+            <Link href={`/map/${invader.name}`}>
+              <CardTitle>{invader.name}</CardTitle>
+            </Link>
+          </RLink>
           <Flex align="center" gap="2">
             <Image
               src={editor.image || HitPlaceholder(32, 32)}
@@ -80,7 +81,7 @@ const ReviewCard: FC<ReviewCardProps> = async ({
       </CardHeader>
       <CardContent gap="4">
         <Card className="grid grid-cols-[1fr_auto_1fr] place-items-center px-1">
-          <Text align="center" color="red">
+          <Text align="center" color="tomato">
             {oldValue}
           </Text>
           <ArrowRight className="h-12 w-12 justify-self-center" />

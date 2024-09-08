@@ -2,7 +2,7 @@ import HistoryModalContent from "@/app/map/[invaderName]/historyModalContent";
 import InvaderPageCarousel from "@/app/map/[invaderName]/InvaderPageCarousel";
 import ThreeDotsMenu from "@/app/map/[invaderName]/ThreeDotsMenu";
 import { getInvader, getState } from "@/utils/data";
-import { DataList, Flex, Text, VisuallyHidden } from "@radix-ui/themes";
+import { DataList, Flex } from "@radix-ui/themes";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import BuildingCommunity from "pixelarticons/svg/building-community.svg";

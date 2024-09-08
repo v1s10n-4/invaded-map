@@ -14,14 +14,13 @@ import { Invader } from "@/db";
 import { DialogProps } from "@radix-ui/react-dialog";
 import { Button, Dialog, IconButton, Text } from "@radix-ui/themes";
 import CloseIcon from "pixelarticons/svg/close.svg";
-import React, { FC, useEffect, useRef } from "react";
-import { useFormState } from "react-dom";
+import React, { FC, useActionState, useEffect, useRef } from "react";
 
 type EditModalProps = { data: Invader } & DialogProps;
 
 const EditModal: FC<EditModalProps> = ({ data, ...props }) => {
   const submitWithId = submitContribution.bind(null, data.name);
-  const [state, formAction] = useFormState(
+  const [state, formAction] = useActionState(
     submitWithId,
     InvaderEditResponseState
   );

@@ -1,6 +1,6 @@
 "use client";
-import { FC, Suspense, SVGProps, useMemo } from "react";
 import icons from "@/components/Icon/icons";
+import { FC, SVGProps, useMemo } from "react";
 
 export type IconId = keyof typeof icons;
 export type IconProps = {

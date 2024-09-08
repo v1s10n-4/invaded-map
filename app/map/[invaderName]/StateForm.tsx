@@ -42,7 +42,7 @@ const StateForm: FC<StateFormProps> = ({ state }) => {
           </Popover.Content>
         </Popover.Root>
       </Heading>
-      <RadioGroup.Root className="gap-4 pr-2">
+      <RadioGroup.Root className="gap-4 pr-2" name="state">
         {invaderValidStates.map(({ value, label, description }) => (
           <RadioGroup.Item
             className="w-full flex-row-reverse justify-between"

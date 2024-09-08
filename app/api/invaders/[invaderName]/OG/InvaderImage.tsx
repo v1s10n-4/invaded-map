@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
-import { mapStyles } from "@/components/Map";
+import { mapStyles } from "@/app/map";
 import { Invader } from "@/db";
 import {
   baseGoogleStaticMapUrl,

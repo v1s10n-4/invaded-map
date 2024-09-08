@@ -214,8 +214,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
-      data-theme="black"
-      className="text-base"
       content="width=device-width, initial-scale=1, maximum-scale=1"
     >
       <body className={clsx("bg-[--color-background]", sixtyfour.className)}>
@@ -248,7 +246,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                   id="content"
                 >
                   <Card
-                    className="pwa:mt-[calc(env(safe-area-inset-top)+var(--space-2))] pwa:!top-[calc(env(safe-area-inset-top)+var(--space-2))] sticky top-2 z-[1] rounded-[max(var(--radius-5),var(--radius-full))] [box-shadow:--shadow-5] after:rounded-[max(var(--radius-5),var(--radius-full))] has-[+#map,+#root-loader]:mb-16"
+                    className="sticky top-2 z-[1] rounded-[max(var(--radius-5),var(--radius-full))] [box-shadow:--shadow-5] after:rounded-[max(var(--radius-5),var(--radius-full))] has-[+#map,+#root-loader]:mb-16 pwa:!top-[calc(env(safe-area-inset-top)+var(--space-2))] pwa:mt-[calc(env(safe-area-inset-top)+var(--space-2))]"
                     my="2"
                     mr="4"
                     ml={{ initial: "4", sm: "2" }}

@@ -4,19 +4,19 @@ import {
   updateUsernameSchema,
 } from "@/app/account/schema";
 import { auth, signIn, updateUser } from "@/auth";
-import { db, Invader, ReviewTask, User } from "@/db";
+import { db, Invader, ReviewTask } from "@/db";
 import { contributions } from "@/db/schema/contributions";
 import { invaders } from "@/db/schema/invaders";
 import { referralLinks } from "@/db/schema/referral_links";
 import { reviewTasks } from "@/db/schema/reviewTasks";
 import { users } from "@/db/schema/users";
 import { canReviewOwnContribution } from "@/lib/utils";
-import { getTag } from "@/utils/revalidation-tags";
+import { getTag, getTags } from "@/utils/revalidation-tags";
 import { createFetchRequester } from "@algolia/requester-fetch";
 import { del, put } from "@vercel/blob";
 import algoliasearch from "algoliasearch";
 import { eq } from "drizzle-orm";
-import { revalidateTag } from "next/cache";
+import { revalidateTag, unstable_cache } from "next/cache";
 import { wait } from "next/dist/lib/wait";
 
 export const updateUsername = async (_prevState: any, formData: FormData) => {
@@ -86,12 +86,15 @@ export const deleteAvatar = async (_formData: FormData) => {
   void (await updateUser({}));
 };
 
-export const createReferralLink = async (formData: FormData) => {
+export const createReferralLink = async (
+  _prevState: any,
+  _formData: FormData
+) => {
   const session = await auth();
   if (!session) return signIn();
   await db.insert(referralLinks).values({ referrer_id: session.user.id });
   void (await updateUser({}));
-  return { success: true };
+  return { success: true, errors: [] };
 };
 
 export const deleteContribution = async (id: ReviewTask["id"]) => {
@@ -191,3 +194,29 @@ export const acceptContribution = async (id: ReviewTask["id"]) => {
     revalidateTag(getTag("invader history", entity.id.toString()));
   }
 };
+
+export const getAllReviews = unstable_cache(
+  async () => {
+    const res = await db.select().from(reviewTasks);
+    return res;
+  },
+  getTags("all reviews"),
+  { tags: getTags("all reviews") }
+);
+
+export const getReview = async (id: ReviewTask["id"]) =>
+  unstable_cache(
+    () => {
+      return db.query.reviewTasks.findFirst({
+        with: {
+          entity: true,
+          editor: true,
+        },
+        where: eq(reviewTasks.id, id),
+      });
+    },
+    ["review", id.toString()],
+    {
+      tags: getTags("review", id.toString()),
+    }
+  );

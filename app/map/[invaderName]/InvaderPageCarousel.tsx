@@ -1,9 +1,7 @@
 import { Carousel, CarouselContent, CarouselItem } from "@/components/Carousel";
 import { HitPlaceholder } from "@/components/Placeholder";
 import { SliderActions } from "@/components/SliderActions";
-import { BoxClasses } from "@/utils";
 import { Card } from "@radix-ui/themes";
-import { clsx } from "clsx";
 import Image from "next/image";
 import React, { FC } from "react";
 

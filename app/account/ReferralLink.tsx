@@ -1,19 +1,10 @@
 import { createReferralLink } from "@/app/account/actions";
-import QRCodeIcon from "@/app/account/qr-code.svg";
+import CardForm from "@/app/account/CardForm";
 import QRCodeDrawer from "@/app/account/QRCodeDrawer";
-import { CardContent, CardFooter } from "@/components/Card";
 import CopyButton from "@/components/CopyButton";
-import SubmitButton from "@/components/SubmitButton";
 import { db, User } from "@/db";
 import { referralLinks } from "@/db/schema/referral_links";
-import {
-  Card,
-  Flex,
-  IconButton,
-  Skeleton,
-  Spinner,
-  Text,
-} from "@radix-ui/themes";
+import { Card, Flex, IconButton, Spinner, Text } from "@radix-ui/themes";
 import { and, desc, eq } from "drizzle-orm";
 import React, { FC, Suspense } from "react";
 
@@ -63,28 +54,20 @@ const ReferralLink: FC<ReferralLinkProps> = async ({ id }) => {
     },
   });
   return (
-    <form>
-      <CardContent>
-        {res?.code ? (
-          <CopylLink pathname={res.code} />
-        ) : (
-          <p className="border border-primary p-2 text-xs">
-            You don&apos;t have any invitation link yet, create one and share
-            it!
-          </p>
-        )}
-      </CardContent>
-      {!res?.code && (
-        <CardFooter className="border-t border-primary px-6 py-4">
-          <SubmitButton
-            formAction={createReferralLink}
-            className="btn btn-primary"
-          >
-            Create
-          </SubmitButton>
-        </CardFooter>
+    <CardForm
+      action={createReferralLink}
+      name="refcode"
+      submitText="Create"
+      showSubmit={!res?.code}
+    >
+      {res?.code ? (
+        <CopylLink pathname={res.code} />
+      ) : (
+        <Text size="1" className=" p-2">
+          You don&apos;t have any invitation link yet, create one and share it!
+        </Text>
       )}
-    </form>
+    </CardForm>
   );
 };
 
