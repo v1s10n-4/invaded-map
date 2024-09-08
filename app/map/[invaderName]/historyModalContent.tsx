@@ -12,12 +12,13 @@ import {
   Flex,
   IconButton,
   Separator,
+  Skeleton,
   Text,
   VisuallyHidden,
 } from "@radix-ui/themes";
 import CircleIcon from "pixelarticons/svg/circle.svg";
 import CloseIcon from "pixelarticons/svg/close.svg";
-import React, { FC, ReactNode, Suspense } from "react";
+import React, { ComponentProps, FC, ReactNode, Suspense } from "react";
 
 export const InvaderContributionHistory: FC<Invader> = async ({
   id,
@@ -79,30 +80,78 @@ export const InvaderContributionHistory: FC<Invader> = async ({
   );
 };
 
-const HistoryItem: FC<{
-  date: number | Date;
-  text: ReactNode;
-  comment?: string | null;
-  end?: boolean;
-}> = ({ date, text, comment, end = false }) => {
+type LoadableComponentProps<T extends ComponentProps<any>> =
+  | ({ loading?: true } & Partial<Omit<T, "loading">>)
+  | ({ loading?: false } & T);
+
+const HistoryItem: FC<
+  LoadableComponentProps<{
+    date?: number | Date;
+    text: ReactNode;
+    comment?: string | null;
+    end?: boolean;
+  }>
+> = ({ date, text, comment, end = false, loading = false }) => {
   return (
     <Flex gap="2">
       <Flex direction="column" align="center">
-        <CircleIcon className="h-4 w-4 shrink-0 text-[--accent-9]" />
-        {!end && <Separator orientation="vertical" size="4" />}
+        <Skeleton loading={loading} className="rounded-full">
+          <CircleIcon className="h-4 w-4 shrink-0 text-[--accent-9]" />
+        </Skeleton>
+        {!end && (
+          <Skeleton loading={loading}>
+            <Separator orientation="vertical" size="4" />
+          </Skeleton>
+        )}
       </Flex>
-      <Flex direction="column" gap="2" mt="2px">
-        <Text size="1" asChild>
-          <time>{new Date(date).toLocaleDateString()}</time>
+      {date ? (
+        <Flex direction="column" gap="1" mt="2px">
+          <Text size="1" asChild>
+            <time>
+              <Skeleton loading={loading}>
+                {new Date(date).toLocaleDateString()}
+              </Skeleton>
+            </time>
+          </Text>
+          <Card mb="4" className={loading ? "pt-2" : "pt-3"}>
+            <Text size="1">
+              <Skeleton loading={loading}>{text}</Skeleton>
+            </Text>
+            {comment && (
+              <Blockquote size="1">
+                <Skeleton loading={loading}>{comment}</Skeleton>
+              </Blockquote>
+            )}
+          </Card>
+        </Flex>
+      ) : (
+        <Text size="1" mt="2px" mb="4" asChild>
+          <time>
+            <Skeleton loading={loading}>Now</Skeleton>
+          </time>
         </Text>
-        <Card mb="4">
-          <Text size="1">{text}</Text>
-          {comment && <Blockquote size="1">{comment}</Blockquote>}
-        </Card>
-      </Flex>
+      )}
     </Flex>
   );
 };
+
+const ContributionHistorySkeleton = () => (
+  <Flex direction="column">
+    <HistoryItem loading text="now" />
+    <HistoryItem
+      loading
+      date={new Date()}
+      text="Added to Invaded Map"
+      comment="Photos credits: (Awazleon, fesse)"
+    />
+    <HistoryItem
+      loading
+      date={new Date()}
+      text="Invader has been installed"
+      end
+    />
+  </Flex>
+);
 
 const HistoryModalContent: FC<Invader> = ({ ...invader }) => {
   return (
@@ -124,15 +173,7 @@ const HistoryModalContent: FC<Invader> = ({ ...invader }) => {
           All changes made to {invader.name} are listed here by date
         </Dialog.Description>
       </VisuallyHidden>
-      <Suspense
-        fallback={
-          <div className="my-12 p-6">
-            <div className="flex items-center justify-center p-2">
-              <span className="loading loading-bars h-8 w-8" />
-            </div>
-          </div>
-        }
-      >
+      <Suspense fallback={<ContributionHistorySkeleton />}>
         <InvaderContributionHistory {...invader} />
       </Suspense>
       <Flex mt="4" justify="end">
