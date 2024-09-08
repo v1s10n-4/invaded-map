@@ -1,9 +1,8 @@
 "use client";
 import { CardContent, CardFooter } from "@/components/Card";
 import SubmitButton from "@/components/SubmitButton";
-import { Flex, Separator, Text } from "@radix-ui/themes";
-import React, { FC, PropsWithChildren } from "react";
-import { useFormState } from "react-dom";
+import { Separator, Text } from "@radix-ui/themes";
+import React, { FC, PropsWithChildren, useActionState } from "react";
 import { SafeParseSuccess } from "zod";
 import { typeToFlattenedError } from "zod/lib/ZodError";
 
@@ -27,7 +26,7 @@ const CardForm: FC<CardFormProps> = ({
   deleteAction,
   children,
 }) => {
-  const [state, formAction] = useFormState(action, { success: true });
+  const [state, formAction] = useActionState(action, { success: true });
   return (
     <form action={formAction}>
       <CardContent>

@@ -1,8 +1,10 @@
 "use server";
 
 import { updateUserImageSchema } from "@/app/account/schema";
-import { invaderValidStates } from "@/app/map/[invaderName]/StateForm";
-import { InvaderEditableKeys } from "@/app/map/[invaderName]/utils";
+import {
+  InvaderEditableKeys,
+  invaderValidStates,
+} from "@/app/map/[invaderName]/utils";
 import { auth, signIn } from "@/auth";
 import { db } from "@/db";
 import { reviewTasks } from "@/db/schema/reviewTasks";

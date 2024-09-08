@@ -3,7 +3,7 @@ import { signOutAction } from "@/app/actions";
 import { Card } from "@/components/Card";
 import { HitPlaceholder } from "@/components/Placeholder";
 import { User } from "@/db";
-import { Avatar, Button, Flex, Heading, Slot, Text } from "@radix-ui/themes";
+import { Avatar, Button, Flex, Heading, Text } from "@radix-ui/themes";
 import Image from "next/image";
 import LogOutIcon from "pixelarticons/svg/logout.svg";
 import React, { FC } from "react";
@@ -79,9 +79,7 @@ const ProfileHeader: FC<User> = (user) => {
           <form action={signOutAction}>
             <Button variant="soft" size={{ initial: "3", md: "2" }}>
               Sign out
-              <Slot>
-                <LogOutIcon className="h-6 w-6" />
-              </Slot>
+              <LogOutIcon className="h-6 w-6" />
             </Button>
           </form>
         </Flex>

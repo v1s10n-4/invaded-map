@@ -1,11 +1,9 @@
 "use client";
 import { invalidateTag } from "@/app/fesse/actions";
 import SubmitButton from "@/components/SubmitButton";
-import { cn } from "@/lib/utils";
 import { TagName } from "@/utils/revalidation-tags";
-import { FC, HTMLAttributes } from "react";
-import { useFormState, useFormStatus } from "react-dom";
 import Repeat from "pixelarticons/svg/repeat.svg";
+import { FC, useActionState } from "react";
 
 type InvalidateTagProps = {
   tagName: TagName;
@@ -21,7 +19,7 @@ export const InvalidateTag: FC<InvalidateTagProps> = ({
   tagName,
   isSpecific,
 }) => {
-  const [state, formAction] = useFormState(invalidateTag, initialState);
+  const [state, formAction] = useActionState(invalidateTag, initialState);
   return (
     <>
       <form
