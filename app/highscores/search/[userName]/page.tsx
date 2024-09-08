@@ -1,5 +1,5 @@
+import HighscoreItem from "@/app/highscores/HighscoreItem";
 import { FlashInvadersAPI } from "@/app/highscores/utils";
-import HighscoreItem from "@/components/Highscores/HighscoreItem";
 import { UserSearchResponse } from "@/types/FlashInvadersAPI";
 import { getRequestConfig } from "@/utils/revalidation-tags";
 import { Table } from "@radix-ui/themes";

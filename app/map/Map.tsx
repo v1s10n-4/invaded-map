@@ -1,6 +1,6 @@
 "use client";
+import UserMarker from "@/app/map/UserMarker";
 import useIVDMapStore from "@/app/store";
-import UserMarker from "@/components/Map/UserMarker";
 import { InvaderWithLocation } from "@/db";
 import { Paris } from "@/utils";
 import { Flex, Spinner } from "@radix-ui/themes";

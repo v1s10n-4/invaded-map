@@ -1,6 +1,5 @@
 "use client";
 import { FileInput } from "@/components/FileInput";
-import { TabsContent } from "@/components/Tabs";
 import { Invader } from "@/db";
 import {
   Blockquote,
@@ -8,6 +7,7 @@ import {
   IconButton,
   Popover,
   Separator,
+  Tabs,
   Text,
   TextField,
 } from "@radix-ui/themes";
@@ -18,7 +18,7 @@ type PointsFormProps = Pick<Invader, "points">;
 
 const PointsForm: FC<PointsFormProps> = ({ points }) => {
   return (
-    <TabsContent value="points" tabIndex={-1}>
+    <Tabs.Content value="points" tabIndex={-1}>
       <Heading as="h4" size="3" className="mb-2 mt-4 flex items-center gap-1">
         Points
         <Popover.Root>
@@ -91,7 +91,7 @@ const PointsForm: FC<PointsFormProps> = ({ points }) => {
           max image size: 4mb
         </Blockquote>
       </label>
-    </TabsContent>
+    </Tabs.Content>
   );
 };
 

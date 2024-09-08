@@ -1,16 +1,16 @@
 "use client";
+import { mapOptions } from "@/app/map/utils";
+import useDeviceOrientation from "@/app/map/utils/useDeviceOrientation";
+import useIVDMapStore from "@/app/store";
+import { Colors } from "@/utils";
 import { Card, Flex, IconButton } from "@radix-ui/themes";
 import { clsx } from "clsx";
-import MinusIcon from "pixelarticons/svg/minus.svg";
 import GPSIcon from "pixelarticons/svg/gps.svg";
-import PlusIcon from "pixelarticons/svg/plus.svg";
 import CompassIcon from "pixelarticons/svg/loader.svg";
+import MinusIcon from "pixelarticons/svg/minus.svg";
+import PlusIcon from "pixelarticons/svg/plus.svg";
 import React, { FC, useCallback, useEffect, useRef } from "react";
 import { useGeolocated } from "react-geolocated";
-import useDeviceOrientation from "@/components/Map/utils/useDeviceOrientation";
-import { Colors } from "@/utils";
-import { mapOptions } from "@/components/Map/utils";
-import useIVDMapStore from "@/app/store";
 
 type UserMarkerProps = {
   map: google.maps.Map;

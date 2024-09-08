@@ -3,7 +3,6 @@ import {
   getInvaderHistory,
   getUpdateLabel,
 } from "@/app/map/[invaderName]/utils";
-import { VisuallyHidden } from "@/components/VisuallyHidden";
 import { Invader, User } from "@/db";
 import {
   Blockquote,
@@ -14,6 +13,7 @@ import {
   IconButton,
   Separator,
   Text,
+  VisuallyHidden,
 } from "@radix-ui/themes";
 import CircleIcon from "pixelarticons/svg/circle.svg";
 import CloseIcon from "pixelarticons/svg/close.svg";

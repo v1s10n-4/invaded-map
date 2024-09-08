@@ -1,5 +1,4 @@
 import { FileInput } from "@/components/FileInput";
-import { TabsContent } from "@/components/Tabs";
 import { Invader } from "@/db";
 import {
   Blockquote,
@@ -7,6 +6,7 @@ import {
   IconButton,
   Popover,
   Separator,
+  Tabs,
   Text,
   TextField,
 } from "@radix-ui/themes";
@@ -17,7 +17,7 @@ const CreationDateForm: FC<Pick<Invader, "create_date">> = ({
   create_date,
 }) => {
   return (
-    <TabsContent value="create_date" tabIndex={-1}>
+    <Tabs.Content value="create_date" tabIndex={-1}>
       <Heading as="h4" size="3" className="mb-2 mt-4 flex items-center gap-1">
         Creation date
         <Popover.Root>
@@ -90,7 +90,7 @@ const CreationDateForm: FC<Pick<Invader, "create_date">> = ({
           max image size: 4mb
         </Blockquote>
       </label>
-    </TabsContent>
+    </Tabs.Content>
   );
 };
 
