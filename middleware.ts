@@ -5,7 +5,7 @@ const privateApiRoutesRegex = new RegExp(
 );
 export function middleware(request: NextRequest, response: NextResponse) {
   const route = request.nextUrl.pathname;
-  if (privateApiRoutesRegex.test(route)) {
+  if (process.env.LOCAL !== "true" && privateApiRoutesRegex.test(route)) {
     const token = request.headers.get("api-token");
     if (!token || token !== process.env.API_SECRET)
       return NextResponse.json(
