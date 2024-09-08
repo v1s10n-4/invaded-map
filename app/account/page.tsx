@@ -7,7 +7,10 @@ import CardForm from "@/app/account/CardForm";
 import ProfileHeader from "@/app/account/ProfileHeader";
 import ReferralLink from "@/app/account/ReferralLink";
 import ReviewsSection from "@/app/account/ReviewsSection";
-import { ReviewSectionSkeleton } from "@/app/account/utils";
+import {
+  ReferralLinkSkeleton,
+  ReviewSectionSkeleton,
+} from "@/app/account/utils";
 import { auth, signIn } from "@/auth";
 import {
   Card,
@@ -58,15 +61,7 @@ const AccountPage: FC = async () => {
                 Earn contribution points by inviting people.
               </CardDescription>
             </CardHeader>
-            <Suspense
-              fallback={
-                <div className="px-6 pb-6">
-                  <div className="flex items-center justify-center border border-primary p-2">
-                    <span className="loading loading-bars h-8 w-8" />
-                  </div>
-                </div>
-              }
-            >
+            <Suspense fallback={<ReferralLinkSkeleton />}>
               <ReferralLink id={user.id} />
             </Suspense>
           </Card>

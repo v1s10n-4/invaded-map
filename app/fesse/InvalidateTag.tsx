@@ -2,6 +2,7 @@
 import { invalidateTag } from "@/app/fesse/actions";
 import SubmitButton from "@/components/SubmitButton";
 import { TagName } from "@/utils/revalidation-tags";
+import { Text, TextField } from "@radix-ui/themes";
 import Repeat from "pixelarticons/svg/repeat.svg";
 import { FC, useActionState } from "react";
 
@@ -27,28 +28,26 @@ export const InvalidateTag: FC<InvalidateTagProps> = ({
         className="flex items-center justify-between gap-4"
       >
         <div className="flex w-full items-center justify-between">
-          <p className="text-xs md:text-base">{tagName}</p>
+          <Text size={{ initial: "1", sm: "2" }}>{tagName}</Text>
           <input name="tag" defaultValue={tagName} required hidden />
           {isSpecific && (
-            <input
+            <TextField.Root
               // required
               min={1}
               max={128}
               name="specific"
               type="text"
               placeholder="value"
-              className="input input-sm input-bordered input-primary max-w-32"
+              className="max-w-32"
             />
           )}
         </div>
-        <SubmitButton className="btn-square btn-outline btn-primary btn-sm">
+        <SubmitButton className="aspect-square p-0">
           <Repeat className="h-6 w-6" />
         </SubmitButton>
       </form>
       {(state.error || state.message) && (
-        <p className={state.error ? "text-error" : "text-success"}>
-          {state.message}
-        </p>
+        <Text color={state.error ? "red" : "gray"}>{state.message}</Text>
       )}
     </>
   );

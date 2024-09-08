@@ -86,12 +86,15 @@ export const deleteAvatar = async (_formData: FormData) => {
   void (await updateUser({}));
 };
 
-export const createReferralLink = async (formData: FormData) => {
+export const createReferralLink = async (
+  _prevState: any,
+  _formData: FormData
+) => {
   const session = await auth();
   if (!session) return signIn();
   await db.insert(referralLinks).values({ referrer_id: session.user.id });
   void (await updateUser({}));
-  return { success: true };
+  return { success: true, errors: [] };
 };
 
 export const deleteContribution = async (id: ReviewTask["id"]) => {

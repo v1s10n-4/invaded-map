@@ -1,9 +1,9 @@
 import { ACCEPTED_IMAGE_TYPES } from "@/app/account/schema";
-import { TextField } from "@radix-ui/themes";
-import { ComponentProps } from "react";
-import * as React from "react";
 
 import { cn } from "@/lib/utils";
+import { TextField } from "@radix-ui/themes";
+import * as React from "react";
+import { ComponentProps } from "react";
 
 const FileInput = React.forwardRef<
   HTMLInputElement,
@@ -24,6 +24,6 @@ const FileInput = React.forwardRef<
     />
   );
 });
-FileInput.displayName = "Input";
+FileInput.displayName = "FileInput";
 
 export { FileInput };

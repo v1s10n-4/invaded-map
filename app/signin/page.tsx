@@ -6,8 +6,10 @@ import {
 } from "@/app/signin/utils";
 import Icon, { IconProps } from "@/components/Icon/Icon";
 import { REFERRAL_CODE_COOKIE_NAME } from "@/utils/data";
+import { Button, Callout, Link as RLink, Text } from "@radix-ui/themes";
 import { clsx } from "clsx";
 import { cookies } from "next/headers";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import React, { FC } from "react";
 
@@ -17,17 +19,13 @@ const ProviderLoginButton: FC<
   Pick<AppProvider, "id" | "name" | "signinUrl">
 > = ({ id, name, signinUrl }) => {
   return (
-    <button
-      className="btn btn-primary btn-lg"
-      key={name}
-      formAction={signinUrl}
-    >
+    <Button size="4" variant="surface" key={name} formAction={signinUrl}>
       <Icon
         icon={id as IconProps["icon"]}
         className="h-8 w-8 md:h-10 md:w-10 lg:h-12 lg:w-12"
       />
       <span className="hidden md:block">Continue with </span> {name}
-    </button>
+    </Button>
   );
 };
 
@@ -63,23 +61,24 @@ const SigninPage: SigninPageType = async ({
   const errorText = error && (signinErrors[error] ?? signinErrors.default);
   const referralCode = c.get(REFERRAL_CODE_COOKIE_NAME)?.value;
   return (
-    <main className="relative mx-auto flex h-full flex-col items-center justify-center gap-16 pb-48">
-      <Icon icon="invadedMap" className="mt-32 h-32 w-32 text-primary" />
+    <main className="relative mx-auto flex h-full flex-col items-center justify-center gap-16">
+      <Icon icon="invadedMap" className="mt-32 h-32 w-32 text-[--accent-9]" />
       <div
         className={clsx(
           "flex flex-col items-center gap-2",
-          error && "mx-4 border-4 border-double border-primary p-4"
+          error && "mx-4 border border-[--accent-9] p-4"
         )}
       >
-        <h1
-          className={clsx(
-            "text-center text-lg uppercase lg:text-2xl",
-            error && "text-primary underline"
-          )}
-        >
-          {error ? "Error" : "Log in to your account"}
-        </h1>
-        {error && <h5 className="text-center">{errorText}</h5>}
+        <Callout.Root color={error ? "red" : "gray"}>
+          <Callout.Text className="uppercase">
+            {error ? "Error" : "Log in to your account"}
+          </Callout.Text>
+        </Callout.Root>
+        {error && (
+          <Text color="red" className="text-center">
+            {errorText}
+          </Text>
+        )}
       </div>
       <form className="flex flex-col gap-4" method="POST">
         <input type="hidden" name="csrfToken" value={csrfToken} />
@@ -93,13 +92,15 @@ const SigninPage: SigninPageType = async ({
           <ProviderLoginButton key={provider.id} {...provider} />
         ))}
       </form>
-      <span className="absolute inset-x-0 bottom-8 text-center text-xs">
+      <Text size="1" align="center" className="fixed inset-x-0 bottom-8">
         By signing up, you agree to our{" "}
-        <a href="/terms" className="link">
-          Terms of Service
-        </a>
+        <RLink asChild>
+          <Link href={"/terms"} className="link">
+            Terms of Service
+          </Link>
+        </RLink>
         .
-      </span>
+      </Text>
     </main>
   );
 };

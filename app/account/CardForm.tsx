@@ -17,12 +17,14 @@ type CardFormProps = {
   deleteAction?: (formData: FormData) => void;
   name: string;
   submitText?: string;
+  showSubmit?: boolean;
 } & PropsWithChildren;
 
 const CardForm: FC<CardFormProps> = ({
   action,
   name,
   submitText = "Save",
+  showSubmit = true,
   deleteAction,
   children,
 }) => {
@@ -37,15 +39,19 @@ const CardForm: FC<CardFormProps> = ({
           </Text>
         )}
       </CardContent>
-      <Separator size="4" mb="5" />
-      <CardFooter justify={deleteAction ? "between" : "end"}>
-        {deleteAction && (
-          <SubmitButton variant="outline" formAction={deleteAction}>
-            Delete
-          </SubmitButton>
-        )}
-        <SubmitButton>{submitText}</SubmitButton>
-      </CardFooter>
+      {showSubmit && (
+        <>
+          <Separator size="4" mb="5" />
+          <CardFooter justify={deleteAction ? "between" : "end"}>
+            {deleteAction && (
+              <SubmitButton variant="outline" formAction={deleteAction}>
+                Delete
+              </SubmitButton>
+            )}
+            <SubmitButton>{submitText}</SubmitButton>
+          </CardFooter>
+        </>
+      )}
     </form>
   );
 };

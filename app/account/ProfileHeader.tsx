@@ -41,7 +41,6 @@ const ProfileHeader: FC<User> = (user) => {
         gap={{ initial: "4", md: "8" }}
         p="3"
         width="100%"
-        style={{ border: "1px solid var(--color-primary)" }}
       >
         <Card className="shrink-0">
           <ProfilePicture {...user} />
