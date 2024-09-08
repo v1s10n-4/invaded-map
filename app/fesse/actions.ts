@@ -1,14 +1,15 @@
 "use server";
 import { auth } from "@/auth";
 import { db } from "@/db";
-import { CustomDrizzleAdapter } from "@/db/auth/adapter";
+
 import { getTag, TagName, tags } from "@/utils/revalidation-tags";
+import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { revalidateTag } from "next/cache";
 
 export type TagNameFormEntry = TagName | File | null;
 export const deleteUser = async () => {
   const session = await auth();
-  const adapter = CustomDrizzleAdapter(db);
+  const adapter = DrizzleAdapter(db);
   if (session?.user?.id && adapter.deleteUser) {
     const res = await adapter.deleteUser(session.user.id);
     console.log(res);

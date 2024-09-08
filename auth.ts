@@ -1,8 +1,15 @@
 import { db, User as DrizzleUser } from "@/db";
-import { CustomDrizzleAdapter } from "@/db/auth/adapter";
+import {
+  accounts as accountsTable,
+  authenticators as authenticatorsTable,
+  sessions as sessionsTable,
+  users as usersTable,
+  verificationTokens as verificationTokensTable,
+} from "@/db/schema/users";
 import { Colors } from "@/utils";
-import Discord from "next-auth/providers/discord";
+import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import NextAuth, { DefaultSession, NextAuthConfig } from "next-auth";
+import Discord from "next-auth/providers/discord";
 import Google from "next-auth/providers/google";
 
 declare module "next-auth" {
@@ -21,7 +28,13 @@ const config: NextAuthConfig = {
     brandColor: Colors.primary,
     logo: `${process.env.URL}/icons/ios/128.png`,
   },
-  adapter: CustomDrizzleAdapter(db),
+  adapter: DrizzleAdapter(db, {
+    usersTable,
+    accountsTable,
+    sessionsTable,
+    verificationTokensTable,
+    authenticatorsTable,
+  }),
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID,
