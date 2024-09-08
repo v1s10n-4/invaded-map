@@ -7,13 +7,9 @@ import {
   CardTitle,
 } from "@/components/Card";
 import SubmitButton from "@/components/SubmitButton";
-import { db, Invader, ReviewTask, User } from "@/db";
-import { reviewTasks } from "@/db/schema/reviewTasks";
+import { Invader, ReviewTask, User } from "@/db";
 import { getState } from "@/utils/data";
-import { getTags } from "@/utils/revalidation-tags";
 import { Flex, Inset, Separator, Skeleton, Text } from "@radix-ui/themes";
-import { eq } from "drizzle-orm";
-import { unstable_cache } from "next/cache";
 import React, { FC } from "react";
 
 export const ReferralLinkSkeleton = () => (
@@ -104,32 +100,6 @@ export const ContributionActions: FC<Pick<ReviewTask, "id">> = ({ id }) => {
     </form>
   );
 };
-
-export const getAllReviews = unstable_cache(
-  async () => {
-    const res = await db.select().from(reviewTasks);
-    return res;
-  },
-  getTags("all reviews"),
-  { tags: getTags("all reviews") }
-);
-
-export const getReview = async (id: ReviewTask["id"]) =>
-  unstable_cache(
-    () => {
-      return db.query.reviewTasks.findFirst({
-        with: {
-          entity: true,
-          editor: true,
-        },
-        where: eq(reviewTasks.id, id),
-      });
-    },
-    ["review", id.toString()],
-    {
-      tags: getTags("review", id.toString()),
-    }
-  );
 
 export const getChangedValue = (change: ReviewTask["change"]) => {
   if (change.field === "state") {

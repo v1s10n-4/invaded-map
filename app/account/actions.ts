@@ -11,12 +11,12 @@ import { referralLinks } from "@/db/schema/referral_links";
 import { reviewTasks } from "@/db/schema/reviewTasks";
 import { users } from "@/db/schema/users";
 import { canReviewOwnContribution } from "@/lib/utils";
-import { getTag } from "@/utils/revalidation-tags";
+import { getTag, getTags } from "@/utils/revalidation-tags";
 import { createFetchRequester } from "@algolia/requester-fetch";
 import { del, put } from "@vercel/blob";
 import algoliasearch from "algoliasearch";
 import { eq } from "drizzle-orm";
-import { revalidateTag } from "next/cache";
+import { revalidateTag, unstable_cache } from "next/cache";
 import { wait } from "next/dist/lib/wait";
 
 export const updateUsername = async (_prevState: any, formData: FormData) => {
@@ -194,3 +194,29 @@ export const acceptContribution = async (id: ReviewTask["id"]) => {
     revalidateTag(getTag("invader history", entity.id.toString()));
   }
 };
+
+export const getAllReviews = unstable_cache(
+  async () => {
+    const res = await db.select().from(reviewTasks);
+    return res;
+  },
+  getTags("all reviews"),
+  { tags: getTags("all reviews") }
+);
+
+export const getReview = async (id: ReviewTask["id"]) =>
+  unstable_cache(
+    () => {
+      return db.query.reviewTasks.findFirst({
+        with: {
+          entity: true,
+          editor: true,
+        },
+        where: eq(reviewTasks.id, id),
+      });
+    },
+    ["review", id.toString()],
+    {
+      tags: getTags("review", id.toString()),
+    }
+  );

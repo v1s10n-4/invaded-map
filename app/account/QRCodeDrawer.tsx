@@ -79,7 +79,6 @@ export const QRCodeDrawer: FC<{ link: string }> = ({ link }) => {
 
 export const QRCodeImage: FC<{ link: string }> = async ({ link }) => {
   let qrcode;
-  console.log("rendered");
   try {
     qrcode = await toString(link, {
       type: "svg",

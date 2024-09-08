@@ -1,6 +1,7 @@
+import { getAllReviews } from "@/app/account/actions";
 import ReviewCard from "@/app/account/ReviewCard";
 import ReviewsCarousel from "@/app/account/ReviewsCarousel";
-import { DisplayRole, getAllReviews } from "@/app/account/utils";
+import { DisplayRole } from "@/app/account/utils";
 import {
   Card,
   CardDescription,

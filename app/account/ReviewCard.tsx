@@ -1,8 +1,8 @@
+import { getReview } from "@/app/account/actions";
 import {
   ContributionActions,
   getChangedValue,
   getInvaderValue,
-  getReview,
   ReviewActions,
 } from "@/app/account/utils";
 import {
