@@ -16,10 +16,10 @@ export function ErrorPage() {
             className="flex flex-col items-center justify-center gap-4 border-2 border-[--accent-9] p-4 lg:gap-6 lg:p-6 lg:pt-8"
           >
             <Heading style={textShadow}>404</Heading>
-            <Text size="4" className="text-3xl lg:text-5xl" style={textShadow}>
+            <Text size="4" style={textShadow}>
               INVADER
             </Text>
-            <Text size="3" className="text-2xl lg:text-4xl" style={textShadow}>
+            <Text size="3" style={textShadow}>
               NOT FOUND
             </Text>
           </Card>
