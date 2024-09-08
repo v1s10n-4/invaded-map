@@ -1,6 +1,5 @@
 import DiscordIcon from "@/public/icons/discord-logo.svg";
 import {
-  Box,
   Button,
   Container,
   Flex,

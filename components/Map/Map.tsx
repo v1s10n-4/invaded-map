@@ -2,9 +2,8 @@
 import useIVDMapStore from "@/app/store";
 import UserMarker from "@/components/Map/UserMarker";
 import { InvaderWithLocation } from "@/db";
-import SplashScreen from "@/public/assets/images/splashscreen.gif";
 import { Paris } from "@/utils";
-import { Box, Flex, Spinner } from "@radix-ui/themes";
+import { Flex, Spinner } from "@radix-ui/themes";
 import {
   GoogleMap,
   GoogleMapProps,
@@ -12,7 +11,6 @@ import {
   MarkerClustererF as MarkerClusterer,
   MarkerF as Marker,
 } from "@react-google-maps/api";
-import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { NextRequest } from "next/server";
 import React, { FC, useEffect, useState } from "react";

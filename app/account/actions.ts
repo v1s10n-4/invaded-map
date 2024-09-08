@@ -4,7 +4,7 @@ import {
   updateUsernameSchema,
 } from "@/app/account/schema";
 import { auth, signIn, updateUser } from "@/auth";
-import { db, Invader, ReviewTask, User } from "@/db";
+import { db, Invader, ReviewTask } from "@/db";
 import { contributions } from "@/db/schema/contributions";
 import { invaders } from "@/db/schema/invaders";
 import { referralLinks } from "@/db/schema/referral_links";

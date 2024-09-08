@@ -1,19 +1,11 @@
 import { createReferralLink } from "@/app/account/actions";
-import QRCodeIcon from "@/app/account/qr-code.svg";
 import QRCodeDrawer from "@/app/account/QRCodeDrawer";
 import { CardContent, CardFooter } from "@/components/Card";
 import CopyButton from "@/components/CopyButton";
 import SubmitButton from "@/components/SubmitButton";
 import { db, User } from "@/db";
 import { referralLinks } from "@/db/schema/referral_links";
-import {
-  Card,
-  Flex,
-  IconButton,
-  Skeleton,
-  Spinner,
-  Text,
-} from "@radix-ui/themes";
+import { Card, Flex, IconButton, Spinner, Text } from "@radix-ui/themes";
 import { and, desc, eq } from "drizzle-orm";
 import React, { FC, Suspense } from "react";
 

@@ -1,5 +1,5 @@
 "use server";
-import { auth, signIn, signOut } from "@/auth";
+import { auth } from "@/auth";
 import { db } from "@/db";
 import { CustomDrizzleAdapter } from "@/db/auth/adapter";
 import { getTag, TagName, tags } from "@/utils/revalidation-tags";
