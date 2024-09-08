@@ -1,15 +1,16 @@
 "use client";
+import { mapOptions } from "@/app/map/utils";
+import useDeviceOrientation from "@/app/map/utils/useDeviceOrientation";
+import useIVDMapStore from "@/app/store";
+import { Colors } from "@/utils";
+import { Card, Flex, IconButton } from "@radix-ui/themes";
 import { clsx } from "clsx";
-import MinusIcon from "pixelarticons/svg/minus.svg";
 import GPSIcon from "pixelarticons/svg/gps.svg";
-import PlusIcon from "pixelarticons/svg/plus.svg";
 import CompassIcon from "pixelarticons/svg/loader.svg";
+import MinusIcon from "pixelarticons/svg/minus.svg";
+import PlusIcon from "pixelarticons/svg/plus.svg";
 import React, { FC, useCallback, useEffect, useRef } from "react";
 import { useGeolocated } from "react-geolocated";
-import useDeviceOrientation from "@/components/Map/utils/useDeviceOrientation";
-import { Colors } from "@/utils";
-import { mapOptions } from "@/components/Map/utils";
-import useIVDMapStore from "@/app/store";
 
 type UserMarkerProps = {
   map: google.maps.Map;
@@ -142,35 +143,33 @@ export const UserMarker: FC<UserMarkerProps> = ({ map }) => {
     setLockUserPosition,
   ]);
   return (
-    <div className="absolute bottom-14 right-2 z-10 flex flex-col gap-2">
-      <button
-        className={clsx(
-          "relative h-12 w-12 select-none border-2 border-primary bg-black p-1 text-primary",
-          isGeolocationEnabled && lockUserPosition
-            ? ""
-            : "after:absolute after:inset-0 after:m-4 after:bg-black"
-        )}
-        onClick={locate}
-      >
-        {lockUserRotation ? (
-          <CompassIcon className="h-full w-full" />
-        ) : (
-          <GPSIcon className="h-full w-full" />
-        )}
-      </button>
-      <button
-        className="h-12 w-12 select-none border-2 border-primary bg-black p-1 text-primary"
-        onClick={zoom}
-      >
-        <PlusIcon className="h-full w-full" />
-      </button>
-      <button
-        className="h-12 w-12 select-none border-2 border-primary bg-black p-1 text-primary"
-        onClick={unZoom}
-      >
-        <MinusIcon className="h-full w-full" />
-      </button>
-    </div>
+    <Card className="absolute bottom-14 right-2 z-10">
+      <Flex direction="column" gap="2">
+        <IconButton
+          variant="outline"
+          size="3"
+          className={clsx(
+            "relative",
+            isGeolocationEnabled && lockUserPosition
+              ? ""
+              : "after:absolute after:inset-0 after:m-4 after:bg-black"
+          )}
+          onClick={locate}
+        >
+          {lockUserRotation ? (
+            <CompassIcon className="h-6 w-6" />
+          ) : (
+            <GPSIcon className="h-6 w-6" />
+          )}
+        </IconButton>
+        <IconButton variant="outline" size="3" onClick={zoom}>
+          <PlusIcon className="h-6 w-6" />
+        </IconButton>
+        <IconButton variant="outline" size="3" onClick={unZoom}>
+          <MinusIcon className="h-6 w-6" />
+        </IconButton>
+      </Flex>
+    </Card>
   );
 };
 

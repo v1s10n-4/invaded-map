@@ -2,8 +2,8 @@
 import InvaderHit from "@/app/list/InvaderHit";
 import { SkeletonHit } from "@/app/list/SkeletonHit";
 import { Invader } from "@/db";
-import { Colors } from "@/utils";
-import React, { FC, PropsWithChildren, useEffect, useState } from "react";
+import { Grid, ScrollArea } from "@radix-ui/themes";
+import React, { useEffect, useState } from "react";
 import useInfiniteScroll from "react-infinite-scroll-hook";
 import {
   useInfiniteHits,
@@ -11,11 +11,6 @@ import {
   useInstantSearch,
 } from "react-instantsearch";
 
-const Grid: FC<PropsWithChildren> = ({ children }) => (
-  <div className="grid grid-cols-1 gap-4 p-2 sm:grid-cols-2 md:grid-cols-3 md:p-4 lg:p-6 xl:grid-cols-4">
-    {children}
-  </div>
-);
 const InvaderList = (props: UseInfiniteHitsProps<Invader>) => {
   const {
     hits,
@@ -39,25 +34,36 @@ const InvaderList = (props: UseInfiniteHitsProps<Invader>) => {
   }, []);
 
   return (
-    <main
-      className="scrollbar carousel-vertical h-full scroll-pt-4 overflow-y-scroll scrollbar-thumb-current scrollbar-track-black"
-      style={{ scrollbarColor: Colors.primary }}
+    <ScrollArea
       ref={rootRef}
+      type="always"
+      scrollbars="vertical"
+      size="2"
+      className="h-[calc(100dvh-(160px+env(safe-area-inset-bottom)))] [&>div]:snap-y [&>div]:snap-mandatory [&>div]:scroll-py-[--space-4] [&>div]:scroll-smooth"
+      asChild
     >
-      <Grid>
-        {(mounted ? hits : results?.hits || []).map((hit) => (
-          <InvaderHit key={hit.id} {...hit} />
-        ))}
-        {!loading && !disabled && (
-          <SkeletonHit>
-            <div ref={sentryRef} />
-          </SkeletonHit>
-        )}
-        {loading &&
-          !disabled &&
-          [...Array(19)].map((_x, i) => <SkeletonHit key={"skeleton" + i} />)}
-      </Grid>
-    </main>
+      <main>
+        <Grid
+          columns={{ initial: "1", sm: "2", md: "3", lg: "4" }}
+          p="4"
+          gap="4"
+        >
+          {(mounted ? hits : results?.hits || []).map((hit) => (
+            <InvaderHit key={hit.id} {...hit} />
+          ))}
+          {!loading && !disabled && (
+            <SkeletonHit index={42}>
+              <div ref={sentryRef} />
+            </SkeletonHit>
+          )}
+          {loading &&
+            !disabled &&
+            [...Array(19)].map((_x, i) => (
+              <SkeletonHit key={"skeleton" + i} index={i} />
+            ))}
+        </Grid>
+      </main>
+    </ScrollArea>
   );
 };
 

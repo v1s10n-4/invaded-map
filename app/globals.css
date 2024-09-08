@@ -1,13 +1,76 @@
-@tailwind base;
+@import "tailwindcss/base";
+@import "@radix-ui/themes/styles.css";
+
 @tailwind components;
 @tailwind utilities;
 
 .gm-style iframe + div {
-    border: none !important;
+  border: none !important;
 }
 
-.skeleton {
-    background-color: transparent;
-    border: 1px solid var(--fallback-p,oklch(var(--p)/var(--tw-text-opacity)));
-background-image: linear-gradient(    90deg,    transparent 0%,    transparent 49%,    var(--fallback-p,oklch(var(--p)/var(--tw-text-opacity))) 50%,    transparent 51%,    transparent 100%  );
+.radix-themes {
+  --default-font-family: var(--font-sixtyfour);
+}
+
+.dark,
+.dark-theme,
+:is(.dark, .dark-theme) :where(.radix-themes:not(.light, .light-theme)) {
+  --color-background: #000;
+}
+
+.dark,
+.dark-theme {
+  --red-1: #000;
+  --red-2: #190d0b;
+  --red-3: #3a0e08;
+  --red-4: #540300;
+  --red-5: #660901;
+  --red-6: #781b0f;
+  --red-7: #922c1e;
+  --red-8: #bc3a29;
+  --red-9: #ff2100;
+  --red-10: #e72500;
+  --red-11: #ff8e76;
+  --red-12: #ffd0c6;
+
+  --red-a1: #00000000;
+  --red-a2: #ff857119;
+  --red-a3: #ff3e243a;
+  --red-a4: #ff0a0054;
+  --red-a5: #ff170366;
+  --red-a6: #ff3a2078;
+  --red-a7: #ff4d3592;
+  --red-a8: #ff4f38bc;
+  --red-a9: #ff2100;
+  --red-a10: #ff2900e7;
+  --red-a11: #ff8e76;
+  --red-a12: #ffd0c6;
+
+  --red-contrast: #fff;
+  --red-surface: #321a1680;
+  --red-indicator: #ff2100;
+  --red-track: #ff2100;
+}
+
+/* SPINNER OVERRIDE */
+
+.rt-SpinnerLeaf {
+  display: none;
+}
+
+.rt-Spinner {
+  background-color: currentColor;
+  image-rendering: pixelated;
+  mask: url('/icons/loader.svg');
+}
+
+.rt-Card-accent::after {
+  --base-card-surface-box-shadow: 0 0 0 1px var(--accent-a5);
+  --base-card-surface-hover-box-shadow: 0 0 0 1px var(--accent-a7);
+  --base-card-surface-active-box-shadow: 0 0 0 1px var(--accent-a6);
+}
+
+.rt-Skeleton:where([data-inline-skeleton]) {
+  line-height: 0;
+  font-family: var(--font-sixtyfour) !important;
 }

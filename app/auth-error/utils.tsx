@@ -1,3 +1,4 @@
+import { Button } from "@radix-ui/themes";
 import Link from "next/link";
 
 export type ErrorPageParam = "Configuration" | "AccessDenied" | "Verification";
@@ -13,9 +14,11 @@ export const errors: Record<ErrorPageParam | "default", ErrorView> = {
     status: 200,
     heading: "Error",
     message: (
-      <Link className="btn btn-primary uppercase" href={"/help"}>
-        Contact me
-      </Link>
+      <Button asChild>
+        <Link className="uppercase" href={"/help"}>
+          Contact me
+        </Link>
+      </Button>
     ),
   },
   Configuration: {
@@ -35,9 +38,11 @@ export const errors: Record<ErrorPageParam | "default", ErrorView> = {
       <div>
         <p>You do not have permission to sign in.</p>
         <p>
-          <Link className="btn btn-outline btn-primary mt-4" href={"/map"}>
-            Go to map
-          </Link>
+          <Button asChild>
+            <Link className="mt-4" href={"/map"}>
+              Go to map
+            </Link>
+          </Button>
         </p>
       </div>
     ),
@@ -51,12 +56,11 @@ export const errors: Record<ErrorPageParam | "default", ErrorView> = {
           <p>The sign in link is no longer valid.</p>
           <p>It may have been used already or it may have expired.</p>
         </div>
-        <a
-          className="btn btn-outline btn-primary mt-2 uppercase"
-          href={"/signin"}
-        >
-          Sign in
-        </a>
+        <Button asChild>
+          <a className="mt-2 uppercase" href={"/signin"}>
+            Sign in
+          </a>
+        </Button>
       </>
     ),
   },

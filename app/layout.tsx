@@ -1,14 +1,24 @@
 import "./globals.css";
 import { GtmInit } from "@/app/GtmInit";
-import { Header } from "@/components/Header";
-import { SideMenuContent } from "@/components/SideMenuContent";
+import RootDrawer from "@/app/RootDrawer";
+import RootNav from "@/app/RootNav";
+import { AuthButton } from "@/components/AuthButton";
+import {
+  Card,
+  Flex,
+  ScrollArea,
+  Skeleton,
+  Text,
+  Theme,
+  ThemePanel,
+} from "@radix-ui/themes";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { clsx } from "clsx";
 import { Metadata, Viewport } from "next";
 import { SessionProvider } from "next-auth/react";
 import localFont from "next/font/local";
-import React, { ReactNode } from "react";
+import React, { ReactNode, Suspense } from "react";
 
 export const runtime = "edge";
 
@@ -16,6 +26,7 @@ const sixtyfour = localFont({
   // src: "../public/assets/fonts/Sixtyfour[BLED,SCAN].woff2",
   src: "../public/assets/fonts/Sixtyfour-Normal.woff2",
   // src: "../public/assets/fonts/Glass_TTY_VT220.ttf",
+  variable: "--font-sixtyfour",
 });
 
 const appName = "Invaded Map";
@@ -203,36 +214,83 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
-      data-theme="black"
-      className="text-base"
       content="width=device-width, initial-scale=1, maximum-scale=1"
     >
-      <body className={clsx("bg-black", sixtyfour.className)}>
-        <SessionProvider basePath="/auth">
-          <div className="drawer h-screen lg:drawer-open">
-            <input
-              id="drawer-toggle"
-              type="checkbox"
-              className="drawer-toggle"
-              tabIndex={-1}
-            />
-            <div className="scrollbar drawer-content relative flex flex-col  p-2 scrollbar-thumb-current scrollbar-track-black">
-              <Header />
-              <div
-                id="content"
-                vaul-drawer-wrapper=""
-                className="absolute inset-0"
+      <body className={clsx("bg-[--color-background]", sixtyfour.className)}>
+        <Theme
+          appearance="dark"
+          radius="none"
+          accentColor="red"
+          grayColor="slate"
+        >
+          <SessionProvider basePath="/auth">
+            <Flex
+              position="relative"
+              direction="column"
+              minHeight="100dvh"
+              maxHeight="100dvh"
+              vaul-drawer-wrapper=""
+            >
+              <RootNav />
+              <ScrollArea
+                scrollbars="vertical"
+                // prevent horizontal-scrolling
+                className="[&>div>div]:w-[initial]"
+                asChild
               >
-                {children}
-              </div>
-            </div>
-            <div className="drawer-side z-40 hidden lg:block">
-              <nav className="flex h-full w-80 flex-col gap-3 border-y-0 border-r-4 border-double border-primary bg-base-100 p-4">
-                <SideMenuContent />
-              </nav>
-            </div>
-          </div>
-        </SessionProvider>
+                <Flex
+                  direction="column"
+                  pl={{ initial: "0", sm: "96px" }}
+                  minHeight="100dvh"
+                  maxHeight="100dvh"
+                  id="content"
+                >
+                  <Card
+                    className="sticky top-2 z-[1] rounded-[max(var(--radius-5),var(--radius-full))] [box-shadow:--shadow-5] after:rounded-[max(var(--radius-5),var(--radius-full))] has-[+#map,+#root-loader]:mb-16 pwa:!top-[calc(env(safe-area-inset-top)+var(--space-2))] pwa:mt-[calc(env(safe-area-inset-top)+var(--space-2))]"
+                    my="2"
+                    mr="4"
+                    ml={{ initial: "4", sm: "2" }}
+                    asChild
+                  >
+                    <header>
+                      <Flex
+                        align="center"
+                        gap="2"
+                        px={{ initial: "2", sm: "3" }}
+                      >
+                        <RootDrawer />
+                        <Flex
+                          flexGrow="1"
+                          justify={{ initial: "center", sm: "start" }}
+                        >
+                          <Text size="5" className="uppercase">
+                            Invaded Map
+                          </Text>
+                        </Flex>
+                        <Suspense
+                          fallback={
+                            <Skeleton
+                              width="var(--space-8)"
+                              height="var(--space-8)"
+                              style={{
+                                borderRadius:
+                                  "max(var(--radius-4), var(--radius-full))",
+                              }}
+                            />
+                          }
+                        >
+                          <AuthButton />
+                        </Suspense>
+                      </Flex>
+                    </header>
+                  </Card>
+                  {children}
+                </Flex>
+              </ScrollArea>
+            </Flex>
+          </SessionProvider>
+          <ThemePanel defaultOpen={false} />
+        </Theme>
         <SpeedInsights />
       </body>
       <Analytics />

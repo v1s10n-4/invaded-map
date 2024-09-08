@@ -1,4 +1,4 @@
-import { db, InvaderWithLocation } from "@/db";
+import { db } from "@/db";
 import { invaders } from "@/db/schema/invaders";
 import { isNotNull } from "drizzle-orm";
 

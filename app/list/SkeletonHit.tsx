@@ -1,30 +1,72 @@
-import { defaultHtmlTextColor } from "@/app/list/utils";
+import { getRandomLengthStringSSR } from "@/app/highscores/utils";
+import { Card } from "@/components/Card";
+import Placeholder from "@/components/placeholder.svg";
+import {
+  DataList,
+  Flex,
+  Skeleton,
+  Text,
+  Tooltip,
+  VisuallyHidden,
+} from "@radix-ui/themes";
 import BuildingCommunity from "pixelarticons/svg/building-community.svg";
 import ImageFlash from "pixelarticons/svg/image-flash.svg";
 import React, { FC, PropsWithChildren } from "react";
-import Placeholder from "@/components/placeholder.svg";
 
-export const SkeletonHit: FC<PropsWithChildren> = ({ children }) => {
+export const SkeletonHit: FC<{ index: number } & PropsWithChildren> = ({
+  index,
+  children,
+}) => {
   return (
-    <div className="group carousel-item flex flex-col gap-2 border-4 border-double border-primary p-2">
-      <div className="relative w-full">
-        <Placeholder className="h-full w-full" width={192} height={192} />
-        <div className="absolute left-1 top-1 h-[38px] w-32 border border-primary bg-black p-1.5 md:h-6 md:p-1">
-          <div className="h-full w-full bg-primary" />
+    <Card elevation className="group carousel-item" asChild>
+      <Flex direction="column" gap="2" p="2">
+        <div className="relative w-full">
+          <Skeleton>
+            <Placeholder
+              className="h-full w-full rounded-[--radius-3]"
+              width={192}
+              height={192}
+            />
+          </Skeleton>
+          <Text
+            className="absolute left-1 top-1 rounded-[--radius-1] border border-[--gray-6] bg-[--color-panel-solid] px-1 py-0.5"
+            size="4"
+          >
+            <Skeleton>{getRandomLengthStringSSR(index, 6, 8)}</Skeleton>
+          </Text>
+          <Text
+            className="absolute bottom-1 right-1 rounded-[--radius-1] border border-[--gray-6] bg-[--color-panel-solid] px-1 py-0.5"
+            size="3"
+          >
+            <Skeleton>{getRandomLengthStringSSR(index, 6, 7)}</Skeleton>
+          </Text>
         </div>
-        <div className="absolute bottom-1 right-1 h-[38px] w-32 border border-primary bg-black p-1.5 md:h-6 md:p-1">
-          <div className="h-full w-full bg-primary" />
-        </div>
-      </div>
-      <div className="flex items-center gap-2 text-xs">
-        <ImageFlash className="flex h-5 w-5 shrink-0" />
-        <div className="h-4 w-20" style={defaultHtmlTextColor} />
-      </div>
-      <div className="flex items-center gap-2 text-xs">
-        <BuildingCommunity className="h-5 w-5 shrink-0" />
-        <div className="h-4 w-40" style={defaultHtmlTextColor} />
-      </div>
-      {children}
-    </div>
+        <DataList.Root size="1">
+          <DataList.Item align="center">
+            <Tooltip content="State">
+              <DataList.Label minWidth="24px">
+                <ImageFlash className="h-6 w-6" />
+                <VisuallyHidden>State</VisuallyHidden>
+              </DataList.Label>
+            </Tooltip>
+            <DataList.Value>
+              <Skeleton>{getRandomLengthStringSSR(index, 10, 22, 4)}</Skeleton>
+            </DataList.Value>
+          </DataList.Item>
+          <DataList.Item align="center">
+            <Tooltip content="City">
+              <DataList.Label minWidth="24px">
+                <BuildingCommunity className="h-6 w-6" />
+                <VisuallyHidden>City</VisuallyHidden>
+              </DataList.Label>
+            </Tooltip>
+            <DataList.Value>
+              <Skeleton>{getRandomLengthStringSSR(index, 8, 28, 6)}</Skeleton>
+            </DataList.Value>
+          </DataList.Item>
+        </DataList.Root>
+        {children}
+      </Flex>
+    </Card>
   );
 };

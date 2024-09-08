@@ -1,5 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-const { Colors } = require("./utils");
 module.exports = {
   darkMode: ["class"],
   content: [
@@ -8,40 +7,23 @@ module.exports = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./utils/styles.ts",
   ],
-  daisyui: {
-    themes: [
-      {
-        dark: {
-          "color-scheme": "dark",
-          "primary": Colors.primary,
-          "secondary": Colors.secondary,
-          "accent": Colors.accent,
-          "base-100": "#000000",
-          "base-200": "#0D0D0D",
-          "base-300": "#1A1919",
-          "neutral": "#272626",
-          "neutral-focus": "#343232",
-          "info": "#0000ff",
-          "success": "#008000",
-          "warning": "#ffff00",
-          "error": "#ff0000",
-          "--rounded-box": "0",
-          "--rounded-btn": "0",
-          "--rounded-badge": "0",
-          "--animation-btn": "0",
-          "--animation-input": "0",
-          "--btn-text-case": "lowercase",
-          "--btn-focus-scale": "1",
-          "--tab-radius": "0",
-          ".scrollbar::-webkit-scrollbar": {
-            width: 4,
-            height: 4,
-          },
-        },
-      },
-    ],
-  },
   theme: {
+    screens: {
+      // Phones (portrait)
+      initial: "0px",
+      // Phones (landscape)
+      xs: "520px",
+      // Tablets (portrait)
+      sm: "768px",
+      // Tablets (landscape)
+      md: "1024px",
+      // Laptops
+      lg: "1280px",
+      // Desktops
+      xl: "1640px",
+      // Notched devices
+      pwa: { raw: "(display-mode: standalone)" },
+    },
     extend: {
       height: {
         screen: ["100vh", "100dvh"],
@@ -62,10 +44,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require("@tailwindcss/typography"),
-    require("tailwindcss-animate"),
-    require("daisyui"),
-    require("daisyui-tailwind-scrollbar"),
-  ],
+  plugins: [require("@tailwindcss/typography"), require("tailwindcss-animate")],
 };

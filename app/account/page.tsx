@@ -4,11 +4,13 @@ import {
   updateUsername,
 } from "@/app/account/actions";
 import CardForm from "@/app/account/CardForm";
+import ProfileHeader from "@/app/account/ProfileHeader";
 import ReferralLink from "@/app/account/ReferralLink";
 import ReviewsSection from "@/app/account/ReviewsSection";
-import { ACCEPTED_IMAGE_TYPES } from "@/app/account/schema";
-import { DisplayUserName } from "@/app/account/utils";
-import { signOutAction } from "@/app/actions";
+import {
+  ReferralLinkSkeleton,
+  ReviewSectionSkeleton,
+} from "@/app/account/utils";
 import { auth, signIn } from "@/auth";
 import {
   Card,
@@ -16,89 +18,54 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/Card";
-import { HitPlaceholder } from "@/components/Placeholder";
-import SubmitButton from "@/components/SubmitButton";
-import { tooltipClass } from "@/utils";
-import Image from "next/image";
-import LogOutIcon from "pixelarticons/svg/logout.svg";
+import { FileInput } from "@/components/FileInput";
+import {
+  Container,
+  Flex,
+  Heading,
+  Section,
+  Separator,
+  TextField,
+} from "@radix-ui/themes";
 
 import React, { FC, Suspense } from "react";
 
 export const runtime = "edge";
 
-const FessePage: FC = async () => {
+const AccountPage: FC = async () => {
   const session = await auth();
   if (!session?.user) return await signIn();
   const user = session.user;
 
   return (
-    <main className="mt-20 flex flex-1 flex-col gap-4 overflow-hidden p-4 md:gap-8 md:p-10 lg:mt-24">
-      <div className="divider divider-primary mx-auto w-full">
-        <h1 className="text-xl font-semibold md:text-2xl lg:text-3xl">
-          Account
-        </h1>
-      </div>
-
-      <div className="mx-auto flex w-full max-w-2xl flex-col gap-8">
-        <div className="flex w-full flex-col items-center gap-4 border border-primary p-6 md:flex-row md:gap-8">
-          <Image
-            src={user.image || HitPlaceholder(96, 96)}
-            className="md:w-22 md:h-22 border-3 h-28 w-28 border-4 border-double border-primary p-1 lg:h-24 lg:w-24"
-            alt="your profile picture"
-            width={96}
-            height={96}
-            placeholder={HitPlaceholder(96, 96)}
-          />
-          <div className="flex h-full w-full flex-col items-center justify-between gap-2 md:flex-row md:items-end">
-            <div className="flex flex-col items-center gap-2 text-xs md:my-auto md:items-start">
-              <h2 className="mb-1 text-base text-primary md:text-lg">
-                <DisplayUserName {...user} />
-              </h2>
-              <h2 className="break-all text-center">{user.email}</h2>
-              <h4>Created: {new Date(user.created_at).toLocaleDateString()}</h4>
-            </div>
-            <form
-              action={signOutAction}
-              className={tooltipClass}
-              data-tip="Log out"
-            >
-              <SubmitButton className="btn-outline btn-primary btn-wide flex !p-1 md:btn-square">
-                <span className="md:hidden">Sign out</span>
-                <LogOutIcon className="aspect-square h-full w-8 md:w-full" />
-              </SubmitButton>
-            </form>
-          </div>
-        </div>
-        <Suspense
-          fallback={
-            <div className="flex h-64 items-center justify-center border border-primary p-2">
-              <span className="loading loading-bars h-8 w-8" />
-            </div>
-          }
+    <Container px={{ initial: "1", sm: "2" }}>
+      <Section>
+        <Flex
+          direction="column"
+          gap={{ initial: "4", sm: "5", md: "6" }}
+          className="mx-auto w-full max-w-2xl"
         >
-          <ReviewsSection user={user} />
-        </Suspense>
-        <div className="grid gap-6">
-          <Card>
+          <Flex align="center" gap="3">
+            <Separator size="4" />
+            <Heading>Account</Heading>
+            <Separator size="4" />
+          </Flex>
+          <ProfileHeader {...user} />
+          <Suspense fallback={<ReviewSectionSkeleton />}>
+            <ReviewsSection user={user} />
+          </Suspense>
+          <Card elevation>
             <CardHeader>
               <CardTitle>Invitation link</CardTitle>
               <CardDescription>
                 Earn contribution points by inviting people.
               </CardDescription>
             </CardHeader>
-            <Suspense
-              fallback={
-                <div className="px-6 pb-6">
-                  <div className="flex items-center justify-center border border-primary p-2">
-                    <span className="loading loading-bars h-8 w-8" />
-                  </div>
-                </div>
-              }
-            >
+            <Suspense fallback={<ReferralLinkSkeleton />}>
               <ReferralLink id={user.id} />
             </Suspense>
           </Card>
-          <Card>
+          <Card elevation>
             <CardHeader>
               <CardTitle>Username</CardTitle>
               <CardDescription>
@@ -106,18 +73,18 @@ const FessePage: FC = async () => {
               </CardDescription>
             </CardHeader>
             <CardForm action={updateUsername} name="name">
-              <input
+              <TextField.Root
+                size="3"
                 name="name"
                 defaultValue={user.name!}
                 required
                 minLength={3}
                 maxLength={32}
-                className="input input-primary w-full"
                 placeholder="username"
               />
             </CardForm>
           </Card>
-          <Card>
+          <Card elevation>
             <CardHeader>
               <CardTitle>Avatar</CardTitle>
               <CardDescription>
@@ -129,19 +96,13 @@ const FessePage: FC = async () => {
               name="image"
               deleteAction={user.image ? deleteAvatar : undefined}
             >
-              <input
-                name="image"
-                type="file"
-                required
-                accept={ACCEPTED_IMAGE_TYPES.join(", ")}
-                className="file-input file-input-primary w-full max-w-md"
-              />
+              <FileInput size="3" required />
             </CardForm>
           </Card>
-        </div>
-      </div>
-    </main>
+        </Flex>
+      </Section>
+    </Container>
   );
 };
 
-export default FessePage;
+export default AccountPage;

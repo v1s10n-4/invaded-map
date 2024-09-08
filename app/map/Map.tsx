@@ -1,9 +1,9 @@
 "use client";
+import UserMarker from "@/app/map/UserMarker";
 import useIVDMapStore from "@/app/store";
-import UserMarker from "@/components/Map/UserMarker";
 import { InvaderWithLocation } from "@/db";
-import SplashScreen from "@/public/assets/images/splashscreen.gif";
 import { Paris } from "@/utils";
+import { Flex, Spinner } from "@radix-ui/themes";
 import {
   GoogleMap,
   GoogleMapProps,
@@ -11,7 +11,6 @@ import {
   MarkerClustererF as MarkerClusterer,
   MarkerF as Marker,
 } from "@react-google-maps/api";
-import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { NextRequest } from "next/server";
 import React, { FC, useEffect, useState } from "react";
@@ -75,12 +74,9 @@ export const MapView: FC<{ invaders: InvaderWithLocation[] }> = ({
   return (
     <LoadScriptNext
       loadingElement={
-        <Image
-          priority
-          src={SplashScreen}
-          alt={"Invaded map loading"}
-          className="relative h-full w-full object-contain"
-        />
+        <Flex position="fixed" inset="0" align="center" justify="center">
+          <Spinner size="3" />
+        </Flex>
       }
       libraries={gmapLibraries}
       googleMapsApiKey={

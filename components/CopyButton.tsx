@@ -1,9 +1,8 @@
 "use client";
-import { tooltipClass } from "@/utils";
-import { clsx } from "clsx";
-import CopyIcon from "pixelarticons/svg/copy.svg";
+import { IconButton, IconButtonProps, Tooltip } from "@radix-ui/themes";
 import ChechIcon from "pixelarticons/svg/check.svg";
-import React, { ButtonHTMLAttributes, FC, useCallback, useState } from "react";
+import CopyIcon from "pixelarticons/svg/copy.svg";
+import React, { FC, useCallback, useState } from "react";
 
 type CopyLinkButtonProps = {
   link: string;
@@ -11,7 +10,7 @@ type CopyLinkButtonProps = {
   tooltip?: string;
   confirmationMessage?: string;
   confirmationDuration?: number;
-} & ButtonHTMLAttributes<HTMLButtonElement>;
+} & IconButtonProps;
 
 const CopyLinkButton: FC<CopyLinkButtonProps> = ({
   link,
@@ -19,7 +18,6 @@ const CopyLinkButton: FC<CopyLinkButtonProps> = ({
   tooltip = false,
   confirmationMessage = "copied",
   confirmationDuration = 1500,
-  className,
   children = "Copy",
   ...props
 }) => {
@@ -34,21 +32,18 @@ const CopyLinkButton: FC<CopyLinkButtonProps> = ({
     return () => clearTimeout(timer);
   }, [confirmationDuration, link]);
   return (
-    <button
-      onClick={copyToClipboard}
-      type="button"
-      className={clsx(tooltipClass, className)}
-      data-tip={showConfirmation ? "copied" : "copy"}
-      {...props}
-    >
-      {icons &&
-        (showConfirmation ? (
-          <ChechIcon className="h-6 w-6" />
-        ) : (
-          <CopyIcon className="h-6 w-6" />
-        ))}
-      {icons !== "only" && (showConfirmation ? confirmationMessage : children)}
-    </button>
+    <Tooltip content={showConfirmation ? "copied" : "copy"}>
+      <IconButton onClick={copyToClipboard} type="button" {...props}>
+        {icons &&
+          (showConfirmation ? (
+            <ChechIcon className="h-6 w-6" />
+          ) : (
+            <CopyIcon className="h-6 w-6" />
+          ))}
+        {icons !== "only" &&
+          (showConfirmation ? confirmationMessage : children)}
+      </IconButton>
+    </Tooltip>
   );
 };
 

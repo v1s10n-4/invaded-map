@@ -1,25 +1,23 @@
 "use client";
-import { cn } from "@/lib/utils";
-import { ButtonHTMLAttributes, FC, HTMLAttributes } from "react";
+import { Button, ButtonProps } from "@radix-ui/themes";
+import { FC, forwardRef } from "react";
 import { useFormStatus } from "react-dom";
 
-type SubmitButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
+type SubmitButtonProps = ButtonProps;
 
-const SubmitButton: FC<SubmitButtonProps> = ({
-  className,
-  children,
-  ...props
-}) => {
-  const { pending } = useFormStatus();
-  return (
-    <button className={cn("btn", className)} disabled={pending} {...props}>
-      {pending ? (
-        <span className="loading loading-spinner loading-sm" />
-      ) : (
-        children
-      )}
-    </button>
-  );
-};
+const SubmitButton: FC<SubmitButtonProps> = forwardRef<
+  HTMLButtonElement,
+  ButtonProps
+>(({ children, ...rest }, ref) => {
+  const { pending: loading } = useFormStatus();
+  const props = {
+    ref,
+    loading,
+    ...rest,
+  };
+  return <Button {...props}>{children}</Button>;
+});
+
+SubmitButton.displayName = "SubmitButton";
 
 export default SubmitButton;

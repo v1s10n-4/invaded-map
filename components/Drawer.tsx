@@ -1,9 +1,14 @@
 "use client";
 
-import * as React from "react";
-import { Drawer as DrawerPrimitive } from "vaul";
-
 import { cn } from "@/lib/utils";
+import { Flex, FlexProps, Grid, Heading, Text, Theme } from "@radix-ui/themes";
+import {
+  ComponentPropsAs,
+  ComponentPropsWithout,
+} from "@radix-ui/themes/src/helpers";
+import * as React from "react";
+import { ComponentProps } from "react";
+import { Drawer as DrawerPrimitive } from "vaul";
 
 const Drawer = ({
   shouldScaleBackground = true,
@@ -28,7 +33,7 @@ const DrawerOverlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DrawerPrimitive.Overlay
     ref={ref}
-    className={cn("fixed inset-0 z-50 bg-black/80", className)}
+    className={cn("rt-BaseDialogOverlay rt-DialogOverlay", className)}
     {...props}
   />
 ));
@@ -37,72 +42,59 @@ DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName;
 const DrawerContent = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content>
->(({ className, children, ...props }, ref) => (
+>((props, ref) => (
   <DrawerPortal>
-    <DrawerOverlay />
-    <DrawerPrimitive.Content
-      ref={ref}
-      className={cn(
-        "bg-background fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[10px] border",
-        className
-      )}
-      {...props}
-    >
-      {/*<div className="bg-muted mx-auto mt-4 h-2 w-[100px] rounded-full" />*/}
-      {children}
-    </DrawerPrimitive.Content>
+    <Theme>
+      <DrawerPrimitive.Content ref={ref} {...props} />
+    </Theme>
   </DrawerPortal>
 ));
 DrawerContent.displayName = "DrawerContent";
 
-const DrawerHeader = ({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) => (
-  <div
-    className={cn("grid gap-1.5 p-4 text-center sm:text-left", className)}
+const DrawerHeader = ({ className, ...props }: ComponentProps<typeof Grid>) => (
+  <Grid
+    gap="1"
+    p="4"
+    className={cn("text-center sm:text-left", className)}
     {...props}
   />
 );
 DrawerHeader.displayName = "DrawerHeader";
 
-const DrawerFooter = ({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) => (
-  <div
-    className={cn("mt-auto flex flex-col gap-2 p-4", className)}
-    {...props}
-  />
+const DrawerFooter = ({ className, ...props }: FlexProps) => (
+  <Flex direction="column" gap="2" p="4" mt="auto" {...props} />
 );
 DrawerFooter.displayName = "DrawerFooter";
 
-const DrawerTitle = React.forwardRef<
-  React.ElementRef<typeof DrawerPrimitive.Title>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Title>
->(({ className, ...props }, ref) => (
-  <DrawerPrimitive.Title
-    ref={ref}
-    className={cn(
-      "text-lg font-semibold leading-none tracking-tight",
-      className
-    )}
-    {...props}
-  />
-));
-DrawerTitle.displayName = DrawerPrimitive.Title.displayName;
+type DrawerTitleElement = React.ElementRef<typeof Heading>;
+type DrawerTitleProps = ComponentPropsWithout<typeof Heading, "asChild">;
+const DrawerTitle = React.forwardRef<DrawerTitleElement, DrawerTitleProps>(
+  (props, forwardedRef) => (
+    <DrawerPrimitive.Title asChild>
+      <Heading
+        size="5"
+        mb="3"
+        trim="start"
+        {...props}
+        asChild={false}
+        ref={forwardedRef}
+      />
+    </DrawerPrimitive.Title>
+  )
+);
+DrawerTitle.displayName = "DrawerTitle";
 
+type DrawerDescriptionElement = HTMLParagraphElement;
+type DrawerDescriptionProps = ComponentPropsAs<typeof Text, "p">;
 const DrawerDescription = React.forwardRef<
-  React.ElementRef<typeof DrawerPrimitive.Description>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Description>
->(({ className, ...props }, ref) => (
-  <DrawerPrimitive.Description
-    ref={ref}
-    className={cn("text-muted-foreground text-sm", className)}
-    {...props}
-  />
+  DrawerDescriptionElement,
+  DrawerDescriptionProps
+>((props, forwardedRef) => (
+  <DrawerPrimitive.Description asChild>
+    <Text as="p" size="3" {...props} asChild={false} ref={forwardedRef} />
+  </DrawerPrimitive.Description>
 ));
-DrawerDescription.displayName = DrawerPrimitive.Description.displayName;
+DrawerDescription.displayName = "DrawerDescription";
 
 export {
   Drawer,

@@ -1,4 +1,4 @@
-import Map from "@/components/Map";
+import Map from "@/app/map/index";
 import MapSheet from "@/components/MapSheet";
 import { getInvadersWithLocation } from "@/utils/data";
 import React, { FC, PropsWithChildren } from "react";

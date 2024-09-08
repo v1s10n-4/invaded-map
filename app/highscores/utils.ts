@@ -22,3 +22,21 @@ export const FlashInvadersAPI = {
       FlashInvaderBaseUrl
     ),
 };
+
+export const getRandomNumber = (min: number, max: number): number =>
+  Math.floor(Math.random() * (max - min + 1)) + min;
+
+export const getRandomLengthString = (min: number, max: number) =>
+  new Array(getRandomNumber(min, max)).fill("0").join("");
+
+export const getRandomLengthStringSSR = (
+  index: number,
+  minOutput: number,
+  maxOutput: number,
+  step: number = 1
+) => {
+  const hash = (((index * 1831) ^ 9973) % 10000) / 10000;
+  const numSteps = Math.floor((maxOutput - minOutput) / step) + 1;
+  const stepIndex = Math.floor(hash * numSteps);
+  return new Array(minOutput + stepIndex * step).fill("0").join("");
+};

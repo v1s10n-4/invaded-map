@@ -1,7 +1,17 @@
-import { redirect } from "next/navigation";
-import { clsx } from "clsx";
+import SubmitButton from "@/components/SubmitButton";
 import DiscordIcon from "@/public/icons/discord-logo.svg";
+import {
+  Button,
+  Container,
+  Flex,
+  Heading,
+  Section,
+  Separator,
+  Text,
+  TextArea,
+} from "@radix-ui/themes";
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 export const runtime = "edge";
 
@@ -31,49 +41,35 @@ const FeedbackPage = () => {
     redirect("/help/thanks");
   };
   return (
-    <main className="mx-auto flex h-full flex-col items-center gap-8 bg-black px-4 pb-8 pt-32 text-primary md:max-w-screen-md md:px-12">
-      <h1 className="text-center text-2xl uppercase md:mb-8 md:mt-12 md:text-3xl">
-        Help & support
-      </h1>
-      <a
-        href={DISCORD_INVITE_LINK}
-        className="flex items-center gap-2 border-2 border-dashed border-primary px-6 py-2 text-2xl outline-none"
-      >
-        <DiscordIcon className="h-16 w-16" /> Discord
-      </a>
-      <div
-        className={clsx(
-          "flex w-full items-center border-none text-center",
-          "before:mr-2 before:flex-1 before:border before:border-primary",
-          "after:ml-2 after:flex-1 after:border after:border-primary"
-        )}
-      >
-        Or
-      </div>
-      <p className="md:text-md text-sm">
-        Ask questions, report problems, or just leave some feedback.
-      </p>
-      <form
-        action={submitFeedback}
-        className="flex h-full w-full flex-col gap-4 md:h-fit"
-      >
-        <textarea
-          required
-          name="content"
-          className="scrollbar input relative h-full w-full border border-primary p-4 placeholder-primary/40 !outline-primary scrollbar-thumb-current scrollbar-track-black md:h-60"
-          placeholder="Share your thoughts..."
-        />
-        <button
-          className={clsx(
-            "px-4 py-2 text-2xl",
-            "border border-primary outline-none",
-            "ring-2 ring-transparent ring-offset-2 ring-offset-black focus-within:ring-primary"
-          )}
-        >
-          Submit
-        </button>
-      </form>
-    </main>
+    <Container size="1" asChild>
+      <main>
+        <Section size="4" px={{ initial: "2", sm: "0" }}>
+          <Flex direction="column" gap="8" align="center">
+            <Heading align="center">Help & support</Heading>
+            <Button asChild size="4" variant="outline">
+              <a href={DISCORD_INVITE_LINK}>
+                <DiscordIcon className="h-8 w-8" /> Discord
+              </a>
+            </Button>
+            <Separator size="4" />
+            <Text>
+              Ask questions, report problems, or just leave some feedback.
+            </Text>
+            <Flex asChild direction="column" gap="2">
+              <form action={submitFeedback}>
+                <TextArea
+                  required
+                  name="content"
+                  placeholder="Share your thoughts..."
+                  size="3"
+                />
+                <SubmitButton size="4">Submit</SubmitButton>
+              </form>
+            </Flex>
+          </Flex>
+        </Section>
+      </main>
+    </Container>
   );
 };
 

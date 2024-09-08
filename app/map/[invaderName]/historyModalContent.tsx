@@ -1,20 +1,24 @@
+import { getInvaderHistory } from "@/app/map/[invaderName]/actions";
 import {
   ContributionData,
-  getInvaderHistory,
   getUpdateLabel,
 } from "@/app/map/[invaderName]/utils";
-import {
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/Dialog";
-import { VisuallyHidden } from "@/components/VisuallyHidden";
 import { Invader, User } from "@/db";
+import {
+  Blockquote,
+  Button,
+  Card,
+  Dialog,
+  Flex,
+  IconButton,
+  Separator,
+  Skeleton,
+  Text,
+  VisuallyHidden,
+} from "@radix-ui/themes";
 import CircleIcon from "pixelarticons/svg/circle.svg";
-import React, { FC, Suspense } from "react";
+import CloseIcon from "pixelarticons/svg/close.svg";
+import React, { ComponentProps, FC, ReactNode, Suspense } from "react";
 
 export const InvaderContributionHistory: FC<Invader> = async ({
   id,
@@ -39,97 +43,147 @@ export const InvaderContributionHistory: FC<Invader> = async ({
     });
   }
   return (
-    <ul className="timeline timeline-vertical timeline-compact timeline-snap-icon overflow-auto">
-      <li className="relative">
-        <div className="timeline-middle sticky top-0">
-          <CircleIcon className="h-5 w-5 bg-black text-primary" />
-        </div>
-        <p className="timeline-end sticky top-0 mt-1.5">Now</p>
-        <hr className="bg-current" />
-      </li>
+    <Flex direction="column">
+      <Flex gap="2">
+        <Flex direction="column" align="center">
+          <CircleIcon className="h-4 w-4 shrink-0 text-[--accent-9]" />
+          <Separator orientation="vertical" size="4" />
+        </Flex>
+        <Text size="1" mt="2px" mb="4">
+          Now
+        </Text>
+      </Flex>
       {res.map((contribution, i) => (
-        <li className="relative" key={contribution.id}>
-          <hr className="bg-current" />
-          <div className="timeline-middle sticky top-0">
-            <CircleIcon className="h-5 w-5 bg-black text-primary" />
-          </div>
-          <div className="timeline-end sticky top-0 mb-6 mt-2.5 text-sm">
-            <p
-              className="mb-1"
-              title={new Date(contribution.created_at).toLocaleTimeString()}
-            >
-              {new Date(contribution.created_at).toLocaleDateString()}
-            </p>
-            <div className="timeline-box border-dashed border-primary">
-              {contribution.type === "edit" ? (
-                <p>
-                  Updated{" "}
-                  {getUpdateLabel(
-                    contribution.data as ContributionData<"edit">
-                  )}{" "}
-                  ({contribution.editor.name})
-                </p>
-              ) : (
-                <p>
-                  {contribution.type === "create"
-                    ? "Added to Invaded Map"
-                    : "deleted"}
-                </p>
-              )}{" "}
-              {contribution.comment && (
-                <p className="mt-1 border-t border-dotted border-current pt-2 text-xs">
-                  {contribution.comment}
-                </p>
-              )}
-            </div>
-          </div>
-          <hr className="bg-current" />
-        </li>
+        <HistoryItem
+          key={contribution.id}
+          date={contribution.created_at}
+          text={
+            contribution.type === "edit" ? (
+              <p>
+                Updated{" "}
+                {getUpdateLabel(contribution.data as ContributionData<"edit">)}{" "}
+                ({contribution.editor.name})
+              </p>
+            ) : (
+              <p>
+                {contribution.type === "create"
+                  ? "Added to Invaded Map"
+                  : "deleted"}
+              </p>
+            )
+          }
+          comment={contribution.comment}
+        />
       ))}
-      <li className=" text-sm">
-        <hr className="bg-current" />
-        <div className="timeline-middle sticky top-0">
-          <CircleIcon className="h-5 w-5 bg-black text-primary" />
-        </div>
-        <div className="timeline-end sticky top-0 mt-2.5">
-          <p className="mb-1">{new Date(create_date).toLocaleDateString()}</p>
-          <p className="timeline-box border-dashed border-primary">
-            Invader has been installed
-          </p>
-        </div>
-      </li>
-    </ul>
+      <HistoryItem date={create_date} text="Invader has been installed" end />
+    </Flex>
   );
 };
 
+type LoadableComponentProps<T extends ComponentProps<any>> =
+  | ({ loading?: true } & Partial<Omit<T, "loading">>)
+  | ({ loading?: false } & T);
+
+const HistoryItem: FC<
+  LoadableComponentProps<{
+    date?: number | Date;
+    text: ReactNode;
+    comment?: string | null;
+    end?: boolean;
+  }>
+> = ({ date, text, comment, end = false, loading = false }) => {
+  return (
+    <Flex gap="2">
+      <Flex direction="column" align="center">
+        <Skeleton loading={loading} className="rounded-full">
+          <CircleIcon className="h-4 w-4 shrink-0 text-[--accent-9]" />
+        </Skeleton>
+        {!end && (
+          <Skeleton loading={loading}>
+            <Separator orientation="vertical" size="4" />
+          </Skeleton>
+        )}
+      </Flex>
+      {date ? (
+        <Flex direction="column" gap="1" mt="2px">
+          <Text size="1" asChild>
+            <time>
+              <Skeleton loading={loading}>
+                {new Date(date).toLocaleDateString()}
+              </Skeleton>
+            </time>
+          </Text>
+          <Card mb="4" className={loading ? "pt-2" : "pt-3"}>
+            <Text size="1">
+              <Skeleton loading={loading}>{text}</Skeleton>
+            </Text>
+            {comment && (
+              <Blockquote size="1">
+                <Skeleton loading={loading}>{comment}</Skeleton>
+              </Blockquote>
+            )}
+          </Card>
+        </Flex>
+      ) : (
+        <Text size="1" mt="2px" mb="4" asChild>
+          <time>
+            <Skeleton loading={loading}>Now</Skeleton>
+          </time>
+        </Text>
+      )}
+    </Flex>
+  );
+};
+
+const ContributionHistorySkeleton = () => (
+  <Flex direction="column">
+    <HistoryItem loading text="now" />
+    <HistoryItem
+      loading
+      date={new Date()}
+      text="Added to Invaded Map"
+      comment="Photos credits: (Awazleon, fesse)"
+    />
+    <HistoryItem
+      loading
+      date={new Date()}
+      text="Invader has been installed"
+      end
+    />
+  </Flex>
+);
+
 const HistoryModalContent: FC<Invader> = ({ ...invader }) => {
   return (
-    <DialogContent className="flex max-h-dvh flex-col gap-4 p-4">
-      <DialogHeader>
-        <DialogTitle>Change history</DialogTitle>
-        <VisuallyHidden asChild>
-          <DialogDescription>
-            All changes made to {invader.name} are listed here by date
-          </DialogDescription>
-        </VisuallyHidden>
-      </DialogHeader>
-      <Suspense
-        fallback={
-          <div className="my-12 p-6">
-            <div className="flex items-center justify-center p-2">
-              <span className="loading loading-bars h-8 w-8" />
-            </div>
-          </div>
-        }
-      >
+    <Dialog.Content className="relative">
+      <Dialog.Close>
+        <IconButton
+          size="2"
+          color="gray"
+          variant="ghost"
+          type="button"
+          className="absolute right-3 top-3"
+        >
+          <CloseIcon className="h-6 w-6" />
+        </IconButton>
+      </Dialog.Close>
+      <Dialog.Title>Change history</Dialog.Title>
+      <VisuallyHidden asChild>
+        <Dialog.Description>
+          All changes made to {invader.name} are listed here by date
+        </Dialog.Description>
+      </VisuallyHidden>
+      <Suspense fallback={<ContributionHistorySkeleton />}>
         <InvaderContributionHistory {...invader} />
       </Suspense>
-      <DialogFooter className="mt-4">
-        <DialogClose className="btn btn-outline w-full" type="button">
-          Close
-        </DialogClose>
-      </DialogFooter>
-    </DialogContent>
+      <Flex mt="4" justify="end">
+        <Dialog.Close>
+          <Button type="button" size="3">
+            Close
+          </Button>
+        </Dialog.Close>
+      </Flex>
+    </Dialog.Content>
   );
 };
 

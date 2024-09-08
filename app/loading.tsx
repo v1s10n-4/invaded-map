@@ -1,13 +1,16 @@
-import Image from "next/image";
-import SplashScreen from "@/public/assets/images/splashscreen.gif";
+import { Flex, Spinner } from "@radix-ui/themes";
+import React from "react";
 
 export const runtime = "edge";
 const RootLoading = () => (
-  <Image
-    src={SplashScreen}
-    alt="Invaded map slashscreen"
-    className="h-full w-full object-contain"
-    unoptimized
-  />
+  <Flex
+    id="root-loader"
+    position="fixed"
+    inset="0"
+    align="center"
+    justify="center"
+  >
+    <Spinner size="3" />
+  </Flex>
 );
 export default RootLoading;
