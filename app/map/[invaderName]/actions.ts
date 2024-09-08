@@ -6,12 +6,12 @@ import {
   invaderValidStates,
 } from "@/app/map/[invaderName]/utils";
 import { auth, signIn } from "@/auth";
-import { db } from "@/db";
+import { db, Invader } from "@/db";
 import { reviewTasks } from "@/db/schema/reviewTasks";
 import { getInvader, uploadImage } from "@/utils/data";
-import { getTag } from "@/utils/revalidation-tags";
+import { getTag, getTags } from "@/utils/revalidation-tags";
 import { and, eq, sql } from "drizzle-orm";
-import { revalidateTag } from "next/cache";
+import { revalidateTag, unstable_cache } from "next/cache";
 import { z } from "zod";
 
 export type SubmitContributionResponse = { errors: string[]; success: boolean };
@@ -167,3 +167,20 @@ export const submitContribution = async (
 };
 
 export type SubmitContributionFieldType = typeof submitContribution;
+
+export const getInvaderHistory = async (id: Invader["id"]) =>
+  unstable_cache(
+    () => {
+      return db.query.contributions.findMany({
+        with: {
+          editor: true,
+        },
+        where: (contributions, { eq }) => eq(contributions.entity_id, id),
+        orderBy: (contributions, { desc }) => [desc(contributions.created_at)],
+      });
+    },
+    ["history", id.toString()],
+    {
+      tags: getTags("invader history", id.toString()),
+    }
+  );

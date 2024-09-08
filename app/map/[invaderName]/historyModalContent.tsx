@@ -1,6 +1,6 @@
+import { getInvaderHistory } from "@/app/map/[invaderName]/actions";
 import {
   ContributionData,
-  getInvaderHistory,
   getUpdateLabel,
 } from "@/app/map/[invaderName]/utils";
 import { Invader, User } from "@/db";
