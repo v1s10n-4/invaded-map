@@ -1,17 +1,18 @@
 import { InvaderWithLocation } from "@/db";
+import { Paris } from "@/utils";
+import mapStyles from "@/utils/mapStyles.json";
+import { Library } from "@googlemaps/js-api-loader";
+import { GoogleMapProps } from "@react-google-maps/api";
 import { ClustererOptions } from "@react-google-maps/marker-clusterer";
 import cluster_blue from "./cluster_blue.png";
 import cluster_purple from "./cluster_purple.png";
 import cluster_red from "./cluster_red.png";
 import cluster_yellow from "./cluster_yellow.png";
-import mapStyles from "@/utils/mapStyles.json";
-import marker from "./marker.svg?url";
 import markerSelected from "./marker-selected.svg?url";
+import marker from "./marker.svg?url";
 import userPosition from "./userPosition.svg?url";
-import { GoogleMapProps } from "@react-google-maps/api";
-import { Paris } from "@/utils";
-import { Library } from "@googlemaps/js-api-loader";
 import MapOptions = google.maps.MapOptions;
+
 const markerIcon = marker.src;
 const markerSelectedIcon = markerSelected.src;
 const userPositionIcon = userPosition.src;
@@ -53,7 +54,7 @@ export const clustererOptions: ClustererOptions = {
 };
 
 export const mapOptions: MapOptions = {
-  mapId: "bc9e5a99ff21e1e7",
+  // mapId: "bc9e5a99ff21e1e7",
   heading: 0,
   tilt: 0,
   minZoom: 3,
@@ -64,8 +65,7 @@ export const mapOptions: MapOptions = {
 export const defaultGoogleMapProps: GoogleMapProps = {
   center: Paris,
   zoom: 10,
-  options: mapOptions,
-  mapContainerClassName: "!absolute inset-0",
+  mapContainerClassName: "!absolute inset-0 [&>div]:!bg-[--color-background]",
   id: "map",
 };
 
