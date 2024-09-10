@@ -65,7 +65,7 @@ export const mapOptions: MapOptions = {
 export const defaultGoogleMapProps: GoogleMapProps = {
   center: Paris,
   zoom: 10,
-  mapContainerClassName: "!absolute inset-0 [&>div]:!bg-[--color-background]",
+  mapContainerClassName: "!absolute inset-0 [&>div:first-of-type]:!bg-[--color-background]",
   id: "map",
 };
 
