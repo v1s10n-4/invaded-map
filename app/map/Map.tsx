@@ -41,13 +41,20 @@ export const useMapStyles = () => {
     const appearance =
       theme.appearance === "inherit" ? "dark" : theme.appearance;
     const accentColors = colors[appearance][theme.accentColor];
+    const resolvedGray = theme.grayColor === "auto" ? "gray" : theme.grayColor;
+    const grayColors = colors.grays[appearance][resolvedGray];
 
     const sortedColors = Object.entries(accentColors)
       .sort(([a], [b]) => a.localeCompare(b, "en", { numeric: true }))
       .map(([, value]) => value);
+    const sortedGrays = Object.entries(grayColors)
+      .sort(([a], [b]) => a.localeCompare(b, "en", { numeric: true }))
+      .map(([, value]) => value);
 
-    return getMapStyle(sortedColors);
-  }, [theme.appearance, theme.accentColor]);
+    const mapColors = [...sortedGrays.slice(0, 4), ...sortedColors.slice(5, 11)];
+
+    return getMapStyle(mapColors);
+  }, [theme.appearance, theme.accentColor, theme.grayColor]);
 
   return mapStyles;
 };

@@ -51,7 +51,35 @@ import {
   violetDark,
   yellow,
   yellowDark,
+  mauve,
+  mauveDark,
+  slate,
+  slateDark,
+  sage,
+  sageDark,
+  olive,
+  oliveDark,
+  sand,
+  sandDark,
 } from "@radix-ui/colors";
+
+export const graysLight = {
+  gray,
+  mauve,
+  slate,
+  sage,
+  olive,
+  sand
+}
+
+export const graysDark = {
+  gray,
+  mauve: mauveDark,
+  slate: slateDark,
+  sage: sageDark,
+  olive: oliveDark,
+  sand: sandDark,
+}
 
 export const light = {
   gray,
@@ -111,4 +139,8 @@ export const dark = {
   sky: skyDark,
 };
 
-export default { light, dark };
+const grays = {light: graysLight, dark: graysDark}
+
+const colors = { light, dark, grays };
+
+export default colors;
