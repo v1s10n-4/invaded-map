@@ -32,6 +32,7 @@
     "@radix-ui/themes": "3.0.5",
     "@radix-ui/colors": "^3.0.0",
     "@react-email/components": "^0.0.22",
+    "@radix-ui/colors": "^3.0.0",
     "@react-google-maps/api": "^2.19.3",
     "@tailwindcss/typography": "^0.5.11",
     "@types/node": "20.11.15",
