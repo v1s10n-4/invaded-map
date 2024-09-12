@@ -144,9 +144,8 @@ const RootDrawer: FC<RootDrawerProps> = ({}) => {
               autoFocus
               value={pathname}
               onValueChange={onValueChange}
-              gap="2"
             >
-              <Flex direction="column" px="2">
+              <Flex direction="column" px="2" gap="2">
                 <RadioCards.Item
                   value={"/map"}
                   className="justify-start data-[state=checked]:text-[--accent-9]"
