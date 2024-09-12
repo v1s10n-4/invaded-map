@@ -51,7 +51,10 @@ export const useMapStyles = () => {
       .sort(([a], [b]) => a.localeCompare(b, "en", { numeric: true }))
       .map(([, value]) => value);
 
-    const mapColors = [...sortedGrays.slice(0, 4), ...sortedColors.slice(5, 11)];
+    const mapColors = [
+      ...sortedGrays.slice(0, 4).reverse(),
+      ...sortedColors.slice(5, 11),
+    ];
 
     return getMapStyle(mapColors);
   }, [theme.appearance, theme.accentColor, theme.grayColor]);
