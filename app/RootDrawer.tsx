@@ -78,17 +78,31 @@ const RootDrawer: FC<RootDrawerProps> = ({}) => {
   const [themeModalOpen, setThemeModalOpen] = React.useState(false);
 
   const onValueChange: RadioGroupProps["onValueChange"] = (value) => {
-    setOpen(false);
     if (value === "theme") {
-      setThemeModalOpen(true);
+      setTimeout(() => setThemeModalOpen(true), 100);
     } else {
       router.push(value as "/");
     }
+    setOpen(false);
   };
 
   return (
     <>
-      <Dialog.Root open={themeModalOpen} onOpenChange={setThemeModalOpen}>
+      <Dialog.Root
+        open={themeModalOpen}
+        onOpenChange={(newOpen) => {
+          if (!newOpen) {
+            setTimeout(() => {
+              if (document.body.style) {
+                // TODO fix this dirty trick
+                // @ts-ignore
+                document.body.style = "";
+              }
+            }, 50);
+          }
+          setThemeModalOpen(newOpen);
+        }}
+      >
         <Dialog.Content>
           <Dialog.Close>
             <IconButton
