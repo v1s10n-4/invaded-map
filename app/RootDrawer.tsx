@@ -98,7 +98,7 @@ const RootDrawer: FC<RootDrawerProps> = ({}) => {
                 // @ts-ignore
                 document.body.style = "";
               }
-            }, 50);
+            }, 300);
           }
           setThemeModalOpen(newOpen);
         }}
