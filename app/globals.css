@@ -12,11 +12,11 @@
   --default-font-family: var(--font-sixtyfour);
 }
 
-.dark,
-.dark-theme,
-:is(.dark, .dark-theme) :where(.radix-themes:not(.light, .light-theme)) {
-  --color-background: #000;
-}
+/*.dark,*/
+/*.dark-theme,*/
+/*:is(.dark, .dark-theme) :where(.radix-themes:not(.light, .light-theme)) {*/
+/*  --color-background: #000;*/
+/*}*/
 
 .dark,
 .dark-theme {

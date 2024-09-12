@@ -1,9 +1,11 @@
 "use client";
 import UserMarker from "@/app/map/UserMarker";
+import colors from "@/app/map/utils/colors";
+import { getMapStyle } from "@/app/map/utils/getMapStyle";
 import useIVDMapStore from "@/app/store";
 import { InvaderWithLocation } from "@/db";
 import { Paris } from "@/utils";
-import { Flex, Spinner } from "@radix-ui/themes";
+import { Flex, Spinner, useThemeContext } from "@radix-ui/themes";
 import {
   GoogleMap,
   GoogleMapProps,
@@ -13,12 +15,13 @@ import {
 } from "@react-google-maps/api";
 import { useParams, useRouter } from "next/navigation";
 import { NextRequest } from "next/server";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useMemo, useState } from "react";
 import {
   clustererOptions,
   defaultGoogleMapProps,
   filterInvadersInView,
   gmapLibraries,
+  mapOptions,
   markerIcon,
   markerSelectedIcon,
 } from "./utils";
@@ -31,6 +34,34 @@ const removeGoogleCrap = () =>
     )
   )?.forEach((el) => el.parentElement?.parentElement?.remove());
 
+export const useMapStyles = () => {
+  const theme = useThemeContext();
+
+  const mapStyles = useMemo(() => {
+    const appearance =
+      theme.appearance === "inherit" ? "dark" : theme.appearance;
+    const accentColors = colors[appearance][theme.accentColor];
+    const resolvedGray = theme.grayColor === "auto" ? "gray" : theme.grayColor;
+    const grayColors = colors.grays[appearance][resolvedGray];
+
+    const sortedColors = Object.entries(accentColors)
+      .sort(([a], [b]) => a.localeCompare(b, "en", { numeric: true }))
+      .map(([, value]) => value);
+    const sortedGrays = Object.entries(grayColors)
+      .sort(([a], [b]) => a.localeCompare(b, "en", { numeric: true }))
+      .map(([, value]) => value);
+
+    const mapColors = [
+      ...sortedGrays.slice(0, 4).reverse(),
+      ...sortedColors.slice(5, 11),
+    ];
+
+    return getMapStyle(mapColors);
+  }, [theme.appearance, theme.accentColor, theme.grayColor]);
+
+  return mapStyles;
+};
+
 export const MapView: FC<{ invaders: InvaderWithLocation[] }> = ({
   invaders,
 }) => {
@@ -38,6 +69,7 @@ export const MapView: FC<{ invaders: InvaderWithLocation[] }> = ({
   const router = useRouter();
   const { invaderName } = useParams();
   const [map, setMap] = useState<google.maps.Map | null>(null);
+  const mapStyles = useMapStyles();
   const { setInvadersInView, setLockUserPosition, setLockUserRotation } =
     useIVDMapStore((state) => ({
       setInvadersInView: state.setInvadersInView,
@@ -85,6 +117,7 @@ export const MapView: FC<{ invaders: InvaderWithLocation[] }> = ({
     >
       <GoogleMap
         {...defaultGoogleMapProps}
+        options={{ ...mapOptions, styles: mapStyles }}
         onLoad={onLoad}
         onTilesLoaded={removeGoogleCrap}
         onDragStart={() => {
