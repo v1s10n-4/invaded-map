@@ -10,7 +10,6 @@ import {
   Skeleton,
   Text,
   Theme,
-  ThemePanel,
 } from "@radix-ui/themes";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -289,7 +288,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               </ScrollArea>
             </Flex>
           </SessionProvider>
-          <ThemePanel defaultOpen={false} />
         </Theme>
         <SpeedInsights />
       </body>
