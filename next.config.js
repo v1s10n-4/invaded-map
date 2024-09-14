@@ -12,6 +12,10 @@ const nextConfig = {
         },
       },
     },
+    staleTimes: {
+      dynamic: 30,
+      static: 180,
+    },
   },
   webpack(config) {
     const fileLoaderRule = config.module.rules.find((rule) =>
