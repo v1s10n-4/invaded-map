@@ -2951,6 +2951,11 @@
     is-buffer "2.0.5"
     undici "5.28.3"
 
+"@vercel/functions@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@vercel/functions/-/functions-1.4.1.tgz#d1a81c27f7eb5b5b2ca412a8a4e682e4cfbea32d"
+  integrity sha512-987mKpoDCI18x2rDjrDbiuGOtxDMK/UhfhDZoN3A2SAt40BMaj8HEKwVqL6fOian5j/3RZcOuJnMOpatQGgpjw==
+
 "@vercel/postgres@^0.10.0":
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/@vercel/postgres/-/postgres-0.10.0.tgz#0c983f9dda6f6874d783b9605372d96c8a0334fe"
