@@ -35,6 +35,7 @@ const config: NextAuthConfig = {
     verificationTokensTable,
     authenticatorsTable,
   }),
+  trustHost: true,
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID,
