@@ -1,7 +1,7 @@
 "use client";
 import { CardContent, CardFooter } from "@/components/Card";
 import SubmitButton from "@/components/SubmitButton";
-import { Separator, Text } from "@radix-ui/themes";
+import { Separator, Text } from "@v1s10n_4/radix-ui-themes";
 import React, { FC, PropsWithChildren, useActionState } from "react";
 import { SafeParseSuccess } from "zod";
 import { typeToFlattenedError } from "zod/lib/ZodError";

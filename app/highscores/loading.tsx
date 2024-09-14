@@ -1,5 +1,5 @@
 import { getRandomLengthString } from "@/app/highscores/utils";
-import { Skeleton, Table } from "@radix-ui/themes";
+import { Skeleton, Table } from "@v1s10n_4/radix-ui-themes";
 
 const HighscoresLoading = () => (
   <Table.Root variant="surface">

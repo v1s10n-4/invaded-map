@@ -1,7 +1,7 @@
 import { Carousel, CarouselContent, CarouselItem } from "@/components/Carousel";
 import { HitPlaceholder } from "@/components/Placeholder";
 import { SliderActions } from "@/components/SliderActions";
-import { Card } from "@radix-ui/themes";
+import { Card } from "@v1s10n_4/radix-ui-themes";
 import Image from "next/image";
 import React, { FC } from "react";
 

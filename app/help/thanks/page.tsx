@@ -6,7 +6,7 @@ import {
   Heading,
   Section,
   Text,
-} from "@radix-ui/themes";
+} from "@v1s10n_4/radix-ui-themes";
 
 export const runtime = "edge";
 

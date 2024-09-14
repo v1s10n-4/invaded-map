@@ -15,7 +15,13 @@ import {
 import { HitPlaceholder } from "@/components/Placeholder";
 import { ReviewTask, User } from "@/db";
 import { canReviewOwnContribution } from "@/lib/utils";
-import { Callout, Flex, Link as RLink, Strong, Text } from "@radix-ui/themes";
+import {
+  Callout,
+  Flex,
+  Link as RLink,
+  Strong,
+  Text,
+} from "@v1s10n_4/radix-ui-themes";
 import Image from "next/image";
 import Link from "next/link";
 import ArrowRight from "pixelarticons/svg/arrow-right.svg";

@@ -1,5 +1,5 @@
 "use client";
-import { Select, Tabs } from "@radix-ui/themes";
+import { Select, Tabs } from "@v1s10n_4/radix-ui-themes";
 import React, { FC, PropsWithChildren, useState } from "react";
 
 type TabsSelectProps = PropsWithChildren<{

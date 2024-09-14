@@ -8,7 +8,7 @@ import {
   IconButton,
   IconButtonProps,
   VisuallyHidden,
-} from "@radix-ui/themes";
+} from "@v1s10n_4/radix-ui-themes";
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from "embla-carousel-react";

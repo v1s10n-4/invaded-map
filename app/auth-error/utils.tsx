@@ -1,4 +1,4 @@
-import { Button } from "@radix-ui/themes";
+import { Button } from "@v1s10n_4/radix-ui-themes";
 import Link from "next/link";
 
 export type ErrorPageParam = "Configuration" | "AccessDenied" | "Verification";

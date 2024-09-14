@@ -18,7 +18,7 @@ import {
   Skeleton,
   Tabs,
   Text,
-} from "@radix-ui/themes";
+} from "@v1s10n_4/radix-ui-themes";
 import React, { FC, Suspense } from "react";
 
 type ReviewsSectionProps = { user: User };

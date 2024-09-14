@@ -2,7 +2,7 @@ import HighscoreItem from "@/app/highscores/HighscoreItem";
 import { FlashInvadersAPI } from "@/app/highscores/utils";
 import { HighScoresResponse } from "@/types/FlashInvadersAPI";
 import { getRequestConfig } from "@/utils/revalidation-tags";
-import { Table } from "@radix-ui/themes";
+import { Table } from "@v1s10n_4/radix-ui-themes";
 
 const getHighScores: () => Promise<HighScoresResponse> = async () => {
   const { highscores, fetchOptions } = FlashInvadersAPI;

@@ -5,7 +5,7 @@ import { getMapStyle } from "@/app/map/utils/getMapStyle";
 import useIVDMapStore from "@/app/store";
 import { InvaderWithLocation } from "@/db";
 import { Paris } from "@/utils";
-import { Flex, Spinner, useThemeContext } from "@radix-ui/themes";
+import { Flex, Spinner, useThemeContext } from "@v1s10n_4/radix-ui-themes";
 import {
   GoogleMap,
   GoogleMapProps,

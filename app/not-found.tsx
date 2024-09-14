@@ -1,5 +1,5 @@
 import { Card } from "@/components/Card";
-import { Container, Heading, Section, Text } from "@radix-ui/themes";
+import { Container, Heading, Section, Text } from "@v1s10n_4/radix-ui-themes";
 
 export const runtime = "edge";
 

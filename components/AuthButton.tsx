@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import LogInButton from "@/components/LogInButton";
 import { HitPlaceholder } from "@/components/Placeholder";
-import { DropdownMenu, IconButton } from "@radix-ui/themes";
+import { DropdownMenu, IconButton } from "@v1s10n_4/radix-ui-themes";
 import Image from "next/image";
 import Link from "next/link";
 import React, { FC } from "react";

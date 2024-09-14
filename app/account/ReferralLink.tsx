@@ -4,7 +4,13 @@ import QRCodeDrawer from "@/app/account/QRCodeDrawer";
 import CopyButton from "@/components/CopyButton";
 import { db, User } from "@/db";
 import { referralLinks } from "@/db/schema/referral_links";
-import { Card, Flex, IconButton, Spinner, Text } from "@radix-ui/themes";
+import {
+  Card,
+  Flex,
+  IconButton,
+  Spinner,
+  Text,
+} from "@v1s10n_4/radix-ui-themes";
 import { and, desc, eq } from "drizzle-orm";
 import React, { FC, Suspense } from "react";
 

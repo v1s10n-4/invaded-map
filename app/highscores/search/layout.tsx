@@ -1,4 +1,4 @@
-import { Button, Flex } from "@radix-ui/themes";
+import { Button, Flex } from "@v1s10n_4/radix-ui-themes";
 import Link from "next/link";
 import { FC, PropsWithChildren } from "react";
 

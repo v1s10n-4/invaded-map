@@ -1,7 +1,7 @@
 "use client";
 import { Carousel, CarouselApi, CarouselContent } from "@/components/Carousel";
 import { SliderActions } from "@/components/SliderActions";
-import { Badge } from "@radix-ui/themes";
+import { Badge } from "@v1s10n_4/radix-ui-themes";
 import React, { FC, PropsWithChildren } from "react";
 
 export const ReviewsCarousel: FC<PropsWithChildren> = ({ children }) => {

@@ -8,7 +8,7 @@ import {
   Text,
   Tooltip,
   VisuallyHidden,
-} from "@radix-ui/themes";
+} from "@v1s10n_4/radix-ui-themes";
 import BuildingCommunity from "pixelarticons/svg/building-community.svg";
 import ImageFlash from "pixelarticons/svg/image-flash.svg";
 import React, { FC, PropsWithChildren } from "react";
@@ -18,7 +18,7 @@ export const SkeletonHit: FC<{ index: number } & PropsWithChildren> = ({
   children,
 }) => {
   return (
-    <Card elevation className="group carousel-item" asChild>
+    <Card elevation className="carousel-item group" asChild>
       <Flex direction="column" gap="2" p="2">
         <div className="relative w-full">
           <Skeleton>

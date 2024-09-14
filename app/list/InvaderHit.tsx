@@ -8,7 +8,7 @@ import {
   Text,
   Tooltip,
   VisuallyHidden,
-} from "@radix-ui/themes";
+} from "@v1s10n_4/radix-ui-themes";
 import { Hit } from "instantsearch.js";
 import Link from "next/link";
 import Image from "next/image";
@@ -27,7 +27,7 @@ export const InvaderHit = ({
   create_date,
 }: Hit<Invader>) => {
   return (
-    <Card elevation className="group carousel-item" asChild>
+    <Card elevation className="carousel-item group" asChild>
       <Flex direction="column" gap="2" p="2" asChild>
         <Link href={`/map/${name}`} key={name}>
           <div className="relative w-full">
