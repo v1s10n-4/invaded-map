@@ -14,7 +14,6 @@ import {
   MarkerF as Marker,
 } from "@react-google-maps/api";
 import { useParams, useRouter } from "next/navigation";
-import { NextRequest } from "next/server";
 import React, { FC, useEffect, useMemo, useState } from "react";
 import {
   clustererOptions,
@@ -26,7 +25,6 @@ import {
   markerSelectedIcon,
 } from "./utils";
 
-type Geo = typeof NextRequest.prototype.geo;
 const removeGoogleCrap = () =>
   Array.from(
     document.querySelectorAll(
