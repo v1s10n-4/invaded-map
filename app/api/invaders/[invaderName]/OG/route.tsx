@@ -4,6 +4,7 @@ import { ImageResponse } from "next/og";
 import { NextRequest } from "next/server";
 
 export const runtime = "edge";
+export const fetchCache = "force-static";
 
 type RouteParams = { params: { invaderName: string } };
 

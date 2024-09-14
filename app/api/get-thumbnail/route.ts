@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import sharp from "sharp";
 
 export const runtime = "nodejs";
+export const fetchCache = "force-static";
 export async function GET(request: NextRequest): Promise<Response> {
   const param = request.nextUrl.searchParams.get("url");
   if (!param) return Response.json({ error: true, data: null });
