@@ -33,7 +33,9 @@ import React, { FC, Suspense } from "react";
 export const runtime = "edge";
 
 const AccountPage: FC = async () => {
+  console.time("auth call on /account/page");
   const session = await auth();
+  console.timeEnd("auth call on /account/page");
   if (!session?.user) return await signIn();
   const user = session.user;
 
