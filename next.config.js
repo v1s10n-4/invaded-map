@@ -2,6 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
+    reactCompiler: true,
     // ppr: true,
     typedRoutes: true,
     turbo: {
