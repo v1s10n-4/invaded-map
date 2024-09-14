@@ -20,6 +20,7 @@ import localFont from "next/font/local";
 import React, { ReactNode, Suspense } from "react";
 
 export const runtime = "edge";
+export const fetchCache = "default-cache";
 
 const sixtyfour = localFont({
   // src: "../public/assets/fonts/Sixtyfour[BLED,SCAN].woff2",
