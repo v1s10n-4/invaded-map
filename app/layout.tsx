@@ -17,9 +17,8 @@ import { clsx } from "clsx";
 import { Metadata, Viewport } from "next";
 import { SessionProvider } from "next-auth/react";
 import localFont from "next/font/local";
+import Script from "next/script";
 import React, { ReactNode, Suspense } from "react";
-import NotificationInbox from "@/app/NotificationInbox";
-import ClientProviders from "@/app/ClientProviders";
 
 export const runtime = "edge";
 export const fetchCache = "default-cache";
@@ -219,6 +218,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       content="width=device-width, initial-scale=1, maximum-scale=1"
     >
       <body className={clsx("bg-[--color-background]", sixtyfour.className)}>
+        {process.env.LOCAL === "true" && (
+          <Script src={"/polyfill.js"} strategy="beforeInteractive" />
+        )}
         <Theme
           appearance="dark"
           radius="none"
@@ -269,9 +271,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                             Invaded Map
                           </Text>
                         </Flex>
-                        <ClientProviders>
-                          <NotificationInbox />
-                        </ClientProviders>
                         <Suspense
                           fallback={
                             <Skeleton
