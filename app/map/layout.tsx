@@ -5,9 +5,7 @@ import React, { FC, PropsWithChildren } from "react";
 
 export const runtime = "edge";
 const MapLayout: FC<PropsWithChildren> = async ({ children }) => {
-  console.time("MapLayout");
   const invaders = await getInvadersWithLocation();
-  console.timeEnd("MapLayout");
   return (
     <>
       <Map invaders={invaders} />
