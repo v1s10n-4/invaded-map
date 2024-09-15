@@ -18,6 +18,8 @@ import { Metadata, Viewport } from "next";
 import { SessionProvider } from "next-auth/react";
 import localFont from "next/font/local";
 import React, { ReactNode, Suspense } from "react";
+import NotificationInbox from "@/app/NotificationInbox";
+import ClientProviders from "@/app/ClientProviders";
 
 export const runtime = "edge";
 export const fetchCache = "default-cache";
@@ -267,6 +269,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                             Invaded Map
                           </Text>
                         </Flex>
+                        <ClientProviders>
+                          <NotificationInbox />
+                        </ClientProviders>
                         <Suspense
                           fallback={
                             <Skeleton
