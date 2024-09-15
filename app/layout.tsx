@@ -8,6 +8,7 @@ import {
   Flex,
   ScrollArea,
   Skeleton,
+  Spinner,
   Text,
   Theme,
 } from "@v1s10n_4/radix-ui-themes";
@@ -19,6 +20,7 @@ import { SessionProvider } from "next-auth/react";
 import localFont from "next/font/local";
 import Script from "next/script";
 import React, { ReactNode, Suspense } from "react";
+import dynamic from "next/dynamic";
 
 export const runtime = "edge";
 export const fetchCache = "default-cache";
@@ -211,6 +213,11 @@ export const metadata: Metadata = {
   },
 };
 
+const Notification = dynamic(() => import("@/app/NotificationInbox"), {
+  ssr: false,
+  loading: () => <Spinner />,
+});
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
@@ -271,6 +278,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                             Invaded Map
                           </Text>
                         </Flex>
+                        <Notification />
                         <Suspense
                           fallback={
                             <Skeleton
