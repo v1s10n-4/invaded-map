@@ -15,7 +15,7 @@ import {
   Skeleton,
   Text,
   VisuallyHidden,
-} from "@radix-ui/themes";
+} from "@v1s10n_4/radix-ui-themes";
 import CircleIcon from "pixelarticons/svg/circle.svg";
 import CloseIcon from "pixelarticons/svg/close.svg";
 import React, { ComponentProps, FC, ReactNode, Suspense } from "react";

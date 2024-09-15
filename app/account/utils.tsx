@@ -9,7 +9,13 @@ import {
 import SubmitButton from "@/components/SubmitButton";
 import { Invader, ReviewTask, User } from "@/db";
 import { getState } from "@/utils/data";
-import { Flex, Inset, Separator, Skeleton, Text } from "@radix-ui/themes";
+import {
+  Flex,
+  Inset,
+  Separator,
+  Skeleton,
+  Text,
+} from "@v1s10n_4/radix-ui-themes";
 import React, { FC } from "react";
 
 export const ReferralLinkSkeleton = () => (

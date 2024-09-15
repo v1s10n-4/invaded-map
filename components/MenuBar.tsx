@@ -1,13 +1,19 @@
 "use client";
 
-import { Button, ButtonProps, Card, ScrollArea, Theme } from "@radix-ui/themes";
+import {
+  Button,
+  ButtonProps,
+  Card,
+  ScrollArea,
+  Theme,
+} from "@v1s10n_4/radix-ui-themes";
 import * as React from "react";
 import * as MenuBarPrimitive from "@radix-ui/react-menubar";
 import Circle from "pixelarticons/svg/circle.svg";
 import ChevronRight from "pixelarticons/svg/chevron-right.svg";
 import Check from "pixelarticons/svg/check.svg";
 import { cn } from "@/lib/utils";
-import "@radix-ui/themes/src/components/base-menu.css";
+import "@v1s10n_4/radix-ui-themes/src/components/base-menu.css";
 
 const MenuBarMenu = MenuBarPrimitive.Menu;
 

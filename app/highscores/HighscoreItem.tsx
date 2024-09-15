@@ -1,5 +1,5 @@
 import { HighScore } from "@/types/FlashInvadersAPI";
-import { Table } from "@radix-ui/themes";
+import { Table } from "@v1s10n_4/radix-ui-themes";
 
 export const HighscoreItem = ({
   rank,

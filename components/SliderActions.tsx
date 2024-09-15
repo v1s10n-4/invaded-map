@@ -1,5 +1,5 @@
 import { CarouselNext, CarouselPrevious } from "@/components/Carousel";
-import { Flex } from "@radix-ui/themes";
+import { Flex } from "@v1s10n_4/radix-ui-themes";
 import ChevronLeft from "pixelarticons/svg/chevron-left.svg";
 import ChevronRight from "pixelarticons/svg/chevron-right.svg";
 import React, { FC } from "react";

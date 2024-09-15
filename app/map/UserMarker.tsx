@@ -3,7 +3,7 @@ import { mapOptions } from "@/app/map/utils";
 import useDeviceOrientation from "@/app/map/utils/useDeviceOrientation";
 import useIVDMapStore from "@/app/store";
 import { Colors } from "@/utils";
-import { Card, Flex, IconButton } from "@radix-ui/themes";
+import { Card, Flex, IconButton } from "@v1s10n_4/radix-ui-themes";
 import { clsx } from "clsx";
 import GPSIcon from "pixelarticons/svg/gps.svg";
 import CompassIcon from "pixelarticons/svg/loader.svg";

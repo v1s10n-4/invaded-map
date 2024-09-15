@@ -3,7 +3,7 @@ import { signOutAction } from "@/app/actions";
 import { Card } from "@/components/Card";
 import { HitPlaceholder } from "@/components/Placeholder";
 import { User } from "@/db";
-import { Avatar, Button, Flex, Heading, Text } from "@radix-ui/themes";
+import { Avatar, Button, Flex, Heading, Text } from "@v1s10n_4/radix-ui-themes";
 import Image from "next/image";
 import LogOutIcon from "pixelarticons/svg/logout.svg";
 import React, { FC } from "react";

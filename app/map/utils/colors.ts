@@ -27,8 +27,12 @@ import {
   jadeDark,
   lime,
   limeDark,
+  mauve,
+  mauveDark,
   mint,
   mintDark,
+  olive,
+  oliveDark,
   orange,
   orangeDark,
   pink,
@@ -41,8 +45,14 @@ import {
   redDark,
   ruby,
   rubyDark,
+  sage,
+  sageDark,
+  sand,
+  sandDark,
   sky,
   skyDark,
+  slate,
+  slateDark,
   teal,
   tealDark,
   tomato,
@@ -51,16 +61,6 @@ import {
   violetDark,
   yellow,
   yellowDark,
-  mauve,
-  mauveDark,
-  slate,
-  slateDark,
-  sage,
-  sageDark,
-  olive,
-  oliveDark,
-  sand,
-  sandDark,
 } from "@radix-ui/colors";
 
 export const graysLight = {
@@ -69,17 +69,17 @@ export const graysLight = {
   slate,
   sage,
   olive,
-  sand
-}
+  sand,
+};
 
 export const graysDark = {
-  gray,
+  gray: grayDark,
   mauve: mauveDark,
   slate: slateDark,
   sage: sageDark,
   olive: oliveDark,
   sand: sandDark,
-}
+};
 
 export const light = {
   gray,
@@ -139,7 +139,7 @@ export const dark = {
   sky: skyDark,
 };
 
-const grays = {light: graysLight, dark: graysDark}
+const grays = { light: graysLight, dark: graysDark };
 
 const colors = { light, dark, grays };
 

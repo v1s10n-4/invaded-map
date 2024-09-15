@@ -1,5 +1,5 @@
 import { SkeletonHit } from "@/app/list/SkeletonHit";
-import { Grid, ScrollArea } from "@radix-ui/themes";
+import { Grid, ScrollArea } from "@v1s10n_4/radix-ui-themes";
 import React from "react";
 
 export const runtime = "edge";

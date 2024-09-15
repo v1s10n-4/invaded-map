@@ -3,6 +3,7 @@ import { invaders } from "@/db/schema/invaders";
 import { isNotNull } from "drizzle-orm";
 
 export const runtime = "edge";
+export const dynamic = "force-static";
 
 export async function GET(): Promise<Response> {
   const list = await db

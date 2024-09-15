@@ -10,7 +10,7 @@ import {
   Skeleton,
   Text,
   Theme,
-} from "@radix-ui/themes";
+} from "@v1s10n_4/radix-ui-themes";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { clsx } from "clsx";
@@ -20,6 +20,7 @@ import localFont from "next/font/local";
 import React, { ReactNode, Suspense } from "react";
 
 export const runtime = "edge";
+export const fetchCache = "default-cache";
 
 const sixtyfour = localFont({
   // src: "../public/assets/fonts/Sixtyfour[BLED,SCAN].woff2",

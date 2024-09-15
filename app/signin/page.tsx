@@ -6,7 +6,12 @@ import {
 } from "@/app/signin/utils";
 import Icon, { IconProps } from "@/components/Icon/Icon";
 import { REFERRAL_CODE_COOKIE_NAME } from "@/utils/data";
-import { Button, Callout, Link as RLink, Text } from "@radix-ui/themes";
+import {
+  Button,
+  Callout,
+  Link as RLink,
+  Text,
+} from "@v1s10n_4/radix-ui-themes";
 import { clsx } from "clsx";
 import { cookies } from "next/headers";
 import Link from "next/link";

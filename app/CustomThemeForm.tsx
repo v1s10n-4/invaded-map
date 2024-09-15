@@ -10,14 +10,17 @@ import {
   Theme,
   Tooltip,
   useThemeContext,
-} from "@radix-ui/themes";
+} from "@v1s10n_4/radix-ui-themes";
 import React, { FC } from "react";
-import { radiusPropDef, themePropDefs } from "@radix-ui/themes/dist/esm/props";
+import {
+  radiusPropDef,
+  themePropDefs,
+} from "@v1s10n_4/radix-ui-themes/dist/esm/props";
 import InvertIcon from "pixelarticons/svg/invert.svg";
 import ChessIcon from "pixelarticons/svg/chess.svg";
 import MoonIcon from "pixelarticons/svg/moon.svg";
 import SunIcon from "pixelarticons/svg/sun.svg";
-import { getMatchingGrayColor } from "@radix-ui/themes/dist/esm/helpers";
+import { getMatchingGrayColor } from "@v1s10n_4/radix-ui-themes/dist/esm/helpers";
 
 export const CustomThemeForm: FC<ThemeContext> = ({
   appearance,

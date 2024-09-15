@@ -1,7 +1,7 @@
 "use client";
 import { Card } from "@/components/Card";
 import Icon from "@/components/Icon/Icon";
-import { Box, Flex, RadioCards, Tooltip } from "@radix-ui/themes";
+import { Box, Flex, RadioCards, Tooltip } from "@v1s10n_4/radix-ui-themes";
 import { usePathname, useRouter } from "next/navigation";
 import ChatIcon from "pixelarticons/svg/chat.svg";
 import ListIcon from "pixelarticons/svg/list.svg";

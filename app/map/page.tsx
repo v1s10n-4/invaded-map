@@ -1,7 +1,7 @@
 "use client";
 import useIVDMapStore from "@/app/store";
 import { HitPlaceholder } from "@/components/Placeholder";
-import { Card, Grid, Inset, ScrollArea, Text } from "@radix-ui/themes";
+import { Card, Grid, Inset, ScrollArea, Text } from "@v1s10n_4/radix-ui-themes";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -25,7 +25,7 @@ function MapPage() {
           {invaders.slice(0, 20).map((invader) => (
             <Card
               key={invader.n}
-              className="group carousel-item relative aspect-square"
+              className="carousel-item group relative aspect-square"
               asChild
             >
               <Link href={`/map/${invader.n}`}>

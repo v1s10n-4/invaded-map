@@ -2,7 +2,7 @@
 import FilterMenu from "@/app/list/FilterMenu";
 import { SearchInput } from "@/components/SearchInput";
 import { createFetchRequester } from "@algolia/requester-fetch";
-import { Flex, Separator } from "@radix-ui/themes";
+import { Flex, Separator } from "@v1s10n_4/radix-ui-themes";
 import algoliasearch from "algoliasearch/lite";
 import React, { FC, PropsWithChildren } from "react";
 import { InstantSearchNext } from "react-instantsearch-nextjs";

@@ -2,7 +2,7 @@
 import InvaderHit from "@/app/list/InvaderHit";
 import { SkeletonHit } from "@/app/list/SkeletonHit";
 import { Invader } from "@/db";
-import { Grid, ScrollArea } from "@radix-ui/themes";
+import { Grid, ScrollArea } from "@v1s10n_4/radix-ui-themes";
 import React, { useEffect, useState } from "react";
 import useInfiniteScroll from "react-infinite-scroll-hook";
 import {

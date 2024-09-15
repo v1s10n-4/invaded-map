@@ -2,6 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
+    reactCompiler: true,
     // ppr: true,
     typedRoutes: true,
     turbo: {
@@ -11,6 +12,10 @@ const nextConfig = {
           as: "*.js",
         },
       },
+    },
+    staleTimes: {
+      dynamic: 30,
+      static: 180,
     },
   },
   webpack(config) {

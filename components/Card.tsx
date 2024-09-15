@@ -8,7 +8,7 @@ import {
   HeadingProps,
   Text,
   TextProps,
-} from "@radix-ui/themes";
+} from "@v1s10n_4/radix-ui-themes";
 import * as React from "react";
 
 const Card = React.forwardRef<
