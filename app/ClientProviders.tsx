@@ -1,14 +1,21 @@
 "use client";
 
 import { NovuProvider } from "@novu/react";
-import React, { FC, PropsWithChildren } from "react";
+import React, { ComponentProps, FC, PropsWithChildren } from "react";
 import NotificationFilterStatusProvider from "@/app/NotificationFilterStatus";
 
-const ClientProviders: FC<PropsWithChildren> = ({ children }) => {
+const ClientProviders: FC<
+  PropsWithChildren<
+    Pick<
+      ComponentProps<typeof NovuProvider>,
+      "applicationIdentifier" | "subscriberId"
+    >
+  >
+> = ({ applicationIdentifier, subscriberId, children }) => {
   return (
     <NovuProvider
-      applicationIdentifier="Q3MtSymCOQDP"
-      subscriberId="on-boarding-subscriber-id-123"
+      applicationIdentifier={applicationIdentifier}
+      subscriberId={subscriberId}
     >
       <NotificationFilterStatusProvider>
         {children}

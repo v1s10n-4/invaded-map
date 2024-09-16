@@ -8,7 +8,6 @@ import {
   Flex,
   ScrollArea,
   Skeleton,
-  Spinner,
   Text,
   Theme,
 } from "@v1s10n_4/radix-ui-themes";
@@ -20,7 +19,7 @@ import { SessionProvider } from "next-auth/react";
 import localFont from "next/font/local";
 import Script from "next/script";
 import React, { ReactNode, Suspense } from "react";
-import dynamic from "next/dynamic";
+import Notifications from "@/app/Notifications";
 
 export const runtime = "edge";
 export const fetchCache = "default-cache";
@@ -213,16 +212,6 @@ export const metadata: Metadata = {
   },
 };
 
-const ClientProviders = dynamic(() => import("@/app/ClientProviders"), {
-  ssr: false,
-  loading: () => <Spinner className="h-8 w-8" />,
-});
-
-const NotificationCenter = dynamic(() => import("@/app/NotificationCenter"), {
-  ssr: false,
-  loading: () => <Spinner className="h-8 w-8" />,
-});
-
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
@@ -288,14 +277,25 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                           </Text>
                         </Flex>
 
-                        <ClientProviders>
-                          <NotificationCenter />
-                        </ClientProviders>
                         <Suspense
                           fallback={
                             <Skeleton
-                              width="var(--space-8)"
-                              height="var(--space-8)"
+                              minWidth="var(--space-8)"
+                              minHeight="var(--space-8)"
+                              style={{
+                                borderRadius:
+                                  "max(var(--radius-4), var(--radius-full))",
+                              }}
+                            />
+                          }
+                        >
+                          <Notifications />
+                        </Suspense>
+                        <Suspense
+                          fallback={
+                            <Skeleton
+                              minWidth="var(--space-8)"
+                              minHeight="var(--space-8)"
                               style={{
                                 borderRadius:
                                   "max(var(--radius-4), var(--radius-full))",
