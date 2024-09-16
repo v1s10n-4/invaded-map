@@ -213,9 +213,14 @@ export const metadata: Metadata = {
   },
 };
 
-const Notification = dynamic(() => import("@/app/NotificationInbox"), {
+const ClientProviders = dynamic(() => import("@/app/ClientProviders"), {
   ssr: false,
-  loading: () => <Spinner />,
+  loading: () => <Spinner className="h-8 w-8" />,
+});
+
+const NotificationCenter = dynamic(() => import("@/app/NotificationCenter"), {
+  ssr: false,
+  loading: () => <Spinner className="h-8 w-8" />,
 });
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -274,11 +279,18 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                           flexGrow="1"
                           justify={{ initial: "center", sm: "start" }}
                         >
-                          <Text size="5" className="uppercase">
+                          <Text
+                            size={{ initial: "4", sm: "6", lg: "5" }}
+                            className="uppercase"
+                            align="center"
+                          >
                             Invaded Map
                           </Text>
                         </Flex>
-                        <Notification />
+
+                        <ClientProviders>
+                          <NotificationCenter />
+                        </ClientProviders>
                         <Suspense
                           fallback={
                             <Skeleton
