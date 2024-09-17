@@ -36,7 +36,7 @@ export default function NotificationList() {
       <Flex direction="column" gap="1">
         {isLoading &&
           Array(4)
-            .fill()
+            .fill(0)
             .map((_, i) => <Skeleton key={i} height="56px" />)}
         {notifications?.map((notification) => (
           <NotificationItem key={notification.id} notification={notification} />

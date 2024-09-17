@@ -21,7 +21,15 @@ import algoliasearch from "algoliasearch";
 import { eq } from "drizzle-orm";
 import { revalidateTag, unstable_cache } from "next/cache";
 import { wait } from "next/dist/lib/wait";
-import { contributionReviewed } from "@/novu/workflows";
+
+const headers: HeadersInit = {
+  "api-token": process.env.API_SECRET!,
+};
+
+const base = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : process.env.URL!;
+const apiUrl = `${base}/api/`;
 
 export const updateUsername = async (_prevState: any, formData: FormData) => {
   const session = await auth();
@@ -121,20 +129,26 @@ export const deleteContribution = async (id: ReviewTask["id"]) => {
       return { success: false };
     }
 
-    const res = await contributionReviewed.trigger({
-      to: {
-        subscriberId: contribution.editor_id,
-      },
-      payload: {
-        approved: false,
-        entity_name: contribution.entity.name,
-      },
+    const res = await fetch(`${apiUrl}/notification`, {
+      headers,
+      body: JSON.stringify({
+        to: {
+          subscriberId: contribution.editor_id,
+        },
+        payload: {
+          approved: false,
+          entity_name: contribution.entity.name,
+        },
+      }),
     });
-
-    if (res.data.error) {
+    if (!res.ok) {
+      console.log("reject contribution notif:", res.status, res.statusText);
+    }
+    const json = await res.json();
+    if (json.data.error) {
       console.log(
         "Error while triggering rejected review notification",
-        res.data.error
+        json.data.error
       );
     }
   }
@@ -221,20 +235,26 @@ export const acceptContribution = async (id: ReviewTask["id"]) => {
     return { success: false };
   } finally {
     if (contribution.editor_id !== session.user.id) {
-      const res = await contributionReviewed.trigger({
-        to: {
-          subscriberId: contribution.editor_id,
-        },
-        payload: {
-          approved: false,
-          entity_name: contribution.entity.name,
-        },
+      const res = await fetch(`${apiUrl}/notification`, {
+        headers,
+        body: JSON.stringify({
+          to: {
+            subscriberId: contribution.editor_id,
+          },
+          payload: {
+            approved: true,
+            entity_name: contribution.entity.name,
+          },
+        }),
       });
-
-      if (res.data.error) {
+      if (!res.ok) {
+        console.log("accept contribution notif:", res.status, res.statusText);
+      }
+      const json = await res.json();
+      if (json.data.error) {
         console.log(
-          "Error while triggering rejected review notification",
-          res.data.error
+          "Error while triggering accepted review notification",
+          json.data.error
         );
       }
     }
