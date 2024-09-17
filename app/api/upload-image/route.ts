@@ -18,11 +18,12 @@ export async function POST(request: NextRequest): Promise<Response> {
     const buffer = await safeData.data.arrayBuffer();
     const thumbnailBuffer = await sharp(buffer)
       .resize({ withoutEnlargement: true, width: 900 })
-      .toFormat("avif", { quality: 80, effort: 6, chromaSubsampling: "4:4:4" })
+      .webp({ quality: 80 })
+      // .toFormat("avif", { quality: 80, effort: 6, chromaSubsampling: "4:4:4" })
       .toBuffer();
 
     const blobRes = await put(
-      `reviews/${safeData.data.name}.avif`,
+      `reviews/${safeData.data.name}.webp`,
       thumbnailBuffer,
       {
         access: "public",

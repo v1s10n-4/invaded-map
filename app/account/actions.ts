@@ -125,12 +125,13 @@ export const deleteContribution = async (id: ReviewTask["id"]) => {
   const isOwnContribution = contribution.editor_id === session.user.id;
 
   if (!isOwnContribution) {
-    if (session.user.role === "user" || session.user.role === "superuser") {
+    if (session.user.role === "user" || session.user.role === "poweruser") {
       return { success: false };
     }
 
     const res = await fetch(`${apiUrl}/notification`, {
       headers,
+      method: "POST",
       body: JSON.stringify({
         to: {
           subscriberId: contribution.editor_id,
@@ -237,6 +238,7 @@ export const acceptContribution = async (id: ReviewTask["id"]) => {
     if (contribution.editor_id !== session.user.id) {
       const res = await fetch(`${apiUrl}/notification`, {
         headers,
+        method: "POST",
         body: JSON.stringify({
           to: {
             subscriberId: contribution.editor_id,

@@ -75,5 +75,10 @@ export const uploadImage: UploadImage = async (image, name) => {
     body: formData,
     method: "POST",
   });
+  if (!thumbnailRes.ok) {
+    const error = await thumbnailRes.text();
+    console.log(thumbnailRes.status, thumbnailRes.statusText, error);
+    return { error: true, data: error };
+  }
   return await thumbnailRes.json();
 };
