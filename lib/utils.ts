@@ -9,6 +9,9 @@ export function cn(...inputs: ClassValue[]) {
 export const canReviewOwnContribution = (role: User["role"]) =>
   role === "admin" || role === "superuser";
 
+export const canReviewOthersContribution = (role: User["role"]) =>
+  role !== "user" && role !== "superuser";
+
 export const formatTime = (timestamp: number | string | Date) => {
   const date = new Date(timestamp);
   const now = new Date().getTime();
