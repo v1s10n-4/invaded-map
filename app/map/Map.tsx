@@ -5,7 +5,7 @@ import { getMapStyle } from "@/app/map/utils/getMapStyle";
 import useIVDMapStore from "@/app/store";
 import { InvaderWithLocation } from "@/db";
 import { Paris } from "@/utils";
-import { Flex, Spinner, useThemeContext } from "@radix-ui/themes";
+import { Flex, Spinner, useThemeContext } from "@v1s10n_4/radix-ui-themes";
 import {
   GoogleMap,
   GoogleMapProps,
@@ -14,7 +14,6 @@ import {
   MarkerF as Marker,
 } from "@react-google-maps/api";
 import { useParams, useRouter } from "next/navigation";
-import { NextRequest } from "next/server";
 import React, { FC, useEffect, useMemo, useState } from "react";
 import {
   clustererOptions,
@@ -26,7 +25,6 @@ import {
   markerSelectedIcon,
 } from "./utils";
 
-type Geo = typeof NextRequest.prototype.geo;
 const removeGoogleCrap = () =>
   Array.from(
     document.querySelectorAll(

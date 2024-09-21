@@ -1,4 +1,4 @@
-import { Container, Section } from "@radix-ui/themes";
+import { Container, Section } from "@v1s10n_4/radix-ui-themes";
 import { FC } from "react";
 
 const PrivacyPage: FC = () => {

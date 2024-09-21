@@ -11,7 +11,6 @@ import cluster_yellow from "./cluster_yellow.png";
 import markerSelected from "./marker-selected.svg?url";
 import marker from "./marker.svg?url";
 import userPosition from "./userPosition.svg?url";
-import MapOptions = google.maps.MapOptions;
 
 const markerIcon = marker.src;
 const markerSelectedIcon = markerSelected.src;
@@ -53,7 +52,7 @@ export const clustererOptions: ClustererOptions = {
   ],
 };
 
-export const mapOptions: MapOptions = {
+export const mapOptions: NonNullable<GoogleMapProps["options"]> = {
   // mapId: "bc9e5a99ff21e1e7",
   heading: 0,
   tilt: 0,
@@ -65,7 +64,8 @@ export const mapOptions: MapOptions = {
 export const defaultGoogleMapProps: GoogleMapProps = {
   center: Paris,
   zoom: 10,
-  mapContainerClassName: "!absolute inset-0 [&>div:first-of-type]:!bg-[--color-background]",
+  mapContainerClassName:
+    "!absolute inset-0 [&>div:first-of-type]:!bg-[--color-background]",
   id: "map",
 };
 

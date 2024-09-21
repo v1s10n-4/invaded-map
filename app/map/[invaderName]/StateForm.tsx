@@ -11,7 +11,7 @@ import {
   Separator,
   Tabs,
   Text,
-} from "@radix-ui/themes";
+} from "@v1s10n_4/radix-ui-themes";
 import InfoBoxIcon from "pixelarticons/svg/info-box.svg";
 import React, { FC } from "react";
 

@@ -2,7 +2,12 @@
 import EditModal from "@/app/map/[invaderName]/EditModal";
 import HistoryIcon from "@/app/map/[invaderName]/history.svg";
 import { Invader } from "@/db";
-import { Dialog, DropdownMenu, IconButton, Text } from "@radix-ui/themes";
+import {
+  Dialog,
+  DropdownMenu,
+  IconButton,
+  Text,
+} from "@v1s10n_4/radix-ui-themes";
 import EditIcon from "pixelarticons/svg/edit.svg";
 import MoreVerticalIcon from "pixelarticons/svg/more-vertical.svg";
 import React, { FC, PropsWithChildren, useState } from "react";

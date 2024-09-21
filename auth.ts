@@ -11,6 +11,8 @@ import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import NextAuth, { DefaultSession, NextAuthConfig } from "next-auth";
 import Discord from "next-auth/providers/discord";
 import Google from "next-auth/providers/google";
+import { Novu } from "@novu/node";
+import { ISubscriberPayload } from "@novu/node/build/main/lib/subscribers/subscriber.interface";
 
 declare module "next-auth" {
   interface Session extends DefaultSession {
@@ -19,8 +21,10 @@ declare module "next-auth" {
   interface User {
     created_at: DrizzleUser["created_at"];
     role: DrizzleUser["role"];
+    referrer_link_id: DrizzleUser["referrer_link_id"];
   }
 }
+const novu = new Novu(process.env.NOVU_SECRET_KEY!);
 
 const config: NextAuthConfig = {
   theme: {
@@ -35,6 +39,22 @@ const config: NextAuthConfig = {
     verificationTokensTable,
     authenticatorsTable,
   }),
+  events: {
+    signIn: async ({ user, isNewUser, profile, account }) => {
+      if (!user.id) return;
+      const novuUserData: ISubscriberPayload = {
+        email: user.email || undefined,
+        avatar: user.image || undefined,
+        data: {
+          role: user.role,
+          created_at: new Date(user.created_at).toISOString(),
+          referrer_link_id: user.referrer_link_id || undefined,
+        },
+      };
+      await novu.subscribers.identify(user.id, novuUserData);
+    },
+  },
+  trustHost: true,
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID,

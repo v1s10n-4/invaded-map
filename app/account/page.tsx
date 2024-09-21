@@ -26,7 +26,7 @@ import {
   Section,
   Separator,
   TextField,
-} from "@radix-ui/themes";
+} from "@v1s10n_4/radix-ui-themes";
 
 import React, { FC, Suspense } from "react";
 

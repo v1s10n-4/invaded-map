@@ -18,7 +18,7 @@ import {
   Spinner,
   Tooltip,
   VisuallyHidden,
-} from "@radix-ui/themes";
+} from "@v1s10n_4/radix-ui-themes";
 import { toString } from "qrcode";
 import React, { FC, Suspense } from "react";
 

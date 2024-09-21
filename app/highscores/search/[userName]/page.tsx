@@ -2,7 +2,7 @@ import HighscoreItem from "@/app/highscores/HighscoreItem";
 import { FlashInvadersAPI } from "@/app/highscores/utils";
 import { UserSearchResponse } from "@/types/FlashInvadersAPI";
 import { getRequestConfig } from "@/utils/revalidation-tags";
-import { Table } from "@radix-ui/themes";
+import { Table } from "@v1s10n_4/radix-ui-themes";
 
 type Params = { params: { userName: string } };
 export const revalidate = 0;

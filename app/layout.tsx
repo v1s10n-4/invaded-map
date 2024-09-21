@@ -10,16 +10,19 @@ import {
   Skeleton,
   Text,
   Theme,
-} from "@radix-ui/themes";
+} from "@v1s10n_4/radix-ui-themes";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { clsx } from "clsx";
 import { Metadata, Viewport } from "next";
 import { SessionProvider } from "next-auth/react";
 import localFont from "next/font/local";
+import Script from "next/script";
 import React, { ReactNode, Suspense } from "react";
+import Notifications from "@/app/Notifications";
 
 export const runtime = "edge";
+export const fetchCache = "default-cache";
 
 const sixtyfour = localFont({
   // src: "../public/assets/fonts/Sixtyfour[BLED,SCAN].woff2",
@@ -216,6 +219,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       content="width=device-width, initial-scale=1, maximum-scale=1"
     >
       <body className={clsx("bg-[--color-background]", sixtyfour.className)}>
+        {process.env.LOCAL === "true" && (
+          <Script src={"/polyfill.js"} strategy="beforeInteractive" />
+        )}
         <Theme
           appearance="dark"
           radius="none"
@@ -262,15 +268,34 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                           flexGrow="1"
                           justify={{ initial: "center", sm: "start" }}
                         >
-                          <Text size="5" className="uppercase">
+                          <Text
+                            size={{ initial: "4", sm: "6", lg: "5" }}
+                            className="uppercase"
+                            align="center"
+                          >
                             Invaded Map
                           </Text>
                         </Flex>
+
                         <Suspense
                           fallback={
                             <Skeleton
-                              width="var(--space-8)"
-                              height="var(--space-8)"
+                              minWidth="var(--space-8)"
+                              minHeight="var(--space-8)"
+                              style={{
+                                borderRadius:
+                                  "max(var(--radius-4), var(--radius-full))",
+                              }}
+                            />
+                          }
+                        >
+                          <Notifications />
+                        </Suspense>
+                        <Suspense
+                          fallback={
+                            <Skeleton
+                              minWidth="var(--space-8)"
+                              minHeight="var(--space-8)"
                               style={{
                                 borderRadius:
                                   "max(var(--radius-4), var(--radius-full))",

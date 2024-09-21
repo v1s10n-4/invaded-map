@@ -12,7 +12,7 @@ import { CardFooter } from "@/components/Card";
 import SubmitButton from "@/components/SubmitButton";
 import { Invader } from "@/db";
 import { DialogProps } from "@radix-ui/react-dialog";
-import { Button, Dialog, IconButton, Text } from "@radix-ui/themes";
+import { Button, Dialog, IconButton, Text } from "@v1s10n_4/radix-ui-themes";
 import CloseIcon from "pixelarticons/svg/close.svg";
 import React, { FC, useActionState, useEffect, useRef } from "react";
 

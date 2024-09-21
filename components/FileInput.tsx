@@ -1,7 +1,7 @@
 import { ACCEPTED_IMAGE_TYPES } from "@/app/account/schema";
 
 import { cn } from "@/lib/utils";
-import { TextField } from "@radix-ui/themes";
+import { TextField } from "@v1s10n_4/radix-ui-themes";
 import * as React from "react";
 import { ComponentProps } from "react";
 

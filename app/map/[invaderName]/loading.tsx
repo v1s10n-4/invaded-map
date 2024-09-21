@@ -1,4 +1,10 @@
-import { Card, DataList, Flex, Skeleton, Spinner } from "@radix-ui/themes";
+import {
+  Card,
+  DataList,
+  Flex,
+  Skeleton,
+  Spinner,
+} from "@v1s10n_4/radix-ui-themes";
 import BuildingCommunity from "pixelarticons/svg/building-community.svg";
 import Calendar from "pixelarticons/svg/calendar-month.svg";
 import Coin from "pixelarticons/svg/coin.svg";

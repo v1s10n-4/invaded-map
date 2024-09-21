@@ -1,4 +1,4 @@
-import { Flex, Spinner } from "@radix-ui/themes";
+import { Flex, Spinner } from "@v1s10n_4/radix-ui-themes";
 import React from "react";
 
 export const runtime = "edge";

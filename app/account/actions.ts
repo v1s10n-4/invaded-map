@@ -10,7 +10,10 @@ import { invaders } from "@/db/schema/invaders";
 import { referralLinks } from "@/db/schema/referral_links";
 import { reviewTasks } from "@/db/schema/reviewTasks";
 import { users } from "@/db/schema/users";
-import { canReviewOwnContribution } from "@/lib/utils";
+import {
+  canReviewOthersContribution,
+  canReviewOwnContribution,
+} from "@/lib/utils";
 import { getTag, getTags } from "@/utils/revalidation-tags";
 import { createFetchRequester } from "@algolia/requester-fetch";
 import { del, put } from "@vercel/blob";
@@ -18,6 +21,15 @@ import algoliasearch from "algoliasearch";
 import { eq } from "drizzle-orm";
 import { revalidateTag, unstable_cache } from "next/cache";
 import { wait } from "next/dist/lib/wait";
+
+const headers: HeadersInit = {
+  "api-token": process.env.API_SECRET!,
+};
+
+const base = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : process.env.URL!;
+const apiUrl = `${base}/api/`;
 
 export const updateUsername = async (_prevState: any, formData: FormData) => {
   const session = await auth();
@@ -100,11 +112,48 @@ export const createReferralLink = async (
 export const deleteContribution = async (id: ReviewTask["id"]) => {
   const session = await auth();
   if (!session) return signIn();
+
   const contribution = await db.query.reviewTasks.findFirst({
     where: eq(reviewTasks.id, id),
+    with: {
+      entity: true,
+    },
   });
-  if (!contribution || contribution.editor_id !== session.user.id)
-    return { success: false };
+
+  if (!contribution) return { success: false };
+
+  const isOwnContribution = contribution.editor_id === session.user.id;
+
+  if (!isOwnContribution) {
+    if (session.user.role === "user" || session.user.role === "poweruser") {
+      return { success: false };
+    }
+
+    const res = await fetch(`${apiUrl}/notification`, {
+      headers,
+      method: "POST",
+      body: JSON.stringify({
+        to: {
+          subscriberId: contribution.editor_id,
+        },
+        payload: {
+          approved: false,
+          entity_name: contribution.entity.name,
+        },
+      }),
+    });
+    if (!res.ok) {
+      console.log("reject contribution notif:", res.status, res.statusText);
+    }
+    const json = await res.json();
+    if (json.data.error) {
+      console.log(
+        "Error while triggering rejected review notification",
+        json.data.error
+      );
+    }
+  }
+
   await deleteImageFromVercel(contribution.proof_image);
   await db.delete(reviewTasks).where(eq(reviewTasks.id, id));
   revalidateTag(getTag("review", id.toString()));
@@ -125,7 +174,8 @@ export const acceptContribution = async (id: ReviewTask["id"]) => {
   if (
     !contribution ||
     (contribution.editor_id === session.user.id &&
-      !canReviewOwnContribution(session.user.role))
+      !canReviewOwnContribution(session.user.role)) ||
+    !canReviewOthersContribution(session.user.role)
   ) {
     return { success: false };
   }
@@ -185,6 +235,31 @@ export const acceptContribution = async (id: ReviewTask["id"]) => {
   } catch (err) {
     return { success: false };
   } finally {
+    if (contribution.editor_id !== session.user.id) {
+      const res = await fetch(`${apiUrl}/notification`, {
+        headers,
+        method: "POST",
+        body: JSON.stringify({
+          to: {
+            subscriberId: contribution.editor_id,
+          },
+          payload: {
+            approved: true,
+            entity_name: contribution.entity.name,
+          },
+        }),
+      });
+      if (!res.ok) {
+        console.log("accept contribution notif:", res.status, res.statusText);
+      }
+      const json = await res.json();
+      if (json.data.error) {
+        console.log(
+          "Error while triggering accepted review notification",
+          json.data.error
+        );
+      }
+    }
     revalidateTag(getTag("review", id.toString()));
     await wait(1);
     revalidateTag(getTag("all reviews"));

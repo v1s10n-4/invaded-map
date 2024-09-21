@@ -1,5 +1,9 @@
 "use client";
-import { IconButton, IconButtonProps, Tooltip } from "@radix-ui/themes";
+import {
+  IconButton,
+  IconButtonProps,
+  Tooltip,
+} from "@v1s10n_4/radix-ui-themes";
 import ChechIcon from "pixelarticons/svg/check.svg";
 import CopyIcon from "pixelarticons/svg/copy.svg";
 import React, { FC, useCallback, useState } from "react";

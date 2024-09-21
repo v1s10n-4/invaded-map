@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
+import { geolocation } from "@vercel/functions";
 
 const privateApiRoutesRegex = new RegExp(
-  "/(api(?!/invaders/[^/]+/OG|/revalidate).*)"
+  "/(api(?!/invaders/[^/]+/OG|/revalidate|/novu).*)"
 );
 export function middleware(request: NextRequest, response: NextResponse) {
   const route = request.nextUrl.pathname;
@@ -15,12 +16,13 @@ export function middleware(request: NextRequest, response: NextResponse) {
   }
   if (new RegExp("^/map.*").test(route)) {
     const res = NextResponse.next();
-    if (request.geo?.latitude && request.geo?.longitude)
+    const { latitude, longitude } = geolocation(request);
+    if (latitude && longitude)
       res.cookies.set(
         "geoip",
         JSON.stringify({
-          lat: request.geo.latitude,
-          lng: request.geo.longitude,
+          lat: latitude,
+          lng: longitude,
         })
       );
     else res.cookies.delete("geoip");
