@@ -47,6 +47,11 @@ const nextConfig = {
   },
   redirects: async () => [
     {
+      source: "/stats/:match*",
+      destination: `${process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL}/:match*`,
+      permanent: false,
+    },
+    {
       source: "/",
       destination: "/map",
       permanent: false,
