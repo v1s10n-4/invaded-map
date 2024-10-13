@@ -318,6 +318,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </body>
       <Analytics />
       <GtmInit />
+      <Script
+        src={"/stats/script.js"}
+        data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
+        strategy="afterInteractive"
+      />
     </html>
   );
 }
