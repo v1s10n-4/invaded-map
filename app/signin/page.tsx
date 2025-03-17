@@ -88,7 +88,11 @@ const SigninPage: SigninPageType = async ({
       <form className="flex flex-col gap-4" method="POST">
         <input type="hidden" name="csrfToken" value={csrfToken} />
         {referralCode && (
-          <input type="hidden" name="referral-code" value={referralCode} />
+          <input
+            type="hidden"
+            name={REFERRAL_CODE_COOKIE_NAME}
+            value={referralCode}
+          />
         )}
         {callbackUrl && (
           <input type="hidden" name="callbackUrl" value={callbackUrl} />
