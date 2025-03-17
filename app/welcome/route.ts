@@ -23,7 +23,7 @@ export const GET = async (req: NextRequest) => {
   if (currentUser.referrer_link_id || isACheater)
     return redirect(`${process.env.URL}/account`);
 
-  const referralCode = cookies().get(REFERRAL_CODE_COOKIE_NAME)?.value;
+  const referralCode = (await cookies()).get(REFERRAL_CODE_COOKIE_NAME)?.value;
   if (!referralCode) {
     return redirect(`${process.env.URL}/account`);
   }

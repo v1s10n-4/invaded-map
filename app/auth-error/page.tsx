@@ -9,10 +9,9 @@ import Icon from "@/components/Icon/Icon";
 import Link from "next/link";
 import { FC } from "react";
 
-type Params = { searchParams: { error: ErrorPageParam } };
-const ErrorPage: FC<Params> = async ({
-  searchParams: { error = "default" },
-}) => {
+type Params = { searchParams: Promise<{ error: ErrorPageParam }> };
+const ErrorPage: FC<Params> = async (props) => {
+  const { error } = await props.searchParams;
   const errorType = Object.keys(errors).includes(error) ? error : "default";
   const errorView = errors[errorType as ErrorPageParam];
   console.warn(`[${errorView.status}] ${errorView.heading}`);

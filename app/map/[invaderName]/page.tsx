@@ -13,17 +13,18 @@ import React, { FC } from "react";
 
 export const runtime = "edge";
 
-type Params = { invaderName: string };
+type Params = Promise<{ invaderName: string }>;
 type GenerateInvaderMapPageMetadata = ({
   params,
 }: {
   params: Params;
 }) => Promise<Metadata>;
 
-export const generateMetadata: GenerateInvaderMapPageMetadata = async ({
-  params,
-}) => {
-  const invader = await getInvader(params.invaderName);
+export const generateMetadata: GenerateInvaderMapPageMetadata = async (
+  props
+) => {
+  const { invaderName } = await props.params;
+  const invader = await getInvader(invaderName);
   const title = invader?.name || "Invader not found";
   const description = `${
     invader ? `Everything about ${invader.name}` : "Locate all space invaders"
@@ -58,9 +59,8 @@ export const generateMetadata: GenerateInvaderMapPageMetadata = async ({
   };
 };
 
-const InvaderPlacePage: FC<{ params: Params }> = async ({
-  params: { invaderName },
-}) => {
+const InvaderPlacePage: FC<{ params: Params }> = async (props) => {
+  const { invaderName } = await props.params;
   const invader = await getInvader(invaderName);
   if (!invader) notFound();
   return (

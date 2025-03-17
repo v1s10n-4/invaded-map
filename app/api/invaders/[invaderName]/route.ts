@@ -6,13 +6,13 @@ import { NextRequest } from "next/server";
 export const runtime = "edge";
 export const dynamic = "force-static";
 
-type RouteParams = { params: { invaderName: string } };
+type RouteParams = { params: Promise<{ invaderName: string }> };
 
 export async function GET(
   _request: NextRequest,
   { params }: RouteParams
 ): Promise<Response> {
-  const invaderName = params.invaderName;
+  const { invaderName } = await params;
   const [invader] = await db
     .select()
     .from(invaders)

@@ -45,20 +45,19 @@ const getProviders = async () => {
 };
 
 type SigninPageType = FC<{
-  searchParams: {
+  searchParams: Promise<{
     error?: SignInPageErrorParam;
     callbackUrl?: string;
-  };
+  }>;
 }>;
 
-const SigninPage: SigninPageType = async ({
-  searchParams: { error, callbackUrl },
-}) => {
+const SigninPage: SigninPageType = async (props) => {
+  const { error, callbackUrl } = await props.searchParams;
   const providers = await getProviders().catch((err) => {
     console.error(err);
     notFound();
   });
-  const c = cookies();
+  const c = await cookies();
   const cookiePrefix =
     new URL(process.env.URL!).protocol === "https:" ? "__Host-" : "";
   const csrf = c.get(`${cookiePrefix}authjs.csrf-token`);

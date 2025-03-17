@@ -6,17 +6,17 @@ import { NextRequest } from "next/server";
 export const runtime = "edge";
 export const dynamic = "force-static";
 
-type RouteParams = { params: { invaderName: string } };
+type RouteParams = { params: Promise<{ invaderName: string }> };
 
 export async function GET(
   request: NextRequest,
-  params: RouteParams
+  { params }: RouteParams
 ): Promise<Response> {
   const fontResponse = await fetch(
     `${request.nextUrl.origin}/assets/fonts/Sixtyfour-Normal.ttf`
   );
   const fontData = await fontResponse.arrayBuffer();
-  const invaderName = params.params.invaderName;
+  const { invaderName } = await params;
   const invader = await getInvader(invaderName);
   let b64ThumbnailDataURI = invader?.thumbnail;
 

@@ -4,7 +4,7 @@ import { UserSearchResponse } from "@/types/FlashInvadersAPI";
 import { getRequestConfig } from "@/utils/revalidation-tags";
 import { Table } from "@v1s10n_4/radix-ui-themes";
 
-type Params = { params: { userName: string } };
+type Params = { params: Promise<{ userName: string }> };
 export const revalidate = 0;
 const getUserSearch: (
   searchValue: string | null
@@ -40,7 +40,8 @@ const getUserSearch: (
   return await res.json();
 };
 
-const HighScoreSearchPage = async ({ params: { userName } }: Params) => {
+const HighScoreSearchPage = async (props: Params) => {
+  const { userName } = await props.params;
   const highscores = await getUserSearch(userName);
   return (
     <Table.Root variant="surface">
