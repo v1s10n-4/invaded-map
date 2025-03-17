@@ -45,7 +45,7 @@ export const InvaderImage = ({
           flexDirection: "column",
           backgroundColor: "black",
           alignItems: "center",
-          boxShadow: `0px 0px 16px 2px ${Colors.secondary}, 0 0 0 2px black, 0 0 0 4px ${Colors.primary}`,
+          boxShadow: `0 0 0 4px black, 0 0 0 6px ${Colors.primary}, 0 0 4px ${Colors.primary}, 0 0 8px ${Colors.primary}, 0 0 16px ${Colors.primary}`,
           gap: 5,
         }}
       >
@@ -57,7 +57,7 @@ export const InvaderImage = ({
             style={{
               overflowX: "hidden",
               borderColor: Colors.primary,
-              borderWidth: 4,
+              borderWidth: 2,
             }}
           />
         )}
