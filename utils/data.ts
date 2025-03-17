@@ -33,6 +33,7 @@ export const getInvader = async (invaderName: string) => {
   const route = `${apiUrl}invaders/${invaderName}`;
   const next = getRequestConfig("invader", invaderName);
   const res = await fetch(route, { headers, next });
+  if (!res.ok) return null;
   const { data: invader } = (await res.json()) as { data: Invader | undefined };
   return invader;
 };
