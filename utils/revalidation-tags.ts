@@ -29,6 +29,8 @@ export const tags = {
   "all highscores related": "highscores/*",
   "all reviews": "reviews/*",
   "review": (id: string) => `reviews/${id}`,
+  "all rewards": "rewards/*",
+  "reward": (id: string) => `rewards/${id}`,
   "invader history": (invaderId: string) => `invaders/${invaderId}/history`,
 } as const;
 

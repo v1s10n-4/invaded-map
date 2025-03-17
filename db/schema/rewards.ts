@@ -12,12 +12,17 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 
-export const rewardableActionTypes = pgEnum("rewardableActionType", [
+const rewardActionTypes = [
   "POPULARITY",
   "CONTRIBUTION",
   "ACHIEVEMENT",
   "TOXICITY",
-]);
+] as const;
+export type RewardableActionType = (typeof rewardActionTypes)[number];
+export const rewardableActionTypes = pgEnum(
+  "rewardableActionType",
+  rewardActionTypes
+);
 
 export const rewardTypes = pgTable("reward_type", {
   id: serial("id").primaryKey(),
