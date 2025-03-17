@@ -64,22 +64,19 @@ const InvaderPlacePage: FC<{ params: Params }> = async (props) => {
   const invader = await getInvader(invaderName);
   if (!invader) notFound();
   return (
-    <Flex direction={{ initial: "column", sm: "row" }} gap="4" p="4">
+    <Flex direction="column" gap="4" p="4">
       <InvaderPageCarousel
         imageList={[invader.thumbnail, ...invader.images.map((x) => x.url)]}
       />
       <Flex
-        direction={{ initial: "column", sm: "row", md: "column" }}
+        direction="column"
         gap="2"
         flexGrow="1"
-        justify={{ initial: "start", md: "center" }}
-        align={{ initial: "start", sm: "center", md: "start" }}
+        justify="start"
+        align="start"
         position="relative"
       >
-        <DataList.Root
-          orientation={{ initial: "horizontal", sm: "vertical" }}
-          size={{ initial: "1", xs: "2", sm: "3" }}
-        >
+        <DataList.Root orientation="horizontal" size="1">
           <DataList.Item>
             <DataList.Label className="flex items-center">
               <Coin className="mr-2 h-6 w-6" />

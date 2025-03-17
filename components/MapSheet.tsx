@@ -73,7 +73,7 @@ export const MapSheet: FC<PropsWithChildren> = ({ children }) => {
     >
       <Theme>
         <Sheet.Container
-          className="!md:inset-x-4 !md:bottom-4 rt-reset rt-BaseCard rt-Card rt-r-size-1 rt-variant-surface rt-Card-accent !inset-x-2 !bottom-2 !w-auto !overflow-hidden"
+          className="rt-reset rt-BaseCard rt-Card rt-r-size-1 rt-variant-surface rt-Card-accent !inset-x-2 !bottom-2 !w-auto !overflow-hidden sm:!bottom-4 sm:!left-auto sm:!right-20"
           style={{
             backgroundColor: "inherit",
             borderTopRightRadius: "initial",
