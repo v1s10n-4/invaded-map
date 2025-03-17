@@ -45,7 +45,7 @@ export const InvaderImage = ({
           flexDirection: "column",
           backgroundColor: "black",
           alignItems: "center",
-          boxShadow: `0px 0px 16px 2px ${Colors.secondary}, 0 0 0 6px black, 0 0 0 10px ${Colors.primary}`,
+          boxShadow: `0px 0px 16px 2px ${Colors.secondary}, 0 0 0 2px black, 0 0 0 4px ${Colors.primary}`,
           gap: 5,
         }}
       >
@@ -69,14 +69,15 @@ export const InvaderImage = ({
             width: "100%",
             justifyContent: "center",
             borderColor: Colors.primary,
-            borderWidth: 4,
-            padding: thumbnail ? 0 : "4px 20px 4px 8px",
+            borderWidth: 2,
+            padding: 8,
           }}
         >
           {!name && (
             <p
               style={{
-                fontSize: 128,
+                lineHeight: 0.5,
+                fontSize: 32,
                 textShadow: `${Colors.accent} 0px 0px 0.08em`,
               }}
             >
@@ -86,7 +87,8 @@ export const InvaderImage = ({
           {!name && (
             <p
               style={{
-                fontSize: 56,
+                lineHeight: 0.5,
+                fontSize: 32,
                 textShadow: `${Colors.accent} 0px 0px 0.2em`,
               }}
             >
@@ -95,7 +97,8 @@ export const InvaderImage = ({
           )}
           <p
             style={{
-              fontSize: name ? 32 : 40,
+              lineHeight: 0.5,
+              fontSize: 32,
               textShadow: `${Colors.accent} 0px 0px 0.2em`,
             }}
           >
