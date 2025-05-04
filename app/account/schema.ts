@@ -44,7 +44,7 @@ export const imageSchema = z
   );
 
 export const updateUserSchema = createInsertSchema(users, {
-  name: ({ name }) => name.min(3).max(32),
+  name: (z) => z.min(3).max(32),
   image: () => imageSchema,
 }).pick({
   name: true,
